@@ -21,6 +21,10 @@ public class Aircraft : MonoBehaviour
 	public AnimationCurve _constantAddCurve;
 	public AnimationCurve _constantRemoveCurve;
 	public float _sampleSpeed = 1.0f;
+	public float _accSpeed = 1.0f;
+	public float _maxDrift = 1.0f;
+	
+	private float _curDrift = 0.0f;
 	
 	private List<ForceMemory> _removeForceList;
 	private ForceMemory _currentForce;
@@ -44,6 +48,8 @@ public class Aircraft : MonoBehaviour
 	//is called for every fixed framerate frame. Should be used instead of Update when dealing with Rigidbody.
 	void FixedUpdate()
 	{
+		rigidbody.velocity = Vector3.ClampMagnitude(rigidbody.velocity, _speed);
+		
 		// Control rotation via Keys (A & D):
 		if(Input.GetKey(KeyCode.A)) // Left
 		{
@@ -51,7 +57,7 @@ public class Aircraft : MonoBehaviour
 			
 			transform.Rotate(Vector3.forward * Time.deltaTime * _rotationMul);
 			
-			return;
+//			return;
 		}
 		else if(Input.GetKey(KeyCode.D)) // Right
 		{
@@ -59,7 +65,7 @@ public class Aircraft : MonoBehaviour
 			
 			transform.Rotate(Vector3.forward * Time.deltaTime * -_rotationMul);
 			
-			return;
+//			return;
 		}
 		
 		// Control rotation via HUD Interface:
@@ -69,7 +75,7 @@ public class Aircraft : MonoBehaviour
 			
 			transform.Rotate(Vector3.forward * Time.deltaTime * -_hudRotation);
 			
-			return;
+//			return;
 		}
 		
 		if(_changedDirection == true)
@@ -77,7 +83,7 @@ public class Aircraft : MonoBehaviour
 			_removeForceList.Add(_currentForce);
 			_currentForce = null;
 			
-			_changedDirection = false;
+			//_changedDirection = false;
 		}
 		
 //		if(Input.GetKeyDown(KeyCode.W))
@@ -89,7 +95,8 @@ public class Aircraft : MonoBehaviour
 //			rigidbody.AddForce(transform.up * -_speed, ForceMode.VelocityChange);
 //		}
 		
-		Debug.Log(rigidbody.velocity.magnitude);
+//		Debug.Log(rigidbody.velocity.magnitude);
+//		Debug.Log(_hudRotation);
 		
 		if(_currentForce == null)
 		{
@@ -98,56 +105,92 @@ public class Aircraft : MonoBehaviour
 		
 		// Add the new force step by step:
 		// Only add force, if it does not make the aircraft faster than the max-speed:
-		if(rigidbody.velocity.magnitude < _speed)
-		{
+//		if(rigidbody.velocity.magnitude < _speed)
+//		{
 			// Get the force, that shall be added from the curve:
-			_currentForce.SampleProgress += Time.deltaTime * _sampleSpeed;
-			float forceMul = _constantAddCurve.Evaluate(_currentForce.SampleProgress);
-			float force = _constantAdd * forceMul;
+//			_currentForce.SampleProgress += Time.deltaTime * _sampleSpeed;
+//			float forceMul = _constantAddCurve.Evaluate(_currentForce.SampleProgress);
+//			float force = _constantAdd * forceMul;
 			
 			// Add as much as possible:
-//				float force = _speed - rigidbody.velocity.magnitude;
+//			float force = _speed - rigidbody.velocity.magnitude;
 			
-			rigidbody.AddForce(transform.up * force, ForceMode.VelocityChange);
+			// Add linear speed:
+			float force = Mathf.Lerp(_currentForce.Force, _speed, _accSpeed);
+		
+		Vector3 driftVec = transform.right; // Vector3.zero;
+		driftVec *= -_hudRotation * 0.005f;
+		
+		if(_changedDirection == false)
+		{
+			_curDrift = Mathf.Lerp(_curDrift, 0.0f, 0.1f);
+			driftVec *= _curDrift;
+		}
+		else if(_changedDirection == true)
+		{
+//			driftVec = transform.right;
+			
+//			if(_hudRotation > 0)
+//				driftVec *= -1.0f;
+			
+//			driftVec *= -_hudRotation * 0.005f;
+			
+			//Debug.Log(_curDrift + " : " + driftVec.magnitude);
+			
+			_curDrift = Mathf.Lerp(_curDrift, driftVec.magnitude, 0.1f);			
+			
+			driftVec *= _curDrift;
+			
+			_changedDirection = false;
+		}
+			
+			rigidbody.AddForce((transform.up + driftVec) * force, ForceMode.VelocityChange);
 			
 			_currentForce.Force += force;
 			
 //			Debug.Log(_currentForce.Force);
-		}
+//		}
 		
 		// Remove the old forces:
-		for(int i = 0; i < _removeForceList.Count; ++i)
-		{
-			ForceMemory forceMem = _removeForceList[i];
-			
-			// Check, if force can be removed from the list:
-			if(forceMem.Force <= 0)
-			{
-				// Make sure, that the force in the given direction is really 0:
-				if(forceMem.Force < 0)
-				{
-					rigidbody.AddForce(forceMem.Direction * -forceMem.Force, ForceMode.VelocityChange);
-				}
-				
-				_removeForceList.RemoveAt(i);
-				--i;
-				continue;
-			}
-			
-			// Get the force, that shall be removed from the curve:
-			float removeForce = _constantRemoveCurve.Evaluate(_currentForce.SampleProgress);
-			_currentForce.SampleProgress -= Time.deltaTime * _sampleSpeed;
-			
-			removeForce *= _constantRemove;
-			
-			if(forceMem.Force > 0 && forceMem.Force < removeForce)
-			{
-				removeForce = forceMem.Force;
-			}
-			
-			rigidbody.AddForce(forceMem.Direction * -removeForce, ForceMode.VelocityChange);
-			forceMem.Force -= removeForce;
-		}
+//		for(int i = 0; i < _removeForceList.Count; ++i)
+//		{
+//			ForceMemory forceMem = _removeForceList[i];
+//			
+//			// Check, if force can be removed from the list:
+//			if(forceMem.Force <= 0)
+//			{
+//				// Make sure, that the force in the given direction is really 0:
+//				if(forceMem.Force < 0)
+//				{
+//					rigidbody.AddForce(forceMem.Direction * -forceMem.Force, ForceMode.VelocityChange);
+//				}
+//				
+//				_removeForceList.RemoveAt(i);
+//				--i;
+//				continue;
+//			}
+//			
+//			// Get the force, that shall be removed from the curve:
+//			float removeForce = _constantRemoveCurve.Evaluate(_currentForce.SampleProgress);
+//			_currentForce.SampleProgress -= Time.deltaTime * _sampleSpeed;
+//			
+//			removeForce *= _constantRemove;
+//			
+//			if(forceMem.Force > 0 && forceMem.Force < removeForce)
+//			{
+//				removeForce = forceMem.Force;
+//			}
+//			
+//			rigidbody.AddForce(forceMem.Direction * -removeForce, ForceMode.VelocityChange);
+//			forceMem.Force -= removeForce;
+//		}
+	}
+	
+	public void LateUpdate()
+	{
+		Vector3 cvel = rigidbody.velocity; // current
+		Vector3 tvel = cvel.normalized * _speed; // target
+		rigidbody.velocity = Vector3.Lerp(cvel, tvel, Time.deltaTime * 1.0f);
 	}
 	
 	// TODO:
@@ -156,10 +199,14 @@ public class Aircraft : MonoBehaviour
 	public void EnableHUDControl(bool enable)
 	{
 		_hudControl = enable;
+		
+//		if(enable == false)
+//			_hudRotation = 0.0f;
 	}
 	
 	public void SetHUDRotation(float hudRotation)
 	{
-		_hudRotation = hudRotation;	
+		// TODO: Make 200 configureable!
+		_hudRotation = Mathf.Clamp(hudRotation, -200, 200);
 	}
 }
