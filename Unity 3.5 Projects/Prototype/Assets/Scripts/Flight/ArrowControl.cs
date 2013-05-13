@@ -32,9 +32,22 @@ public class ArrowControl : MonoBehaviour {
 			guiTexture.enabled = true;
 			_mouseDownPosition = Input.mousePosition;
 			
-			guiTexture.pixelInset = new Rect(	_mouseDownPosition.x - guiTexture.pixelInset.width / 2, 
-												_mouseDownPosition.y - guiTexture.pixelInset.height / 2, 
-												guiTexture.pixelInset.width, guiTexture.pixelInset.height);
+			float newPosX;
+			
+			if (_mouseDownPosition.x <= 0)
+				newPosX = _mouseDownPosition.x = 0;
+			else
+				newPosX = _mouseDownPosition.x / Screen.width;
+			
+			float newPosY;
+			
+			if (_mouseDownPosition.y <= 0)
+				newPosY = _mouseDownPosition.y = 0;
+			else
+				newPosY = (_mouseDownPosition.y - guiTexture.pixelInset.height * 0.5f) / Screen.height;
+			
+			
+			transform.position = new Vector3(newPosX, newPosY, 0);
 			
 			_airCraft.EnableHUDControl(true);
 		}
