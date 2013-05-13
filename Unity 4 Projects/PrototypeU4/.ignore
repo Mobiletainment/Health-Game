@@ -1,0 +1,5 @@
+# exclude the library folder
+Library
+
+.DS_Store
+.ignore
