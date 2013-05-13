@@ -13,25 +13,33 @@ using System.Collections;
 
 public class RelativeGUITexture : MonoBehaviour 
 {
-	public Vector2 guiSize;
+	public float relativeSizeMax;
 	public GUITexture guiTextureToPosition;
 
 	void Start () 
 	{
+		
+		float pixelReference = (Screen.width < Screen.height) ? Screen.width : Screen.height;
+				
+		
+		Vector2 guiSize = new Vector2();
+		
 		// This converts the fraction values to absolute pixel values but uses the original size if the one specified is too small
-       if (Screen.width * guiSize.x < 44.0 || Screen.height * guiSize.y < 44.0) //Minimum GUITexture size on iOS
+       if (pixelReference * relativeSizeMax < 44.0) //Minimum GUITexture width/height on iOS
        {
            guiSize.x = guiTexture.pixelInset.width;
            guiSize.y = guiTexture.pixelInset.height;
        }
 	   else
 	   {
-           guiSize.x = Screen.width * guiSize.x; //scale image
-           guiSize.y = Screen.height * guiSize.y;
+           guiSize.x = pixelReference * relativeSizeMax; //scale image
+           guiSize.y = pixelReference * relativeSizeMax;
+				Debug.Log(guiTexture.pixelInset);
        }
 		
 	   // This places the GUITexture at the correct pixel relative position and scales it to the correct size
        guiTexture.pixelInset = new Rect(guiTextureToPosition.pixelInset.x - guiSize.x * 0.5f, guiTextureToPosition.pixelInset.y - guiSize.y * 0.5f, guiSize.x, guiSize.y);
+
 	}
 	
 	// Update is called once per frame
