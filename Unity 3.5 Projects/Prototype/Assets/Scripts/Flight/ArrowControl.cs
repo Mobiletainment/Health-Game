@@ -93,12 +93,7 @@ public class ArrowControl : MonoBehaviour {
 #endif
 			
 			// Figure out, how far away the current mouse position is from the first touch down:
-<<<<<<< HEAD
-			float diff = Input.mousePosition.x - _mouseDownPosition.x;
-=======
 			float diff = curMousePos.x - _mouseDownPosition.x;
-//			Debug.Log(diff);
->>>>>>> 3d55a3fedfada5b5963b956036132670270e73ea
 			
 			diff *= 4;
 			
