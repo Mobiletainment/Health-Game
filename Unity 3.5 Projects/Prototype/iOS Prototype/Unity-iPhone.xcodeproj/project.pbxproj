@@ -10,7 +10,6 @@
 		08B24F76137BFDFA00FBA309 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08B24F75137BFDFA00FBA309 /* iAd.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		08B24F8A137BFE0700FBA309 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08B24F75137BFDFA00FBA309 /* iAd.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
-		567B6200014A9F340000AA1F /* mscorlib.dll.s in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7000E80637F100160D4 /* mscorlib.dll.s */; };
 		567B6256114A9F340000AA1F /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D82DCFBC0E8000A5005D6AD8 /* MainWindow.xib */; };
 		567B6257114A9F340000AA1F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 83DEA7410EACED0700D8A291 /* Default.png */; };
 		567B6258114A9F340000AA1F /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 83DEA7420EACED0700D8A291 /* Icon.png */; };
@@ -104,8 +103,8 @@
 /* Begin PBXFileReference section */
 		08B24F75137BFDFA00FBA309 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1D6058910D05DD3D006BFB54 /* healthgame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "healthgame.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		567B6273114A9F340000AA1F /* healthgame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "healthgame.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* healthgame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = healthgame.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		567B6273114A9F340000AA1F /* healthgame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = healthgame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5682F4B10F3B34FF007A219C /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		5692F3DC0FA9D8E500EBA2F1 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		56B7959A1442E0F20026B3DD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -139,18 +138,18 @@
 		D82DCFBC0E8000A5005D6AD8 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = Classes/MainWindow.xib; sourceTree = SOURCE_ROOT; };
 		D82DCFBD0E8000A5005D6AD8 /* RegisterClasses.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RegisterClasses.cpp; path = Classes/RegisterClasses.cpp; sourceTree = SOURCE_ROOT; };
 		D82DCFBE0E8000A5005D6AD8 /* RegisterClasses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegisterClasses.h; path = Classes/RegisterClasses.h; sourceTree = SOURCE_ROOT; };
-		D8A1C7000E80637F100160D4 /* Assembly-CSharp.dll.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = Assembly-CSharp.dll.s; path = Libraries/Assembly-CSharp.dll.s; sourceTree = SOURCE_ROOT; };
+		D8A1C7000E80637F100160D4 /* Assembly-CSharp.dll.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = "Assembly-CSharp.dll.s"; path = "Libraries/Assembly-CSharp.dll.s"; sourceTree = SOURCE_ROOT; };
 		D8A1C7001E80637F100160D4 /* UnityEngine.dll.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = UnityEngine.dll.s; path = Libraries/UnityEngine.dll.s; sourceTree = SOURCE_ROOT; };
 		D8A1C7002E80637F100160D4 /* mscorlib.dll.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = mscorlib.dll.s; path = Libraries/mscorlib.dll.s; sourceTree = SOURCE_ROOT; };
-		D8A1C7003E80637F100160D4 /* Icon@2x.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Icon@2x.png"; sourceTree = SOURCE_ROOT; };
-		D8A1C7004E80637F100160D4 /* Default@2x.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = "Default@2x.png"; path = "Default@2x.png"; sourceTree = SOURCE_ROOT; };
-		D8A1C7005E80637F100160D4 /* Default-568h@2x.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "Default-568h@2x.png"; sourceTree = SOURCE_ROOT; };
-		D8A1C7006E80637F100160D4 /* Default-Landscape.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = Default-Landscape.png; path = Default-Landscape.png; sourceTree = SOURCE_ROOT; };
-		D8A1C7007E80637F100160D4 /* Default-Portrait.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = Default-Portrait.png; path = Default-Portrait.png; sourceTree = SOURCE_ROOT; };
-		D8A1C7008E80637F100160D4 /* Default-Landscape@2x.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = "Default-Landscape@2x.png"; path = "Default-Landscape@2x.png"; sourceTree = SOURCE_ROOT; };
-		D8A1C7009E80637F100160D4 /* Default-Portrait@2x.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = "Default-Portrait@2x.png"; path = "Default-Portrait@2x.png"; sourceTree = SOURCE_ROOT; };
-		D8A1C700aE80637F100160D4 /* Icon-72.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = Icon-72.png; path = Icon-72.png; sourceTree = SOURCE_ROOT; };
-		D8A1C700bE80637F100160D4 /* Icon-144.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = Icon-144.png; path = Icon-144.png; sourceTree = SOURCE_ROOT; };
+		D8A1C7003E80637F100160D4 /* Icon@2x.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = SOURCE_ROOT; };
+		D8A1C7004E80637F100160D4 /* Default@2x.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = SOURCE_ROOT; };
+		D8A1C7005E80637F100160D4 /* Default-568h@2x.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = SOURCE_ROOT; };
+		D8A1C7006E80637F100160D4 /* Default-Landscape.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; path = "Default-Landscape.png"; sourceTree = SOURCE_ROOT; };
+		D8A1C7007E80637F100160D4 /* Default-Portrait.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = SOURCE_ROOT; };
+		D8A1C7008E80637F100160D4 /* Default-Landscape@2x.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; path = "Default-Landscape@2x.png"; sourceTree = SOURCE_ROOT; };
+		D8A1C7009E80637F100160D4 /* Default-Portrait@2x.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; path = "Default-Portrait@2x.png"; sourceTree = SOURCE_ROOT; };
+		D8A1C700aE80637F100160D4 /* Icon-72.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = SOURCE_ROOT; };
+		D8A1C700bE80637F100160D4 /* Icon-144.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; path = "Icon-144.png"; sourceTree = SOURCE_ROOT; };
 		D8A1C7240E80637F000160D3 /* RegisterMonoModules.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RegisterMonoModules.cpp; path = Libraries/RegisterMonoModules.cpp; sourceTree = SOURCE_ROOT; };
 		D8A1C7250E80637F000160D3 /* RegisterMonoModules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegisterMonoModules.h; path = Libraries/RegisterMonoModules.h; sourceTree = SOURCE_ROOT; };
 		D8A1C72A0E8063A1000160D3 /* libiPhone-lib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libiPhone-lib.a"; path = "Libraries/libiPhone-lib.a"; sourceTree = SOURCE_ROOT; };
@@ -456,7 +455,6 @@
 				567B625D114A9F340000AA1F /* iPhone_target2AppDelegate.m in Sources */,
 				567B625E114A9F340000AA1F /* main.mm in Sources */,
 				567B625F114A9F340000AA1F /* RegisterClasses.cpp in Sources */,
-				567B6200014A9F340000AA1F /* mscorlib.dll.s in Sources */,
 				567B6261114A9F340000AA1F /* RegisterMonoModules.cpp in Sources */,
 				8A2EF43F138549090070AA2F /* iPhone_Profiler.cpp in Sources */,
 				8A2EF57B13856A230070AA2F /* iPhone_GlesSupport.cpp in Sources */,
@@ -470,10 +468,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-armv6,
-armv7
-				);
+				ARCHS = armv7;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -482,7 +477,7 @@ armv7
 				GCC_PREFIX_HEADER = Classes/iPhone_target_Prefix.pch;
 				GCC_USE_INDIRECT_FUNCTION_CALLS = NO;
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -495,8 +490,8 @@ armv7
 					CoreMotion,
 					"-weak-lSystem",
 				);
-				PRODUCT_NAME = "healthgame";
-				SDKROOT = iphoneos;
+				PRODUCT_NAME = healthgame;
+				SDKROOT = iphoneos6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -505,17 +500,14 @@ armv7
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-armv6,
-armv7
-				);
+				ARCHS = armv7;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Classes/iPhone_target_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -530,8 +522,8 @@ armv7
 					"-weak-lSystem",
 					"-Wl,-S,-x",
 				);
-				PRODUCT_NAME = "healthgame";
-				SDKROOT = iphoneos;
+				PRODUCT_NAME = healthgame;
+				SDKROOT = iphoneos6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -540,10 +532,7 @@ armv7
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-armv6,
-armv7
-				);
+				ARCHS = armv7;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -551,7 +540,7 @@ armv7
 				GCC_PREFIX_HEADER = Classes/iPhone_target_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "TARGET_IPHONE_SIMULATOR=1";
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\\\"$(SRCROOT)\\\"",
@@ -559,8 +548,8 @@ armv7
 					"\"$(SRCROOT)/Libraries\"",
 				);
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = "healthgame";
-				SDKROOT = iphoneos;
+				PRODUCT_NAME = healthgame;
+				SDKROOT = iphoneos6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -569,10 +558,7 @@ armv7
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-armv6,
-armv7
-				);
+				ARCHS = armv7;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -582,15 +568,15 @@ armv7
 				GCC_PREPROCESSOR_DEFINITIONS = "TARGET_IPHONE_SIMULATOR=1";
 				GCC_USE_INDIRECT_FUNCTION_CALLS = NO;
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\\\"$(SRCROOT)\\\"",
 					"\\\"$(SRCROOT)/Libraries\\\"",
 					"\"$(SRCROOT)/Libraries\"",
 				);
-				PRODUCT_NAME = "healthgame";
-				SDKROOT = iphoneos;
+				PRODUCT_NAME = healthgame;
+				SDKROOT = iphoneos6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -598,10 +584,7 @@ armv7
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-armv6,
-armv7
-				);
+				ARCHS = armv7;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
@@ -614,17 +597,14 @@ armv7
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos6.1;
 			};
 			name = Debug;
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-armv6,
-armv7
-				);
+				ARCHS = armv7;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
@@ -637,7 +617,7 @@ armv7
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OTHER_LDFLAGS = "-Wl,-S,-x";
 				PREBINDING = NO;
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos6.1;
 			};
 			name = Release;
 		};

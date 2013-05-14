@@ -45,5 +45,7 @@
 	<string>UIStatusBarStyleDefault</string>
 	<key>UIApplicationExitsOnSuspend</key>
 	<false/>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array><string>armv7</string></array>
 </dict>
 </plist>
