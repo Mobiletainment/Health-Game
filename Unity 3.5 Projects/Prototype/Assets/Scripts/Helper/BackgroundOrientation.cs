@@ -3,20 +3,29 @@ using System.Collections;
 
 public class BackgroundOrientation : MonoBehaviour 
 {
+	public Transform _camPos;
 	public Transform _prefab;
+	public float _xMax;
+	public float _yMax;
 	public float _spaceX;
 	public float _spaceY;
 	
 	// Use this for initialization
 	void Start () 
 	{
-		for(int x = 0; x < 50; ++x)
+		for(int x = (int)-_xMax / 2; x < (int)_xMax / 2; ++x)
 		{
-			for(int y = 0; y < 50; ++y)
+			for(int y = (int)-_yMax / 2; y < (int)_yMax / 2; ++y)
 			{
 				Transform box = Instantiate(_prefab, new Vector3(x * _spaceX, y * _spaceY, -10.0f), Quaternion.identity) as Transform;
-				box.renderer.material.color = new Color(x, y, 0, 1.0f);
+				box.renderer.material.color = new Color((x > 0 ? x : -x), (y > 0 ? y : -y), 0, 1.0f);
 			}
 		}
+	}
+	
+	void LateUpdate()
+	{
+		// Camera follows the Aircraft:
+		camera.transform.position = _camPos.position;	
 	}
 }
