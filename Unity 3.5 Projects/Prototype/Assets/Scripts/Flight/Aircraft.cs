@@ -25,6 +25,7 @@ public class Aircraft : MonoBehaviour
 	public float _maxDrift = 1.0f;
 	
 	private float _curDrift = 0.0f;
+	private float _rotationInterpol = 0.0f;
 	
 	private List<ForceMemory> _removeForceList;
 	private ForceMemory _currentForce;
@@ -119,7 +120,9 @@ public class Aircraft : MonoBehaviour
 			float force = Mathf.Lerp(_currentForce.Force, _speed, _accSpeed);
 		
 		Vector3 driftVec = transform.right; // Vector3.zero;
-		driftVec *= -_hudRotation * 0.005f;
+		
+		_rotationInterpol = Mathf.Lerp(_rotationInterpol, -_hudRotation, 0.1f);
+		driftVec *= _rotationInterpol * 0.005f;
 		
 		if(_changedDirection == false)
 		{
