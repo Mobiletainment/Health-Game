@@ -70,7 +70,7 @@ public class ArrowControl : MonoBehaviour {
 			if (_mouseDownPosition.y <= 0)
 				newPosY = _mouseDownPosition.y = 0;
 			else
-				newPosY = (_mouseDownPosition.y - guiTexture.pixelInset.height * 0.5f) / Screen.height;
+				newPosY = (_mouseDownPosition.y - guiTexture.pixelInset.height * 0.5f + 22.0f) / Screen.height;
 			
 			
 			transform.position = new Vector3(newPosX, newPosY, 0);
