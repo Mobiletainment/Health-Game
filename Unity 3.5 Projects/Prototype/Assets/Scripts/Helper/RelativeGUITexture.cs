@@ -18,32 +18,33 @@ public class RelativeGUITexture : MonoBehaviour
 
 	void Start () 
 	{
-		
-		float pixelReference = (Screen.width < Screen.height) ? Screen.width : Screen.height;
-				
-		
 		Vector2 guiSize = new Vector2();
 		
+		if (Screen.height > Screen.width)
+		{
+			guiSize.y = Screen.height * relativeSizeMax;
+			guiSize.x = guiTexture.pixelInset.width / guiTexture.pixelInset.height * guiSize.y;
+			Debug.Log(guiSize);
+		}
+		else
+		{
+			guiSize.x = Screen.width * relativeSizeMax;
+			guiSize.y = guiTexture.pixelInset.height / guiTexture.pixelInset.width * guiSize.x;
+		}
+		
+	
+		
+		
 		// This converts the fraction values to absolute pixel values but uses the original size if the one specified is too small
-       if (pixelReference * relativeSizeMax < 44.0) //Minimum GUITexture width/height on iOS
+       if (guiSize.x < 44.0) //Minimum GUITexture width/height on iOS
        {
            guiSize.x = guiTexture.pixelInset.width;
            guiSize.y = guiTexture.pixelInset.height;
        }
-	   else
-	   {
-           guiSize.x = pixelReference * relativeSizeMax; //scale image
-           guiSize.y = pixelReference * relativeSizeMax;
-				Debug.Log(guiTexture.pixelInset);
-       }
-		
+	   
 	   // This places the GUITexture at the correct pixel relative position and scales it to the correct size
        guiTexture.pixelInset = new Rect(guiTextureToPosition.pixelInset.x - guiSize.x * 0.5f, guiTextureToPosition.pixelInset.y - guiSize.y * 0.5f, guiSize.x, guiSize.y);
 
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 }
