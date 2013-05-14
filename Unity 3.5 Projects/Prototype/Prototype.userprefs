@@ -1,8 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Flight/ArrowControl.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Flight/Aircraft.cs">
     <Files>
-      <File FileName="Assets/Scripts/Flight/ArrowControl.cs" Line="24" Column="20" />
+      <File FileName="Assets/Scripts/Flight/ArrowControl.cs" Line="45" Column="43" />
+      <File FileName="Assets/Scripts/Helper/BackgroundOrientation.cs" Line="23" Column="14" />
+      <File FileName="Assets/Scripts/Flight/Aircraft.cs" Line="92" Column="50" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -17,8 +17,13 @@ public class BackgroundOrientation : MonoBehaviour
 		{
 			for(int y = (int)-_yMax / 2; y < (int)_yMax / 2; ++y)
 			{
-				Transform box = Instantiate(_prefab, new Vector3(x * _spaceX, y * _spaceY, -10.0f), Quaternion.identity) as Transform;
+				Transform box = Instantiate(_prefab, new Vector3(x * _spaceX, y * _spaceY, 0.0f), Quaternion.identity) as Transform;
 				box.renderer.material.color = new Color((x > 0 ? x : -x), (y > 0 ? y : -y), 0, 1.0f);
+				
+				if (y % 2 == 0)
+					box.tag = "Good Item";
+				else
+					box.tag = "Bad Item";
 			}
 		}
 	}

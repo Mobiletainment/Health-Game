@@ -12,6 +12,14 @@ public class Aircraft : MonoBehaviour
 	private float _curDrift = 0.0f;
 	private float _rotationInterpol = 0.0f;
 	
+	public GameObject collisionEffectPositive;
+	public GameObject collisionEffectNegative;
+	
+	private Behaviour goodItemHit;
+	private Behaviour badItemHit;
+	private float lastItemHit = 0.0f;
+	
+	
 	// This is actually not needed (A simple force & direction member instead would be fine too.)
 	private ForceMemory _currentForce;
 	
@@ -21,9 +29,14 @@ public class Aircraft : MonoBehaviour
 	
 	private bool _changedDirection = false;
 	
+	
 	// Use this for initialization
 	void Start() 
 	{
+		goodItemHit = (collisionEffectPositive.GetComponent("Halo") as Behaviour);
+		badItemHit = (collisionEffectNegative.GetComponent("Halo") as Behaviour);
+		
+		
         rigidbody.AddForce(transform.up * _speed, ForceMode.VelocityChange);
 		
 		_currentForce = new ForceMemory(gameObject.transform.up, _speed);
@@ -90,6 +103,12 @@ public class Aircraft : MonoBehaviour
 		rigidbody.AddForce((transform.up + driftVec) * force, ForceMode.VelocityChange);
 		
 		_currentForce.Force += force;
+		
+		if (Time.time > lastItemHit + 0.3f)
+		{
+			goodItemHit.enabled = false;
+			badItemHit.enabled = false;
+		}
 	}
 	
 	public void LateUpdate()
@@ -97,6 +116,23 @@ public class Aircraft : MonoBehaviour
 		Vector3 cvel = rigidbody.velocity; // current
 		Vector3 tvel = cvel.normalized * _speed; // target
 		rigidbody.velocity = Vector3.Lerp(cvel, tvel, Time.deltaTime * 1.0f);
+	}
+	
+	public void OnTriggerEnter(Collider hit)
+	{
+		if (hit.tag == "Good Item")
+		{
+			goodItemHit.enabled = true;
+			badItemHit.enabled = false;
+		}
+		else
+		{
+			badItemHit.enabled = true;
+			goodItemHit.enabled = false;
+		}
+		
+		lastItemHit = Time.time;
+		
 	}
 	
 	// TODO:
