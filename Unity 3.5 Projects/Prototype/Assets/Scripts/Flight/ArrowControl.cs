@@ -19,11 +19,16 @@ public class ArrowControl : MonoBehaviour {
 		{
 			Debug.LogError("Error: No Aircraft has been set!");	
 		}
+		
+		Color guiColor = guiTexture.color;
+		guiColor.a = 0.25f;
+		guiTexture.color = guiColor;
 	}
 	
 	// Use this for initialization
 	void Start () 
 	{	
+		
 		guiTexture.enabled = false;
 	}
 	
