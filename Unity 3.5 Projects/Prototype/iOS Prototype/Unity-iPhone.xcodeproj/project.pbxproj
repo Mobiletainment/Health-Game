@@ -10,6 +10,7 @@
 		08B24F76137BFDFA00FBA309 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08B24F75137BFDFA00FBA309 /* iAd.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		08B24F8A137BFE0700FBA309 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08B24F75137BFDFA00FBA309 /* iAd.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		567B6200014A9F340000AA1F /* mscorlib.dll.s in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7000E80637F100160D4 /* mscorlib.dll.s */; };
 		567B6256114A9F340000AA1F /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D82DCFBC0E8000A5005D6AD8 /* MainWindow.xib */; };
 		567B6257114A9F340000AA1F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 83DEA7410EACED0700D8A291 /* Default.png */; };
 		567B6258114A9F340000AA1F /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 83DEA7420EACED0700D8A291 /* Icon.png */; };
