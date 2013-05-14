@@ -95,6 +95,7 @@ public class ArrowControl : MonoBehaviour {
 			// Figure out, how far away the current mouse position is from the first touch down:
 			float diff = curMousePos.x - _mouseDownPosition.x;
 			
+			// 4 because: 50px is about one thumb-size -> *4 is 200 -> currently maximum rotation multiplicator.
 			diff *= 4;
 			
 			_airCraft.SetHUDRotation(diff);

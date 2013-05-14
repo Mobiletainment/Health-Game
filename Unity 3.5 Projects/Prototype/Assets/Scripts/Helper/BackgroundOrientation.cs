@@ -10,7 +10,7 @@ public class BackgroundOrientation : MonoBehaviour
 	public float _spaceX;
 	public float _spaceY;
 	
-	// Use this for initialization
+	// This is just a simple script to add background-cubes (or whatever prfab is) for orientation. (Demo)
 	void Start () 
 	{
 		for(int x = (int)-_xMax / 2; x < (int)_xMax / 2; ++x)
