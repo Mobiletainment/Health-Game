@@ -1,28 +1,40 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class RulesSwitcher : MonoBehaviour
 {
+	public GameObject flashWall;
 	public float ruleDuration = 5.0f; //#seconds before the next rule is applied
 	public float flashLength = 0.5f;
+	
+	private List<Color> flashColors = new List<Color>();
+	private int activeRule = 0;
 	
 	private Camera flashCamera;
 	
 	void Start()
 	{
+		flashColors.Add(Color.white);
+		flashColors.Add(Color.yellow);
+		flashColors.Add(Color.green);
+		flashColors.Add(Color.blue);
+		
 		flashCamera = GameObject.Find("Flash Camera").camera;
-		InvokeRepeating("FlashImage", 0.0f, ruleDuration);
+		InvokeRepeating("RuleFlashBegin", 0.0f, ruleDuration);
 	}
 	
 	
-	protected void FlashImage ()
+	protected void RuleFlashBegin ()
 	{
 		//Debug.Log("FlashImage");
+		flashWall.renderer.material.color = flashColors[activeRule];
 		flashCamera.enabled = true;
-		Invoke("HideImage", flashLength);
+		activeRule = (activeRule + 1) % flashColors.Count;
+		Invoke("RuleFlashEnd", flashLength);
 	}
  
-	protected void HideImage ()
+	protected void RuleFlashEnd ()
 	{
 		flashCamera.enabled = false;
 	} 
