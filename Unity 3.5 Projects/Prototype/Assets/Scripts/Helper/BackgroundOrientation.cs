@@ -18,20 +18,28 @@ public class BackgroundOrientation : MonoBehaviour
 		{
 			for(int y = (int)-_yMax / 2; y < (int)_yMax / 2; ++y)
 			{
-				Transform box;
+				float xRange = Random.Range(0, (int)(_spaceX * 2/5));
+				xRange = (Random.value < 0.5f ? xRange : -xRange);
+				float yRange = Random.Range(0, (int)(_spaceY * 2/5));
+				yRange = (Random.value < 0.5f ? yRange : -yRange);
 				
-				if (y % 2 == 0)
+				Transform item;
+				float xPos = x * _spaceX + xRange;
+				float yPos = y * _spaceY + yRange;
+				
+				//if (y % 2 == 0)
+				if(Random.value < 0.5f)
 				{
-					box = Instantiate(_prefabGood, new Vector3(x * _spaceX, y * _spaceY, 0.0f), Quaternion.identity) as Transform;
-					box.tag = "Item1";
+					item = Instantiate(_prefabGood, new Vector3(xPos, yPos, 0.0f), Quaternion.identity) as Transform;
+					item.tag = "Item1";
 				}
 				else
 				{
-					box = Instantiate(_prefabBad, new Vector3(x * _spaceX, y * _spaceY, 0.0f), Quaternion.identity) as Transform;
-					box.tag = "Item2";
+					item = Instantiate(_prefabBad, new Vector3(x * _spaceX, y * _spaceY, 0.0f), Quaternion.identity) as Transform;
+					item.tag = "Item2";
 				}
 				
-				box.renderer.material.color = new Color((x > 0 ? x : -x), (y > 0 ? y : -y), 0, 1.0f);
+				item.renderer.material.color = new Color((x > 0 ? x : -x), (y > 0 ? y : -y), 0, 1.0f);
 			}
 		}
 	}

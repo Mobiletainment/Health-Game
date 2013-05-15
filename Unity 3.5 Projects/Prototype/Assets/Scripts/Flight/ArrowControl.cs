@@ -13,6 +13,9 @@ public class ArrowControl : MonoBehaviour {
 	
 	public Aircraft _airCraft;
 	
+	private float _drawArrorPosX;
+	private float _drawArrorPosY;
+	
 	void Awake()
 	{
 		if(_airCraft == null)
@@ -46,6 +49,7 @@ public class ArrowControl : MonoBehaviour {
 		touchUp = Input.GetMouseButtonUp(0);
 #endif
 		
+		// This is only called once per click / tap:
 		if(touchDown) // Input.GetMouseButtonDown(0)
 		{
 			_mouseDown = true;
@@ -58,22 +62,10 @@ public class ArrowControl : MonoBehaviour {
 			_mouseDownPosition = Input.mousePosition;
 #endif
 			
-			float newPosX;
-			
 			if (_mouseDownPosition.x <= 0)
-				newPosX = _mouseDownPosition.x = 0;
+				_drawArrorPosX = _mouseDownPosition.x = 0;
 			else
-				newPosX = _mouseDownPosition.x / Screen.width;
-			
-			float newPosY;
-			
-			if (_mouseDownPosition.y <= 0)
-				newPosY = _mouseDownPosition.y = 0;
-			else
-				newPosY = (_mouseDownPosition.y - guiTexture.pixelInset.height * 0.5f + 22.0f) / Screen.height;
-			
-			
-			transform.position = new Vector3(newPosX, newPosY, 0);
+				_drawArrorPosX = _mouseDownPosition.x / Screen.width;
 			
 			_airCraft.EnableHUDControl(true);
 		}
@@ -97,6 +89,17 @@ public class ArrowControl : MonoBehaviour {
 			curMousePos = Input.mousePosition;
 #endif
 			
+			// Use current y position for Arrow:
+			if (curMousePos.y <= 0)
+				_drawArrorPosY = curMousePos.y = 0;
+			else
+				_drawArrorPosY = (curMousePos.y - guiTexture.pixelInset.height * 0.5f + 22.0f) / Screen.height;
+			
+			// Set the arrow graphic on the current finger position (with static x pos from first tap)
+			// So that it slides up and down with the finger, but not left and right...
+			transform.position = new Vector3(_drawArrorPosX, _drawArrorPosY, 0);
+			
+			
 			// Figure out, how far away the current mouse position is from the first touch down:
 			float diff = curMousePos.x - _mouseDownPosition.x;
 			float diffRelative = diff / Screen.width;
@@ -105,7 +108,8 @@ public class ArrowControl : MonoBehaviour {
 			
 			// 4 because: 50px is about one thumb-size -> *4 is 200 -> currently maximum rotation multiplicator.
 			
-			
+			// Note: use 0.128 & *8 for Tablet.
+			// Note: use 0.25 & *4 for MobilePhone.
 			// 25% movement of the screen width equal full 200 rotation 
 			diffRelative = Mathf.Clamp (diffRelative, -0.25f, 0.25f); 
 			
