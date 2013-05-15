@@ -23,12 +23,12 @@ public class BackgroundOrientation : MonoBehaviour
 				if (y % 2 == 0)
 				{
 					box = Instantiate(_prefabGood, new Vector3(x * _spaceX, y * _spaceY, 0.0f), Quaternion.identity) as Transform;
-					box.tag = "Good Item";
+					box.tag = "Item1";
 				}
 				else
 				{
 					box = Instantiate(_prefabBad, new Vector3(x * _spaceX, y * _spaceY, 0.0f), Quaternion.identity) as Transform;
-					box.tag = "Bad Item";
+					box.tag = "Item2";
 				}
 				
 				box.renderer.material.color = new Color((x > 0 ? x : -x), (y > 0 ? y : -y), 0, 1.0f);

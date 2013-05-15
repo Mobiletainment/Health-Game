@@ -9,6 +9,9 @@ public class Aircraft : MonoBehaviour
 	
 	public float _accSpeed = 2.0f;
 	
+	public List<string> _goodItemTags;
+	private int _itemTagIndex = 0;
+	
 	private float _curDrift = 0.0f;
 	private float _rotationInterpol = 0.0f;
 	
@@ -110,7 +113,7 @@ public class Aircraft : MonoBehaviour
 	
 	public void OnTriggerEnter(Collider hit)
 	{
-		if (hit.tag == "Good Item")
+		if (hit.tag == _goodItemTags[_itemTagIndex])
 		{
 			itemHit.SetHit(ItemHit.ActiveHit.Good);
 		}
@@ -135,5 +138,10 @@ public class Aircraft : MonoBehaviour
 	{
 		// TODO: Make 200 configureable!
 		_hudRotation = Mathf.Clamp(hudRotation, -200, 200);
+	}
+	
+	public void SetGoodTagIndex(int index)
+	{
+		_itemTagIndex = index;	
 	}
 }

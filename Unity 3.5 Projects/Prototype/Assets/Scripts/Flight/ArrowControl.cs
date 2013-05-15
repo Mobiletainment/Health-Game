@@ -40,7 +40,7 @@ public class ArrowControl : MonoBehaviour {
 		
 #if MOBILE
 		touchDown = Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began;
-		touchUp = Input.GetTouch(0).phase == TouchPhase.Ended;
+		touchUp = Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended;
 #else
 		touchDown = Input.GetMouseButtonDown(0);
 		touchUp = Input.GetMouseButtonUp(0);
