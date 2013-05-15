@@ -99,26 +99,20 @@ public class ArrowControl : MonoBehaviour {
 			
 			// Figure out, how far away the current mouse position is from the first touch down:
 			float diff = curMousePos.x - _mouseDownPosition.x;
+			float diffRelative = diff / Screen.width;
+			Debug.Log(diffRelative);
+			//Debug.Log("DPI: " + Screen.dpi + ", Screen Width: " + Screen.width);
 			
-			Debug.Log("DPI: " + Screen.dpi + ", Screen Width: " + Screen.width);
-			if(Screen.dpi != 0) // Returns 0 during testing in Unity...
-			{
-				float screenWidthDots = (float)Screen.width / 2.54f * Screen.dpi;
-				screenWidthDots *= 0.2f; // 20% of screen with dots...
-				
-				Debug.Log("Diff: " + diff + ", ScreenWidthDots: " + screenWidthDots);
-				
-				// diff *= screenWidthDots;
-				
-				Debug.Log("Diff after mul: " + diff * screenWidthDots);
-			}
-			else
-			{
-				// 4 because: 50px is about one thumb-size -> *4 is 200 -> currently maximum rotation multiplicator.
-				diff *= 4;
-			}
+			// 4 because: 50px is about one thumb-size -> *4 is 200 -> currently maximum rotation multiplicator.
 			
-			_airCraft.SetHUDRotation(diff);
+			
+			// 25% movement of the screen width equal full 200 rotation 
+			diffRelative = Mathf.Clamp (diffRelative, -0.25f, 0.25f); 
+			
+			float diffRotation = (diffRelative*4) * 200;
+			
+			
+			_airCraft.SetHUDRotation(diffRotation);
 		}
 	}
 }
