@@ -121,7 +121,7 @@ public class Aircraft : MonoBehaviour
 		{
 			itemHit.SetHit(ItemHit.ActiveHit.Bad);
 		}
-		
+		hit.gameObject.collider.enabled = false;
 		hit.gameObject.renderer.enabled = false;
 	}
 	
