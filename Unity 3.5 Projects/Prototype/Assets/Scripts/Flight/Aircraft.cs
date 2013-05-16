@@ -122,7 +122,9 @@ public class Aircraft : MonoBehaviour
 			itemHit.SetHit(ItemHit.ActiveHit.Bad);
 		}
 		hit.gameObject.collider.enabled = false;
-		hit.gameObject.renderer.enabled = false;
+		hit.gameObject.renderer.material.color = Color.grey;
+		hit.gameObject.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
+		//hit.gameObject.renderer.enabled = false;
 	}
 	
 	// TODO:
