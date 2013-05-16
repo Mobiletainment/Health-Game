@@ -121,6 +121,8 @@ public class Aircraft : MonoBehaviour
 		{
 			itemHit.SetHit(ItemHit.ActiveHit.Bad);
 		}
+		
+		hit.gameObject.renderer.enabled = false;
 	}
 	
 	// TODO:
