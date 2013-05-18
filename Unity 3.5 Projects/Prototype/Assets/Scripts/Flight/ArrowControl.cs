@@ -2,6 +2,7 @@
 #	define MOBILE
 #endif
 
+#define nussi_move_idea
 using UnityEngine;
 using System.Collections;
 
@@ -102,6 +103,8 @@ public class ArrowControl : MonoBehaviour {
 			
 			// Figure out, how far away the current mouse position is from the first touch down:
 			float diff = curMousePos.x - _mouseDownPosition.x;
+			
+
 			float diffRelative = diff / Screen.width;
 			Debug.Log(diffRelative);
 			//Debug.Log("DPI: " + Screen.dpi + ", Screen Width: " + Screen.width);
@@ -117,6 +120,16 @@ public class ArrowControl : MonoBehaviour {
 			
 			
 			_airCraft.SetHUDRotation(diffRotation);
+			
+#if nussi_move_idea
+			//add fration of the differnce to reduce roation over time
+			_mouseDownPosition.x+=diff/30.0f;
+			//copied here to recalulate the positon (is the wrone place but did not want to change to much code
+			if (_mouseDownPosition.x <= 0)
+				_drawArrorPosX = _mouseDownPosition.x = 0;
+			else
+				_drawArrorPosX = _mouseDownPosition.x / Screen.width;
+#endif
 		}
 	}
 }
