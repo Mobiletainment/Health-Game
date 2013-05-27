@@ -43,7 +43,9 @@ public class ItemHit
 			goodItemHit.enabled = false;
 			badItemHit.enabled = true;
 			lastItemHit = Time.time;
-			Handheld.Vibrate(); //vibration as feedback for wrong items
+			#if UNITY_IPHONE || UNITY_ANDROID
+				Handheld.Vibrate(); //vibration as feedback for wrong items
+			#endif
 			break;
 		default:
 			break;

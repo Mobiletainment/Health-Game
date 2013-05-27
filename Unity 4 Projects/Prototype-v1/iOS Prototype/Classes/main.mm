@@ -7,20 +7,24 @@
 // we need at least one __TEXT, __const section entry in main application .o files
 // to get this section emitted at right time and so avoid LC_ENCRYPTION_INFO size miscalculation
 static const int constsection = 0;
-void UnityParseCommandLine(int argc, char *argv[]);
+bool UnityParseCommandLine(int argc, char *argv[]);
+void UnityInitTrampoline();
 
 int main(int argc, char *argv[])
 {
-	UnityParseCommandLine(argc, argv);
+	UnityInitTrampoline();
+	
+	if(!UnityParseCommandLine(argc, argv))
+		return -1;
 
 	RegisterMonoModules();
 	NSLog(@"-> registered mono modules %p\n", &constsection);
-	
+
 	NSAutoreleasePool*		pool = [NSAutoreleasePool new];
-	
+
 	UIApplicationMain(argc, argv, nil, @"AppController");
-	
+
 	[pool release];
-	
+
 	return 0;
 }
