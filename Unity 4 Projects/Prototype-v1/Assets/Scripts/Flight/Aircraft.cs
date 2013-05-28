@@ -82,7 +82,7 @@ public class Aircraft : MonoBehaviour
 		
 		// Care about left-right combinations (no jumps between fast direction switches):
 		_rotationInterpol = Mathf.Lerp(_rotationInterpol, -_hudRotation, 0.1f);
-		driftVec *= _rotationInterpol * 0.005f;
+		driftVec *= _rotationInterpol * 0.01f;
 		
 		if(_changedDirection == false)
 		{

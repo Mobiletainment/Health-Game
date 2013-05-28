@@ -16,7 +16,6 @@ public class InputHandlerTapDuration : MonoBehaviour {
 	{
 		_airCraft = GetComponent<Aircraft>();
 		_airCraft.EnableHUDControl(true); //<-- needs refactoring, code which should be encapsulated in class ArrowControl 
-		Debug.Log(_airCraft);
 	}
 	
 	// Update is called once per frame
@@ -61,5 +60,21 @@ public class InputHandlerTapDuration : MonoBehaviour {
 			_airCraft.SetHUDRotation(_sensitivity * rotationDirection);
 		
 		}
+		
+		// Quick hack for Keyboard:
+#if UNITY_EDITOR
+		if(Input.GetKey(KeyCode.A))
+		{
+			_airCraft.SetHUDRotation(_sensitivity * -1);	
+		}
+		else if(Input.GetKey(KeyCode.D))
+		{
+			_airCraft.SetHUDRotation(_sensitivity);	
+		}
+		else
+		{
+			_airCraft.SetHUDRotation(0);
+		}
+#endif
 	}
 }
