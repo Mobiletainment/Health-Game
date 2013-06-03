@@ -48,7 +48,10 @@ public class Aircraft : MonoBehaviour
 	void Countdown()
 	{
 		if (--secondsToPlay == 0)
+		{
 			CancelInvoke("Countdown");
+			LoadGameOverScene();
+		}
 		
 		UpdateCountdownLabel();
 	}
@@ -56,6 +59,11 @@ public class Aircraft : MonoBehaviour
 	void UpdateCountdownLabel()
 	{
 		countdownLabel.text = string.Format("Time left: {0}s", secondsToPlay);
+	}
+	
+	void LoadGameOverScene()
+	{
+		Application.LoadLevel("GameOver");
 	}
 	
 	//is called for every fixed framerate frame. Should be used instead of Update when dealing with Rigidbody.
