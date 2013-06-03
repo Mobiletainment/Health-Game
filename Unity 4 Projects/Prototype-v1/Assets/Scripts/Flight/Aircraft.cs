@@ -27,12 +27,13 @@ public class Aircraft : MonoBehaviour
 	private float _hudRotation = 0.0f;
 	
 	private bool _changedDirection = false;
-	
+	public GameObject scoreTrackerTextMesh;
 	
 	// Use this for initialization
 	void Start() 
 	{
-		itemHit = new ItemHit(collisionEffectPositive, collisionEffectNegative);
+		ScoreTracker scoreTrackerScriptInstance = scoreTrackerTextMesh.GetComponent<ScoreTracker>();
+		itemHit = new ItemHit(collisionEffectPositive, collisionEffectNegative, scoreTrackerScriptInstance);
 		
         rigidbody.AddForce(transform.up * _speed, ForceMode.VelocityChange);
 		
