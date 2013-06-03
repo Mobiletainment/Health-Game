@@ -28,6 +28,9 @@ public class Aircraft : MonoBehaviour
 	
 	private bool _changedDirection = false;
 	
+	protected UILabel countdownLabel;
+	public int secondsToPlay = 30;
+	
 	// Use this for initialization
 	void Start() 
 	{
@@ -36,6 +39,23 @@ public class Aircraft : MonoBehaviour
         rigidbody.AddForce(transform.up * _speed, ForceMode.VelocityChange);
 		
 		_currentForce = new ForceMemory(gameObject.transform.up, _speed);
+		
+		countdownLabel = GameObject.Find("CountdownLabel").GetComponent<UILabel>();
+		UpdateCountdownLabel();
+		InvokeRepeating("Countdown", 1.0f, 1.0f);
+	}
+	
+	void Countdown()
+	{
+		if (--secondsToPlay == 0)
+			CancelInvoke("Countdown");
+		
+		UpdateCountdownLabel();
+	}
+	
+	void UpdateCountdownLabel()
+	{
+		countdownLabel.text = string.Format("Time left: {0}s", secondsToPlay);
 	}
 	
 	//is called for every fixed framerate frame. Should be used instead of Update when dealing with Rigidbody.
