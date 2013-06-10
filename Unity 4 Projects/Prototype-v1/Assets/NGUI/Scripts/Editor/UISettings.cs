@@ -1,6 +1,6 @@
-﻿//----------------------------------------------
+//----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2012 Tasharen Entertainment
+// Copyright © 2011-2013 Tasharen Entertainment
 //----------------------------------------------
 
 using UnityEngine;
@@ -26,6 +26,13 @@ public class NGUISettings
 	static int mAtlasPadding = 1;
 	static public bool mAtlasTrimming = true;
 	static bool mUnityPacking = true;
+	static bool mForceSquare = true;
+	static bool mAllow4096 = false;
+	static Color mColor = Color.white;
+	static int mLayer = 0;
+	static Font mDynFont;
+	static int mDynFontSize = 16;
+	static FontStyle mDynFontStyle = FontStyle.Normal;
 
 	static Object GetObject (string name)
 	{
@@ -35,6 +42,10 @@ public class NGUISettings
 
 	static void Load ()
 	{
+		int l = LayerMask.NameToLayer("UI");
+		if (l == -1) l = LayerMask.NameToLayer("GUI");
+		if (l == -1) l = 31;
+
 		mLoaded			= true;
 		mPartial		= EditorPrefs.GetString("NGUI Partial");
 		mFontName		= EditorPrefs.GetString("NGUI Font Name");
@@ -46,7 +57,14 @@ public class NGUISettings
 		mAtlasPadding	= EditorPrefs.GetInt("NGUI Atlas Padding", 1);
 		mAtlasTrimming	= EditorPrefs.GetBool("NGUI Atlas Trimming", true);
 		mUnityPacking	= EditorPrefs.GetBool("NGUI Unity Packing", true);
+		mForceSquare	= EditorPrefs.GetBool("NGUI Force Square Atlas", true);
 		mPivot			= (UIWidget.Pivot)EditorPrefs.GetInt("NGUI Pivot", (int)mPivot);
+		mLayer			= EditorPrefs.GetInt("NGUI Layer", l);
+		mDynFont		= GetObject("NGUI DynFont") as Font;
+		mDynFontSize	= EditorPrefs.GetInt("NGUI DynFontSize", 16);
+		mDynFontStyle	= (FontStyle)EditorPrefs.GetInt("NGUI DynFontStyle", (int)FontStyle.Normal);
+
+		LoadColor();
 	}
 
 	static void Save ()
@@ -61,11 +79,62 @@ public class NGUISettings
 		EditorPrefs.SetInt("NGUI Atlas Padding", mAtlasPadding);
 		EditorPrefs.SetBool("NGUI Atlas Trimming", mAtlasTrimming);
 		EditorPrefs.SetBool("NGUI Unity Packing", mUnityPacking);
+		EditorPrefs.SetBool("NGUI Force Square Atlas", mForceSquare);
 		EditorPrefs.SetInt("NGUI Pivot", (int)mPivot);
+		EditorPrefs.SetInt("NGUI Layer", mLayer);
+		EditorPrefs.SetInt("NGUI DynFont", (mDynFont != null) ? mDynFont.GetInstanceID() : -1);
+		EditorPrefs.SetInt("NGUI DynFontSize", mDynFontSize);
+		EditorPrefs.SetInt("NGUI DynFontStyle", (int)mDynFontStyle);
+
+		SaveColor();
+	}
+
+	static void LoadColor ()
+	{
+		string sc = EditorPrefs.GetString("NGUI Color");
+
+		if (!string.IsNullOrEmpty(sc))
+		{
+			string[] colors = sc.Split(' ');
+
+			if (colors.Length == 4)
+			{
+				float.TryParse(colors[0], out mColor.r);
+				float.TryParse(colors[1], out mColor.g);
+				float.TryParse(colors[2], out mColor.b);
+				float.TryParse(colors[3], out mColor.a);
+			}
+		}
+	}
+
+	static void SaveColor ()
+	{
+		EditorPrefs.SetString("NGUI Color", mColor.r + " " + mColor.g + " " + mColor.b + " " + mColor.a);
 	}
 
 	/// <summary>
-	/// Default font used by NGUI.
+	/// Color is used to easily copy/paste the widget's color value.
+	/// </summary>
+
+	static public Color color
+	{
+		get
+		{
+			if (!mLoaded) Load();
+			return mColor;
+		}
+		set
+		{
+			if (mColor != value)
+			{
+				mColor = value;
+				SaveColor();
+			}
+		}
+	}
+
+	/// <summary>
+	/// Default bitmap font used by NGUI.
 	/// </summary>
 
 	static public UIFont font
@@ -81,6 +150,28 @@ public class NGUISettings
 			{
 				mFont = value;
 				mFontName = (mFont != null) ? mFont.name : "New Font";
+				Save();
+			}
+		}
+	}
+
+	/// <summary>
+	/// Default dynamic font used by NGUI.
+	/// </summary>
+
+	static public Font dynamicFont
+	{
+		get
+		{
+			if (!mLoaded) Load();
+			return mDynFont;
+		}
+		set
+		{
+			if (mDynFont != value)
+			{
+				mDynFont = value;
+				mFontName = (mDynFont != null) ? mDynFont.name : "New Font";
 				Save();
 			}
 		}
@@ -130,6 +221,27 @@ public class NGUISettings
 	}
 
 	/// <summary>
+	/// Default layer used by the UI.
+	/// </summary>
+
+	static public int layer
+	{
+		get
+		{
+			if (!mLoaded) Load();
+			return mLayer;
+		}
+		set
+		{
+			if (mLayer != value)
+			{
+				mLayer = value;
+				Save();
+			}
+		}
+	}
+
+	/// <summary>
 	/// Name of the font, used by the Font Maker.
 	/// </summary>
 
@@ -152,6 +264,18 @@ public class NGUISettings
 	/// </summary>
 
 	static public string atlasName { get { if (!mLoaded) Load(); return mAtlasName; } set { if (mAtlasName != value) { mAtlasName = value; Save(); } } }
+
+	/// <summary>
+	/// Size of the dynamic font.
+	/// </summary>
+
+	static public int dynamicFontSize { get { if (!mLoaded) Load(); return mDynFontSize; } set { if (mDynFontSize != value) { mDynFontSize = value; Save(); } } }
+
+	/// <summary>
+	/// Dynamic font's style.
+	/// </summary>
+
+	static public FontStyle dynamicFontStyle { get { if (!mLoaded) Load(); return mDynFontStyle; } set { if (mDynFontStyle != value) { mDynFontStyle = value; Save(); } } }
 
 	/// <summary>
 	/// Name of the partial sprite name, used to filter sprites.
@@ -191,4 +315,16 @@ public class NGUISettings
 	/// </summary>
 
 	static public bool unityPacking { get { if (!mLoaded) Load(); return mUnityPacking; } set { if (mUnityPacking != value) { mUnityPacking = value; Save(); } } }
+	
+	/// <summary>
+	/// Whether the Atlas Maker will force a square atlas texture when creating an atlas
+	/// </summary>
+	
+	static public bool forceSquareAtlas { get { if (!mLoaded) Load(); return mForceSquare; } set { if (mForceSquare != value) { mForceSquare = value; Save(); } } }
+
+	/// <summary>
+	/// Whether the atlas maker will allow 4096 width/height textures on mobiles.
+	/// </summary>
+
+	static public bool allow4096 { get { if (!mLoaded) Load(); return mAllow4096; } set { if (mAllow4096 != value) { mAllow4096 = value; Save(); } } }
 }

@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2012 Tasharen Entertainment
+// Copyright © 2011-2013 Tasharen Entertainment
 //----------------------------------------------
 
 using UnityEngine;
@@ -51,7 +51,7 @@ public class UIAtlasInspector : Editor
 
 		foreach (UILabel lbl in labels)
 		{
-			if (lbl.font != null && UIAtlas.CheckIfRelated(lbl.font.atlas, mAtlas) && lbl.font.spriteName == mSprite.name)
+			if (lbl.font != null && UIAtlas.CheckIfRelated(lbl.font.atlas, mAtlas) && lbl.font.UsesSprite(mSprite.name))
 			{
 				UIFont font = lbl.font;
 				lbl.font = null;
@@ -116,14 +116,14 @@ public class UIAtlasInspector : Editor
 			ComponentSelector.Draw<UIAtlas>(mAtlas.replacement, OnSelectAtlas);
 
 			NGUIEditorTools.DrawSeparator();
-			GUILayout.Label("You can have one atlas simply point to\n" +
-				"another one. This is useful if you want to be\n" +
-				"able to quickly replace the contents of one\n" +
-				"atlas with another one, for example for\n" +
-				"swapping an SD atlas with an HD one, or\n" +
-				"replacing an English atlas with a Chinese\n" +
-				"one. All the sprites referencing this atlas\n" +
-				"will update their references to the new one.");
+			EditorGUILayout.HelpBox("You can have one atlas simply point to " +
+				"another one. This is useful if you want to be " +
+				"able to quickly replace the contents of one " +
+				"atlas with another one, for example for " +
+				"swapping an SD atlas with an HD one, or " +
+				"replacing an English atlas with a Chinese " +
+				"one. All the sprites referencing this atlas " +
+				"will update their references to the new one.", MessageType.Info);
 
 			if (mReplacement != mAtlas && mAtlas.replacement != mReplacement)
 			{
@@ -360,7 +360,8 @@ public class UIAtlasInspector : Editor
 						}
 					}
 
-					NGUIEditorTools.DrawSeparator();
+					// This functionality is no longer used. It became obsolete when the Atlas Maker was added.
+					/*NGUIEditorTools.DrawSeparator();
 
 					GUILayout.BeginHorizontal();
 					{
@@ -395,7 +396,7 @@ public class UIAtlasInspector : Editor
 						}
 						GUI.backgroundColor = Color.white;
 					}
-					GUILayout.EndHorizontal();
+					GUILayout.EndHorizontal();*/
 
 					if (NGUIEditorTools.previousSelection != null)
 					{
@@ -437,7 +438,7 @@ public class UIAtlasInspector : Editor
 
 	public override void OnPreviewGUI (Rect rect, GUIStyle background)
 	{
-		if (mSprite == null) return;
+		if (mSprite == null || mAtlas == null) return;
 
 		Texture2D tex = mAtlas.texture as Texture2D;
 		if (tex == null) return;

@@ -1,6 +1,6 @@
-﻿//----------------------------------------------
+//----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2012 Tasharen Entertainment
+// Copyright © 2011-2013 Tasharen Entertainment
 //----------------------------------------------
 
 using UnityEngine;
@@ -16,7 +16,7 @@ using System.Collections.Generic;
 [AddComponentMenu("NGUI/Internal/Localization")]
 public class Localization : MonoBehaviour
 {
-	static Localization mInst;
+	static Localization mInstance;
 
 	/// <summary>
 	/// The instance of the localization class. Will create it if one isn't already around.
@@ -26,18 +26,18 @@ public class Localization : MonoBehaviour
 	{
 		get
 		{
-			if (mInst == null)
+			if (mInstance == null)
 			{
-				mInst = Object.FindObjectOfType(typeof(Localization)) as Localization;
+				mInstance = Object.FindObjectOfType(typeof(Localization)) as Localization;
 
-				if (mInst == null)
+				if (mInstance == null)
 				{
 					GameObject go = new GameObject("_Localization");
 					DontDestroyOnLoad(go);
-					mInst = go.AddComponent<Localization>();
+					mInstance = go.AddComponent<Localization>();
 				}
 			}
-			return mInst;
+			return mInstance;
 		}
 	}
 
@@ -45,7 +45,7 @@ public class Localization : MonoBehaviour
 	/// Language the localization manager will start with.
 	/// </summary>
 
-	public string startingLanguage;
+	public string startingLanguage = "English";
 
 	/// <summary>
 	/// Available list of languages.
@@ -64,20 +64,6 @@ public class Localization : MonoBehaviour
 	{
 		get
 		{
-			if (string.IsNullOrEmpty(mLanguage))
-			{
-				currentLanguage = PlayerPrefs.GetString("Language");
-
-				if (string.IsNullOrEmpty(mLanguage))
-				{
-					currentLanguage = startingLanguage;
-
-					if (string.IsNullOrEmpty(mLanguage) && (languages != null && languages.Length > 0))
-					{
-						currentLanguage = languages[0].name;
-					}
-				}
-			}
 			return mLanguage;
 		}
 		set
@@ -124,25 +110,34 @@ public class Localization : MonoBehaviour
 	/// Determine the starting language.
 	/// </summary>
 
-	void Awake () { if (mInst == null) { mInst = this; DontDestroyOnLoad(gameObject); } else Destroy(gameObject); }
+	void Awake ()
+	{
+		if (mInstance == null)
+		{
+			mInstance = this;
+			DontDestroyOnLoad(gameObject);
 
-	/// <summary>
-	/// Start with the specified starting language.
-	/// </summary>
+			currentLanguage = PlayerPrefs.GetString("Language", startingLanguage);
 
-	void Start () { if (!string.IsNullOrEmpty(startingLanguage)) currentLanguage = startingLanguage; }
+			if (string.IsNullOrEmpty(mLanguage) && (languages != null && languages.Length > 0))
+			{
+				currentLanguage = languages[0].name;
+			}
+		}
+		else Destroy(gameObject);
+	}
 
 	/// <summary>
 	/// Oddly enough... sometimes if there is no OnEnable function in Localization, it can get the Awake call after UILocalize's OnEnable.
 	/// </summary>
 
-	void OnEnable () { if (mInst == null) mInst = this; }
+	void OnEnable () { if (mInstance == null) mInstance = this; }
 
 	/// <summary>
 	/// Remove the instance reference.
 	/// </summary>
 
-	void OnDestroy () { if (mInst == this) mInst = null; }
+	void OnDestroy () { if (mInstance == this) mInstance = null; }
 
 	/// <summary>
 	/// Load the specified asset and activate the localization.
@@ -163,7 +158,26 @@ public class Localization : MonoBehaviour
 
 	public string Get (string key)
 	{
+#if UNITY_EDITOR
+		if (!Application.isPlaying) return key;
+#endif
 		string val;
+#if UNITY_IPHONE || UNITY_ANDROID
+		if (mDictionary.TryGetValue(key + " Mobile", out val)) return val;
+#endif
+
+#if UNITY_EDITOR
+		if (mDictionary.TryGetValue(key, out val)) return val;
+		Debug.LogWarning("Localization key not found: '" + key + "'");
+		return key;
+#else
 		return (mDictionary.TryGetValue(key, out val)) ? val : key;
+#endif
 	}
+
+	/// <summary>
+	/// Localize the specified value.
+	/// </summary>
+
+	static public string Localize (string key) { return (instance != null) ? instance.Get(key) : key; }
 }

@@ -1,6 +1,6 @@
-﻿//----------------------------------------------
+//----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2012 Tasharen Entertainment
+// Copyright © 2011-2013 Tasharen Entertainment
 //----------------------------------------------
 
 using UnityEngine;
@@ -11,6 +11,38 @@ using System.Collections.Generic;
 public class UIPanelInspector : Editor
 {
 	/// <summary>
+	/// Handles & interaction.
+	/// </summary>
+
+	public void OnSceneGUI ()
+	{
+		//Tools.current = Tool.View;
+
+		Event e = Event.current;
+
+		switch (e.type)
+		{
+			case EventType.MouseUp:
+			{
+				UIWidget[] widgets = NGUIEditorTools.Raycast(target as UIPanel, e.mousePosition);
+				if (widgets.Length > 0) Selection.activeGameObject = widgets[0].gameObject;
+			}
+			break;
+
+			case EventType.KeyDown:
+			{
+				if (e.keyCode == KeyCode.Escape)
+				{
+					Tools.current = Tool.Move;
+					Selection.activeGameObject = null;
+					e.Use();
+				}
+			}
+			break;
+		}
+	}
+
+	/// <summary>
 	/// Draw the inspector widget.
 	/// </summary>
 
@@ -20,7 +52,16 @@ public class UIPanelInspector : Editor
 		BetterList<UIDrawCall> drawcalls = panel.drawCalls;
 		EditorGUIUtility.LookLikeControls(80f);
 
-		NGUIEditorTools.DrawSeparator();
+		//NGUIEditorTools.DrawSeparator();
+		EditorGUILayout.Space();
+
+		float alpha = EditorGUILayout.Slider("Alpha", panel.alpha, 0f, 1f);
+
+		if (alpha != panel.alpha)
+		{
+			NGUIEditorTools.RegisterUndo("Panel Alpha", panel);
+			panel.alpha = alpha;
+		}
 
 		if (panel.showInPanelTool != EditorGUILayout.Toggle("Panel Tool", panel.showInPanelTool))
 		{
@@ -43,7 +84,7 @@ public class UIPanelInspector : Editor
 
 		GUILayout.BeginHorizontal();
 		bool depth = EditorGUILayout.Toggle("Depth Pass", panel.depthPass, GUILayout.Width(100f));
-		GUILayout.Label("Extra draw call, saves fillrate");
+		GUILayout.Label("Doubles draw calls, saves fillrate");
 		GUILayout.EndHorizontal();
 
 		if (panel.depthPass != depth)
@@ -51,6 +92,16 @@ public class UIPanelInspector : Editor
 			panel.depthPass = depth;
 			panel.UpdateDrawcalls();
 			EditorUtility.SetDirty(panel);
+		}
+
+		if (depth)
+		{
+			UICamera cam = UICamera.FindCameraForLayer(panel.gameObject.layer);
+
+			if (cam == null || cam.camera.isOrthoGraphic)
+			{
+				EditorGUILayout.HelpBox("Please note that depth pass will only save fillrate when used with 3D UIs, and only UIs drawn by the game camera. If you are using a separate camera for the UI, you will not see any benefit!", MessageType.Warning);
+			}
 		}
 
 		GUILayout.BeginHorizontal();
@@ -130,6 +181,28 @@ public class UIPanelInspector : Editor
 					EditorUtility.SetDirty(panel);
 				}
 			}
+
+#if !UNITY_3_5 && (UNITY_ANDROID || UNITY_IPHONE)
+			if (PlayerSettings.targetGlesGraphics == TargetGlesGraphics.OpenGLES_1_x)
+			{
+				EditorGUILayout.HelpBox("Clipping requires shader support!\n\nOpen File -> Build Settings -> Player Settings -> Other Settings, then set:\n\n- Graphics Level: OpenGL ES 2.0.", MessageType.Error);
+			}
+#endif
+		}
+
+		if (clipping == UIDrawCall.Clipping.HardClip)
+		{
+			EditorGUILayout.HelpBox("Hard clipping has been removed due to major performance issues on certain Android devices. Alpha clipping will be used instead.", MessageType.Warning);
+		}
+
+		if (clipping != UIDrawCall.Clipping.None && !NGUIEditorTools.IsUniform(panel.transform.lossyScale))
+		{
+			EditorGUILayout.HelpBox("Clipped panels must have a uniform scale, or clipping won't work properly!", MessageType.Error);
+			
+			if (GUILayout.Button("Auto-fix"))
+			{
+				NGUIEditorTools.FixUniform(panel.gameObject);
+			}
 		}
 
 		foreach (UIDrawCall dc in drawcalls)
@@ -137,6 +210,12 @@ public class UIPanelInspector : Editor
 			NGUIEditorTools.DrawSeparator();
 			EditorGUILayout.ObjectField("Material", dc.material, typeof(Material), false);
 			EditorGUILayout.LabelField("Triangles", dc.triangles.ToString());
+
+			if (clipping != UIDrawCall.Clipping.None && !dc.isClipped)
+			{
+				EditorGUILayout.HelpBox("You must switch this material's shader to Unlit/Transparent Colored or Unlit/Premultiplied Colored in order for clipping to work.",
+					MessageType.Warning);
+			}
 		}
 	}
 }

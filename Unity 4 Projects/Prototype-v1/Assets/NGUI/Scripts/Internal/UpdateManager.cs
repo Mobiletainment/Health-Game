@@ -1,6 +1,6 @@
 ﻿//----------------------------------------------
 //            NGUI: Next-Gen UI kit
-// Copyright © 2011-2012 Tasharen Entertainment
+// Copyright © 2011-2013 Tasharen Entertainment
 //----------------------------------------------
 
 using UnityEngine;
@@ -33,8 +33,8 @@ public class UpdateManager : MonoBehaviour
 
 	static int Compare (UpdateEntry a, UpdateEntry b)
 	{
-		if (a.index < b.index) return -1;
-		if (a.index > b.index) return 1;
+		if (a.index < b.index) return 1;
+		if (a.index > b.index) return -1;
 		return 0;
 	}
 
