@@ -1,13 +1,14 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+
 public class PathItems : MonoBehaviour {
 	
 	// Define the width of the track (width is only one half of the track!)
 	public float _trackSideWidth;
 	public string _pathName = "FlightPath1";
 	
-	public GameObject _goodItem;
-	public GameObject _badItem;
+	public List<GameObject> _items;
 	
 	public Camera _cam;
 	public float _camHeight = 50.0f;
@@ -72,16 +73,14 @@ public class PathItems : MonoBehaviour {
 			float goodOrEvil = Random.value;
 			if(goodOrEvil >= 0.33f && goodOrEvil < 0.66f)
 			{
-				item = Instantiate(_goodItem, pos + (side * middleDistance), Quaternion.identity) as GameObject;
+				item = Instantiate(_items[Random.Range(0, 2)], pos + (side * middleDistance), Quaternion.identity) as GameObject;
 				item.tag = "Item1";
-				item.transform.Rotate(new Vector3(270.0f, 180.0f, 0.0f));
 				item.transform.parent = itemContainer.transform;
 			}
 			else if(goodOrEvil >= 0.66f)
 			{
-				item = Instantiate(_badItem, pos + (side * middleDistance), Quaternion.identity) as GameObject;
+				item = Instantiate(_items[Random.Range(2, 4)], pos + (side * middleDistance), Quaternion.identity) as GameObject;
 				item.tag = "Item2";
-				item.transform.Rotate(new Vector3(270.0f, 180.0f, 0.0f));
 				item.transform.parent = itemContainer.transform;
 			}
 			
