@@ -1,5 +1,9 @@
+#if UNITY_IPHONE || UNITY_ANDROID
+#	define MOBILE
+#endif
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
+
 public class PathItems : MonoBehaviour {
 	
 	// Define the width of the track (width is only one half of the track!)
@@ -17,6 +21,13 @@ public class PathItems : MonoBehaviour {
 	public float _timeInSec = 60;
 	public float _camMovement=0;
 	private float _middleDistance = 0.0f;
+	private Vector3 _quadpos;
+	public Transform _marker;
+
+
+		
+	private int _markIndex;
+	//public List<Vector3> items = new List<Vector3>();
 	//public Transform _sphere;
 	// LastPos is used for calculations of flight or path direction.
 	private Vector3 _lastPos = Vector3.zero;
@@ -26,7 +37,6 @@ public class PathItems : MonoBehaviour {
 	{	
 		GameObject itemContainer = new GameObject();
 		itemContainer.name = "ItemContainer";
-		
 		_lastPos = iTween.PointOnPath(iTweenPath.GetPath(_pathName), 0.0f);
 		
 		// Create Path Items:
@@ -76,6 +86,7 @@ public class PathItems : MonoBehaviour {
 				item.tag = "Item1";
 				item.transform.Rotate(new Vector3(270.0f, 180.0f, 0.0f));
 				item.transform.parent = itemContainer.transform;
+				//items.Add(item.transform.position);
 			}
 			else if(goodOrEvil >= 0.66f)
 			{
@@ -107,7 +118,6 @@ public class PathItems : MonoBehaviour {
 		Vector3 rightDir = new Vector3(rightDir2.x, 0, rightDir2.y);
 		
 		Debug.DrawRay(pos, curDir.normalized * 10.0f, Color.blue, 100.0f);
-		
 #		if UNITY_EDITOR
 		if(Input.GetKey(KeyCode.A))
 		{
@@ -124,29 +134,59 @@ public class PathItems : MonoBehaviour {
 			{
 				_middleDistance += 1.0f;
 			}
+		} 
+		else if(Input.GetKeyDown(KeyCode.Space))
+		{
+			//Debug.Log ("Space");
+//			Vector3 hullPoint = pos + curDir.normalized * 10;
+//			Debug.DrawRay(pos, curDir.normalized * 10, Color.yellow, 100f);
+			
+			Collider[] hits = Physics.OverlapSphere(pos, _trackSideWidth); //.SphereCastAll(pos, 100.0f, curDir.normalized, 0);
+			
+			foreach(Collider hit in hits)
+			{
+				_marker.position=new Vector3(hit.transform.position.x,hit.transform.position.y,hit.transform.position.z);
+				Debug.Log("Hit object at dist " + (pos - hit.transform.position).magnitude, hit.transform);
+				break;
+			}
+		}
+#		elif MOBILE
+		Debug.LogWarning(Input.touchCount);
+		if (Input.touchCount > 0)
+		{
+			Touch touch = Input.GetTouch(Input.touchCount - 1);
+			float touchPos = touch.position.x;
+				
+			_middleDistance += touchPos < Screen.width * 0.5f ? -1.0f : 1.0f;
 		}
 #		endif
+		
 		//pos=_lastPos;
 		Debug.DrawRay(pos, (curDir * 100.0f), Color.yellow, 100.0f);
 		
 		_flightObject.LookAt((pos + rightDir * _middleDistance) + (curDir * 100.0f));
 		
 		Vector3 cam= pos;
-		Vector3 sphere=pos;
-		_flightObject.position = pos + rightDir * _middleDistance;
+
+		_quadpos=_flightObject.position = pos + rightDir * _middleDistance;
 
 		float diff=_middleDistance-_camMovement;
 		//Debug.LogWarning(Mathf.Abs(_middleDistance-_camMovement));
 		if (Mathf.Abs(_middleDistance-_camMovement)>_trackSideWidth/4.0f){
 			_camMovement+=diff*0.03f;
 		}
-
+//	    Texture2D texture = new Texture2D(1, 1);
+//	    texture.SetPixel(0,0,new Color(1,0,0));
+//	    texture.Apply();
+//	    GUI.skin.box.normal.background = texture;
+//	    GUI.Box(new Rect(pos.x,pos.y,10,10), GUIContent.none);
 		cam.y+=_camHeight;
 		cam+=rightDir*_camMovement;
 		//_sphere.position=sphere+=rightDir*_camMovement;
 		_cam.transform.position=cam;// = new Vector3(_flightObject.position.x, _flightObject.position.y + _camHeight, _flightObject.position.z);
 		_lastPos=pos;
 	}
+	
 	
 	private Vector2 TurnLeft(Vector2 vec)
 	{
