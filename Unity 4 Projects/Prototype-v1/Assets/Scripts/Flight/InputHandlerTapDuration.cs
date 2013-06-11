@@ -56,7 +56,7 @@ public class InputHandlerTapDuration : MonoBehaviour {
 			
 			
 			float rotationDirection = touchPos < Screen.width * 0.5f ? -1 : 1;
-			Debug.Log("Touch at: " + touchPos + "; Rotation: " + _sensitivity*rotationDirection);
+			//Debug.Log("Touch at: " + touchPos + "; Rotation: " + _sensitivity*rotationDirection);
 			_airCraft.SetHUDRotation(_sensitivity * rotationDirection);
 		
 		}
