@@ -106,6 +106,8 @@ public class PathItems : MonoBehaviour {
 		Vector2 rightDir2 = TurnRight(new Vector2(curDir.x, curDir.z)).normalized;
 		Vector3 rightDir = new Vector3(rightDir2.x, 0, rightDir2.y);
 		
+		Debug.DrawRay(pos, curDir.normalized * 10.0f, Color.blue, 100.0f);
+		
 #		if UNITY_EDITOR
 		if(Input.GetKey(KeyCode.A))
 		{
@@ -125,7 +127,9 @@ public class PathItems : MonoBehaviour {
 		}
 #		endif
 		//pos=_lastPos;
-		_flightObject.LookAt(pos+ (curDir * 10.0f));
+		Debug.DrawRay(pos, (curDir * 100.0f), Color.yellow, 100.0f);
+		
+		_flightObject.LookAt((pos + rightDir * _middleDistance) + (curDir * 100.0f));
 		
 		Vector3 cam= pos;
 		Vector3 sphere=pos;
