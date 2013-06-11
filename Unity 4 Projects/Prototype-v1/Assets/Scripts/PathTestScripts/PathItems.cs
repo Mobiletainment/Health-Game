@@ -46,8 +46,8 @@ public class PathItems : MonoBehaviour {
 			Vector3 leftDir = new Vector3(leftDir2.x, 0, leftDir2.y);
 			Vector3 rightDir = new Vector3(rightDir2.x, 0, rightDir2.y);
 			
-//			Debug.DrawRay(pos, leftDir * 10.0f, Color.red, 100.0f);
-//			Debug.DrawRay(pos, rightDir * 10.0f, Color.red, 100.0f);
+			Debug.DrawRay(pos, leftDir * 10.0f, Color.red, 100.0f);
+			Debug.DrawRay(pos, rightDir * 10.0f, Color.red, 100.0f);
 			
 			// Put items on track:
 			float rangeLeft = Random.Range(0, (int)(_trackSideWidth));
@@ -107,6 +107,8 @@ public class PathItems : MonoBehaviour {
 		Vector2 rightDir2 = TurnRight(new Vector2(curDir.x, curDir.z)).normalized;
 		Vector3 rightDir = new Vector3(rightDir2.x, 0, rightDir2.y);
 		
+		Debug.DrawRay(pos, curDir.normalized * 10.0f, Color.blue, 100.0f);
+		
 #		if UNITY_EDITOR
 		if(Input.GetKey(KeyCode.A))
 		{
@@ -126,11 +128,15 @@ public class PathItems : MonoBehaviour {
 		}
 #		endif
 		
-		_flightObject.LookAt(pos + (curDir * 10.0f));
+		Debug.DrawRay(pos, (curDir * 100.0f), Color.yellow, 100.0f);
+		
+		_flightObject.LookAt((pos + rightDir * _middleDistance) + (curDir * 100.0f));
 		_flightObject.position = pos + rightDir * _middleDistance;
 		
 		// Set Camera position:
 		_cam.transform.position = new Vector3(_flightObject.position.x, _flightObject.position.y + _camHeight, _flightObject.position.z);
+	
+		_lastPos = pos;
 	}
 	
 	private Vector2 TurnLeft(Vector2 vec)
