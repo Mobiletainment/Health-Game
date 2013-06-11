@@ -17,7 +17,7 @@ public class PathItems : MonoBehaviour {
 	public float _timeInSec = 60;
 	public float _camMovement=0;
 	private float _middleDistance = 0.0f;
-	public Transform _sphere;
+	//public Transform _sphere;
 	// LastPos is used for calculations of flight or path direction.
 	private Vector3 _lastPos = Vector3.zero;
 	
@@ -136,14 +136,14 @@ public class PathItems : MonoBehaviour {
 		_flightObject.position = pos + rightDir * _middleDistance;
 
 		float diff=_middleDistance-_camMovement;
-		Debug.LogWarning(Mathf.Abs(_middleDistance-_camMovement));
+		//Debug.LogWarning(Mathf.Abs(_middleDistance-_camMovement));
 		if (Mathf.Abs(_middleDistance-_camMovement)>_trackSideWidth/4.0f){
 			_camMovement+=diff*0.03f;
 		}
 
 		cam.y+=_camHeight;
 		cam+=rightDir*_camMovement;
-		_sphere.position=sphere+=rightDir*_camMovement;
+		//_sphere.position=sphere+=rightDir*_camMovement;
 		_cam.transform.position=cam;// = new Vector3(_flightObject.position.x, _flightObject.position.y + _camHeight, _flightObject.position.z);
 		_lastPos=pos;
 	}
