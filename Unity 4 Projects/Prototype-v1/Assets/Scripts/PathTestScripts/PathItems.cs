@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-
 public class PathItems : MonoBehaviour {
 	
 	// Define the width of the track (width is only one half of the track!)
@@ -16,9 +15,9 @@ public class PathItems : MonoBehaviour {
 	public GameObject _vehiclePos;
 	public Transform _flightObject;
 	public float _timeInSec = 60;
-	
+	public float _camMovement=0;
 	private float _middleDistance = 0.0f;
-	
+	public Transform _sphere;
 	// LastPos is used for calculations of flight or path direction.
 	private Vector3 _lastPos = Vector3.zero;
 	
@@ -46,8 +45,8 @@ public class PathItems : MonoBehaviour {
 			Vector3 leftDir = new Vector3(leftDir2.x, 0, leftDir2.y);
 			Vector3 rightDir = new Vector3(rightDir2.x, 0, rightDir2.y);
 			
-//			Debug.DrawRay(pos, leftDir * 10.0f, Color.red, 100.0f);
-//			Debug.DrawRay(pos, rightDir * 10.0f, Color.red, 100.0f);
+			Debug.DrawRay(pos, leftDir * 10.0f, Color.red, 100.0f);
+			Debug.DrawRay(pos, rightDir * 10.0f, Color.red, 100.0f);
 			
 			// Put items on track:
 			float rangeLeft = Random.Range(0, (int)(_trackSideWidth));
@@ -125,12 +124,24 @@ public class PathItems : MonoBehaviour {
 			}
 		}
 #		endif
+		//pos=_lastPos;
+		_flightObject.LookAt(pos+ (curDir * 10.0f));
 		
-		_flightObject.LookAt(pos + (curDir * 10.0f));
+		Vector3 cam= pos;
+		Vector3 sphere=pos;
 		_flightObject.position = pos + rightDir * _middleDistance;
-		
-		// Set Camera position:
-		_cam.transform.position = new Vector3(_flightObject.position.x, _flightObject.position.y + _camHeight, _flightObject.position.z);
+
+		float diff=_middleDistance-_camMovement;
+		Debug.LogWarning(Mathf.Abs(_middleDistance-_camMovement));
+		if (Mathf.Abs(_middleDistance-_camMovement)>_trackSideWidth/4.0f){
+			_camMovement+=diff*0.03f;
+		}
+
+		cam.y+=_camHeight;
+		cam+=rightDir*_camMovement;
+		_sphere.position=sphere+=rightDir*_camMovement;
+		_cam.transform.position=cam;// = new Vector3(_flightObject.position.x, _flightObject.position.y + _camHeight, _flightObject.position.z);
+		_lastPos=pos;
 	}
 	
 	private Vector2 TurnLeft(Vector2 vec)
