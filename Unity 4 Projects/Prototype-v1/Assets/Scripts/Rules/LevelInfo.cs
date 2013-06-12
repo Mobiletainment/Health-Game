@@ -15,11 +15,16 @@ public class LevelInfo : MonoBehaviour
 	public static Rule Rule3 = new Rule(2, 1, 3, 0, 2);
 	public static Rule Rule4 = new Rule(3, 0, 3, 1, 2);
 	
-	protected static Dictionary<int, List<Rule>>RuleSets = new Dictionary<int, List<Rule>>()
+	protected static List<List<Rule>> RuleSets = new List<List<Rule>>()
 	{
-		{ 0, new List<Rule>() { Rule1 } }, 			//Level 1: only first Rule
-		{ 1, new List<Rule>() { Rule1, Rule2 } },	//Level 2: two rules, first and second
-		{ 2, new List<Rule>() { Rule1, Rule2, Rule1 } }
+		new List<Rule>() { Rule1 }, 				//Level 1: only first Rule
+		new List<Rule>() { Rule1, Rule2 },			//Level 2: two rules, first and second
+		new List<Rule>() { Rule1, Rule2, Rule1 },	//Level 3
+		new List<Rule>() { Rule2, Rule3, Rule3 },	//Level 4
+		new List<Rule>() { Rule3, Rule3, Rule1, Rule2, Rule2, Rule3 },  //Level 5
+		new List<Rule>() { Rule4, Rule2, Rule1 },						//Level 6
+		new List<Rule>() { Rule4, Rule4, Rule1, Rule1, Rule3, Rule2 },  //Level 7
+		new List<Rule>() { Rule4, Rule4, Rule1, Rule3, Rule2, Rule2 }
 	};
 	
 	public static List<Color> SignalColors = new List<Color>()
