@@ -28,7 +28,6 @@ public class ItemHit : MonoBehaviour
 
 	public void OnTriggerEnter(Collider hit)
 	{
-		Debug.Log("Hit");
 		lastHitPosition = hit.gameObject.transform.position;
 		if (RuleSwitcher.IsItemHitGood(hit.gameObject))
 		{
@@ -39,7 +38,6 @@ public class ItemHit : MonoBehaviour
 			SetHit(ItemHit.ActiveHit.Bad);
 		}
 		
-		Debug.Log(hit.tag);
 		if (hit.tag != "UI")
 		{
 			//deactivate the collided object

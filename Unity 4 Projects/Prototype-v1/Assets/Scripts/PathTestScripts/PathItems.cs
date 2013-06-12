@@ -98,7 +98,6 @@ public class PathItems : MonoBehaviour {
 			if(goodOrEvil >= 0.33f && goodOrEvil < 0.66f)
 			{
 				item = Instantiate(_rulesSwitcher.GetRandomGoodItem(), pos + (side * middleDistance), Quaternion.identity) as GameObject;
-				item.tag = "Item1";
 				item.transform.localScale *= 1.5f;
 				item.transform.parent = itemContainer.transform;
 				//items.Add(item.transform.position);
@@ -106,7 +105,6 @@ public class PathItems : MonoBehaviour {
 			else if(goodOrEvil >= 0.66f)
 			{
 				item = Instantiate(_rulesSwitcher.GetRandomBadItem(), pos + (side * middleDistance), Quaternion.identity) as GameObject;
-				item.tag = "Item2";
 				item.transform.localScale *= 1.5f;
 				item.transform.parent = itemContainer.transform;
 			}

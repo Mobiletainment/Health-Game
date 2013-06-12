@@ -10,9 +10,6 @@ public class RulesSwitcher : MonoBehaviour
 	
 	public float FlashLength = 0.4f;
 	
-	private List<Color> flashColors = new List<Color>();
-	private int activeRule = 0;
-	
 	protected Camera FlashCamera;
 	protected GameObject FlashWall;
 	
@@ -23,30 +20,33 @@ public class RulesSwitcher : MonoBehaviour
 	protected int level;
 	protected Camera MainCamera;
 	
+	protected List<Rule> CurrentRuleSet;
+	protected Rule CurrentActiveRule;
+	
+	void Awake()
+	{
+		CurrentActiveRule = LevelInfo.Rule1;
+	}
+	
 	void Start()
 	{
 		DontDestroyOnLoad(this);
-	
 		Init();
 	}
 	
 	protected void Init()
 	{
+		for(int i = 0; i < Items.Count; ++i)
+		{
+			Items[i].tag = i.ToString();
+		}
+		
 		TimeLeft = LevelInfo.LevelDuration;
 		level = LevelInfo.Level;
 		Score = 0;
 		UpdateScore(0);	
 		UpdateCountdownLabel();
 		InvokeRepeating("Countdown", 1.0f, 1.0f);
-
-		flashColors.Add(new Color(160.0f/255, 82.0f/255, 45.0f/255, 255.0f/255));
-		flashColors.Add(new Color(147.0f/255, 190.0f/255, 200.0f/255, 255.0f/255));
-		flashColors.Add(new Color(0.0f, 0.4f, 0.0f, 1.0f)); //Green
-		flashColors.Add(Color.gray);
-//		flashColors.Add(Color.yellow);
-
-		//flashColors.Add(Color.blue);
-		
 		
 		//Load Stuff needed for Flash
 		if (GameObject.Find("Flash Camera") != null)
@@ -76,38 +76,47 @@ public class RulesSwitcher : MonoBehaviour
 		if (GameObject.Find("Main Camera") != null)
 			MainCamera = GameObject.Find("Main Camera").camera;
 		
+		CurrentRuleSet = LevelInfo.CurrentRuleSet;
 		InvokeRepeating("RuleFlashBegin", 0.0f, LevelInfo.RuleDuration);
-		Debug.Log(FlashWall);
 	}
 	
 	public bool IsItemHitGood(GameObject gameObject)
 	{
-		return Random.Range(0, 2) == 0; //TODO:
+		int itemIndex = int.Parse(gameObject.tag);
+		return CurrentActiveRule.GoodItems.Contains(itemIndex);
 	}
 	
 	public GameObject GetRandomBadItem()
 	{
-		return Items[Random.Range(0, 2)]; //TODO: refine logic for returning a good item according to the active rule
+		int itemIndex = Random.Range(0, 2);
+		return Items[CurrentActiveRule.BadItems[itemIndex]]; //TODO: refine logic for returning a good item according to the active rule
 	}
 	
 	public GameObject GetRandomGoodItem()
 	{
-		return Items[Random.Range(2, 4)]; //TOOD: refine logic for returning a good item according to the active rule
+		int itemIndex = Random.Range(0, 2);
+		return Items[CurrentActiveRule.GoodItems[itemIndex]]; //TOOD: refine logic for returning a good item according to the active rule
 	}
 	
 	protected void RuleFlashBegin ()
 	{
-		Debug.Log("Flash active");
-		FlashWall.renderer.material.color = flashColors[activeRule];
+		NextRule();
+		FlashWall.renderer.material.color = LevelInfo.SignalColors[CurrentActiveRule.Index];
 		FlashCamera.enabled = true;
 		MainCamera.enabled = false;
-		MainCamera.backgroundColor = flashColors[activeRule];
+		MainCamera.backgroundColor = LevelInfo.SignalColors[CurrentActiveRule.Index];
 		//_aircraftReference.SetGoodTagIndex(activeRule);
 		
-		activeRule = (activeRule + 1) % flashColors.Count;
 		Invoke("RuleFlashEnd", FlashLength);
 		
 		// Hier eventuell eine Coroutine aufrufen, die den Flashscreen "langsame" an und aus macht...
+	}
+	
+	protected void NextRule()
+	{
+		int randomRuleIndex = Random.Range(0, CurrentRuleSet.Count);
+		CurrentActiveRule = CurrentRuleSet[randomRuleIndex];
+		CurrentRuleSet.Remove(CurrentActiveRule); //don't use this same rule again
 	}
  
 	protected void RuleFlashEnd ()
