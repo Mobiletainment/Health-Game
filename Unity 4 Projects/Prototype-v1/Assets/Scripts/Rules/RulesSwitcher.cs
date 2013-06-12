@@ -7,18 +7,21 @@ public class RulesSwitcher : MonoBehaviour
 	public LevelInfo LevelInfo;
 	
 	public List<GameObject> Items;
-	public GameObject FlashWall;
-	public float FlashLength = 0.5f;
+	
+	public float FlashLength = 0.4f;
 	
 	private List<Color> flashColors = new List<Color>();
 	private int activeRule = 0;
 	
-	//private Camera flashCamera;
+	protected Camera FlashCamera;
+	protected GameObject FlashWall;
+	
 	public UILabel countdownLabel;
 	public int TimeLeft { get; protected set;}
 	public int Score { get; protected set; }
 	public UILabel scoreLabel;
 	protected int level;
+	protected Camera MainCamera;
 	
 	void Start()
 	{
@@ -36,13 +39,40 @@ public class RulesSwitcher : MonoBehaviour
 		UpdateCountdownLabel();
 		InvokeRepeating("Countdown", 1.0f, 1.0f);
 		
-		flashColors.Add(Color.white);
+//		flashColors.Add(Color.white);
 //		flashColors.Add(Color.yellow);
-//		flashColors.Add(Color.green);
+		flashColors.Add(Color.green);
 		flashColors.Add(Color.blue);
 		
-		//flashCamera = GameObject.Find("Flash Camera").camera;
-
+		
+		//Load Stuff needed for Flash
+		if (GameObject.Find("Flash Camera") != null)
+			FlashCamera = GameObject.Find("Flash Camera").camera;
+		else //Load from Resources
+		{
+			FlashCamera = (Instantiate(Resources.Load("Prefabs/Flash Camera", typeof(GameObject))) as GameObject).camera;
+			FlashCamera.name = "Flash Camera";
+		}
+		
+		FlashWall = GameObject.Find("Flash Wall");
+		
+		if (FlashWall == null)
+		{
+			FlashWall = Instantiate(Resources.Load("Prefabs/Flash Wall", typeof(GameObject))) as GameObject;
+			FlashWall.name = "Flash Wall";
+		}
+		
+		GameObject flashLight = GameObject.Find("Flash Point light");
+		
+		if (flashLight == null)
+		{
+			flashLight = Instantiate(Resources.Load("Prefabs/Flash Point light", typeof(GameObject))) as GameObject;
+			flashLight.name = "Flash Point light";		
+		}
+		
+		if (GameObject.Find("Main Camera") != null)
+			MainCamera = GameObject.Find("Main Camera").camera;
+		
 		InvokeRepeating("RuleFlashBegin", 0.0f, LevelInfo.RuleDuration);
 		Debug.Log(FlashWall);
 	}
@@ -64,9 +94,10 @@ public class RulesSwitcher : MonoBehaviour
 	
 	protected void RuleFlashBegin ()
 	{
-		//Debug.Log("FlashImage");
-		//FlashWall.renderer.material.color = flashColors[activeRule];
-		//flashCamera.enabled = true;
+		Debug.Log("Flash active");
+		FlashWall.renderer.material.color = flashColors[activeRule];
+		FlashCamera.enabled = true;
+		MainCamera.enabled = false;
 		//_aircraftReference.SetGoodTagIndex(activeRule);
 		
 		activeRule = (activeRule + 1) % flashColors.Count;
@@ -77,7 +108,8 @@ public class RulesSwitcher : MonoBehaviour
  
 	protected void RuleFlashEnd ()
 	{
-		//flashCamera.enabled = false;
+		FlashCamera.enabled = false;
+		MainCamera.enabled = true;
 	} 
 	
 	void Countdown()
@@ -116,7 +148,7 @@ public class RulesSwitcher : MonoBehaviour
 	
 	public void Update()
 	{
-		if (level != LevelInfo.Level)
+		if (level != LevelInfo.Level) //if a new level has been started, this persistent object isn't awaked a second time so we manually need to update the information
 		{
 			Init();
 		}
