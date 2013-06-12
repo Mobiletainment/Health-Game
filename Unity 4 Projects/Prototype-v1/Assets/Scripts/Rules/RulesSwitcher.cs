@@ -10,18 +10,24 @@ public class RulesSwitcher : MonoBehaviour
 	public GameObject FlashWall;
 	public float FlashLength = 0.5f;
 	
-	public GameObject Vehicle;
-	
 	private List<Color> flashColors = new List<Color>();
 	private int activeRule = 0;
 	
 	private Camera flashCamera;
 	protected UILabel countdownLabel;
 	public int TimeLeft { get; protected set;}
+	public int Score { get; protected set; }
+	protected UILabel scoreLabel;
 	
 	void Start()
 	{
+		DontDestroyOnLoad(this);
 		countdownLabel = GameObject.Find("CountdownLabel").GetComponent<UILabel>();
+		scoreLabel = GameObject.Find("ScoreLabel").GetComponent<UILabel>();
+		
+		TimeLeft = LevelInfo.LevelDuration;
+		Score = 0;
+		UpdateScore(0);	
 		UpdateCountdownLabel();
 		InvokeRepeating("Countdown", 1.0f, 1.0f);
 		
@@ -31,24 +37,24 @@ public class RulesSwitcher : MonoBehaviour
 		flashColors.Add(Color.blue);
 		
 		flashCamera = GameObject.Find("Flash Camera").camera;
-		TimeLeft = LevelInfo.LevelDuration;
+
 		InvokeRepeating("RuleFlashBegin", 0.0f, LevelInfo.RuleDuration);
 		Debug.Log(FlashWall);
 	}
 	
 	public bool IsItemHitGood(GameObject gameObject)
 	{
-		return Random.Range(0, 2) == 0;
+		return Random.Range(0, 2) == 0; //TODO:
 	}
 	
 	public GameObject GetRandomBadItem()
 	{
-		return Items[Random.Range(0, 2)]; //refine logic for returning a good item according to the active rule
+		return Items[Random.Range(0, 2)]; //TODO: refine logic for returning a good item according to the active rule
 	}
 	
 	public GameObject GetRandomGoodItem()
 	{
-		return Items[Random.Range(2, 4)]; //refine logic for returning a good item according to the active rule
+		return Items[Random.Range(2, 4)]; //TOOD: refine logic for returning a good item according to the active rule
 	}
 	
 	protected void RuleFlashBegin ()
@@ -88,5 +94,15 @@ public class RulesSwitcher : MonoBehaviour
 	void LoadGameOverScene()
 	{
 		Application.LoadLevel("GameOver");
+	}
+	
+	public void UpdateScore(int i = 1)
+	{
+		Score = Score + i;
+		
+		if (Score < 0) //avoid negative score
+			Score = 0;
+		
+		scoreLabel.text = string.Format("Score: {0}/{1}", Score.ToString(), LevelInfo.NecessaryPositiveItems);		
 	}
 }

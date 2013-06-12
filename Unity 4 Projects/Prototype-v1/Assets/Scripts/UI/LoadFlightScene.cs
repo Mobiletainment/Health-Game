@@ -5,6 +5,6 @@ public class LoadFlightScene : MonoBehaviour {
 
     void OnClick ()
     {
-    	Application.LoadLevel("TestFlight");
+    	Application.LoadLevel("PathFlight");
     }
 }

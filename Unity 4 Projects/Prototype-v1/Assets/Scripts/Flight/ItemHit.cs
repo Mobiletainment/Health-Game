@@ -18,17 +18,11 @@ public class ItemHit : MonoBehaviour
 	public Behaviour badItemHit;
 	private ActiveHit activeHit;
 	
-	protected UILabel scoreLabel;
-	protected int score = 0;
-	
 	protected Vector3 lastHitPosition;
 
 	public void Awake()
 	{
 		activeHit = ActiveHit.None;
-		
-		this.scoreLabel = GameObject.Find("ScoreLabel").GetComponent<UILabel>();
-    	UpdateScore(0);	
 	}
 	
 
@@ -56,15 +50,7 @@ public class ItemHit : MonoBehaviour
 		//hit.gameObject.renderer.enabled = false;
 	}
 	
-	public void UpdateScore(int i = 1)
-	{
-		score = score + i;
-		
-		if (score < 0) //avoid negative score
-			score = 0;
-		
-		scoreLabel.text = "Score: " + score.ToString();		
-	}
+	
 	
 	public void SetHit(ActiveHit hit)
 	{
@@ -81,14 +67,14 @@ public class ItemHit : MonoBehaviour
 			goodItemHit.enabled = true;
 			badItemHit.enabled = false;
 			
-			UpdateScore(1);
+			RuleSwitcher.UpdateScore(1);
 			lastItemHit = Time.time;
 			break;
 		case ActiveHit.Bad:
 			badItemHit.transform.position = lastHitPosition;
 			goodItemHit.enabled = false;
 			badItemHit.enabled = true;
-			UpdateScore(-1);
+			RuleSwitcher.UpdateScore(-1);
 			lastItemHit = Time.time;
 			#if UNITY_IPHONE || UNITY_ANDROID
 				Handheld.Vibrate(); //vibration as feedback for wrong items
