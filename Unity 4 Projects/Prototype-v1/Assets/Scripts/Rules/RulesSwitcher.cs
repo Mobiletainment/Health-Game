@@ -38,11 +38,14 @@ public class RulesSwitcher : MonoBehaviour
 		UpdateScore(0);	
 		UpdateCountdownLabel();
 		InvokeRepeating("Countdown", 1.0f, 1.0f);
-		
-//		flashColors.Add(Color.white);
+
+		flashColors.Add(new Color(160.0f/255, 82.0f/255, 45.0f/255, 255.0f/255));
+		flashColors.Add(new Color(147.0f/255, 190.0f/255, 200.0f/255, 255.0f/255));
+		flashColors.Add(new Color(0.0f, 0.4f, 0.0f, 1.0f)); //Green
+		flashColors.Add(Color.gray);
 //		flashColors.Add(Color.yellow);
-		flashColors.Add(Color.green);
-		flashColors.Add(Color.blue);
+
+		//flashColors.Add(Color.blue);
 		
 		
 		//Load Stuff needed for Flash
@@ -98,6 +101,7 @@ public class RulesSwitcher : MonoBehaviour
 		FlashWall.renderer.material.color = flashColors[activeRule];
 		FlashCamera.enabled = true;
 		MainCamera.enabled = false;
+		MainCamera.backgroundColor = flashColors[activeRule];
 		//_aircraftReference.SetGoodTagIndex(activeRule);
 		
 		activeRule = (activeRule + 1) % flashColors.Count;
