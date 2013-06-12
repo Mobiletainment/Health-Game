@@ -9,20 +9,18 @@ public class PathItems : MonoBehaviour {
 	public float _trackSideWidth;
 	public string _pathName = "FlightPath1";
 	
-	public List<GameObject> _items;
-	
 	public Camera _cam;
 	public float _camHeight = 50.0f;
 	
 	public GameObject _vehiclePos;
 	public Transform _flightObject;
-	public float _timeInSec = 60;
+	
 	public float _camMovement=0;
 	private float _middleDistance = 0.0f;
 	private Vector3 _quadpos;
 	public Transform _marker;
 
-
+	public RulesSwitcher _rulesSwitcher;
 		
 	private int _markIndex;
 	//public List<Vector3> items = new List<Vector3>();
@@ -80,15 +78,17 @@ public class PathItems : MonoBehaviour {
 			float goodOrEvil = Random.value;
 			if(goodOrEvil >= 0.33f && goodOrEvil < 0.66f)
 			{
-				item = Instantiate(_items[Random.Range(0, 2)], pos + (side * middleDistance), Quaternion.identity) as GameObject;
+				item = Instantiate(_rulesSwitcher.GetRandomGoodItem(), pos + (side * middleDistance), Quaternion.identity) as GameObject;
 				item.tag = "Item1";
+				item.transform.localScale *= 1.5f;
 				item.transform.parent = itemContainer.transform;
 				//items.Add(item.transform.position);
 			}
 			else if(goodOrEvil >= 0.66f)
 			{
-				item = Instantiate(_items[Random.Range(2, 4)], pos + (side * middleDistance), Quaternion.identity) as GameObject;
+				item = Instantiate(_rulesSwitcher.GetRandomBadItem(), pos + (side * middleDistance), Quaternion.identity) as GameObject;
 				item.tag = "Item2";
+				item.transform.localScale *= 1.5f;
 				item.transform.parent = itemContainer.transform;
 			}
 			
@@ -101,7 +101,7 @@ public class PathItems : MonoBehaviour {
 		_lastPos = iTween.PointOnPath(iTweenPath.GetPath(_pathName), 0.0f);
 		
 		// Now let's start the flight:
-		iTween.MoveTo(_vehiclePos, iTween.Hash("path", iTweenPath.GetPath(_pathName), "easetype", iTween.EaseType.linear, "time", _timeInSec));
+		iTween.MoveTo(_vehiclePos, iTween.Hash("path", iTweenPath.GetPath(_pathName), "easetype", iTween.EaseType.linear, "time", _rulesSwitcher.LevelInfo.LevelDuration));
 	}
 	
 	// Update is called once per frame

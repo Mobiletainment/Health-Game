@@ -4,11 +4,13 @@ using System.Collections.Generic;
 
 public class RulesSwitcher : MonoBehaviour
 {
-	public GameObject flashWall;
-	public float ruleDuration = 5.0f; //#seconds before the next rule is applied
-	public float flashLength = 0.5f;
+	public LevelInfo LevelInfo;
 	
-	public Aircraft _aircraftReference;
+	public List<GameObject> Items;
+	public GameObject FlashWall;
+	public float FlashLength = 0.5f;
+	
+	public GameObject Vehicle;
 	
 	private List<Color> flashColors = new List<Color>();
 	private int activeRule = 0;
@@ -23,19 +25,34 @@ public class RulesSwitcher : MonoBehaviour
 		flashColors.Add(Color.blue);
 		
 		flashCamera = GameObject.Find("Flash Camera").camera;
-		InvokeRepeating("RuleFlashBegin", 0.0f, ruleDuration);
+		InvokeRepeating("RuleFlashBegin", 0.0f, LevelInfo.RuleDuration);
+		Debug.Log(FlashWall);
 	}
 	
+	public bool IsItemHitGood(GameObject gameObject)
+	{
+		return Random.Range(0, 2) == 0;
+	}
+	
+	public GameObject GetRandomBadItem()
+	{
+		return Items[Random.Range(0, 2)]; //refine logic for returning a good item according to the active rule
+	}
+	
+	public GameObject GetRandomGoodItem()
+	{
+		return Items[Random.Range(2, 4)]; //refine logic for returning a good item according to the active rule
+	}
 	
 	protected void RuleFlashBegin ()
 	{
 		//Debug.Log("FlashImage");
-		flashWall.renderer.material.color = flashColors[activeRule];
+		//FlashWall.renderer.material.color = flashColors[activeRule];
 		flashCamera.enabled = true;
-		_aircraftReference.SetGoodTagIndex(activeRule);
+		//_aircraftReference.SetGoodTagIndex(activeRule);
 		
 		activeRule = (activeRule + 1) % flashColors.Count;
-		Invoke("RuleFlashEnd", flashLength);
+		Invoke("RuleFlashEnd", FlashLength);
 		
 		// Hier eventuell eine Coroutine aufrufen, die den Flashscreen "langsame" an und aus macht...
 	}

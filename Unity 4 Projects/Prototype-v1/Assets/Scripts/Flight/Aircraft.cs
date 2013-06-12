@@ -34,7 +34,9 @@ public class Aircraft : MonoBehaviour
 	// Use this for initialization
 	void Start() 
 	{
-		itemHit = new ItemHit(collisionEffectPositive, collisionEffectNegative);
+		itemHit = new ItemHit();
+		//itemHit.goodItemHit = collisionEffectPositive;
+		
 		
         rigidbody.AddForce(transform.up * _speed, ForceMode.VelocityChange);
 		
