@@ -13,19 +13,24 @@ public class RulesSwitcher : MonoBehaviour
 	private List<Color> flashColors = new List<Color>();
 	private int activeRule = 0;
 	
-	private Camera flashCamera;
-	protected UILabel countdownLabel;
+	//private Camera flashCamera;
+	public UILabel countdownLabel;
 	public int TimeLeft { get; protected set;}
 	public int Score { get; protected set; }
-	protected UILabel scoreLabel;
+	public UILabel scoreLabel;
+	protected int level;
 	
 	void Start()
 	{
 		DontDestroyOnLoad(this);
-		countdownLabel = GameObject.Find("CountdownLabel").GetComponent<UILabel>();
-		scoreLabel = GameObject.Find("ScoreLabel").GetComponent<UILabel>();
-		
+	
+		Init();
+	}
+	
+	protected void Init()
+	{
 		TimeLeft = LevelInfo.LevelDuration;
+		level = LevelInfo.Level;
 		Score = 0;
 		UpdateScore(0);	
 		UpdateCountdownLabel();
@@ -36,7 +41,7 @@ public class RulesSwitcher : MonoBehaviour
 //		flashColors.Add(Color.green);
 		flashColors.Add(Color.blue);
 		
-		flashCamera = GameObject.Find("Flash Camera").camera;
+		//flashCamera = GameObject.Find("Flash Camera").camera;
 
 		InvokeRepeating("RuleFlashBegin", 0.0f, LevelInfo.RuleDuration);
 		Debug.Log(FlashWall);
@@ -61,7 +66,7 @@ public class RulesSwitcher : MonoBehaviour
 	{
 		//Debug.Log("FlashImage");
 		//FlashWall.renderer.material.color = flashColors[activeRule];
-		flashCamera.enabled = true;
+		//flashCamera.enabled = true;
 		//_aircraftReference.SetGoodTagIndex(activeRule);
 		
 		activeRule = (activeRule + 1) % flashColors.Count;
@@ -72,7 +77,7 @@ public class RulesSwitcher : MonoBehaviour
  
 	protected void RuleFlashEnd ()
 	{
-		flashCamera.enabled = false;
+		//flashCamera.enabled = false;
 	} 
 	
 	void Countdown()
@@ -80,11 +85,14 @@ public class RulesSwitcher : MonoBehaviour
 		if (--TimeLeft == 0)
 		{
 			CancelInvoke("Countdown");
+			CancelInvoke("RuleFlashBegin");
 			LoadGameOverScene();
 		}
 		
 		UpdateCountdownLabel();
 	}
+	
+	
 	
 	void UpdateCountdownLabel()
 	{
@@ -104,5 +112,14 @@ public class RulesSwitcher : MonoBehaviour
 			Score = 0;
 		
 		scoreLabel.text = string.Format("Score: {0}/{1}", Score.ToString(), LevelInfo.NecessaryPositiveItems);		
+	}
+	
+	public void Update()
+	{
+		if (level != LevelInfo.Level)
+		{
+			Init();
+		}
+		
 	}
 }

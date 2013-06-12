@@ -28,9 +28,28 @@ public class PathItems : MonoBehaviour {
 	// LastPos is used for calculations of flight or path direction.
 	private Vector3 _lastPos = Vector3.zero;
 	
+	void Awake()
+	{
+		//Reuse RulesSwitcher between Levels for information transfer
+		GameObject rulesSwitcherGameObject = GameObject.Find("Rule Switcher");
+		
+		if (rulesSwitcherGameObject == null)
+		{
+			rulesSwitcherGameObject = Instantiate(Resources.Load("Prefabs/Rule Switcher", typeof(GameObject))) as GameObject;
+			rulesSwitcherGameObject.name = "Rule Switcher";
+			
+		}
+		
+		_rulesSwitcher = rulesSwitcherGameObject.GetComponent<RulesSwitcher>();
+	}
+	
 	// Use this for initialization
 	void Start () 
 	{	
+		_rulesSwitcher.countdownLabel = GameObject.Find("CountdownLabel").GetComponent<UILabel>();
+		_rulesSwitcher.scoreLabel = GameObject.Find("ScoreLabel").GetComponent<UILabel>();
+		_flightObject.gameObject.GetComponent<ItemHit>().RuleSwitcher = _rulesSwitcher;
+		
 		GameObject itemContainer = new GameObject();
 		itemContainer.name = "ItemContainer";
 		_lastPos = iTween.PointOnPath(iTweenPath.GetPath(_pathName), 0.0f);
