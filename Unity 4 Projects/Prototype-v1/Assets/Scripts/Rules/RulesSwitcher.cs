@@ -16,15 +16,22 @@ public class RulesSwitcher : MonoBehaviour
 	private int activeRule = 0;
 	
 	private Camera flashCamera;
+	protected UILabel countdownLabel;
+	public int TimeLeft { get; protected set;}
 	
 	void Start()
 	{
+		countdownLabel = GameObject.Find("CountdownLabel").GetComponent<UILabel>();
+		UpdateCountdownLabel();
+		InvokeRepeating("Countdown", 1.0f, 1.0f);
+		
 		flashColors.Add(Color.white);
 //		flashColors.Add(Color.yellow);
 //		flashColors.Add(Color.green);
 		flashColors.Add(Color.blue);
 		
 		flashCamera = GameObject.Find("Flash Camera").camera;
+		TimeLeft = LevelInfo.LevelDuration;
 		InvokeRepeating("RuleFlashBegin", 0.0f, LevelInfo.RuleDuration);
 		Debug.Log(FlashWall);
 	}
@@ -62,5 +69,24 @@ public class RulesSwitcher : MonoBehaviour
 		flashCamera.enabled = false;
 	} 
 	
+	void Countdown()
+	{
+		if (--TimeLeft == 0)
+		{
+			CancelInvoke("Countdown");
+			LoadGameOverScene();
+		}
+		
+		UpdateCountdownLabel();
+	}
 	
+	void UpdateCountdownLabel()
+	{
+		countdownLabel.text = string.Format("Time left: {0}s", TimeLeft);
+	}
+	
+	void LoadGameOverScene()
+	{
+		Application.LoadLevel("GameOver");
+	}
 }
