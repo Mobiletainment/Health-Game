@@ -43,8 +43,6 @@ public class GameOverUI : MonoBehaviour {
 				bonusCountSlider.sliderValue = (float)rulesSwitcher.Score / rulesSwitcher.LevelInfo.TotalPositiveItemCount;
 			else
 				bonusCountSlider.sliderValue = 0.0f;
-			
-			rulesSwitcher.LevelInfo.Level += 1;
 		}
 	}
 	
