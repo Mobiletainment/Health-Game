@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace SkillSystem
@@ -63,7 +64,43 @@ namespace SkillSystem
 #warning TODO: SkillManager - Load skills from XML or JSON-File
         public bool LoadSkillsFromFile(string filename = "skills.data")
         {
-            return false;
+            try
+            {
+                XmlDocument xml = new XmlDocument();
+                xml.Load(filename);
+
+                //BasicSkill members
+                string name;
+                string nameMinumum;
+                string nameMaximum;
+                short value;
+                short minValue;
+                short maxValue;
+                short defaultValue;
+
+                XmlNodeList nodeList = xml.GetElementsByTagName("BasicSkill");
+                foreach (XmlNode node in nodeList)
+                {
+                    name = node.Attributes["Name"].Value;
+                    nameMinumum = node.Attributes["NameMinimum"].Value;
+                    nameMaximum = node.Attributes["NameMaximum"].Value;
+                    value = short.Parse(node.Attributes["Value"].Value);
+                    minValue = short.Parse(node.Attributes["MinValue"].Value);
+                    maxValue = short.Parse(node.Attributes["MaxValue"].Value);
+                    defaultValue = short.Parse(node.Attributes["DefaultValue"].Value);
+                    BasicSkill skill = new BasicSkill(name, nameMinumum, nameMaximum, value, minValue, maxValue, defaultValue);
+
+                    AddSkill(skill);
+
+                    Console.WriteLine(node.OuterXml);
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
     }

@@ -20,12 +20,15 @@ public class BtnOnClick : MonoBehaviour {
     {
         //Debug.Log("OnClick " + skillName);
 
-        if(skillName.Equals("Save"))
+        if (skillName.Equals("Save"))
             GameObject.Find("ScriptHolder").GetComponent<skillSystem>().SaveSkills();
-
-        if(increase)
-            GameObject.Find("ScriptHolder").GetComponent<skillSystem>().Increase(skillName);
         else
-            GameObject.Find("ScriptHolder").GetComponent<skillSystem>().Decrease(skillName);
+        {
+
+            if (increase)
+                GameObject.Find("ScriptHolder").GetComponent<skillSystem>().Increase(skillName);
+            else
+                GameObject.Find("ScriptHolder").GetComponent<skillSystem>().Decrease(skillName);
+        }
     }
 }
