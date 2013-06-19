@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!--List of monster skills.-->
+<Skills>
+  <BasicSkill Name="Beweglichkeit" NameMinimum="min" NameMaximum="max" Value="5" MinValue="10" MaxValue="10" DefaultValue="5" />
+  <BasicSkill Name="Geschwindigkeit" NameMinimum="min" NameMaximum="max" Value="6" MinValue="10" MaxValue="10" DefaultValue="5" />
+  <BasicSkill Name="Boost" NameMinimum="min" NameMaximum="max" Value="8" MinValue="10" MaxValue="10" DefaultValue="5" />
+  <BasicSkill Name="Ausdauer" NameMinimum="min" NameMaximum="max" Value="2" MinValue="10" MaxValue="10" DefaultValue="5" />
+  <BasicSkill Name="Sichtweite" NameMinimum="min" NameMaximum="max" Value="6" MinValue="10" MaxValue="10" DefaultValue="5" />
+  <BasicSkill Name="Fitness" NameMinimum="min" NameMaximum="max" Value="4" MinValue="10" MaxValue="10" DefaultValue="5" />
+</Skills>
