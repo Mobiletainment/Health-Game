@@ -3,7 +3,11 @@ using System.Collections;
 
 public class ItemHit : MonoBehaviour
 {
+	[HideInInspector]
 	public RulesSwitcher RuleSwitcher;
+
+	protected AudioSource _audioSource;
+	protected AudioReverbZone _audioReverb;
 	
 	public enum ActiveHit
 	{
@@ -23,27 +27,41 @@ public class ItemHit : MonoBehaviour
 	public void Awake()
 	{
 		activeHit = ActiveHit.None;
+		
+		_audioSource = GameObject.Find("ItemHitSound").GetComponent<AudioSource>();
+		_audioReverb = GameObject.Find("ItemHitSound").GetComponent<AudioReverbZone>();
 	}
 	
 
 	public void OnTriggerEnter(Collider hit)
 	{
-		lastHitPosition = hit.gameObject.transform.position;
-		if (RuleSwitcher.IsItemHitGood(hit.gameObject))
+		GameObject hitObject = hit.gameObject;
+		
+		
+		
+
+		
+		lastHitPosition = hitObject.transform.position;
+		if (RuleSwitcher.IsItemHitGood(hitObject))
 		{
 			SetHit(ItemHit.ActiveHit.Good);
+			_audioReverb.enabled = false;
 		}
 		else
 		{
 			SetHit(ItemHit.ActiveHit.Bad);
+			_audioReverb.enabled = true;
 		}
+		
+		_audioSource.gameObject.transform.position = hitObject.transform.position;
+		_audioSource.Play();
 		
 		if (hit.tag != "UI")
 		{
 			//deactivate the collided object
 			hit.collider.enabled = false;
 			//hit.gameObject.renderer.material.color = Color.black;
-			hit.gameObject.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
+			hitObject.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
 		}
 		//hit.gameObject.renderer.enabled = false;
 	}
