@@ -1,0 +1,40 @@
+Meetings
+______________________________________________________
+Meeting 15.04 (FH + Lev)					1h
+Meeting 17.04 (UNIVIE)						2,5h
+Meeting 23.04 (UNIVIE)						3h
+2 Meetings (UNIVIE)							5h
+
+
+
+Dokumentation
+______________________________________________________
+Alien Station Manager + Völker 2 Konzept	1h
+Nachtrag vom Meeting						0,5h
+
+
+
+Programmierung
+______________________________________________________
+Skillsystem (Grundgerüst) + Unit Tests		3h
+Skillsystem (div. Anpassungen) + Editor		3h
+Localizator Lib + Tests						2h
+Localizator Unity 3D GUI Test				1h	
+
+
+Diverses
+______________________________________________________
+Assetsuche im Unity-Store					0,5h
+TFS und User einrichten						0,5h
+
+
+
+
+
+
+Hilfen:
+Shortcuts im Menü
+http://stackoverflow.com/questions/4682915/defining-menuitem-shortcuts
+http://stackoverflow.com/questions/2994718/correct-way-to-create-a-menu-with-shortcuts-in-wpf
+
+

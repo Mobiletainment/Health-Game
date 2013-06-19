@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="7978c37c-9108-4f37-a891-ae0162f70932" name="Konrad@KONRAD-PC 2013-05-17 22:32:32" runUser="Konrad-PC\Konrad" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="3397f4b9-b9cd-4787-b5d2-54f96f326124">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment enabled="false" runDeploymentRoot="Konrad_KONRAD-PC 2013-05-17 22_32_32">
+      <DeploymentItem filename="M:\FH HealthGame\SkillSystem\SkillSystem\bin\Debug\SkillSystem.dll" />
+      <DeploymentItem filename="M:\FH HealthGame\SkillSystem\Localizator\bin\Debug\Localizator.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2013-05-17T22:32:32.9499423+02:00" queuing="2013-05-17T22:32:33.5359758+02:00" start="2013-05-17T22:32:33.6189805+02:00" finish="2013-05-17T22:32:39.4903164+02:00" />
+  <ResultSummary outcome="Completed">
+    <Counters total="8" executed="8" passed="8" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="GettingSkillsFromManager" storage="m:\fh healthgame\skillsystem\skillsystemtest\bin\debug\skillsystemtest.dll" id="567ab633-2b5c-0f57-b214-2fccc8903fea">
+      <Execution id="348deda0-fecc-4cf0-b576-83cd19dffc2e" />
+      <TestMethod codeBase="M:/FH HealthGame/SkillSystem/SkillSystemTest/bin/Debug/SkillSystemTest.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="SkillSystemTest.BasicTests, SkillSystemTest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="GettingSkillsFromManager" />
+    </UnitTest>
+    <UnitTest name="NotExistingItemFromManager" storage="m:\fh healthgame\skillsystem\skillsystemtest\bin\debug\skillsystemtest.dll" id="1a6908c1-cd90-0131-cc3e-c3d7a9f04497">
+      <Execution id="92f4827c-3503-4de2-94ea-af000554b21f" />
+      <TestMethod codeBase="M:/FH HealthGame/SkillSystem/SkillSystemTest/bin/Debug/SkillSystemTest.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="SkillSystemTest.BasicTests, SkillSystemTest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="NotExistingItemFromManager" />
+    </UnitTest>
+    <UnitTest name="AddingSkillsWithSameNameToManager" storage="m:\fh healthgame\skillsystem\skillsystemtest\bin\debug\skillsystemtest.dll" id="2cd37c4f-af07-7300-624c-92af4a19b9e4">
+      <Execution id="f79041ca-1fd5-48db-902d-588d646eedf8" />
+      <TestMethod codeBase="M:/FH HealthGame/SkillSystem/SkillSystemTest/bin/Debug/SkillSystemTest.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="SkillSystemTest.BasicTests, SkillSystemTest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="AddingSkillsWithSameNameToManager" />
+    </UnitTest>
+    <UnitTest name="EnglishTextTest" storage="m:\fh healthgame\skillsystem\localizatortest\bin\debug\localizatortest.dll" id="4e243b78-d365-6b62-b1b1-4f54814a5b0a">
+      <Execution id="58cbc2b5-b40e-403e-acb5-2826150cec92" />
+      <TestMethod codeBase="M:/FH HealthGame/SkillSystem/LocalizatorTest/bin/Debug/LocalizatorTest.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="LocalizatorTest.BasicTests, LocalizatorTest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="EnglishTextTest" />
+    </UnitTest>
+    <UnitTest name="SaveSkills" storage="m:\fh healthgame\skillsystem\skillsystemtest\bin\debug\skillsystemtest.dll" id="2e1c99f9-ecb9-53dd-3ba8-607ac6e43b44">
+      <Execution id="dbb6950d-8283-4417-b5f5-ffd720d1fff5" />
+      <TestMethod codeBase="M:/FH HealthGame/SkillSystem/SkillSystemTest/bin/Debug/SkillSystemTest.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="SkillSystemTest.BasicTests, SkillSystemTest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="SaveSkills" />
+    </UnitTest>
+    <UnitTest name="AddingSkillToManagerTwice" storage="m:\fh healthgame\skillsystem\skillsystemtest\bin\debug\skillsystemtest.dll" id="2951f2dd-a507-15ed-2439-9599d0fabd4c">
+      <Execution id="4366c2b0-7041-4a72-a023-11c3888e4c3d" />
+      <TestMethod codeBase="M:/FH HealthGame/SkillSystem/SkillSystemTest/bin/Debug/SkillSystemTest.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="SkillSystemTest.BasicTests, SkillSystemTest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="AddingSkillToManagerTwice" />
+    </UnitTest>
+    <UnitTest name="GermanTextTest" storage="m:\fh healthgame\skillsystem\localizatortest\bin\debug\localizatortest.dll" id="bfa08005-dabb-f4d8-e5cc-15fb7e1c5efb">
+      <Execution id="4c44ebb3-ab5c-43e7-80bd-515ac0fd7f3d" />
+      <TestMethod codeBase="M:/FH HealthGame/SkillSystem/LocalizatorTest/bin/Debug/LocalizatorTest.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="LocalizatorTest.BasicTests, LocalizatorTest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="GermanTextTest" />
+    </UnitTest>
+    <UnitTest name="AddingSkillsToManager" storage="m:\fh healthgame\skillsystem\skillsystemtest\bin\debug\skillsystemtest.dll" id="b65e2298-73ea-c701-a9ec-49bee9b0439d">
+      <Execution id="139d2305-2ecc-4b77-ad57-54207d179404" />
+      <TestMethod codeBase="M:/FH HealthGame/SkillSystem/SkillSystemTest/bin/Debug/SkillSystemTest.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="SkillSystemTest.BasicTests, SkillSystemTest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="AddingSkillsToManager" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="1a6908c1-cd90-0131-cc3e-c3d7a9f04497" executionId="92f4827c-3503-4de2-94ea-af000554b21f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2951f2dd-a507-15ed-2439-9599d0fabd4c" executionId="4366c2b0-7041-4a72-a023-11c3888e4c3d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2cd37c4f-af07-7300-624c-92af4a19b9e4" executionId="f79041ca-1fd5-48db-902d-588d646eedf8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2e1c99f9-ecb9-53dd-3ba8-607ac6e43b44" executionId="dbb6950d-8283-4417-b5f5-ffd720d1fff5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4e243b78-d365-6b62-b1b1-4f54814a5b0a" executionId="58cbc2b5-b40e-403e-acb5-2826150cec92" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="567ab633-2b5c-0f57-b214-2fccc8903fea" executionId="348deda0-fecc-4cf0-b576-83cd19dffc2e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b65e2298-73ea-c701-a9ec-49bee9b0439d" executionId="139d2305-2ecc-4b77-ad57-54207d179404" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bfa08005-dabb-f4d8-e5cc-15fb7e1c5efb" executionId="4c44ebb3-ab5c-43e7-80bd-515ac0fd7f3d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="92f4827c-3503-4de2-94ea-af000554b21f" testId="1a6908c1-cd90-0131-cc3e-c3d7a9f04497" testName="NotExistingItemFromManager" computerName="KONRAD-PC" duration="00:00:00.0071892" startTime="2013-05-17T22:32:33.7439877+02:00" endTime="2013-05-17T22:32:34.6030368+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="92f4827c-3503-4de2-94ea-af000554b21f">
+    </UnitTestResult>
+    <UnitTestResult executionId="4366c2b0-7041-4a72-a023-11c3888e4c3d" testId="2951f2dd-a507-15ed-2439-9599d0fabd4c" testName="AddingSkillToManagerTwice" computerName="KONRAD-PC" duration="00:00:00.0002050" startTime="2013-05-17T22:32:34.6070371+02:00" endTime="2013-05-17T22:32:34.6100372+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4366c2b0-7041-4a72-a023-11c3888e4c3d">
+    </UnitTestResult>
+    <UnitTestResult executionId="f79041ca-1fd5-48db-902d-588d646eedf8" testId="2cd37c4f-af07-7300-624c-92af4a19b9e4" testName="AddingSkillsWithSameNameToManager" computerName="KONRAD-PC" duration="00:00:00.0001819" startTime="2013-05-17T22:32:34.6120373+02:00" endTime="2013-05-17T22:32:34.6150375+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f79041ca-1fd5-48db-902d-588d646eedf8">
+    </UnitTestResult>
+    <UnitTestResult executionId="dbb6950d-8283-4417-b5f5-ffd720d1fff5" testId="2e1c99f9-ecb9-53dd-3ba8-607ac6e43b44" testName="SaveSkills" computerName="KONRAD-PC" duration="00:00:00.0081789" startTime="2013-05-17T22:32:34.6170376+02:00" endTime="2013-05-17T22:32:34.6280383+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dbb6950d-8283-4417-b5f5-ffd720d1fff5">
+    </UnitTestResult>
+    <UnitTestResult executionId="58cbc2b5-b40e-403e-acb5-2826150cec92" testId="4e243b78-d365-6b62-b1b1-4f54814a5b0a" testName="EnglishTextTest" computerName="KONRAD-PC" duration="00:00:03.1776557" startTime="2013-05-17T22:32:34.6310384+02:00" endTime="2013-05-17T22:32:38.2982482+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="58cbc2b5-b40e-403e-acb5-2826150cec92">
+    </UnitTestResult>
+    <UnitTestResult executionId="348deda0-fecc-4cf0-b576-83cd19dffc2e" testId="567ab633-2b5c-0f57-b214-2fccc8903fea" testName="GettingSkillsFromManager" computerName="KONRAD-PC" duration="00:00:00.0005622" startTime="2013-05-17T22:32:38.3052486+02:00" endTime="2013-05-17T22:32:38.3112489+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="348deda0-fecc-4cf0-b576-83cd19dffc2e">
+    </UnitTestResult>
+    <UnitTestResult executionId="139d2305-2ecc-4b77-ad57-54207d179404" testId="b65e2298-73ea-c701-a9ec-49bee9b0439d" testName="AddingSkillsToManager" computerName="KONRAD-PC" duration="00:00:00.0003067" startTime="2013-05-17T22:32:38.3182493+02:00" endTime="2013-05-17T22:32:38.3232496+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="139d2305-2ecc-4b77-ad57-54207d179404">
+    </UnitTestResult>
+    <UnitTestResult executionId="4c44ebb3-ab5c-43e7-80bd-515ac0fd7f3d" testId="bfa08005-dabb-f4d8-e5cc-15fb7e1c5efb" testName="GermanTextTest" computerName="KONRAD-PC" duration="00:00:01.0785265" startTime="2013-05-17T22:32:38.3262498+02:00" endTime="2013-05-17T22:32:39.4073116+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4c44ebb3-ab5c-43e7-80bd-515ac0fd7f3d">
+    </UnitTestResult>
+  </Results>
+</TestRun>

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="86063ab7-4dfa-4923-9e0c-217894dbb5df" name="Konrad@KONRAD-PC 2013-05-17 22:31:51" runUser="Konrad-PC\Konrad" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="3397f4b9-b9cd-4787-b5d2-54f96f326124">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment enabled="false" runDeploymentRoot="Konrad_KONRAD-PC 2013-05-17 22_31_51">
+      <DeploymentItem filename="M:\FH HealthGame\SkillSystem\Localizator\bin\Debug\Localizator.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2013-05-17T22:31:51.7505858+02:00" queuing="2013-05-17T22:31:53.0076577+02:00" start="2013-05-17T22:31:53.0916625+02:00" finish="2013-05-17T22:31:57.5019148+02:00" />
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="GermanTextTest" storage="m:\fh healthgame\skillsystem\localizatortest\bin\debug\localizatortest.dll" id="bfa08005-dabb-f4d8-e5cc-15fb7e1c5efb">
+      <Execution id="074bd8cf-7793-4dd2-9689-c98e03679c4c" />
+      <TestMethod codeBase="M:/FH HealthGame/SkillSystem/LocalizatorTest/bin/Debug/LocalizatorTest.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="LocalizatorTest.BasicTests, LocalizatorTest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="GermanTextTest" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="bfa08005-dabb-f4d8-e5cc-15fb7e1c5efb" executionId="074bd8cf-7793-4dd2-9689-c98e03679c4c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="074bd8cf-7793-4dd2-9689-c98e03679c4c" testId="bfa08005-dabb-f4d8-e5cc-15fb7e1c5efb" testName="GermanTextTest" computerName="KONRAD-PC" duration="00:00:03.5174160" startTime="2013-05-17T22:31:53.1996687+02:00" endTime="2013-05-17T22:31:57.4379111+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="074bd8cf-7793-4dd2-9689-c98e03679c4c">
+    </UnitTestResult>
+  </Results>
+</TestRun>

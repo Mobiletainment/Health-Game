@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="b740c5f3-6664-403e-94be-8563010056cb" name="Konrad@KONRAD-PC 2013-04-24 03:22:28" runUser="Konrad-PC\Konrad" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="3397f4b9-b9cd-4787-b5d2-54f96f326124">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment enabled="false" runDeploymentRoot="Konrad_KONRAD-PC 2013-04-24 03_22_28">
+      <DeploymentItem filename="M:\FH HealthGame\SkillSystem\SkillSystem\bin\Debug\SkillSystem.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2013-04-24T03:22:28.9619037+02:00" queuing="2013-04-24T03:22:29.7369480+02:00" start="2013-04-24T03:22:29.7959514+02:00" finish="2013-04-24T03:22:31.1160269+02:00" />
+  <ResultSummary outcome="Completed">
+    <Counters total="6" executed="6" passed="6" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="NotExistingItemFromManager" storage="m:\fh healthgame\skillsystem\skillsystemtest\bin\debug\skillsystemtest.dll" id="1a6908c1-cd90-0131-cc3e-c3d7a9f04497">
+      <Execution id="3e6fa1ff-500a-49fb-9378-34c5a9bdfdb3" />
+      <TestMethod codeBase="M:/FH HealthGame/SkillSystem/SkillSystemTest/bin/Debug/SkillSystemTest.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="SkillSystemTest.BasicTests, SkillSystemTest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="NotExistingItemFromManager" />
+    </UnitTest>
+    <UnitTest name="AddingSkillsWithSameNameToManager" storage="m:\fh healthgame\skillsystem\skillsystemtest\bin\debug\skillsystemtest.dll" id="2cd37c4f-af07-7300-624c-92af4a19b9e4">
+      <Execution id="2c9076c0-7ec3-4e25-b82f-96b2646309f7" />
+      <TestMethod codeBase="M:/FH HealthGame/SkillSystem/SkillSystemTest/bin/Debug/SkillSystemTest.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="SkillSystemTest.BasicTests, SkillSystemTest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="AddingSkillsWithSameNameToManager" />
+    </UnitTest>
+    <UnitTest name="GettingSkillsFromManager" storage="m:\fh healthgame\skillsystem\skillsystemtest\bin\debug\skillsystemtest.dll" id="567ab633-2b5c-0f57-b214-2fccc8903fea">
+      <Execution id="9a5262cd-3566-41de-b068-699faae6c208" />
+      <TestMethod codeBase="M:/FH HealthGame/SkillSystem/SkillSystemTest/bin/Debug/SkillSystemTest.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="SkillSystemTest.BasicTests, SkillSystemTest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="GettingSkillsFromManager" />
+    </UnitTest>
+    <UnitTest name="SaveSkills" storage="m:\fh healthgame\skillsystem\skillsystemtest\bin\debug\skillsystemtest.dll" id="2e1c99f9-ecb9-53dd-3ba8-607ac6e43b44">
+      <Execution id="70422a52-aab5-4c15-b9ea-7b50e85e100f" />
+      <TestMethod codeBase="M:/FH HealthGame/SkillSystem/SkillSystemTest/bin/Debug/SkillSystemTest.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="SkillSystemTest.BasicTests, SkillSystemTest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="SaveSkills" />
+    </UnitTest>
+    <UnitTest name="AddingSkillToManagerTwice" storage="m:\fh healthgame\skillsystem\skillsystemtest\bin\debug\skillsystemtest.dll" id="2951f2dd-a507-15ed-2439-9599d0fabd4c">
+      <Execution id="41e3f5c4-18ec-4894-8bea-358aef637cfd" />
+      <TestMethod codeBase="M:/FH HealthGame/SkillSystem/SkillSystemTest/bin/Debug/SkillSystemTest.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="SkillSystemTest.BasicTests, SkillSystemTest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="AddingSkillToManagerTwice" />
+    </UnitTest>
+    <UnitTest name="AddingSkillsToManager" storage="m:\fh healthgame\skillsystem\skillsystemtest\bin\debug\skillsystemtest.dll" id="b65e2298-73ea-c701-a9ec-49bee9b0439d">
+      <Execution id="3d9e8aad-f583-48f0-bf66-1f1c0f0b12e7" />
+      <TestMethod codeBase="M:/FH HealthGame/SkillSystem/SkillSystemTest/bin/Debug/SkillSystemTest.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="SkillSystemTest.BasicTests, SkillSystemTest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="AddingSkillsToManager" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="1a6908c1-cd90-0131-cc3e-c3d7a9f04497" executionId="3e6fa1ff-500a-49fb-9378-34c5a9bdfdb3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2951f2dd-a507-15ed-2439-9599d0fabd4c" executionId="41e3f5c4-18ec-4894-8bea-358aef637cfd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2cd37c4f-af07-7300-624c-92af4a19b9e4" executionId="2c9076c0-7ec3-4e25-b82f-96b2646309f7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2e1c99f9-ecb9-53dd-3ba8-607ac6e43b44" executionId="70422a52-aab5-4c15-b9ea-7b50e85e100f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="567ab633-2b5c-0f57-b214-2fccc8903fea" executionId="9a5262cd-3566-41de-b068-699faae6c208" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b65e2298-73ea-c701-a9ec-49bee9b0439d" executionId="3d9e8aad-f583-48f0-bf66-1f1c0f0b12e7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="3e6fa1ff-500a-49fb-9378-34c5a9bdfdb3" testId="1a6908c1-cd90-0131-cc3e-c3d7a9f04497" testName="NotExistingItemFromManager" computerName="KONRAD-PC" duration="00:00:00.0073630" startTime="2013-04-24T03:22:29.8289533+02:00" endTime="2013-04-24T03:22:31.0330222+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3e6fa1ff-500a-49fb-9378-34c5a9bdfdb3">
+    </UnitTestResult>
+    <UnitTestResult executionId="41e3f5c4-18ec-4894-8bea-358aef637cfd" testId="2951f2dd-a507-15ed-2439-9599d0fabd4c" testName="AddingSkillToManagerTwice" computerName="KONRAD-PC" duration="00:00:00.0002053" startTime="2013-04-24T03:22:31.0520233+02:00" endTime="2013-04-24T03:22:31.0540234+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="41e3f5c4-18ec-4894-8bea-358aef637cfd">
+    </UnitTestResult>
+    <UnitTestResult executionId="2c9076c0-7ec3-4e25-b82f-96b2646309f7" testId="2cd37c4f-af07-7300-624c-92af4a19b9e4" testName="AddingSkillsWithSameNameToManager" computerName="KONRAD-PC" duration="00:00:00.0001999" startTime="2013-04-24T03:22:31.0580236+02:00" endTime="2013-04-24T03:22:31.0610238+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2c9076c0-7ec3-4e25-b82f-96b2646309f7">
+    </UnitTestResult>
+    <UnitTestResult executionId="70422a52-aab5-4c15-b9ea-7b50e85e100f" testId="2e1c99f9-ecb9-53dd-3ba8-607ac6e43b44" testName="SaveSkills" computerName="KONRAD-PC" duration="00:00:00.0070079" startTime="2013-04-24T03:22:31.0660241+02:00" endTime="2013-04-24T03:22:31.0760246+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="70422a52-aab5-4c15-b9ea-7b50e85e100f">
+    </UnitTestResult>
+    <UnitTestResult executionId="9a5262cd-3566-41de-b068-699faae6c208" testId="567ab633-2b5c-0f57-b214-2fccc8903fea" testName="GettingSkillsFromManager" computerName="KONRAD-PC" duration="00:00:00.0002956" startTime="2013-04-24T03:22:31.0790248+02:00" endTime="2013-04-24T03:22:31.0820250+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9a5262cd-3566-41de-b068-699faae6c208">
+    </UnitTestResult>
+    <UnitTestResult executionId="3d9e8aad-f583-48f0-bf66-1f1c0f0b12e7" testId="b65e2298-73ea-c701-a9ec-49bee9b0439d" testName="AddingSkillsToManager" computerName="KONRAD-PC" duration="00:00:00.0001618" startTime="2013-04-24T03:22:31.0850251+02:00" endTime="2013-04-24T03:22:31.0870253+02:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3d9e8aad-f583-48f0-bf66-1f1c0f0b12e7">
+    </UnitTestResult>
+  </Results>
+</TestRun>

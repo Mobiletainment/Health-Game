@@ -70,6 +70,11 @@ public class skillSystem : MonoBehaviour
         skill6Value.text = _sm.GetSkillByName("Fitness").Value.ToString();
     }
 
+    public void SaveSkills()
+    {
+        _sm.SaveSkillsToFile();
+    }
+
     public void Increase(string skillName)
     {
         Debug.Log("Inc - SN: " + skillName);

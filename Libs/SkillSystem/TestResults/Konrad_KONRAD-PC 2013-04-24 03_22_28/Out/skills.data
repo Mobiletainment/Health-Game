@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!--List of monster skills.-->
+<Skills>
+  <Skill Name="Velocity" MinName="Slow" />
+  <Skill Name="Size" MinName="Tiny" />
+  <Skill Name="Care" MinName="Careless" />
+  <Skill Name="Dummy" MinName="MinDummy" />
+  <Skill Name="SameName" MinName="Min" />
+</Skills>

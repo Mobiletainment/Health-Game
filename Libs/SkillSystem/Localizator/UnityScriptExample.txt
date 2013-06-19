@@ -1,0 +1,39 @@
+﻿using UnityEngine;
+using System.Collections;
+using System.Globalization;
+using Localizator;
+
+public class GUI_Script : MonoBehaviour {
+
+    private Localizator.Localizator localizator;
+
+    void OnGUI()
+    {
+        //localizator = new Localizator.Localizator();
+        //localizator.SetCultureInfo(new CultureInfo("de-DE"));
+        GUI.Label(new Rect(10, 10, 150, 50), localizator.GetText("LanguageText"));
+
+        if (GUI.Button(new Rect(10, 75, 150, 50), localizator.GetText("EnglishText")))
+        {
+            print(localizator.GetText("EnglishText") + " clicked.");
+            localizator.SetCultureInfo(new CultureInfo("en-US"));
+        }
+
+        if (GUI.Button(new Rect(10, 135, 150, 50), localizator.GetText("GermanText")))
+        {
+            print(localizator.GetText("GermanText") + " clicked.");
+            localizator.SetCultureInfo(new CultureInfo("de-DE"));
+        }
+    }
+
+	// Use this for initialization
+	void Start () {
+        localizator = new Localizator.Localizator();
+        localizator.SetCultureInfo(new CultureInfo("de-DE"));
+	}
+	
+	// Update is called once per frame
+	void Update () {
+	    
+	}
+}
