@@ -100,15 +100,17 @@ public class RulesSwitcher : MonoBehaviour
 	
 	protected void RuleFlashBegin ()
 	{
-		NextRule();
-		FlashWall.renderer.material.color = LevelInfo.SignalColors[CurrentActiveRule.Index];
-		FlashCamera.enabled = true;
-		MainCamera.enabled = false;
-		MainCamera.backgroundColor = LevelInfo.SignalColors[CurrentActiveRule.Index];
-		//_aircraftReference.SetGoodTagIndex(activeRule);
-		
-		Invoke("RuleFlashEnd", FlashLength);
-		
+		if (CurrentRuleSet.Count > 0)
+		{
+			NextRule();
+			FlashWall.renderer.material.color = LevelInfo.SignalColors[CurrentActiveRule.Index];
+			FlashCamera.enabled = true;
+			MainCamera.enabled = false;
+			MainCamera.backgroundColor = LevelInfo.SignalColors[CurrentActiveRule.Index];
+			//_aircraftReference.SetGoodTagIndex(activeRule);
+			
+			Invoke("RuleFlashEnd", FlashLength);
+		}
 		// Hier eventuell eine Coroutine aufrufen, die den Flashscreen "langsame" an und aus macht...
 	}
 	

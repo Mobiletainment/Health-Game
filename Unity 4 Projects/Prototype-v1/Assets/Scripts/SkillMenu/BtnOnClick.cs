@@ -18,10 +18,13 @@ public class BtnOnClick : MonoBehaviour {
 
     void OnClick()
     {
-        //Debug.Log("OnClick " + skillName);
+        Debug.Log("OnClick " + skillName);
 
         if (skillName.Equals("Save"))
+		{
             GameObject.Find("ScriptHolder").GetComponent<skillSystem>().SaveSkills();
+			Application.LoadLevel("GameOver");
+		}
         else
         {
 
