@@ -24,8 +24,15 @@ public class skills : MonoBehaviour {
 		skillsVisLabel = GameObject.Find("SkillsLabel").GetComponent<UILabel>();
 		
 		int beweglichkeit = _sm.GetSkillByName("Beweglichkeit").Value;
+		int geschwindigkeit = _sm.GetSkillByName("Geschwindigkeit").Value;
+		float boost = _sm.GetSkillByName("Boost").Value;
+		
 		GameObject.Find("Beweglichkeit").transform.localScale = new Vector3(beweglichkeit * 0.5f, 1.0f, 0.5f);
-		skillsVisLabel.text = string.Format("[4b853d]Beweglichkeit: {0}[-]\nGeschwindigkeit: {1}", beweglichkeit, _sm.GetSkillByName("Geschwindigkeit").Value);
+		GameObject.Find("Geschwindigkeit").transform.localScale = new Vector3(0.5f, 1.0f, beweglichkeit * 0.5f);
+		GameObject.Find("Boost").transform.localScale = new Vector3(boost * 0.5f, boost * 0.5f, boost * 0.5f);
+		
+		skillsVisLabel.text = string.Format("[4b853d]Beweglichkeit: {0}[-]\n[d6c991]Geschwindigkeit: {1}[-]\n[FF0000]Boost: {2}[-]", beweglichkeit, geschwindigkeit, boost);
+		
 	}
 
     public int GetSkillValueByName(string skillname)
