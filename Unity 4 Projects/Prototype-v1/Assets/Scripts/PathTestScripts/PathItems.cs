@@ -19,9 +19,10 @@ public class PathItems : MonoBehaviour {
 	private float _middleDistance = 0.0f;
 	private Vector3 _quadpos;
 	public Transform _marker;
-
-	public RulesSwitcher _rulesSwitcher;
-		
+	
+	[HideInInspector]
+	public  RulesSwitcher _rulesSwitcher;
+	
 	private int _markIndex;
 	//public List<Vector3> items = new List<Vector3>();
 	//public Transform _sphere;
@@ -49,6 +50,9 @@ public class PathItems : MonoBehaviour {
 		_rulesSwitcher.countdownLabel = GameObject.Find("CountdownLabel").GetComponent<UILabel>();
 		_rulesSwitcher.scoreLabel = GameObject.Find("ScoreLabel").GetComponent<UILabel>();
 		_flightObject.gameObject.GetComponent<ItemHit>().RuleSwitcher = _rulesSwitcher;
+		
+		
+		
 		
 		GameObject itemContainer = new GameObject();
 		itemContainer.name = "ItemContainer";
@@ -127,6 +131,7 @@ public class PathItems : MonoBehaviour {
 		Vector3 pos = _vehiclePos.transform.position;
 		Vector3 curDir = pos - _lastPos;
 		
+
 		Vector2 rightDir2 = TurnRight(new Vector2(curDir.x, curDir.z)).normalized;
 		Vector3 rightDir = new Vector3(rightDir2.x, 0, rightDir2.y);
 		
