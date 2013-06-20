@@ -17,14 +17,21 @@ public class ItemHit : MonoBehaviour
 	public Behaviour goodItemHit;
 	public Behaviour badItemHit;
 	private ActiveHit activeHit;
-	
+	private bool other=false;
 	protected Vector3 lastHitPosition;
 
 	public void Awake()
 	{
 		activeHit = ActiveHit.None;
 	}
-	
+	public void Start(){
+		 RuleSwitcher= GameObject.Find("Rule Switcher").GetComponent<RulesSwitcher>();
+		 if (tag=="0"){
+			other=true;
+		 }else {
+			other=false;	
+		}
+	}
 
 	public void OnTriggerEnter(Collider hit)
 	{
@@ -52,8 +59,16 @@ public class ItemHit : MonoBehaviour
 	
 	public void SetHit(ActiveHit hit)
 	{
-		activeHit = hit;
 		
+		
+		if (other){
+			if(hit==ActiveHit.Good){
+				hit=ActiveHit.Bad;
+			}else if(hit==ActiveHit.Bad){
+				hit=ActiveHit.Good;
+			}
+		}
+		activeHit = hit;
 		switch (hit)
 		{
 		case ActiveHit.None:

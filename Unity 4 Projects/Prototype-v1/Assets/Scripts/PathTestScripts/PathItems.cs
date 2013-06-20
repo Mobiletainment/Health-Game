@@ -42,6 +42,8 @@ public class PathItems : MonoBehaviour {
 		}
 		
 		_rulesSwitcher = rulesSwitcherGameObject.GetComponent<RulesSwitcher>();
+		
+		
 	}
 	
 	// Use this for initialization
@@ -49,8 +51,8 @@ public class PathItems : MonoBehaviour {
 	{	
 		_rulesSwitcher.countdownLabel = GameObject.Find("CountdownLabel").GetComponent<UILabel>();
 		_rulesSwitcher.scoreLabel = GameObject.Find("ScoreLabel").GetComponent<UILabel>();
-		_flightObject.gameObject.GetComponent<ItemHit>().RuleSwitcher = _rulesSwitcher;
-		
+	
+		//_flightObject.gameObject.GetComponent<ItemHit>().RuleSwitcher = _rulesSwitcher;
 		
 		
 		
@@ -159,14 +161,14 @@ public class PathItems : MonoBehaviour {
 //			Vector3 hullPoint = pos + curDir.normalized * 10;
 //			Debug.DrawRay(pos, curDir.normalized * 10, Color.yellow, 100f);
 			
-			Collider[] hits = Physics.OverlapSphere(pos, _trackSideWidth); //.SphereCastAll(pos, 100.0f, curDir.normalized, 0);
+			/*Collider[] hits = Physics.OverlapSphere(pos, _trackSideWidth); //.SphereCastAll(pos, 100.0f, curDir.normalized, 0);
 			
 			foreach(Collider hit in hits)
 			{
 				_marker.position=new Vector3(hit.transform.position.x,hit.transform.position.y,hit.transform.position.z);
 				Debug.Log("Hit object at dist " + (pos - hit.transform.position).magnitude, hit.transform);
 				break;
-			}
+			}*/
 		}
 #		elif MOBILE
 		Debug.LogWarning(Input.touchCount);

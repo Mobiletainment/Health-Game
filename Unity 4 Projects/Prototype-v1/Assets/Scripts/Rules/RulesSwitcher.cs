@@ -82,8 +82,11 @@ public class RulesSwitcher : MonoBehaviour
 	
 	public bool IsItemHitGood(GameObject gameObject)
 	{
-		int itemIndex = int.Parse(gameObject.tag);
-		return CurrentActiveRule.GoodItems.Contains(itemIndex);
+		if(gameObject.tag!="Untagged") {
+			int itemIndex = int.Parse(gameObject.tag);
+			return CurrentActiveRule.GoodItems.Contains(itemIndex);
+		}
+	return false;
 	}
 	
 	public GameObject GetRandomBadItem()
