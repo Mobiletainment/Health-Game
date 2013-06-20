@@ -22,24 +22,27 @@ public class skillSystem : MonoBehaviour
     public UILabel skill6Value;
 
 	// Use this for initialization
-	void Start () {
+	void Start (){
 
         _unusedSP = 13;
         _sm = new SkillManager();
-        _sm.AddSkill(new BasicSkill("Beweglichkeit",       "min", "max", 5, 0, 10, 5));
-        _sm.AddSkill(new BasicSkill("Geschwindigkeit",     "min", "max", 5, 0, 10, 5));
-        _sm.AddSkill(new BasicSkill("Boost",               "min", "max", 5, 0, 10, 5));
-        _sm.AddSkill(new BasicSkill("Ausdauer", "min", "max", 5, 0, 10, 5));
-        _sm.AddSkill(new BasicSkill("Sichtweite",          "min", "max", 5, 0, 10, 5));
-        _sm.AddSkill(new BasicSkill("Fitness",             "min", "max", 5, 0, 10, 5));
-
-        _sm.GetSkillByName("Beweglichkeit").Value = 5;
-        _sm.GetSkillByName("Geschwindigkeit").Value = 3;
-        _sm.GetSkillByName("Boost").Value = 8;
-        _sm.GetSkillByName("Ausdauer").Value = 2;
-        _sm.GetSkillByName("Sichtweite").Value = 6;
-        _sm.GetSkillByName("Fitness").Value = 4;
-
+		
+		if (_sm.LoadSkillsFromFile() == false)
+		{
+	        _sm.AddSkill(new BasicSkill("Beweglichkeit",       "min", "max", 5, 0, 10, 5));
+	        _sm.AddSkill(new BasicSkill("Geschwindigkeit",     "min", "max", 5, 0, 10, 5));
+	        _sm.AddSkill(new BasicSkill("Boost",               "min", "max", 5, 0, 10, 5));
+	        _sm.AddSkill(new BasicSkill("Ausdauer", "min", "max", 5, 0, 10, 5));
+	        _sm.AddSkill(new BasicSkill("Sichtweite",          "min", "max", 5, 0, 10, 5));
+	        _sm.AddSkill(new BasicSkill("Fitness",             "min", "max", 5, 0, 10, 5));
+	
+	        _sm.GetSkillByName("Beweglichkeit").Value = 5;
+	        _sm.GetSkillByName("Geschwindigkeit").Value = 3;
+	        _sm.GetSkillByName("Boost").Value = 8;
+	        _sm.GetSkillByName("Ausdauer").Value = 2;
+	        _sm.GetSkillByName("Sichtweite").Value = 6;
+	        _sm.GetSkillByName("Fitness").Value = 4;
+		}
         TextUpdate();
 	}
 	
