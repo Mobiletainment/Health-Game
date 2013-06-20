@@ -27,12 +27,14 @@ public class skills : MonoBehaviour {
 		int geschwindigkeit = _sm.GetSkillByName("Geschwindigkeit").Value;
 		float boost = _sm.GetSkillByName("Boost").Value;
 		
-		GameObject.Find("Beweglichkeit").transform.localScale = new Vector3(beweglichkeit * 0.5f, 1.0f, 0.5f);
+		GameObject.Find("Beweglichkeit").transform.localScale = new Vector3(beweglichkeit * 0.75f, 1.0f, 0.5f);
 		GameObject.Find("Geschwindigkeit").transform.localScale = new Vector3(0.5f, 1.0f, beweglichkeit * 0.5f);
 		GameObject.Find("Boost").transform.localScale = new Vector3(boost * 0.5f, boost * 0.5f, boost * 0.5f);
 		
 		skillsVisLabel.text = string.Format("[4b853d]Beweglichkeit: {0}[-]\n[d6c991]Geschwindigkeit: {1}[-]\n[FF0000]Boost: {2}[-]", beweglichkeit, geschwindigkeit, boost);
 		
+		PathItems pathItemScript = GameObject.Find("PathVisualizer").GetComponent<PathItems>();
+		pathItemScript._directionMultiplier = 0.3f + 0.2f * beweglichkeit;
 	}
 
     public int GetSkillValueByName(string skillname)

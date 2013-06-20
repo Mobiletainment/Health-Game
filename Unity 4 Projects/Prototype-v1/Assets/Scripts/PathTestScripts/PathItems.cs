@@ -20,6 +20,8 @@ public class PathItems : MonoBehaviour {
 	private Vector3 _quadpos;
 	public Transform _marker;
 	
+	public float _directionMultiplier = 1.0f;
+	
 	[HideInInspector]
 	public  RulesSwitcher _rulesSwitcher;
 	
@@ -136,13 +138,17 @@ public class PathItems : MonoBehaviour {
 		Vector3 rightDir = new Vector3(rightDir2.x, 0, rightDir2.y);
 		
 		Debug.DrawRay(pos, curDir.normalized * 10.0f, Color.blue, 100.0f);
+		
+		float deltaDistance = 0.0f;
+		
 #		if UNITY_EDITOR
+		
 		if(Input.GetKey(KeyCode.A))
 		{
 			// To the left:
 			if(_middleDistance > -_trackSideWidth)
 			{
-				_middleDistance -= 1.0f;
+				deltaDistance = -1.0f;
 			}
 		}
 		else if(Input.GetKey(KeyCode.D))
@@ -150,7 +156,7 @@ public class PathItems : MonoBehaviour {
 			// To the right:
 			if(_middleDistance < _trackSideWidth)
 			{
-				_middleDistance += 1.0f;
+				deltaDistance = 1.0f;
 			}
 		} 
 		else if(Input.GetKeyDown(KeyCode.Space))
@@ -175,9 +181,11 @@ public class PathItems : MonoBehaviour {
 			Touch touch = Input.GetTouch(Input.touchCount - 1);
 			float touchPos = touch.position.x;
 				
-			_middleDistance += touchPos < Screen.width * 0.5f ? -1.0f : 1.0f;
+			deltaDistance = touchPos < Screen.width * 0.5f ? -1.0f : 1.0f;
 		}
 #		endif
+		
+		_middleDistance += deltaDistance * _directionMultiplier;
 		
 		//pos=_lastPos;
 		Debug.DrawRay(pos, (curDir * 100.0f), Color.yellow, 100.0f);
