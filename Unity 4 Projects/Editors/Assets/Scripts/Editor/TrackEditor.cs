@@ -73,13 +73,12 @@ public class TrackEditor : Editor
 			}
 		}
 		
-		// Activate the Saving Asset if necessary:
+		// REFACTOR: Remove this after debugging the Save-Mode!
 		if(_data.saveTracks != null)
 		{
-			if(_data.saveTracks.trackMap == null)
+			if(_data.saveTracks.trackList == null)
 			{
-				_data.saveTracks.trackMap = new Dictionary<string, List<TrackPartScript>>();
-				Debug.Log("Refreshed TrackMap!");
+				Debug.Log("SaveTracks.trackList is null!");
 			}
 		}
 	}
@@ -119,7 +118,8 @@ public class TrackEditor : Editor
 //		}
 		
 		// Finally: Save all chances:
-		if(GUI.changed)
+		// Info: data is null, if the object got destroyed (e.g. when loading another track).
+		if(GUI.changed && _data != null)
 		{
 			EditorUtility.SetDirty(_data);
 		}
@@ -336,7 +336,7 @@ public class TrackEditor : Editor
 			if(_data.trackName == null || _data.trackName.Length == 0)
 			{
 				// Create a default name:
-				_data.trackName = "TrackName" + _data.saveTracks.trackMap.Count;
+				_data.trackName = "TrackName" + _data.saveTracks.trackList.Count;
 				// TODO: If the name already exists in the map, create count+++...
 			}
 			_data.trackName = EditorGUILayout.TextField("Track Name: ", _data.trackName);
@@ -345,8 +345,22 @@ public class TrackEditor : Editor
 			GUILayout.Space(13); // IndentLevel
 			if(GUILayout.Button("Save Track"))
 			{
-				_data.saveTracks.trackMap.Add(_data.trackName, _data.currentTrackParts);
-//				EditorUtility.SetDirty(_data.saveTracks);
+				AssetDatabase.StartAssetEditing();
+				
+				// TODO: Hardcoded Path -> Make it configureable (instead of "Assets/Resources/Prefabs/SavedTracks/")
+				GameObject prefab = PrefabUtility.CreatePrefab("Assets/Resources/Prefabs/SavedTracks/"+_data.trackName+".prefab", _data.gameObject);
+				
+				_data.saveTracks.trackList.Add(prefab.GetComponent<MasterTrackScript>());
+				
+				AssetDatabase.StopAssetEditing();
+				EditorUtility.SetDirty(_data.saveTracks);
+				AssetDatabase.SaveAssets();
+				
+				AssetDatabase.Refresh();
+				
+				Debug.Log("Track has been saved as Assets/Resources/Prefabs/SavedTracks/"+_data.trackName+".prefab\n" +
+					"Note: This is an Debug-Asset that can be loaded and changed by the editor at any time.\n" +
+					"For a save Track Asset use the \"Export Clean Track\" Button.", prefab);
 			}
 			GUILayout.EndHorizontal();
 			
@@ -354,8 +368,20 @@ public class TrackEditor : Editor
 			GUILayout.Space(13); // IndentLevel
 			if(GUILayout.Button("Export Clean Track (Prefab)"))
 			{
-				// TODO...
-				Debug.Log("Export Clean Track (Prefab) is not yet implemented.");
+				// TODO: Hardcoded Path -> Make it configureable (instead of "Assets/Resources/Prefabs/SavedTracks/")
+				GameObject prefab = PrefabUtility.CreatePrefab("Assets/Resources/Prefabs/CleanTracks/"+_data.trackName+".prefab", _data.gameObject);
+				
+				foreach(Transform trackPart in prefab.transform)
+				{
+					TrackPartScript tps = trackPart.GetComponent<TrackPartScript>();
+					DestroyImmediate(tps.ReferenceObjectStart, true);
+					DestroyImmediate(tps.ReferenceObjectEnd, true);
+					DestroyImmediate(trackPart.GetComponent<TrackPartScript>(), true);
+				}
+				
+				DestroyImmediate(prefab.GetComponent<MasterTrackScript>(), true);
+				
+				Debug.Log("Track has been saved as Assets/Resources/Prefabs/CleanTracks/"+_data.trackName+".prefab", prefab);
 			}
 			GUILayout.EndHorizontal();
 			
@@ -368,7 +394,7 @@ public class TrackEditor : Editor
 		{
 			EditorGUI.indentLevel++;
 			
-			if(_data.saveTracks.trackMap.Count == 0)
+			if(_data.saveTracks.trackList.Count == 0)
 			{
 				EditorGUILayout.LabelField("No Tracks available...");
 			}
@@ -376,15 +402,39 @@ public class TrackEditor : Editor
 			{
 				// TODO: Load a given track from the SaveTracks-List...
 				// Present all trackNames:
-				List<string> keyList = new List<string>(_data.saveTracks.trackMap.Keys);
-				EditorGUILayout.Popup(0, keyList.ToArray());
+				//List<string> keyList = new List<string>(_data.saveTracks.trackMap.Keys);
+				
+				// REFACTOR: It is not performant to create this List each time, OnGUI is called!
+				List<string> trackNameList = new List<string>(_data.saveTracks.trackList.Count);
+				foreach(MasterTrackScript masterTrack in _data.saveTracks.trackList)
+				{
+					trackNameList.Add(masterTrack.trackName);
+				}
+				
+				_data.loadTrackIndex = EditorGUILayout.Popup(_data.loadTrackIndex, trackNameList.ToArray());
 				
 				GUILayout.BeginHorizontal();
 				GUILayout.Space(13); // IndentLevel
 				if(GUILayout.Button("Load Track"))
 				{
-					// TODO...
-					Debug.Log("LoadTrack is not yet implemented.");
+					// Instantiate chosen Debug-Track Asset:
+					MasterTrackScript loadedTrack = Instantiate(_data.saveTracks.trackList[_data.loadTrackIndex], Vector3.zero, Quaternion.identity) as MasterTrackScript;
+					
+					if(loadedTrack != null)
+					{
+						loadedTrack.name = "MasterTrackObject";
+						Debug.Log("Loaded Track "+trackNameList[_data.loadTrackIndex]+" successfully.", loadedTrack);
+					
+						// Destroy the current track...
+						// TODO: IMPORTANT: Warn user, that he will lose the current track if he loads another one!
+						// If he wants to keep the track, he must save it before loading!
+						DestroyImmediate(_data.gameObject);
+						
+						// Select the loaded track:
+						GameObject[] selection = new GameObject[1];
+						selection[0] = loadedTrack.gameObject;
+						Selection.objects = selection;
+					}
 				}
 				GUILayout.EndHorizontal();
 			}

@@ -7,5 +7,5 @@ public class SaveTracks : ScriptableObject
 {
 	// All tracks, that have been made with the TrackEditor can be saved here:
 	[SerializeField]
-	public Dictionary<string, List<TrackPartScript>> trackMap;
+	public List<MasterTrackScript> trackList;
 }
