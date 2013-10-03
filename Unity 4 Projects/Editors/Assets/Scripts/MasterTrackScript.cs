@@ -46,6 +46,8 @@ public class MasterTrackScript : MonoBehaviour
 	public bool showDeleteOptions = false;
 	// The name of the Track (Saving option):
 	public string trackName = null;
-	// The index of the choice of loading a track:
+	// The index of the choice of loading a saved track:
 	public int loadTrackIndex = 0;
+	// The index of the chouce of deleting a saved track:
+	public int deleteTrackIndex = 0;
 }

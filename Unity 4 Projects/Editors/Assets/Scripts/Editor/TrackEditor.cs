@@ -13,6 +13,8 @@ public class TrackEditor : Editor
 	
 	// This list will be initialized each time, the editor is enabled. It will contain all trackPart names.
 	private List<string> _partNames = null;
+	// This list will be initialized each time, the editor is enabled. It will contain all saved Tracks names.
+	private List<string> _savedTrackNames = null;
 	
 	public void OnEnable()
 	{
@@ -73,13 +75,28 @@ public class TrackEditor : Editor
 			}
 		}
 		
-		// REFACTOR: Remove this after debugging the Save-Mode!
-		if(_data.saveTracks != null)
+		// Initialize the savedTrackNames List:
+		if(_data.saveTracks.trackList.Count > 0)
 		{
-			if(_data.saveTracks.trackList == null)
+			_savedTrackNames = new List<string>(_data.saveTracks.trackList.Count);
+			
+			for(int i = 0; i < _data.saveTracks.trackList.Count; ++i)
 			{
-				Debug.Log("SaveTracks.trackList is null!");
+				MasterTrackScript masterTrack = _data.saveTracks.trackList[i];
+				if(masterTrack == null)
+				{
+					_data.saveTracks.trackList.RemoveAt(i);
+					--i;
+				}
+				else
+				{
+					_savedTrackNames.Add(masterTrack.trackName);
+				}
 			}
+		}
+		else
+		{
+			_savedTrackNames = new List<string>();
 		}
 	}
 	
@@ -327,7 +344,7 @@ public class TrackEditor : Editor
 	public void EditorInSaveMode()
 	{
 		// Foldout for saving:
-		_data.showSaveOptions = EditorGUILayout.Foldout(_data.showSaveOptions, "Save Track:");
+		_data.showSaveOptions = EditorGUILayout.Foldout(_data.showSaveOptions, "Save Track");
 		if(_data.showSaveOptions)
 		{
 			EditorGUI.indentLevel++;
@@ -337,9 +354,30 @@ public class TrackEditor : Editor
 			{
 				// Create a default name:
 				_data.trackName = "TrackName" + _data.saveTracks.trackList.Count;
-				// TODO: If the name already exists in the map, create count+++...
+				// TODO: If the name already exists in the list, create count+++...
 			}
 			_data.trackName = EditorGUILayout.TextField("Track Name: ", _data.trackName);
+			
+			// Check, if the Name already exists in the Saved-List:
+			int otherIndex = _data.saveTracks.trackList.FindIndex(
+				delegate(MasterTrackScript other)
+				{
+					if(other != null)
+					{	
+						return _data.trackName.Equals(other.trackName);
+					}
+					else
+					{
+						return false;
+					}
+				}
+			);
+			if(otherIndex != -1)
+			{
+				// The name is already in the list:
+				EditorGUILayout.LabelField("Warning: An item with the name "+_data.trackName+"\nalready exists. If you do not" +
+					"enter another name,\nthis track will be overwritten.", GUILayout.Height(50.0f));
+			}
 			
 			GUILayout.BeginHorizontal();
 			GUILayout.Space(13); // IndentLevel
@@ -350,13 +388,25 @@ public class TrackEditor : Editor
 				// TODO: Hardcoded Path -> Make it configureable (instead of "Assets/Resources/Prefabs/SavedTracks/")
 				GameObject prefab = PrefabUtility.CreatePrefab("Assets/Resources/Prefabs/SavedTracks/"+_data.trackName+".prefab", _data.gameObject);
 				
-				_data.saveTracks.trackList.Add(prefab.GetComponent<MasterTrackScript>());
+				if(otherIndex == -1)
+				{
+					// Add the saved track to the SaveAsset List:
+					_data.saveTracks.trackList.Add(prefab.GetComponent<MasterTrackScript>());
+				}
+				else
+				{
+					// Overwrite (now missing reference) in the SaveAsset List:
+					_data.saveTracks.trackList[otherIndex] = prefab.GetComponent<MasterTrackScript>();
+				}
 				
 				AssetDatabase.StopAssetEditing();
 				EditorUtility.SetDirty(_data.saveTracks);
 				AssetDatabase.SaveAssets();
 				
 				AssetDatabase.Refresh();
+				
+				// Add the Name of the saved item to the list:
+				_savedTrackNames.Add(_data.trackName);
 				
 				Debug.Log("Track has been saved as Assets/Resources/Prefabs/SavedTracks/"+_data.trackName+".prefab\n" +
 					"Note: This is an Debug-Asset that can be loaded and changed by the editor at any time.\n" +
@@ -370,6 +420,7 @@ public class TrackEditor : Editor
 			{
 				// TODO: Hardcoded Path -> Make it configureable (instead of "Assets/Resources/Prefabs/SavedTracks/")
 				GameObject prefab = PrefabUtility.CreatePrefab("Assets/Resources/Prefabs/CleanTracks/"+_data.trackName+".prefab", _data.gameObject);
+				// TODO: Warn, if the asset already exists it will be overwritten!
 				
 				foreach(Transform trackPart in prefab.transform)
 				{
@@ -389,7 +440,7 @@ public class TrackEditor : Editor
 		}
 		
 		// Foldout for loading:
-		_data.showLoadOptions = EditorGUILayout.Foldout(_data.showLoadOptions, "Load Track:");
+		_data.showLoadOptions = EditorGUILayout.Foldout(_data.showLoadOptions, "Load Track");
 		if(_data.showLoadOptions)
 		{
 			EditorGUI.indentLevel++;
@@ -400,18 +451,8 @@ public class TrackEditor : Editor
 			}
 			else
 			{
-				// TODO: Load a given track from the SaveTracks-List...
 				// Present all trackNames:
-				//List<string> keyList = new List<string>(_data.saveTracks.trackMap.Keys);
-				
-				// REFACTOR: It is not performant to create this List each time, OnGUI is called!
-				List<string> trackNameList = new List<string>(_data.saveTracks.trackList.Count);
-				foreach(MasterTrackScript masterTrack in _data.saveTracks.trackList)
-				{
-					trackNameList.Add(masterTrack.trackName);
-				}
-				
-				_data.loadTrackIndex = EditorGUILayout.Popup(_data.loadTrackIndex, trackNameList.ToArray());
+				_data.loadTrackIndex = EditorGUILayout.Popup(_data.loadTrackIndex, _savedTrackNames.ToArray());
 				
 				GUILayout.BeginHorizontal();
 				GUILayout.Space(13); // IndentLevel
@@ -423,7 +464,7 @@ public class TrackEditor : Editor
 					if(loadedTrack != null)
 					{
 						loadedTrack.name = "MasterTrackObject";
-						Debug.Log("Loaded Track "+trackNameList[_data.loadTrackIndex]+" successfully.", loadedTrack);
+						Debug.Log("Loaded Track "+_savedTrackNames[_data.loadTrackIndex]+" successfully.", loadedTrack);
 					
 						// Destroy the current track...
 						// TODO: IMPORTANT: Warn user, that he will lose the current track if he loads another one!
@@ -443,12 +484,44 @@ public class TrackEditor : Editor
 		}
 		
 		// Foldout for deleting an existing Track:
-		_data.showDeleteOptions = EditorGUILayout.Foldout(_data.showDeleteOptions, "Delete Existing Track:");
-		if(_data.showLoadOptions)
+		_data.showDeleteOptions = EditorGUILayout.Foldout(_data.showDeleteOptions, "Delete Existing Track");
+		if(_data.showDeleteOptions)
 		{
 			EditorGUI.indentLevel++;
 			
-			// TODO: Delete a given Track from the SaveTracks-List...
+			if(_data.saveTracks.trackList.Count == 0)
+			{
+				EditorGUILayout.LabelField("No Tracks available...");
+			}
+			else
+			{
+				// Present all trackNames:
+				_data.deleteTrackIndex = EditorGUILayout.Popup(_data.deleteTrackIndex, _savedTrackNames.ToArray());
+				
+				GUILayout.BeginHorizontal();
+				GUILayout.Space(13); // IndentLevel
+				if(GUILayout.Button("Delete Track"))
+				{
+					AssetDatabase.StartAssetEditing();
+					
+					// Delete the asset (prefab):
+					DestroyImmediate(_data.saveTracks.trackList[_data.deleteTrackIndex], true);
+					DestroyImmediate(_data.saveTracks.trackList[_data.deleteTrackIndex].gameObject, true);
+					_data.saveTracks.trackList.RemoveAt(_data.deleteTrackIndex);
+					
+					AssetDatabase.StopAssetEditing();
+					EditorUtility.SetDirty(_data.saveTracks);
+					AssetDatabase.SaveAssets();
+					
+					AssetDatabase.Refresh();
+					
+					// Remove from name-list:
+					Debug.Log("Deleted Track "+_savedTrackNames[_data.deleteTrackIndex]+" successfully.");
+					_savedTrackNames.RemoveAt(_data.deleteTrackIndex);
+					_data.deleteTrackIndex = -1;
+				}
+				GUILayout.EndHorizontal();
+			}
 			
 			EditorGUI.indentLevel--;
 		}
