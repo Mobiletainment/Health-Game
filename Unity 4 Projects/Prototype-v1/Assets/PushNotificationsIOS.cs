@@ -1,3 +1,4 @@
+#if UNITY_IPHONE
 using UnityEngine;
 using System.Collections;
 using System.Runtime.InteropServices;
@@ -66,3 +67,4 @@ public class PushNotificationsIOS : MonoBehaviour {
 		Debug.Log(payload);
 	}
 }
+#endif

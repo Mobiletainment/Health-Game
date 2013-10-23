@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>DBE0B415-C765-4CA9-8634-DA121E06312B</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Unity-iPhone</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>B3362C97-F4F9-41F0-88DE-E3E4E3ABEF32</key>
+		<string>https://github.com/Mobiletainment/Health-Game.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Unity 4 Projects/Prototype-v1/iOS Prototype/Unity-iPhone.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>B3362C97-F4F9-41F0-88DE-E3E4E3ABEF32</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Mobiletainment/Health-Game.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>B3362C97-F4F9-41F0-88DE-E3E4E3ABEF32</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>B3362C97-F4F9-41F0-88DE-E3E4E3ABEF32</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Health-Game</string>
+		</dict>
+	</array>
+</dict>
+</plist>

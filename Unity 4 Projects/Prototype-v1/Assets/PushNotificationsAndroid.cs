@@ -1,3 +1,4 @@
+#if UNITY_ANDROID
 using UnityEngine;
 using System.Collections;
 
@@ -107,3 +108,5 @@ public class PushNotificationsAndroid : MonoBehaviour {
 		}
 	}
 }
+
+#endif
