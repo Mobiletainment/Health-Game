@@ -2,6 +2,9 @@
 using System.IO;
 using UnityEngine;
 
+//TextFiles: http://answers.unity3d.com/questions/540203/how-do-i-read-unicode-text-file-on-ios-from-resour.html
+// http://forum.unity3d.com/threads/189649-Read-text-file-that-is-included-in-the-project
+
 //namespace HealthGameLib
 //{
     enum Languages { en, de }
@@ -40,6 +43,10 @@ using UnityEngine;
         {
             if (!File.Exists(filename))
             {
+                //TextAsset bindata = Resources.Load(filename) as TextAsset;
+                TextAsset bindata = Resources.Load("lang_menu") as TextAsset;
+                string text = bindata.text;
+                Debug.Log("Filename: " + filename + " Text: " + text);
                 filename = Application.dataPath + "/Resources/" + filename;
             }
             if (File.Exists(filename))
