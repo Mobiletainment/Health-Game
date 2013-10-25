@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using UnityEngine;
 
 //namespace HealthGameLib
 //{
@@ -37,6 +38,10 @@ using System.IO;
 
         public static string GetTextFromFile(string filename, string textIdentifier)
         {
+            if (!File.Exists(filename))
+            {
+                filename = Application.dataPath + "/Resources/" + filename;
+            }
             if (File.Exists(filename))
             {
                 using (StreamReader sr = new StreamReader(filename))
