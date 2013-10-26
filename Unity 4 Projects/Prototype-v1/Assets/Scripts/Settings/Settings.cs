@@ -6,7 +6,7 @@ using UnityEngine;
 //{
     public static class Settings
     {
-        private static string _filename = "settings.ini";
+        private static string _filename = Application.dataPath + "/Resources/settings.ini";
 
         public static bool SaveSettingToFile(string settingName, string settingValue)
         {
