@@ -25,10 +25,10 @@ public class SettingsMenu : MonoBehaviour {
 	void TextUpdate()
     {
 		//Localisation.UpdateLanguage();
-		LabelSetting.text = Localisation.GetTextFromFile("lang_menu.csv", "SettingsText");
-		LabelLanguage.text = Localisation.GetTextFromFile("lang_menu.csv", "LanguageText");
-		LabelButtonGerman.text = Localisation.GetTextFromFile("lang_menu.csv", "GermanText");
-		LabelButtonEnglish.text = Localisation.GetTextFromFile("lang_menu.csv", "EnglishText");
+		LabelSetting.text = Localisation.GetTextFromFile("lang_menu", "SettingsText");
+		LabelLanguage.text = Localisation.GetTextFromFile("lang_menu", "LanguageText");
+		LabelButtonGerman.text = Localisation.GetTextFromFile("lang_menu", "GermanText");
+		LabelButtonEnglish.text = Localisation.GetTextFromFile("lang_menu", "EnglishText");
 	}
 	
 	public void LanguageButtonPressed()
