@@ -4,15 +4,15 @@ using SkillSystem;
 
 public class skills : MonoBehaviour {
 
-    private SkillManager _sm;
+    //private SkillManager _sm;
 	private UILabel skillsVisLabel;
 
 	// Use this for initialization
 	void Start () {
-        _sm = new SkillManager();
+        //_sm = new SkillManager();
 		//TODO: refactor hardcoded skill names
 		
-        if(_sm.LoadSkillsFromFile())
+        /*if(_sm.LoadSkillsFromFile())
         {
             Debug.Log("Geschwindigkeit Value = " + _sm.GetSkillByName("Geschwindigkeit").Value.ToString());
         }
@@ -34,12 +34,13 @@ public class skills : MonoBehaviour {
 		skillsVisLabel.text = string.Format("[4b853d]Beweglichkeit: {0}[-]\n[d6c991]Geschwindigkeit: {1}[-]\n[FF0000]Boost: {2}[-]", beweglichkeit, geschwindigkeit, boost);
 		
 		PathItems pathItemScript = GameObject.Find("PathVisualizer").GetComponent<PathItems>();
-		pathItemScript._directionMultiplier = 0.3f + 0.2f * beweglichkeit;
+		pathItemScript._directionMultiplier = 0.3f + 0.2f * beweglichkeit;*/
 	}
 
     public int GetSkillValueByName(string skillname)
     {
-        return _sm.GetSkillByName(skillname).Value;
+		return 0;
+        //return _sm.GetSkillByName(skillname).Value;
     }
 	
 	// Update is called once per frame

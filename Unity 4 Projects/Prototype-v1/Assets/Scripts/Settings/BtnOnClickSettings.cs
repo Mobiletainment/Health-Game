@@ -23,8 +23,6 @@ public class BtnOnClickSettings : MonoBehaviour {
 		{
 		case "BtnGerman":
 			Debug.Log("OnClick German");
-            string fileloc = Application.dataPath + "/Resources/language";
-            Debug.Log("Path: " + fileloc);
             Settings.SaveSettingToFile("language", "de");
 			break;
 		case "BtnEnglish":

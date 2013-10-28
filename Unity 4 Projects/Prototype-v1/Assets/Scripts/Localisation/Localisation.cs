@@ -43,7 +43,7 @@ static class Localisation
     {
 		TextAsset bindata = Resources.Load("lang_menu") as TextAsset;
 		string text = bindata.text;
-		Debug.Log("Filename: " + filename + " Text: " + text);
+		//Debug.Log("Filename: " + filename + " Text: " + text);
 		
 		string[] delimiterstring = { "\r\n" };
 		string[] lines = text.Split(delimiterstring, StringSplitOptions.None);

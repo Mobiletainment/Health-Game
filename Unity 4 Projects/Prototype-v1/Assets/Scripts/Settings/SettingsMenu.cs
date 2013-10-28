@@ -8,6 +8,8 @@ public class SettingsMenu : MonoBehaviour {
 	public UILabel LabelButtonGerman;
 	public UILabel LabelButtonEnglish;
 	
+	public string LocalisationDataFile;
+	
 	
 	// Use this for initialization
 	void Start () {
@@ -25,10 +27,10 @@ public class SettingsMenu : MonoBehaviour {
 	void TextUpdate()
     {
 		//Localisation.UpdateLanguage();
-		LabelSetting.text = Localisation.GetTextFromFile("lang_menu", "SettingsText");
-		LabelLanguage.text = Localisation.GetTextFromFile("lang_menu", "LanguageText");
-		LabelButtonGerman.text = Localisation.GetTextFromFile("lang_menu", "GermanText");
-		LabelButtonEnglish.text = Localisation.GetTextFromFile("lang_menu", "EnglishText");
+		LabelSetting.text = Localisation.GetTextFromFile(LocalisationDataFile, "SettingsText");
+		LabelLanguage.text = Localisation.GetTextFromFile(LocalisationDataFile, "LanguageText");
+		LabelButtonGerman.text = Localisation.GetTextFromFile(LocalisationDataFile, "GermanText");
+		LabelButtonEnglish.text = Localisation.GetTextFromFile(LocalisationDataFile, "EnglishText");
 	}
 	
 	public void LanguageButtonPressed()

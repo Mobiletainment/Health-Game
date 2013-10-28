@@ -4,7 +4,7 @@ using SkillSystem;
 
 public class skillSystem : MonoBehaviour 
 {
-    private SkillManager _sm;
+    //private SkillManager _sm;
     private int _unusedSP;
 
     public UILabel unusedSkillpoints;
@@ -25,6 +25,7 @@ public class skillSystem : MonoBehaviour
 	void Start (){
 
         _unusedSP = 13;
+		/*
         _sm = new SkillManager();
 		
 		if (_sm.LoadSkillsFromFile() == false)
@@ -42,7 +43,7 @@ public class skillSystem : MonoBehaviour
 	        _sm.GetSkillByName("Ausdauer").Value = 2;
 	        _sm.GetSkillByName("Sichtweite").Value = 6;
 	        _sm.GetSkillByName("Fitness").Value = 4;
-		}
+		}*/
         TextUpdate();
 	}
 	
@@ -53,7 +54,7 @@ public class skillSystem : MonoBehaviour
     void TextUpdate()
     {
         unusedSkillpoints.text = _unusedSP.ToString();
-
+		/*
         skill1Name.text = _sm.GetSkillByName("Beweglichkeit").Name;
         skill1Value.text = _sm.GetSkillByName("Beweglichkeit").Value.ToString();
 
@@ -70,35 +71,36 @@ public class skillSystem : MonoBehaviour
         skill5Value.text = _sm.GetSkillByName("Sichtweite").Value.ToString();
 
         skill6Name.text = _sm.GetSkillByName("Fitness").Name;
-        skill6Value.text = _sm.GetSkillByName("Fitness").Value.ToString();
+        skill6Value.text = _sm.GetSkillByName("Fitness").Value.ToString();*/
     }
 
     public void SaveSkills()
     {
-        _sm.SaveSkillsToFile();
+        //_sm.SaveSkillsToFile();
     }
 
     public void Increase(string skillName)
     {
         Debug.Log("Inc - SN: " + skillName);
-        if (_sm.GetSkillByName(skillName).Value < _sm.GetSkillByName(skillName).MaxValue && _unusedSP > 0)
+        /*if (_sm.GetSkillByName(skillName).Value < _sm.GetSkillByName(skillName).MaxValue && _unusedSP > 0)
         {
             --_unusedSP;
             ++_sm.GetSkillByName(skillName).Value;
             TextUpdate();
             //skill1Value.text = _sm.GetSkillByName(skillName).Value.ToString();
-        }
+        }*/
     }
 
     public void Decrease(string skillName)
     {
         Debug.Log("Dec - SN: " + skillName);
+		/*
         if (_sm.GetSkillByName(skillName).Value > _sm.GetSkillByName(skillName).MinValue)
         {
             ++_unusedSP;
             --_sm.GetSkillByName(skillName).Value;
             TextUpdate();
             //skill1Value.text = _sm.GetSkillByName(skillName).Value.ToString();
-        }
+        }*/
     }
 }

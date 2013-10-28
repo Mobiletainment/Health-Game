@@ -67,7 +67,7 @@ public static class Settings
 
 	public static string LoadSettingFromFile(string settingName)
 	{
-		Debug.Log("Settings Load");
+		//Debug.Log("Settings Load");
 		
 		string lang = "en";
 		
@@ -79,7 +79,7 @@ public static class Settings
 			PlayerPrefs.Save();
 		}
 		
-		Debug.Log("PlayerPrefs " + lang);
+		//Debug.Log("PlayerPrefs " + lang);
 		
 		return lang;
 	
