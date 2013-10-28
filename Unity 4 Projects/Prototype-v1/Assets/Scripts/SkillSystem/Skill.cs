@@ -23,16 +23,26 @@ public class Skill
 		CurrentValue = currentValue;
 	}
 	
-	public void Increase()
+	public bool Increase()
 	{
 		if(CurrentValue < MaxValue)
+		{
 			++CurrentValue;
+			return true;
+		}
+		
+		return false;
 	}
 	
-	public void Decrease()
+	public bool Decrease()
 	{
 		if(CurrentValue > MinValue)
+		{
 			--CurrentValue;
+			return true;
+		}
+		
+		return false;
 	}
 	
 }

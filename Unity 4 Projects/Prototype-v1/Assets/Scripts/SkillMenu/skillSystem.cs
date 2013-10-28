@@ -1,11 +1,13 @@
 using UnityEngine;
 using System.Collections;
-using SkillSystem;
+//using SkillSystem;
 
 public class skillSystem : MonoBehaviour 
 {
+	
+	private SkillManager _sm;
+	
     //private SkillManager _sm;
-    private int _unusedSP;
 
     public UILabel unusedSkillpoints;
     public UILabel skill1Name;
@@ -13,18 +15,21 @@ public class skillSystem : MonoBehaviour
     public UILabel skill3Name;
     public UILabel skill4Name;
     public UILabel skill5Name;
-    public UILabel skill6Name;
+    //public UILabel skill6Name;
     public UILabel skill1Value;
     public UILabel skill2Value;
     public UILabel skill3Value;
     public UILabel skill4Value;
     public UILabel skill5Value;
-    public UILabel skill6Value;
+    //public UILabel skill6Value;
 
 	// Use this for initialization
 	void Start (){
 
-        _unusedSP = 13;
+		_sm = new SkillManager();
+		_sm.Init();
+		//_sm = GameObject.Find("Scriptholder").GetComponent<SkillManager>();
+		
 		/*
         _sm = new SkillManager();
 		
@@ -44,6 +49,7 @@ public class skillSystem : MonoBehaviour
 	        _sm.GetSkillByName("Sichtweite").Value = 6;
 	        _sm.GetSkillByName("Fitness").Value = 4;
 		}*/
+		
         TextUpdate();
 	}
 	
@@ -53,7 +59,25 @@ public class skillSystem : MonoBehaviour
 
     void TextUpdate()
     {
-        unusedSkillpoints.text = _unusedSP.ToString();
+        unusedSkillpoints.text = _sm.UnspentPoints.ToString();
+		
+		//Debug.Log("SM -> " + _sm);
+		
+		skill1Name.text = _sm.SkillName1;
+		skill1Value.text = _sm.GetSkillByName(_sm.SkillName1).CurrentValue.ToString();
+		
+		skill2Name.text = _sm.SkillName2;
+		skill2Value.text = _sm.GetSkillByName(_sm.SkillName2).CurrentValue.ToString();
+		
+		skill3Name.text = _sm.SkillName3;
+		skill3Value.text = _sm.GetSkillByName(_sm.SkillName3).CurrentValue.ToString();
+		
+		skill4Name.text = _sm.SkillName4;
+		skill4Value.text = _sm.GetSkillByName(_sm.SkillName4).CurrentValue.ToString();
+		
+		skill5Name.text = _sm.SkillName5;
+		skill5Value.text = _sm.GetSkillByName(_sm.SkillName5).CurrentValue.ToString();
+		
 		/*
         skill1Name.text = _sm.GetSkillByName("Beweglichkeit").Name;
         skill1Value.text = _sm.GetSkillByName("Beweglichkeit").Value.ToString();
@@ -82,6 +106,10 @@ public class skillSystem : MonoBehaviour
     public void Increase(string skillName)
     {
         Debug.Log("Inc - SN: " + skillName);
+		
+		_sm.IncreaseSkill(skillName);
+		TextUpdate();
+		
         /*if (_sm.GetSkillByName(skillName).Value < _sm.GetSkillByName(skillName).MaxValue && _unusedSP > 0)
         {
             --_unusedSP;
@@ -94,6 +122,10 @@ public class skillSystem : MonoBehaviour
     public void Decrease(string skillName)
     {
         Debug.Log("Dec - SN: " + skillName);
+		
+		_sm.DecreaseSkill(skillName);
+		TextUpdate();
+		
 		/*
         if (_sm.GetSkillByName(skillName).Value > _sm.GetSkillByName(skillName).MinValue)
         {
