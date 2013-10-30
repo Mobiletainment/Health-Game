@@ -59,29 +59,34 @@ namespace TestServer
                     {
                         try
                         {
-                            if (tcpClient.Available == 0)
-                                break;
+                            //if(tcpClient.Available == 0)
+                               // return;
 
                             StreamReader sr = new StreamReader(clientStream);
                             string getvar = sr.ReadLine();
-                            if (string.IsNullOrEmpty(getvar)) 
-                                break;
+
+                            while (string.IsNullOrEmpty(getvar))
+                            {
+                                Thread.Sleep(100);
+                                getvar = sr.ReadLine();
+                            }
 
                             Console.WriteLine("Msg received: " + getvar);
 
+                            /*
                             while (!sr.EndOfStream)
                             {
                                 string line = sr.ReadLine();
                                 Console.WriteLine(line);
                                 if (string.IsNullOrEmpty(line)) 
                                     break;
-                            }
+                            }*/
 
-                            StreamWriter sw = new StreamWriter(clientStream);
-                            sw.WriteLine("Message from server!");
-                            sw.Flush();
+                            //StreamWriter sw = new StreamWriter(clientStream);
+                            //sw.WriteLine("Message from server!");
+                            //sw.Flush();
 
-                            Console.WriteLine("Sent message to Client.");
+                            //Console.WriteLine("Sent message to Client.");
 
                             sr.Close();
                         }
