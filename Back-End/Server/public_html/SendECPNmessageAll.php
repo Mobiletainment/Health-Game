@@ -5,9 +5,10 @@ mysql_connect($loginURL,$username,$password);
 
 @mysql_select_db($database) or die( "9");
 
-$message = strip_tags($_POST["user"]) . " says hi";
+$message = strip_tags($_POST["username"]) . " says hi";
 $androidIDs = array();
 $iosIDs = array();
+$username = strip_tags($_POST["username"]);
 
 // Get all device ids from table
 $sql = "SELECT * FROM ECPN_table";
@@ -26,6 +27,7 @@ if(count($contacts) > 0) {
 		if(mysql_numrows($result) > 0) {
 			$os = mysql_result($result,0,"os");
 			$regId = mysql_result($result,0,"deviceID");
+			$username = mysql_result($result,0,"username");
 			if($os == "android") $androidIDs[] = $regId;
 			else $iosIDs[] = $regId;
 		}

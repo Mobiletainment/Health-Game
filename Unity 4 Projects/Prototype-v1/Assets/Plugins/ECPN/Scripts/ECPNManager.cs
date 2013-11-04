@@ -18,6 +18,7 @@ public class ECPNManager: MonoBehaviour {
 	public string phpFilesLocation = "http://your.ftp.server/ECPN"; // remote location of the PHP files
 	public string packageName = "at.technikum.mgs.healthgame"; // name of your app bundle identifier
 	private string devToken;
+	private string username;
 	
 #if UNITY_ANDROID
 	private AndroidJavaObject playerActivityContext;
@@ -86,6 +87,16 @@ public class ECPNManager: MonoBehaviour {
 		return devToken;
 	}
 	
+	public string GetUsername()
+	{
+		return username;
+	}
+	
+	public void SetUsername(string username)
+	{
+		this.username = username;
+	}
+	
 	// UNDER THE HOOD METHODS //
 	
 #if UNITY_IPHONE
@@ -131,7 +142,8 @@ public class ECPNManager: MonoBehaviour {
 		WWWForm form = new WWWForm();
 		form.AddField( "user", SystemInfo.deviceUniqueIdentifier );
 		form.AddField( "OS", os);
-		form.AddField ("regID",devToken);
+		form.AddField("regID",devToken);
+		form.AddField("username", username);
 		WWW w = new WWW(phpFilesLocation + "/RegisterDeviceIDtoDB.php", form);
 		yield return w;
 		if (w.error != null) {
@@ -142,6 +154,8 @@ public class ECPNManager: MonoBehaviour {
 			errorCode = int.Parse(formText);
 		}
 	}
+	
+	
 	/*
 	 * Sends notification message to all devices registered in the server
 	 * It displays the number of messages sent (via Debug.Log)
@@ -149,7 +163,8 @@ public class ECPNManager: MonoBehaviour {
 	private IEnumerator SendECPNmessage() {
 		// Send message to server with accName - devToken pair
 		WWWForm form = new WWWForm();
-		form.AddField( "user", SystemInfo.deviceUniqueIdentifier );
+		form.AddField("user", SystemInfo.deviceUniqueIdentifier );
+		form.AddField("username", username);
 		WWW w = new WWW(phpFilesLocation + "/SendECPNmessageAll.php", form);
 		yield return w;
 		if (w.error != null) {
