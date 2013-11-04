@@ -14,9 +14,9 @@ using System.Collections.Generic;
  */
 public class ECPNManager: MonoBehaviour {
 	
-	public string GoogleCloudMessageProjectID = "XXXXXXXXXXXX"; // Insert your Google Project ID
+	public string GoogleCloudMessageProjectID = "368000005971"; // Insert your Google Project ID
 	public string phpFilesLocation = "http://your.ftp.server/ECPN"; // remote location of the PHP files
-	public string packageName = "com.yourName.yourApp"; // name of your app bundle identifier
+	public string packageName = "at.technikum.mgs.healthgame"; // name of your app bundle identifier
 	private string devToken;
 	
 #if UNITY_ANDROID
