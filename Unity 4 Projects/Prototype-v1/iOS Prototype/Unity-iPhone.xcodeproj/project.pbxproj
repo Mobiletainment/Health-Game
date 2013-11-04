@@ -47,41 +47,23 @@
 		8AFA69D9161605E7009663A5 /* iPhone_OrientationSupport.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8AFA69D8161605E7009663A5 /* iPhone_OrientationSupport.mm */; };
 		D82DCFC30E8000A5005D6AD8 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = D82DCFBB0E8000A5005D6AD8 /* main.mm */; };
 		D82DCFC50E8000A5005D6AD8 /* RegisterClasses.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D82DCFBD0E8000A5005D6AD8 /* RegisterClasses.cpp */; };
-		D8A1C7000E80637F000160D4 /* Assembly-CSharp.dll.s in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7000E80637F100160D4 /* Assembly-CSharp.dll.s */; };
-		D8A1C7001E80637F000160D4 /* Mono.Security.dll.s in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7001E80637F100160D4 /* Mono.Security.dll.s */; };
-		D8A1C7002E80637F000160D4 /* System.dll.s in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7002E80637F100160D4 /* System.dll.s */; };
-		D8A1C7003E80637F000160D4 /* UnityEngine.dll.s in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7003E80637F100160D4 /* UnityEngine.dll.s */; };
-		D8A1C7004E80637F000160D4 /* mscorlib.dll.s in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7004E80637F100160D4 /* mscorlib.dll.s */; };
-		D8A1C7005E80637F000160D4 /* HtmlWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7005E80637F100160D4 /* HtmlWebViewController.m */; };
-		D8A1C7006E80637F000160D4 /* PWAppOpenRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7006E80637F100160D4 /* PWAppOpenRequest.m */; };
-		D8A1C7007E80637F000160D4 /* PWApplicationEventRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7007E80637F100160D4 /* PWApplicationEventRequest.m */; };
-		D8A1C7008E80637F000160D4 /* PWGetNearestZoneRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7008E80637F100160D4 /* PWGetNearestZoneRequest.m */; };
-		D8A1C7009E80637F000160D4 /* PWGetTagsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7009E80637F100160D4 /* PWGetTagsRequest.m */; };
-		D8A1C700aE80637F000160D4 /* PWLocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C700aE80637F100160D4 /* PWLocationTracker.m */; };
-		D8A1C700bE80637F000160D4 /* PWPushStatRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C700bE80637F100160D4 /* PWPushStatRequest.m */; };
-		D8A1C700cE80637F000160D4 /* PWRegisterDeviceRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C700cE80637F100160D4 /* PWRegisterDeviceRequest.m */; };
-		D8A1C700dE80637F000160D4 /* PWRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C700dE80637F100160D4 /* PWRequest.m */; };
-		D8A1C700eE80637F000160D4 /* PWRequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C700eE80637F100160D4 /* PWRequestManager.m */; };
-		D8A1C700fE80637F000160D4 /* PWSendBadgeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C700fE80637F100160D4 /* PWSendBadgeRequest.m */; };
-		D8A1C7010E80637F000160D4 /* PWSendPurchaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7010E80637F100160D4 /* PWSendPurchaseRequest.m */; };
-		D8A1C7011E80637F000160D4 /* PWSetTagsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7011E80637F100160D4 /* PWSetTagsRequest.m */; };
-		D8A1C7012E80637F000160D4 /* PW_SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7012E80637F100160D4 /* PW_SBJsonBase.m */; };
-		D8A1C7013E80637F000160D4 /* PW_SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7013E80637F100160D4 /* PW_SBJsonParser.m */; };
-		D8A1C7014E80637F000160D4 /* PW_SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7014E80637F100160D4 /* PW_SBJsonWriter.m */; };
-		D8A1C7015E80637F000160D4 /* PushNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7015E80637F100160D4 /* PushNotificationManager.m */; };
-		D8A1C7016E80637F000160D4 /* PushRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7016E80637F100160D4 /* PushRuntime.m */; };
-		D8A1C7017E80637F000160D4 /* Icon@2x.png in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7017E80637F100160D4 /* Icon@2x.png */; };
-		D8A1C7018E80637F000160D4 /* Default@2x.png in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7018E80637F100160D4 /* Default@2x.png */; };
-		D8A1C7019E80637F000160D4 /* Default-568h@2x.png in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7019E80637F100160D4 /* Default-568h@2x.png */; };
-		D8A1C701aE80637F000160D4 /* Default-Landscape.png in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C701aE80637F100160D4 /* Default-Landscape.png */; };
-		D8A1C701bE80637F000160D4 /* Default-Portrait.png in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C701bE80637F100160D4 /* Default-Portrait.png */; };
-		D8A1C701cE80637F000160D4 /* Default-Landscape@2x.png in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C701cE80637F100160D4 /* Default-Landscape@2x.png */; };
-		D8A1C701dE80637F000160D4 /* Default-Portrait@2x.png in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C701dE80637F100160D4 /* Default-Portrait@2x.png */; };
-		D8A1C701eE80637F000160D4 /* Icon-72.png in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C701eE80637F100160D4 /* Icon-72.png */; };
-		D8A1C701fE80637F000160D4 /* Icon-144.png in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C701fE80637F100160D4 /* Icon-144.png */; };
+		D8A1C7000E80637F000160D4 /* Assembly-CSharp-firstpass.dll.s in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7000E80637F100160D4 /* Assembly-CSharp-firstpass.dll.s */; };
+		D8A1C7001E80637F000160D4 /* Assembly-CSharp.dll.s in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7001E80637F100160D4 /* Assembly-CSharp.dll.s */; };
+		D8A1C7002E80637F000160D4 /* Mono.Security.dll.s in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7002E80637F100160D4 /* Mono.Security.dll.s */; };
+		D8A1C7003E80637F000160D4 /* System.dll.s in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7003E80637F100160D4 /* System.dll.s */; };
+		D8A1C7004E80637F000160D4 /* UnityEngine.dll.s in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7004E80637F100160D4 /* UnityEngine.dll.s */; };
+		D8A1C7005E80637F000160D4 /* mscorlib.dll.s in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7005E80637F100160D4 /* mscorlib.dll.s */; };
+		D8A1C7006E80637F000160D4 /* Icon@2x.png in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7006E80637F100160D4 /* Icon@2x.png */; };
+		D8A1C7007E80637F000160D4 /* Default@2x.png in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7007E80637F100160D4 /* Default@2x.png */; };
+		D8A1C7008E80637F000160D4 /* Default-568h@2x.png in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7008E80637F100160D4 /* Default-568h@2x.png */; };
+		D8A1C7009E80637F000160D4 /* Default-Landscape.png in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7009E80637F100160D4 /* Default-Landscape.png */; };
+		D8A1C700aE80637F000160D4 /* Default-Portrait.png in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C700aE80637F100160D4 /* Default-Portrait.png */; };
+		D8A1C700bE80637F000160D4 /* Default-Landscape@2x.png in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C700bE80637F100160D4 /* Default-Landscape@2x.png */; };
+		D8A1C700cE80637F000160D4 /* Default-Portrait@2x.png in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C700cE80637F100160D4 /* Default-Portrait@2x.png */; };
+		D8A1C700dE80637F000160D4 /* Icon-72.png in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C700dE80637F100160D4 /* Icon-72.png */; };
+		D8A1C700eE80637F000160D4 /* Icon-144.png in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C700eE80637F100160D4 /* Icon-144.png */; };
 		D8A1C7280E80637F000160D3 /* RegisterMonoModules.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8A1C7240E80637F000160D3 /* RegisterMonoModules.cpp */; };
 		D8A1C72B0E8063A1000160D3 /* libiPhone-lib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D8A1C72A0E8063A1000160D3 /* libiPhone-lib.a */; };
-		E2DA190D1818814D00CF3674 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2DA190C1818814D00CF3674 /* AdSupport.framework */; };
 		FC85CCBB16C3ED8000BAF7C7 /* CrashReporter.mm in Sources */ = {isa = PBXBuildFile; fileRef = FC85CCB916C3ED8000BAF7C7 /* CrashReporter.mm */; };
 /* End PBXBuildFile section */
 
@@ -100,7 +82,7 @@
 /* Begin PBXFileReference section */
 		08B24F75137BFDFA00FBA309 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1D6058910D05DD3D006BFB54 /* Unity-Target-New.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Unity-Target-New.app"; path = healthgame.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* healthgame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = healthgame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5682F4B10F3B34FF007A219C /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		5692F3DC0FA9D8E500EBA2F1 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		56B7959A1442E0F20026B3DD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -161,42 +143,24 @@
 		D82DCFBB0E8000A5005D6AD8 /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = main.mm; path = Classes/main.mm; sourceTree = SOURCE_ROOT; };
 		D82DCFBD0E8000A5005D6AD8 /* RegisterClasses.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RegisterClasses.cpp; path = Classes/RegisterClasses.cpp; sourceTree = SOURCE_ROOT; };
 		D82DCFBE0E8000A5005D6AD8 /* RegisterClasses.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegisterClasses.h; path = Classes/RegisterClasses.h; sourceTree = SOURCE_ROOT; };
-		D8A1C7000E80637F100160D4 /* Assembly-CSharp.dll.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = Assembly-CSharp.dll.s; path = Libraries/Assembly-CSharp.dll.s; sourceTree = SOURCE_ROOT; };
-		D8A1C7001E80637F100160D4 /* Mono.Security.dll.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = Mono.Security.dll.s; path = Libraries/Mono.Security.dll.s; sourceTree = SOURCE_ROOT; };
-		D8A1C7002E80637F100160D4 /* System.dll.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = System.dll.s; path = Libraries/System.dll.s; sourceTree = SOURCE_ROOT; };
-		D8A1C7003E80637F100160D4 /* UnityEngine.dll.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = UnityEngine.dll.s; path = Libraries/UnityEngine.dll.s; sourceTree = SOURCE_ROOT; };
-		D8A1C7004E80637F100160D4 /* mscorlib.dll.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = mscorlib.dll.s; path = Libraries/mscorlib.dll.s; sourceTree = SOURCE_ROOT; };
-		D8A1C7005E80637F100160D4 /* HtmlWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HtmlWebViewController.m; path = Libraries/HtmlWebViewController.m; sourceTree = SOURCE_ROOT; };
-		D8A1C7006E80637F100160D4 /* PWAppOpenRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWAppOpenRequest.m; path = Libraries/PWAppOpenRequest.m; sourceTree = SOURCE_ROOT; };
-		D8A1C7007E80637F100160D4 /* PWApplicationEventRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWApplicationEventRequest.m; path = Libraries/PWApplicationEventRequest.m; sourceTree = SOURCE_ROOT; };
-		D8A1C7008E80637F100160D4 /* PWGetNearestZoneRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWGetNearestZoneRequest.m; path = Libraries/PWGetNearestZoneRequest.m; sourceTree = SOURCE_ROOT; };
-		D8A1C7009E80637F100160D4 /* PWGetTagsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWGetTagsRequest.m; path = Libraries/PWGetTagsRequest.m; sourceTree = SOURCE_ROOT; };
-		D8A1C700aE80637F100160D4 /* PWLocationTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWLocationTracker.m; path = Libraries/PWLocationTracker.m; sourceTree = SOURCE_ROOT; };
-		D8A1C700bE80637F100160D4 /* PWPushStatRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWPushStatRequest.m; path = Libraries/PWPushStatRequest.m; sourceTree = SOURCE_ROOT; };
-		D8A1C700cE80637F100160D4 /* PWRegisterDeviceRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWRegisterDeviceRequest.m; path = Libraries/PWRegisterDeviceRequest.m; sourceTree = SOURCE_ROOT; };
-		D8A1C700dE80637F100160D4 /* PWRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWRequest.m; path = Libraries/PWRequest.m; sourceTree = SOURCE_ROOT; };
-		D8A1C700eE80637F100160D4 /* PWRequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWRequestManager.m; path = Libraries/PWRequestManager.m; sourceTree = SOURCE_ROOT; };
-		D8A1C700fE80637F100160D4 /* PWSendBadgeRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWSendBadgeRequest.m; path = Libraries/PWSendBadgeRequest.m; sourceTree = SOURCE_ROOT; };
-		D8A1C7010E80637F100160D4 /* PWSendPurchaseRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWSendPurchaseRequest.m; path = Libraries/PWSendPurchaseRequest.m; sourceTree = SOURCE_ROOT; };
-		D8A1C7011E80637F100160D4 /* PWSetTagsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWSetTagsRequest.m; path = Libraries/PWSetTagsRequest.m; sourceTree = SOURCE_ROOT; };
-		D8A1C7012E80637F100160D4 /* PW_SBJsonBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PW_SBJsonBase.m; path = Libraries/PW_SBJsonBase.m; sourceTree = SOURCE_ROOT; };
-		D8A1C7013E80637F100160D4 /* PW_SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PW_SBJsonParser.m; path = Libraries/PW_SBJsonParser.m; sourceTree = SOURCE_ROOT; };
-		D8A1C7014E80637F100160D4 /* PW_SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PW_SBJsonWriter.m; path = Libraries/PW_SBJsonWriter.m; sourceTree = SOURCE_ROOT; };
-		D8A1C7015E80637F100160D4 /* PushNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PushNotificationManager.m; path = Libraries/PushNotificationManager.m; sourceTree = SOURCE_ROOT; };
-		D8A1C7016E80637F100160D4 /* PushRuntime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PushRuntime.m; path = Libraries/PushRuntime.m; sourceTree = SOURCE_ROOT; };
-		D8A1C7017E80637F100160D4 /* Icon@2x.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Icon@2x.png"; sourceTree = SOURCE_ROOT; };
-		D8A1C7018E80637F100160D4 /* Default@2x.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = "Default@2x.png"; path = "Default@2x.png"; sourceTree = SOURCE_ROOT; };
-		D8A1C7019E80637F100160D4 /* Default-568h@2x.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "Default-568h@2x.png"; sourceTree = SOURCE_ROOT; };
-		D8A1C701aE80637F100160D4 /* Default-Landscape.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = Default-Landscape.png; path = Default-Landscape.png; sourceTree = SOURCE_ROOT; };
-		D8A1C701bE80637F100160D4 /* Default-Portrait.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = Default-Portrait.png; path = Default-Portrait.png; sourceTree = SOURCE_ROOT; };
-		D8A1C701cE80637F100160D4 /* Default-Landscape@2x.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = "Default-Landscape@2x.png"; path = "Default-Landscape@2x.png"; sourceTree = SOURCE_ROOT; };
-		D8A1C701dE80637F100160D4 /* Default-Portrait@2x.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = "Default-Portrait@2x.png"; path = "Default-Portrait@2x.png"; sourceTree = SOURCE_ROOT; };
-		D8A1C701eE80637F100160D4 /* Icon-72.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = Icon-72.png; path = Icon-72.png; sourceTree = SOURCE_ROOT; };
-		D8A1C701fE80637F100160D4 /* Icon-144.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = Icon-144.png; path = Icon-144.png; sourceTree = SOURCE_ROOT; };
+		D8A1C7000E80637F100160D4 /* Assembly-CSharp-firstpass.dll.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = Assembly-CSharp-firstpass.dll.s; path = Libraries/Assembly-CSharp-firstpass.dll.s; sourceTree = SOURCE_ROOT; };
+		D8A1C7001E80637F100160D4 /* Assembly-CSharp.dll.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = Assembly-CSharp.dll.s; path = Libraries/Assembly-CSharp.dll.s; sourceTree = SOURCE_ROOT; };
+		D8A1C7002E80637F100160D4 /* Mono.Security.dll.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = Mono.Security.dll.s; path = Libraries/Mono.Security.dll.s; sourceTree = SOURCE_ROOT; };
+		D8A1C7003E80637F100160D4 /* System.dll.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = System.dll.s; path = Libraries/System.dll.s; sourceTree = SOURCE_ROOT; };
+		D8A1C7004E80637F100160D4 /* UnityEngine.dll.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = UnityEngine.dll.s; path = Libraries/UnityEngine.dll.s; sourceTree = SOURCE_ROOT; };
+		D8A1C7005E80637F100160D4 /* mscorlib.dll.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = mscorlib.dll.s; path = Libraries/mscorlib.dll.s; sourceTree = SOURCE_ROOT; };
+		D8A1C7006E80637F100160D4 /* Icon@2x.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Icon@2x.png"; sourceTree = SOURCE_ROOT; };
+		D8A1C7007E80637F100160D4 /* Default@2x.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = "Default@2x.png"; path = "Default@2x.png"; sourceTree = SOURCE_ROOT; };
+		D8A1C7008E80637F100160D4 /* Default-568h@2x.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "Default-568h@2x.png"; sourceTree = SOURCE_ROOT; };
+		D8A1C7009E80637F100160D4 /* Default-Landscape.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = Default-Landscape.png; path = Default-Landscape.png; sourceTree = SOURCE_ROOT; };
+		D8A1C700aE80637F100160D4 /* Default-Portrait.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = Default-Portrait.png; path = Default-Portrait.png; sourceTree = SOURCE_ROOT; };
+		D8A1C700bE80637F100160D4 /* Default-Landscape@2x.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = "Default-Landscape@2x.png"; path = "Default-Landscape@2x.png"; sourceTree = SOURCE_ROOT; };
+		D8A1C700cE80637F100160D4 /* Default-Portrait@2x.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = "Default-Portrait@2x.png"; path = "Default-Portrait@2x.png"; sourceTree = SOURCE_ROOT; };
+		D8A1C700dE80637F100160D4 /* Icon-72.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = Icon-72.png; path = Icon-72.png; sourceTree = SOURCE_ROOT; };
+		D8A1C700eE80637F100160D4 /* Icon-144.png */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = image.png; name = Icon-144.png; path = Icon-144.png; sourceTree = SOURCE_ROOT; };
 		D8A1C7240E80637F000160D3 /* RegisterMonoModules.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RegisterMonoModules.cpp; path = Libraries/RegisterMonoModules.cpp; sourceTree = SOURCE_ROOT; };
 		D8A1C7250E80637F000160D3 /* RegisterMonoModules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegisterMonoModules.h; path = Libraries/RegisterMonoModules.h; sourceTree = SOURCE_ROOT; };
 		D8A1C72A0E8063A1000160D3 /* libiPhone-lib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libiPhone-lib.a"; path = "Libraries/libiPhone-lib.a"; sourceTree = SOURCE_ROOT; };
-		E2DA190C1818814D00CF3674 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		FC3D7EBE16D2621600D1BD0D /* CrashReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrashReporter.h; sourceTree = "<group>"; };
 		FC85CCB916C3ED8000BAF7C7 /* CrashReporter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CrashReporter.mm; sourceTree = "<group>"; };
 		FC85CCBA16C3ED8000BAF7C7 /* PLCrashReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLCrashReporter.h; sourceTree = "<group>"; };
@@ -207,7 +171,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2DA190D1818814D00CF3674 /* AdSupport.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				830B5C110E5ED4C100C7819F /* UIKit.framework in Frameworks */,
 				83B256E20E62FEA000468741 /* OpenGLES.framework in Frameworks */,
@@ -236,7 +199,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* Unity-Target-New.app */,
+				1D6058910D05DD3D006BFB54 /* healthgame.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -275,7 +238,6 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E2DA190C1818814D00CF3674 /* AdSupport.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 			);
 			name = Frameworks;
@@ -352,38 +314,21 @@
 			isa = PBXGroup;
 			children = (
 				D8A1C72A0E8063A1000160D3 /* libiPhone-lib.a */,
-				D8A1C7000E80637F100160D4 /* Assembly-CSharp.dll.s */,
-				D8A1C7001E80637F100160D4 /* Mono.Security.dll.s */,
-				D8A1C7002E80637F100160D4 /* System.dll.s */,
-				D8A1C7003E80637F100160D4 /* UnityEngine.dll.s */,
-				D8A1C7004E80637F100160D4 /* mscorlib.dll.s */,
-				D8A1C7005E80637F100160D4 /* HtmlWebViewController.m */,
-				D8A1C7006E80637F100160D4 /* PWAppOpenRequest.m */,
-				D8A1C7007E80637F100160D4 /* PWApplicationEventRequest.m */,
-				D8A1C7008E80637F100160D4 /* PWGetNearestZoneRequest.m */,
-				D8A1C7009E80637F100160D4 /* PWGetTagsRequest.m */,
-				D8A1C700aE80637F100160D4 /* PWLocationTracker.m */,
-				D8A1C700bE80637F100160D4 /* PWPushStatRequest.m */,
-				D8A1C700cE80637F100160D4 /* PWRegisterDeviceRequest.m */,
-				D8A1C700dE80637F100160D4 /* PWRequest.m */,
-				D8A1C700eE80637F100160D4 /* PWRequestManager.m */,
-				D8A1C700fE80637F100160D4 /* PWSendBadgeRequest.m */,
-				D8A1C7010E80637F100160D4 /* PWSendPurchaseRequest.m */,
-				D8A1C7011E80637F100160D4 /* PWSetTagsRequest.m */,
-				D8A1C7012E80637F100160D4 /* PW_SBJsonBase.m */,
-				D8A1C7013E80637F100160D4 /* PW_SBJsonParser.m */,
-				D8A1C7014E80637F100160D4 /* PW_SBJsonWriter.m */,
-				D8A1C7015E80637F100160D4 /* PushNotificationManager.m */,
-				D8A1C7016E80637F100160D4 /* PushRuntime.m */,
-				D8A1C7017E80637F100160D4 /* Icon@2x.png */,
-				D8A1C7018E80637F100160D4 /* Default@2x.png */,
-				D8A1C7019E80637F100160D4 /* Default-568h@2x.png */,
-				D8A1C701aE80637F100160D4 /* Default-Landscape.png */,
-				D8A1C701bE80637F100160D4 /* Default-Portrait.png */,
-				D8A1C701cE80637F100160D4 /* Default-Landscape@2x.png */,
-				D8A1C701dE80637F100160D4 /* Default-Portrait@2x.png */,
-				D8A1C701eE80637F100160D4 /* Icon-72.png */,
-				D8A1C701fE80637F100160D4 /* Icon-144.png */,
+				D8A1C7000E80637F100160D4 /* Assembly-CSharp-firstpass.dll.s */,
+				D8A1C7001E80637F100160D4 /* Assembly-CSharp.dll.s */,
+				D8A1C7002E80637F100160D4 /* Mono.Security.dll.s */,
+				D8A1C7003E80637F100160D4 /* System.dll.s */,
+				D8A1C7004E80637F100160D4 /* UnityEngine.dll.s */,
+				D8A1C7005E80637F100160D4 /* mscorlib.dll.s */,
+				D8A1C7006E80637F100160D4 /* Icon@2x.png */,
+				D8A1C7007E80637F100160D4 /* Default@2x.png */,
+				D8A1C7008E80637F100160D4 /* Default-568h@2x.png */,
+				D8A1C7009E80637F100160D4 /* Default-Landscape.png */,
+				D8A1C700aE80637F100160D4 /* Default-Portrait.png */,
+				D8A1C700bE80637F100160D4 /* Default-Landscape@2x.png */,
+				D8A1C700cE80637F100160D4 /* Default-Portrait@2x.png */,
+				D8A1C700dE80637F100160D4 /* Icon-72.png */,
+				D8A1C700eE80637F100160D4 /* Icon-144.png */,
 				D8A1C7240E80637F000160D3 /* RegisterMonoModules.cpp */,
 				D8A1C7250E80637F000160D3 /* RegisterMonoModules.h */,
 			);
@@ -409,7 +354,7 @@
 			);
 			name = "Unity-iPhone";
 			productName = "iPhone-target";
-			productReference = 1D6058910D05DD3D006BFB54 /* Unity-Target-New.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* healthgame.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -473,38 +418,21 @@
 			files = (
 				D82DCFC30E8000A5005D6AD8 /* main.mm in Sources */,
 				D82DCFC50E8000A5005D6AD8 /* RegisterClasses.cpp in Sources */,
-				D8A1C7000E80637F000160D4 /* Assembly-CSharp.dll.s in Sources */,
-				D8A1C7001E80637F000160D4 /* Mono.Security.dll.s in Sources */,
-				D8A1C7002E80637F000160D4 /* System.dll.s in Sources */,
-				D8A1C7003E80637F000160D4 /* UnityEngine.dll.s in Sources */,
-				D8A1C7004E80637F000160D4 /* mscorlib.dll.s in Sources */,
-				D8A1C7005E80637F000160D4 /* HtmlWebViewController.m in Sources */,
-				D8A1C7006E80637F000160D4 /* PWAppOpenRequest.m in Sources */,
-				D8A1C7007E80637F000160D4 /* PWApplicationEventRequest.m in Sources */,
-				D8A1C7008E80637F000160D4 /* PWGetNearestZoneRequest.m in Sources */,
-				D8A1C7009E80637F000160D4 /* PWGetTagsRequest.m in Sources */,
-				D8A1C700aE80637F000160D4 /* PWLocationTracker.m in Sources */,
-				D8A1C700bE80637F000160D4 /* PWPushStatRequest.m in Sources */,
-				D8A1C700cE80637F000160D4 /* PWRegisterDeviceRequest.m in Sources */,
-				D8A1C700dE80637F000160D4 /* PWRequest.m in Sources */,
-				D8A1C700eE80637F000160D4 /* PWRequestManager.m in Sources */,
-				D8A1C700fE80637F000160D4 /* PWSendBadgeRequest.m in Sources */,
-				D8A1C7010E80637F000160D4 /* PWSendPurchaseRequest.m in Sources */,
-				D8A1C7011E80637F000160D4 /* PWSetTagsRequest.m in Sources */,
-				D8A1C7012E80637F000160D4 /* PW_SBJsonBase.m in Sources */,
-				D8A1C7013E80637F000160D4 /* PW_SBJsonParser.m in Sources */,
-				D8A1C7014E80637F000160D4 /* PW_SBJsonWriter.m in Sources */,
-				D8A1C7015E80637F000160D4 /* PushNotificationManager.m in Sources */,
-				D8A1C7016E80637F000160D4 /* PushRuntime.m in Sources */,
-				D8A1C7017E80637F000160D4 /* Icon@2x.png in Sources */,
-				D8A1C7018E80637F000160D4 /* Default@2x.png in Sources */,
-				D8A1C7019E80637F000160D4 /* Default-568h@2x.png in Sources */,
-				D8A1C701aE80637F000160D4 /* Default-Landscape.png in Sources */,
-				D8A1C701bE80637F000160D4 /* Default-Portrait.png in Sources */,
-				D8A1C701cE80637F000160D4 /* Default-Landscape@2x.png in Sources */,
-				D8A1C701dE80637F000160D4 /* Default-Portrait@2x.png in Sources */,
-				D8A1C701eE80637F000160D4 /* Icon-72.png in Sources */,
-				D8A1C701fE80637F000160D4 /* Icon-144.png in Sources */,
+				D8A1C7000E80637F000160D4 /* Assembly-CSharp-firstpass.dll.s in Sources */,
+				D8A1C7001E80637F000160D4 /* Assembly-CSharp.dll.s in Sources */,
+				D8A1C7002E80637F000160D4 /* Mono.Security.dll.s in Sources */,
+				D8A1C7003E80637F000160D4 /* System.dll.s in Sources */,
+				D8A1C7004E80637F000160D4 /* UnityEngine.dll.s in Sources */,
+				D8A1C7005E80637F000160D4 /* mscorlib.dll.s in Sources */,
+				D8A1C7006E80637F000160D4 /* Icon@2x.png in Sources */,
+				D8A1C7007E80637F000160D4 /* Default@2x.png in Sources */,
+				D8A1C7008E80637F000160D4 /* Default-568h@2x.png in Sources */,
+				D8A1C7009E80637F000160D4 /* Default-Landscape.png in Sources */,
+				D8A1C700aE80637F000160D4 /* Default-Portrait.png in Sources */,
+				D8A1C700bE80637F000160D4 /* Default-Landscape@2x.png in Sources */,
+				D8A1C700cE80637F000160D4 /* Default-Portrait@2x.png in Sources */,
+				D8A1C700dE80637F000160D4 /* Icon-72.png in Sources */,
+				D8A1C700eE80637F000160D4 /* Icon-144.png in Sources */,
 				D8A1C7280E80637F000160D3 /* RegisterMonoModules.cpp in Sources */,
 				8A2EF43E138549090070AA2F /* iPhone_Profiler.cpp in Sources */,
 				8A9EB22E156E5A25000DC2B4 /* iPhone_View.mm in Sources */,
@@ -607,7 +535,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = armv7;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: David Pertiller (36EE535U8R)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: David Pertiller (36EE535U8R)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
@@ -627,7 +556,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = armv7;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: David Pertiller (36EE535U8R)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: David Pertiller (36EE535U8R)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
