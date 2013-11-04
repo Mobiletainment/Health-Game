@@ -8,6 +8,9 @@ public class ScanGroundTex : MonoBehaviour {
 	public Transform _scanPosObjFrontLeft = null;
 	public Transform _scanPosObjFrontRight = null;
 	
+	public int _testAmount = 10;
+	public float _moveSpeed = 1.2f;
+	
 	// Use this for initialization
 	void Start () 
 	{
@@ -20,7 +23,7 @@ public class ScanGroundTex : MonoBehaviour {
 		// ----- TRANSLATION
 		
 		Vector3 goForward = transform.forward;
-		goForward /= 100.0f;
+		goForward *= Time.deltaTime * _moveSpeed;
 		transform.position += goForward;
 		
 		Texture2D otherTex;
@@ -45,28 +48,18 @@ public class ScanGroundTex : MonoBehaviour {
 		
 		Vector2 checkLine = texEndPos - texStartPos;
 		
-		int testAmount = 10; // TODO: config (public attribute)
+		checkLine /= _testAmount;
 		
-		checkLine /= testAmount;
-		
-		bool[] checkPositions = GetCheckPositions(testAmount, texStartPos, checkLine, otherTex);
+		bool[] checkPositions = GetCheckPositions(_testAmount, texStartPos, checkLine, otherTex);
 		int balance = AnalyzeLine(checkPositions);
 		
 		Debug.Log("Balance: " + balance);
 		
 		if(balance != 0)
 		{
-			Vector3 move3d = ((_scanPosObjLeft.position - _scanPosObjRight.position) / (float)testAmount) * (balance / 2.0f);
-//			Debug.DrawRay(transform.position, move3d, Color.magenta, 10.0f);
-			
-//			Vector3 vecDiff = transform.position - move3d;
-			
-//			Debug.Log(vecDiff);
-//			Debug.Log(Vector3.Magnitude(_scanPosObjLeft.position - _scanPosObjRight.position));
-//			Debug.Log(Vector3.Magnitude(move3d));
-			
-//			transform.position += -move3d;
-			transform.position = Vector3.MoveTowards(transform.position, transform.position - move3d, Time.deltaTime * 1.0f);
+			Vector3 move3d = ((_scanPosObjLeft.position - _scanPosObjRight.position) / (float)_testAmount) * (balance / 2.0f);
+//			transform.position = Vector3.MoveTowards(transform.position, transform.position - move3d, Time.deltaTime * 1.0f);
+			transform.position = Vector3.Slerp(transform.position, transform.position - move3d, Time.deltaTime * 1.0f);
 		}
 		
 		// ----- ROTATION
@@ -92,15 +85,15 @@ public class ScanGroundTex : MonoBehaviour {
 		// Do not forget about rotations! Some Vector2 Calculations will do the trick ;)
 		
 		checkLine = texFrontPosRight - texFrontPosLeft;
-		checkLine /= testAmount;
+		checkLine /= _testAmount;
 		
-		checkPositions = GetCheckPositions(testAmount, texFrontPosLeft, checkLine, otherTex);
+		checkPositions = GetCheckPositions(_testAmount, texFrontPosLeft, checkLine, otherTex);
 		balance = AnalyzeLine(checkPositions);
 		
 		Debug.Log("Balance #2: " + balance);
 		
 		Vector3 rotateLine = _scanPosObjFrontRight.position - _scanPosObjFrontLeft.position;
-		Vector3 rotatePos = _scanPosObjFrontLeft.position + (rotateLine / 2.0f) + ((rotateLine / testAmount) * balance);
+		Vector3 rotatePos = _scanPosObjFrontLeft.position + (rotateLine / 2.0f) + ((rotateLine / _testAmount) * balance);
 		Vector3 rotateDir = rotatePos - transform.position;
 		
 		transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, rotateDir, Time.deltaTime * 1.0f, 0.0f));
