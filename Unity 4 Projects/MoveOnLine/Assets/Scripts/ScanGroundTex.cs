@@ -1,6 +1,13 @@
 using UnityEngine;
 using System.Collections;
 
+// Known Issues:
+
+// If the speed is too fast, the avatar will leave the track.
+// Possible solution: The scanObjects have to have more distance beween each other.
+// Or change the rotation...
+
+
 public class ScanGroundTex : MonoBehaviour {
 	
 	public Transform _scanPosObjLeft = null;
@@ -11,6 +18,13 @@ public class ScanGroundTex : MonoBehaviour {
 	public int _testAmount = 10;
 	public float _moveSpeed = 1.2f;
 	
+	// FUCKING UGLY BOOL SALAT :(
+		// TODO: Refactor!
+	bool _moveLeft = false;
+	bool _moveRight = false;
+	bool _noLine; 
+	bool _lineAgain;
+	
 	// Use this for initialization
 	void Start () 
 	{
@@ -20,6 +34,24 @@ public class ScanGroundTex : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+		// ----- SWITCH LINE
+		if(Input.GetKeyDown(KeyCode.LeftArrow))
+		{
+			_moveLeft = true;
+			_moveRight = false;
+			
+			_noLine = false;
+			_lineAgain = false;
+		}
+		else if(Input.GetKeyDown(KeyCode.RightArrow))
+		{
+			_moveRight = true;
+			_moveLeft = false;
+			
+			_noLine = false;
+			_lineAgain = false;
+		}
+		
 		// ----- TRANSLATION
 		
 		Vector3 goForward = transform.forward;
@@ -31,9 +63,9 @@ public class ScanGroundTex : MonoBehaviour {
 		
 		if(otherTex != null)
 		{
-			Color col = otherTex.GetPixel((int)texStartPos.x, (int)texStartPos.y);
-			Debug.Log(col);
-			Debug.Log("Left: " + texStartPos);
+//			Color col = otherTex.GetPixel((int)texStartPos.x, (int)texStartPos.y);
+//			Debug.Log(col);
+//			Debug.Log("Left: " + texStartPos);
 		}
 		
 		Texture2D otherTex2;
@@ -41,9 +73,9 @@ public class ScanGroundTex : MonoBehaviour {
 		
 		if(otherTex2 != null)
 		{
-			Color col = otherTex2.GetPixel((int)texEndPos.x, (int)texEndPos.y);
-			Debug.Log(col);
-			Debug.Log("Right: " + texEndPos);
+//			Color col = otherTex2.GetPixel((int)texEndPos.x, (int)texEndPos.y);
+//			Debug.Log(col);
+//			Debug.Log("Right: " + texEndPos);
 		}
 		
 		Vector2 checkLine = texEndPos - texStartPos;
@@ -51,53 +83,49 @@ public class ScanGroundTex : MonoBehaviour {
 		checkLine /= _testAmount;
 		
 		bool[] checkPositions = GetCheckPositions(_testAmount, texStartPos, checkLine, otherTex);
-		int balance = AnalyzeLine(checkPositions);
 		
-		Debug.Log("Balance: " + balance);
-		
-		if(balance != 0)
+		// Check Line Switching first...
+		if(_moveLeft)
 		{
-			Vector3 move3d = ((_scanPosObjLeft.position - _scanPosObjRight.position) / (float)_testAmount) * (balance / 2.0f);
-//			transform.position = Vector3.MoveTowards(transform.position, transform.position - move3d, Time.deltaTime * 1.0f);
-			transform.position = Vector3.Slerp(transform.position, transform.position - move3d, Time.deltaTime * 1.0f);
+			MoveToNextSideLine(-transform.right, checkPositions);
 		}
-		
-		// ----- ROTATION
-		
-		Texture2D otherTex3;
-		Vector2 texFrontPosLeft = Ray2Tex(_scanPosObjFrontLeft.position, -_scanPosObjFrontLeft.up, out otherTex3);
-		
-		if(otherTex3 != null)
+		else if(_moveRight)
 		{
-			Debug.Log("Front Left: " + texFrontPosLeft);
+			MoveToNextSideLine(transform.right, checkPositions);
 		}
-		
-		Texture2D otherTex4;
-		Vector2 texFrontPosRight = Ray2Tex(_scanPosObjFrontRight.position, -_scanPosObjFrontRight.up, out otherTex4);
-		
-		if(otherTex4 != null)
+		else // The is no line switch going on currently (Normal movement):
 		{
-			Debug.Log("Front Right: " + texFrontPosRight);
+			int balance = AnalyzeLine(checkPositions);
+	//		Debug.Log("Balance: " + balance);
+			
+			if(balance != 0)
+			{
+				Vector3 move3d = ((_scanPosObjLeft.position - _scanPosObjRight.position) / (float)_testAmount) * (balance / 2.0f);
+	//			transform.position = Vector3.MoveTowards(transform.position, transform.position - move3d, Time.deltaTime * 1.0f);
+				transform.position = Vector3.Slerp(transform.position, transform.position - move3d, Time.deltaTime * 1.0f);
+			}
+			
+			// ----- ROTATION
+			
+			Vector2 texFrontPosLeft = Ray2Tex(_scanPosObjFrontLeft.position, -_scanPosObjFrontLeft.up, out otherTex);
+			Vector2 texFrontPosRight = Ray2Tex(_scanPosObjFrontRight.position, -_scanPosObjFrontRight.up, out otherTex);
+			
+			// TODO: This can be optimized by adjusting the control points in the 2 diagonal corners of a quad.
+			// The first on the left front side, the second on the right back side. (you can get x and y for all corners)
+			// Do not forget about rotations! Some Vector2 Calculations will do the trick ;)
+			
+			checkLine = texFrontPosRight - texFrontPosLeft;
+			checkLine /= _testAmount;
+			
+			checkPositions = GetCheckPositions(_testAmount, texFrontPosLeft, checkLine, otherTex);
+			balance = AnalyzeLine(checkPositions);
+			
+			Vector3 rotateLine = _scanPosObjFrontRight.position - _scanPosObjFrontLeft.position;
+			Vector3 rotatePos = _scanPosObjFrontLeft.position + (rotateLine / 2.0f) + ((rotateLine / _testAmount) * balance);
+			Vector3 rotateDir = rotatePos - transform.position;
+			
+			transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, rotateDir, Time.deltaTime * 1.0f, 0.0f));
 		}
-		
-		// TODO: This can be optimized by adjusting the control points in the 2 diagonal corners of a quad.
-		// The first on the left front side, the second on the right back side. (you can get x and y for all corners)
-		// Do not forget about rotations! Some Vector2 Calculations will do the trick ;)
-		
-		checkLine = texFrontPosRight - texFrontPosLeft;
-		checkLine /= _testAmount;
-		
-		checkPositions = GetCheckPositions(_testAmount, texFrontPosLeft, checkLine, otherTex);
-		balance = AnalyzeLine(checkPositions);
-		
-		Debug.Log("Balance #2: " + balance);
-		
-		Vector3 rotateLine = _scanPosObjFrontRight.position - _scanPosObjFrontLeft.position;
-		Vector3 rotatePos = _scanPosObjFrontLeft.position + (rotateLine / 2.0f) + ((rotateLine / _testAmount) * balance);
-		Vector3 rotateDir = rotatePos - transform.position;
-		
-		transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(transform.forward, rotateDir, Time.deltaTime * 1.0f, 0.0f));
-		
 	}
 	
 	Vector2 Ray2Tex(Vector3 position, Vector3 direction, out Texture2D otherTex)
@@ -209,5 +237,41 @@ public class ScanGroundTex : MonoBehaviour {
 		
 		return diff; // < 0 -> left; > 0 -> right; == 0 -> Perfectly balanced
 		
+	}
+	
+	public void MoveToNextSideLine(Vector3 direction, bool[] checkPositions)
+	{		
+		bool foundOne = false;
+		foreach(bool check in checkPositions)
+		{
+			if(check == true)
+			{
+				foundOne = true;
+				break;
+			}
+		}
+		if(foundOne == false)
+		{
+			_noLine = true;
+		}
+		
+		transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, Time.deltaTime * 10.0f);
+		//transform.position = Vector3.Slerp(transform.position, transform.position - move3d, Time.deltaTime * 1.0f);
+		
+		if(_noLine == true && _lineAgain == false)
+		{
+			foreach(bool check in checkPositions)
+			{
+				if(check == true)
+				{
+					_lineAgain = true;
+					
+					_moveLeft = false;
+					_moveRight = false;
+					
+					break;
+				}
+			}
+		}
 	}
 }
