@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<drjava version="drjava-20130901-r5756">
+  <project autorefresh="false" main="" manifest="" root="" work="">
+    <createjar file="GCMJava" flags="1"/>
+    <source>
+      <file active="true" name="at/technikum/mgs/healthgame/GCMIntentService.java" package="at.technikum.mgs.healthgame" timestamp="04-Nov-2013 18:23:57">
+        <select from="327" to="327"/>
+        <scroll column="0" row="0"/>
+      </file>
+      <file name="at/technikum/mgs/healthgame/GCMJava.java" package="at.technikum.mgs.healthgame" timestamp="04-Nov-2013 18:24:00">
+        <select from="327" to="327"/>
+        <scroll column="0" row="0"/>
+      </file>
+      <file name="at/technikum/mgs/healthgame/GCMRegistration.java" package="at.technikum.mgs.healthgame" timestamp="04-Nov-2013 18:24:03">
+        <select from="327" to="327"/>
+        <scroll column="0" row="0"/>
+      </file>
+      <file name="at/technikum/mgs/healthgame/WakeLocker.java" package="at.technikum.mgs.healthgame" timestamp="04-Nov-2013 18:24:06">
+        <select from="327" to="327"/>
+        <scroll column="0" row="0"/>
+      </file>
+    </source>
+    <included/>
+    <excluded/>
+    <collapsed/>
+    <classpath>
+      <file absolute="false" name="android.jar"/>
+      <file absolute="false" name="classes.jar"/>
+      <file absolute="false" name="gcm.jar"/>
+    </classpath>
+    <breakpoints/>
+    <watches/>
+    <bookmarks/>
+    <preferences/>
+  </project>
+</drjava>

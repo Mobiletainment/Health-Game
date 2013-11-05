@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- substitute package for your own -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="preferExternal"
-	package="com.CFM.ECPN"
+	package="at.technikum.mgs.healthgame"
 	android:versionName="1.00" 
 	android:versionCode="1">
 	
@@ -29,7 +29,7 @@
 		</activity>
 		
 		<!-- GCM java -->
-		<service android:enabled="true" android:name="com.CFM.ECPN.GCMJava" /> <!-- android:name must coincide with GCMJava package name + .GCMJava -->
+		<service android:enabled="true" android:name="at.technikum.mgs.healthgame.GCMJava" /> <!-- android:name must coincide with GCMJava package name + .GCMJava -->
 		<receiver
             android:name="com.google.android.gcm.GCMBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
@@ -40,11 +40,11 @@
                 <!-- Receives the registration id. -->
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
  
-                <category android:name="com.CFM.ECPN" /> <!-- android:name must coincide with GCMJava package name -->
+                <category android:name="at.technikum.mgs.healthgame" /> <!-- android:name must coincide with GCMJava package name -->
             </intent-filter>
         </receiver>
  
-        <service android:name="com.CFM.ECPN.GCMIntentService" /> <!-- android:name must coincide with GCMJava package name + .GCMIntentService-->
+        <service android:name="at.technikum.mgs.healthgame.GCMIntentService" /> <!-- android:name must coincide with GCMJava package name + .GCMIntentService-->
 		<!-- end -->
 		
 	</application>
@@ -60,9 +60,9 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!-- Creates a custom permission so only this app can receive its messages. -->
     <permission
-        android:name="com.CFM.ECPN.permission.C2D_MESSAGE"
+        android:name="at.technikum.mgs.healthgame.permission.C2D_MESSAGE"
         android:protectionLevel="signature" /> <!-- android:name must be of the form "GCMJava.package.name" + ".permission.C2D_MESSAGE"-->
-    <uses-permission android:name="com.CFM.ECPN.permission.C2D_MESSAGE" />
+    <uses-permission android:name="at.technikum.mgs.healthgame.permission.C2D_MESSAGE" />
     <!-- This app has permission to register and receive data message. -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 	<!-- Permission to vibrate -->
