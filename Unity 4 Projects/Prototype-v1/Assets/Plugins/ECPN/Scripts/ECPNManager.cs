@@ -19,6 +19,7 @@ public class ECPNManager: MonoBehaviour {
 	public string packageName = "at.technikum.mgs.healthgame"; // name of your app bundle identifier
 	private string devToken;
 	private string username;
+	private string response;
 	
 #if UNITY_ANDROID
 	private AndroidJavaObject playerActivityContext;
@@ -97,6 +98,11 @@ public class ECPNManager: MonoBehaviour {
 		this.username = username;
 	}
 	
+	public string GetResponse()
+	{
+		return response;
+	}
+	
 	// UNDER THE HOOD METHODS //
 	
 #if UNITY_IPHONE
@@ -146,9 +152,14 @@ public class ECPNManager: MonoBehaviour {
 		form.AddField("username", username);
 		WWW w = new WWW(phpFilesLocation + "/RegisterDeviceIDtoDB.php", form);
 		yield return w;
+		
+		this.response = w.text;
+		
 		if (w.error != null) {
 			errorCode = -1;
-		} else {
+		}
+		else
+		{
 			string formText = w.text; 
 			w.Dispose();
 			errorCode = int.Parse(formText);
@@ -170,7 +181,7 @@ public class ECPNManager: MonoBehaviour {
 		if (w.error != null) {
 			Debug.Log("Error while sending message to all: " + w.error);
 		} else {
-			string formText = w.text; 
+			string formText = w.text;
 			Debug.Log ( w.text);
 			w.Dispose();
 		}

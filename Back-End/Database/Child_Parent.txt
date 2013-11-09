@@ -1,0 +1,7 @@
+ CREATE TABLE IF NOT EXISTS `Child_Parent` (
+    `child` varchar(32) NOT NULL COLLATE latin1_spanish_ci,
+    `parent` varchar(32) COLLATE latin1_spanish_ci,
+    PRIMARY KEY(child),
+    FOREIGN KEY(child) REFERENCES ECPN_table(username)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1
+  COLLATE=latin1_spanish_ci;
