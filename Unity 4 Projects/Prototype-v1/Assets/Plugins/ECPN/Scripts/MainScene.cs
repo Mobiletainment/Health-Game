@@ -15,7 +15,7 @@ public class MainScene : MonoBehaviour {
 	void OnGUI () {
 		GUI.Box(new Rect(10,10,140,290), "Server Registration");
 		
-		isChild = GUI.Toggle(new Rect(200, 10, 200, 40), isChild, "I'm the child");
+		isChild = GUI.Toggle(new Rect(200, 60, 200, 80), isChild, "I'm the child");
 		ecpnManager.SetIsChild(isChild); //quick and dirty child/parent handling
 		
 		GUI.Label(new Rect(20,40, 120, 20),"Username:");
@@ -33,9 +33,16 @@ public class MainScene : MonoBehaviour {
 			}
 		}
 
-		if(GUI.Button(new Rect(20,140,120,40), "Send Message")) {
-			ecpnManager.SendMessageToAll();
+		if(GUI.Button(new Rect(20,140,120,40), "Send Broadcast"))
+		{
+			ecpnManager.SendMessage(false);
 		}
+		
+		if(GUI.Button(new Rect(180,140,240,40), "New: Send to Connected-Player only"))
+		{
+			ecpnManager.SendMessage(true);
+		}
+		
 		if(GUI.Button(new Rect(20,190,120,40), "Unregister device")) {
 			ecpnManager.RequestUnregisterDevice();
 		}

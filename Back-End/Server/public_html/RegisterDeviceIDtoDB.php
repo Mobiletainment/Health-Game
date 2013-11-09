@@ -49,7 +49,7 @@ function store_user($user,$regID,$OS, $username)
 	{
 		$query 		= "INSERT INTO ECPN_table (deviceID, unityID, os, username, isChild) VALUES ('$regID','$user','$OS', '$username', FALSE)";
 	}
-	echo $query;
+
 	mysql_query($query);
 	
 	

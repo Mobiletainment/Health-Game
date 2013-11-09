@@ -80,9 +80,10 @@ public class ECPNManager: MonoBehaviour {
 	/*
 	 * Sends a notification to all server-registered devices
 	 */
-	public void SendMessageToAll() {
-		StartCoroutine (SendECPNmessage());
+	public void SendMessage(bool targeted) {
+		StartCoroutine (SendECPNmessage(targeted));
 	}
+	
 	
 	/*
 	 * Get the current device Token, if known (does not request it)
@@ -180,13 +181,20 @@ public class ECPNManager: MonoBehaviour {
 	 * Sends notification message to all devices registered in the server
 	 * It displays the number of messages sent (via Debug.Log)
 	 */ 
-	private IEnumerator SendECPNmessage() {
+	private IEnumerator SendECPNmessage(bool targeted) {
 		// Send message to server with accName - devToken pair
 		WWWForm form = new WWWForm();
 		form.AddField("user", SystemInfo.deviceUniqueIdentifier );
 		form.AddField("username", username);
-		WWW w = new WWW(phpFilesLocation + "/SendECPNmessageAll.php", form);
+		form.AddField("isChild", isChild.ToString());
+		
+		string targetAddress = targeted ? "/SendECPNmessageTargeted.php" : "/SendECPNmessageAll.php";
+		
+		WWW w = new WWW(phpFilesLocation + targetAddress, form);
 		yield return w;
+		
+		response = w.text;
+		
 		if (w.error != null) {
 			Debug.Log("Error while sending message to all: " + w.error);
 		} else {
@@ -204,6 +212,9 @@ public class ECPNManager: MonoBehaviour {
 		form.AddField ("regID",rID);
 		WWW w = new WWW(phpFilesLocation + "/UnregisterDeviceIDfromDB.php", form);
 		yield return w;
+		
+		response = w.text;
+		
 		if (w.error != null) {
 			errorCode = -1;
 		} else {

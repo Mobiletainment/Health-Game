@@ -5,25 +5,41 @@ mysql_connect($loginURL,$username,$password);
 
 @mysql_select_db($database) or die( "9");
 
-$message = strip_tags($_POST["username"]) . " says hi";
+$message = strip_tags($_POST["username"]) . " says hi to ";
 $androidIDs = array();
 $iosIDs = array();
 $username = strip_tags($_POST["username"]);
+$isChild = strtolower(strip_tags($_POST["isChild"]));
 
-// Get all device ids from table
-$sql = "SELECT * FROM ECPN_table";
-$result = mysql_query($sql);
+$query= "";
+
+if ($isChild == "true")
+	$query = "SELECT parent AS target FROM Child_Parent WHERE child = '$username'";
+else
+	$query = "SELECT child AS target from Child_Parent WHERE parent = '$username'";
+	
+$result=mysql_query($query);
+
+if(mysql_numrows($result) == 0)
+{
+	echo "Error: No Co-Player was found";
+}
 
 while($row = mysql_fetch_array($result)) {
-   $contacts[] = $row['unityID'];
+   $targets[] = $row['target'];
+	echo $row['target'];
 }
 
 // For each deviceID, add to either android or iOS bucket
-if(count($contacts) > 0) {
-	foreach($contacts as $contact) {
-		$query="SELECT * FROM ECPN_table WHERE unityID = '$contact'";
+if(count($targets) > 0) {
+	foreach($targets as $contact) {
+		$query="SELECT * FROM ECPN_table WHERE username = '$contact'";
 
 		$result=mysql_query($query);
+
+		$message = strip_tags($_POST["username"]) . " says hi to " . $contact;
+		echo $message;
+
 		if(mysql_numrows($result) > 0) {
 			$os = mysql_result($result,0,"os");
 			$regId = mysql_result($result,0,"deviceID");
@@ -33,18 +49,18 @@ if(count($contacts) > 0) {
 		}
 	}
 	
-	echo 'Script Running...\n';
+	echo '<br>Script Running...<br>';
 	
 	
 	// sending notifications to android and ios users (if any)
 	if(count($androidIDs) > 0)
 	{
-		echo 'Sending Android Messages\n';
+		echo 'Sending Android Messages<br>';
 		send_android_notification($androidIDs,$message);
 	}
 	else
 	{
-		 echo 'No Android Messages to send\n';
+		 echo 'No Android Messages to send<br>';
 	}
 	if(count($iosIDs) > 0)
 	{
@@ -53,7 +69,7 @@ if(count($contacts) > 0) {
 	}
 	else
 	{
-		echo 'No Android Messages to send\n';
+		echo 'No Android Messages to send<br>';
 	}
 	
 	echo "Messages delivered: " . count($androidIDs) . " android / " . count($iosIDs) . " iOS";
