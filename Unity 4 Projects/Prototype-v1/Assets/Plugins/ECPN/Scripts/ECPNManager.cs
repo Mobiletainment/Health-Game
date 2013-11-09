@@ -150,6 +150,7 @@ public class ECPNManager: MonoBehaviour {
 		form.AddField( "OS", os);
 		form.AddField("regID",devToken);
 		form.AddField("username", username);
+		form.AddField("isChild", "true");
 		WWW w = new WWW(phpFilesLocation + "/RegisterDeviceIDtoDB.php", form);
 		yield return w;
 		

@@ -44,6 +44,6 @@ public class MainScene : MonoBehaviour {
 		GUI.Label(new Rect(10,400,Screen.width,60),"Username: " + username); // This device ID is set by UNITY and has nothing to do with the registration ID that both iOS and GoogleCloudMessaging systems use
 		
 		GUI.Label(new Rect(10,440,Screen.width,60),"Info: " + info);
-		GUI.Label(new Rect(10,460,Screen.width,60),"Response: " + ecpnManager.GetResponse());
+		GUI.Label(new Rect(10,460,Screen.width,250),"Response: " + ecpnManager.GetResponse());
 	}
 }
