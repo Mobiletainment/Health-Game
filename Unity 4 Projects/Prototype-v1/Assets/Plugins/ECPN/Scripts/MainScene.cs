@@ -6,6 +6,7 @@ public class MainScene : MonoBehaviour {
 	private ECPNManager ecpnManager;
 	private string username = "";
 	private string info = "";
+	private bool isChild = true;
 	
 	void Start () {
 		ecpnManager = FindObjectOfType(typeof(ECPNManager)) as ECPNManager;
@@ -13,6 +14,9 @@ public class MainScene : MonoBehaviour {
 	
 	void OnGUI () {
 		GUI.Box(new Rect(10,10,140,290), "Server Registration");
+		
+		isChild = GUI.Toggle(new Rect(200, 10, 200, 40), isChild, "I'm the child");
+		ecpnManager.SetIsChild(isChild); //quick and dirty child/parent handling
 		
 		GUI.Label(new Rect(20,40, 120, 20),"Username:");
 		

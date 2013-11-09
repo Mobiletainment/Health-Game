@@ -20,6 +20,7 @@ public class ECPNManager: MonoBehaviour {
 	private string devToken;
 	private string username;
 	private string response;
+	private bool isChild = true;
 	
 #if UNITY_ANDROID
 	private AndroidJavaObject playerActivityContext;
@@ -49,7 +50,9 @@ public class ECPNManager: MonoBehaviour {
 			NotificationServices.RegisterForRemoteNotificationTypes(RemoteNotificationType.Alert | 
                                     RemoteNotificationType.Badge | 
                                     RemoteNotificationType.Sound);
-		} else {
+		}
+		else
+		{
 			RegisterIOSDevice();
 		}
 #endif
@@ -103,6 +106,11 @@ public class ECPNManager: MonoBehaviour {
 		return response;
 	}
 	
+	public void SetIsChild(bool isChild)
+	{
+		this.isChild = isChild;
+	}
+	
 	// UNDER THE HOOD METHODS //
 	
 #if UNITY_IPHONE
@@ -150,7 +158,7 @@ public class ECPNManager: MonoBehaviour {
 		form.AddField( "OS", os);
 		form.AddField("regID",devToken);
 		form.AddField("username", username);
-		form.AddField("isChild", "true");
+		form.AddField("isChild", isChild.ToString());
 		WWW w = new WWW(phpFilesLocation + "/RegisterDeviceIDtoDB.php", form);
 		yield return w;
 		
