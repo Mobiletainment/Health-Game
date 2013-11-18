@@ -5,7 +5,8 @@ mysql_connect($loginURL,$username,$password);
 
 @mysql_select_db($database) or die( "9");
 
-$message = strip_tags($_POST["username"]) . " says hi to ";
+//$message = strip_tags($_POST["username"]) . " says hi to ";
+$message = "Your supporter sent you a gift :)";
 $androidIDs = array();
 $iosIDs = array();
 $username = strip_tags($_POST["username"]);
@@ -16,8 +17,10 @@ $query= "";
 if ($isChild == "true")
 	$query = "SELECT parent AS target FROM Child_Parent WHERE child = '$username'";
 else
-	$query = "SELECT child AS target from Child_Parent WHERE parent = '$username'";
-	
+{
+	$parentName = get_parent_name($username);
+	$query = "SELECT child AS target from Child_Parent WHERE parent = '$parentName'";
+}	
 $result=mysql_query($query);
 
 if(mysql_numrows($result) == 0)
@@ -37,7 +40,7 @@ if(count($targets) > 0) {
 
 		$result=mysql_query($query);
 
-		$message = strip_tags($_POST["username"]) . " says hi to " . $contact;
+		//$message = strip_tags($_POST["username"]) . " says hi to " . $contact;
 		echo $message;
 
 		if(mysql_numrows($result) > 0) {

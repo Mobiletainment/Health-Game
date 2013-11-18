@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿//This class makes use of pro-only features (System.net), which is why I commented it out
+
+/*
+using UnityEngine;
 using System.Collections;
 using System;
 using System.IO;
@@ -57,3 +60,4 @@ public class ClientTest : MonoBehaviour {
 	
 	}
 }
+*/

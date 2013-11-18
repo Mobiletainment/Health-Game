@@ -12,7 +12,8 @@ using System.Collections.Generic;
  * 3) RequestUnregisterDevice() - Request the current device Token to be removed from GCM or APSN and our own server
  * - (GetDevToken() is there for convenience of the sample scene)
  */
-public class ECPNManager: MonoBehaviour {
+public class ECPNManager: MonoBehaviour
+{
 	
 	public string GoogleCloudMessageProjectID = "368000005971"; // Insert your Google Project ID
 	public string phpFilesLocation = "http://your.ftp.server/ECPN"; // remote location of the PHP files
@@ -31,9 +32,11 @@ public class ECPNManager: MonoBehaviour {
 	 * Android: It calls a static method in our GCMRegistration class which polls the device Token from Google Services
 	 * iOS: Uses Unity NotificationServices class to poll deviceToken -which we have to poll until found
 	 */
-	public void RequestDeviceToken() {
+	public void RequestDeviceToken()
+	{
 #if UNITY_EDITOR
-	Debug.Log("You can only register iOS and android devices, not the editor!");
+	Debug.Log("You should only register iOS and android devices, not the editor!");
+	StartCoroutine(StoreDeviceID(SystemInfo.deviceUniqueIdentifier,"editor"));
 #endif
 #if UNITY_ANDROID
 		// Obtain unity context
@@ -58,7 +61,8 @@ public class ECPNManager: MonoBehaviour {
 #endif
 	}
 	
-	public void RequestUnregisterDevice() {
+	public void RequestUnregisterDevice()
+	{
 #if UNITY_EDITOR
 	Debug.Log("You can only unregister iOS and android devices, not the editor!");
 #endif
@@ -80,15 +84,17 @@ public class ECPNManager: MonoBehaviour {
 	/*
 	 * Sends a notification to all server-registered devices
 	 */
-	public void SendMessage(bool targeted) {
-		StartCoroutine (SendECPNmessage(targeted));
+	public void SendMessage(bool targeted)
+	{
+		StartCoroutine(SendECPNmessage(targeted));
 	}
 	
 	
 	/*
 	 * Get the current device Token, if known (does not request it)
 	 */
-	public string GetDevToken() {
+	public string GetDevToken()
+	{
 		return devToken;
 	}
 	
@@ -125,13 +131,15 @@ public class ECPNManager: MonoBehaviour {
 #endif
 	
 	// Called from Java class once the deviceToken is ready -should not be called manually
-	public void RegisterAndroidDevice(string rID) {
-		Debug.Log ("DeviceToken: " + rID);
-		StartCoroutine(StoreDeviceID(rID,"android"));
+	public void RegisterAndroidDevice(string rID)
+	{
+		Debug.Log("DeviceToken: " + rID);
+		StartCoroutine(StoreDeviceID(rID, "android"));
 	}
 	// Called from Java class in response to Unregister event
-	public void UnregisterDevice(string rID) {
-		Debug.Log ("Unregister DeviceToken: " + rID);
+	public void UnregisterDevice(string rID)
+	{
+		Debug.Log("Unregister DeviceToken: " + rID);
 		StartCoroutine(DeleteDeviceFromServer(rID));
 	}
 	
@@ -151,13 +159,14 @@ public class ECPNManager: MonoBehaviour {
 	/*
 	 * Sends store device Token request to server
 	 */ 
-	private IEnumerator StoreDeviceID(string rID, string os) {
+	private IEnumerator StoreDeviceID(string rID, string os)
+	{
 		devToken = rID;
 		int errorCode;
 		WWWForm form = new WWWForm();
-		form.AddField( "user", SystemInfo.deviceUniqueIdentifier );
-		form.AddField( "OS", os);
-		form.AddField("regID",devToken);
+		form.AddField("user", SystemInfo.deviceUniqueIdentifier);
+		form.AddField("OS", os);
+		form.AddField("regID", devToken);
 		form.AddField("username", username);
 		form.AddField("isChild", isChild.ToString());
 		WWW w = new WWW(phpFilesLocation + "/RegisterDeviceIDtoDB.php", form);
@@ -165,14 +174,15 @@ public class ECPNManager: MonoBehaviour {
 		
 		this.response = w.text;
 		
-		if (w.error != null) {
+		if(w.error != null)
+		{
 			errorCode = -1;
 		}
 		else
 		{
-			string formText = w.text; 
+			string formText = w.text;
+			Debug.Log(w.text);
 			w.Dispose();
-			errorCode = int.Parse(formText);
 		}
 	}
 	
@@ -181,10 +191,11 @@ public class ECPNManager: MonoBehaviour {
 	 * Sends notification message to all devices registered in the server
 	 * It displays the number of messages sent (via Debug.Log)
 	 */ 
-	private IEnumerator SendECPNmessage(bool targeted) {
+	private IEnumerator SendECPNmessage(bool targeted)
+	{
 		// Send message to server with accName - devToken pair
 		WWWForm form = new WWWForm();
-		form.AddField("user", SystemInfo.deviceUniqueIdentifier );
+		form.AddField("user", SystemInfo.deviceUniqueIdentifier);
 		form.AddField("username", username);
 		form.AddField("isChild", isChild.ToString());
 		
@@ -195,29 +206,36 @@ public class ECPNManager: MonoBehaviour {
 		
 		response = w.text;
 		
-		if (w.error != null) {
+		if(w.error != null)
+		{
 			Debug.Log("Error while sending message to all: " + w.error);
-		} else {
+		}
+		else
+		{
 			string formText = w.text;
-			Debug.Log ( w.text);
+			Debug.Log(w.text);
 			w.Dispose();
 		}
 	}
 	/*
 	 * Sends delete device Token request to server
 	 */ 
-	private IEnumerator DeleteDeviceFromServer(string rID) {
+	private IEnumerator DeleteDeviceFromServer(string rID)
+	{
 		int errorCode;
 		WWWForm form = new WWWForm();
-		form.AddField ("regID",rID);
+		form.AddField("regID", rID);
 		WWW w = new WWW(phpFilesLocation + "/UnregisterDeviceIDfromDB.php", form);
 		yield return w;
 		
 		response = w.text;
 		
-		if (w.error != null) {
+		if(w.error != null)
+		{
 			errorCode = -1;
-		} else {
+		}
+		else
+		{
 			string formText = w.text; 
 			w.Dispose();
 			errorCode = int.Parse(formText);

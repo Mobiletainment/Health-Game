@@ -40,9 +40,10 @@ public class ChatInput : MonoBehaviour
 	{
 		if (Input.GetKeyUp(KeyCode.Return))
 		{
-			if (!mIgnoreNextEnter && !mInput.selected)
+			if (!mIgnoreNextEnter && !mInput.isSelected)
 			{
-				mInput.selected = true;
+				mInput.label.maxLineCount = 1;
+				mInput.isSelected = true;
 			}
 			mIgnoreNextEnter = false;
 		}
@@ -52,18 +53,18 @@ public class ChatInput : MonoBehaviour
 	/// Submit notification is sent by UIInput when 'enter' is pressed or iOS/Android keyboard finalizes input.
 	/// </summary>
 
-	void OnSubmit ()
+	public void OnSubmit ()
 	{
 		if (textList != null)
 		{
 			// It's a good idea to strip out all symbols as we don't want user input to alter colors, add new lines, etc
-			string text = NGUITools.StripSymbols(mInput.text);
+			string text = NGUIText.StripSymbols(mInput.value);
 
 			if (!string.IsNullOrEmpty(text))
 			{
 				textList.Add(text);
-				mInput.text = "";
-				mInput.selected = false;
+				mInput.value = "";
+				mInput.isSelected = false;
 			}
 		}
 		mIgnoreNextEnter = true;

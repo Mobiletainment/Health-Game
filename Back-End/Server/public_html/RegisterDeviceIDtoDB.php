@@ -32,7 +32,7 @@ function store_user($user,$regID,$OS, $username)
 	if ($isChild == "false") //registration request from the parent
 	{
 		//check if the child has already registered
-		$query="SELECT * FROM Child_Parent WHERE parent = '$username'";
+		$query="SELECT * FROM Child_Parent WHERE child = '$username'";
 		$result=mysql_query($query);
 
 		if(mysql_numrows($result) == 0)
@@ -43,11 +43,21 @@ function store_user($user,$regID,$OS, $username)
 
     	if ($isChild == "true")
 	{
+		//check if User already exists
+		$query="SELECT * FROM ECPN_table WHERE username = '$username'";
+		$result=mysql_query($query);
+
+		if(mysql_numrows($result) > 0)
+		{
+			return "Error: Username already exists";
+		}
+		
     		$query 		= "INSERT INTO ECPN_table (deviceID, unityID, os, username, isChild) VALUES ('$regID','$user','$OS', '$username', TRUE)";
 	}
 	else
 	{
-		$query 		= "INSERT INTO ECPN_table (deviceID, unityID, os, username, isChild) VALUES ('$regID','$user','$OS', '$username', FALSE)";
+		$parentName = get_parent_name($username);
+		$query 		= "INSERT INTO ECPN_table (deviceID, unityID, os, username, isChild) VALUES ('$regID','$user','$OS', '$parentName', FALSE)";
 	}
 
 	mysql_query($query);
@@ -57,10 +67,10 @@ function store_user($user,$regID,$OS, $username)
 	//if the child is registering, create a username for the parent, store the child<->parent relationship and return the parent's username
 	if ($isChild == "true")
 	{
-		$parentName = $username . "Helper";
+		$parentName = get_parent_name($username);
 		$query = "INSERT INTO Child_Parent(child, parent) VALUES('$username', '$parentName')";
 		mysql_query("$query");
-		return "Success! Parent=" . $parentName;
+		return "Success! Parent Username = " . $parentName;
 	}
 
 	return "Success!";
