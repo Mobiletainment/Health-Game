@@ -13,7 +13,7 @@ public class SwitchK2K3 : MonoBehaviour {
     void OnClick() {
         NGUITools.SetActive(nextPanelObject, true);
         NGUITools.SetActive(currentPanelObject, false);
-		label.text="Hallo, "+NGUITools.StripSymbols(input.value)+"!\n"+"Hier hast du ein geheimes Team-Passowort!";
+		label.text="Hallo, "+NGUIText.StripSymbols(input.value)+"!\n"+"Hier hast du ein geheimes Team-Passowort!";
 		inputPW.value=Random.Range(10000000,99999999).ToString();
     }
 	// Use this for initialization
