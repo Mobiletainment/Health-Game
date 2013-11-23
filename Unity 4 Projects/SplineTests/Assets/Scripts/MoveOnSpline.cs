@@ -14,10 +14,10 @@ public class MoveOnSpline : MonoBehaviour {
 	private int _playAdd = 0;
 	private bool _playForward = true;
 
-	public float _speed = 0.1f; // Units per Second.
+	public float _speed = 1.0f; // Units per Second.
 	private List<float> _ctrlPointDistances = new List<float>();
 	private float _splineLength = 0;
-	private float _curPart = 0;
+//	private float _curPart = 0;
 
 	// Use this for initialization
 	void Start() 
@@ -33,100 +33,126 @@ public class MoveOnSpline : MonoBehaviour {
 			_splineLength += f;
 		}
 		Debug.Log ("Sum: " + _splineLength);
+
+		// Initilialize Avatar position:
+		_moveObject.position = GetPosOnSpline(0, 0);
 	}
 	
 	// Update is called once per frame
 	void Update() 
 	{
-//		// JUST A PLAY DEMO.
-//		if(_play)
-//		{
-//			if(_playForward)
-//			{
-//				_playAdd = 1;
-//			}
-//			else
-//			{
-//				_playAdd = -1;
-//			}
-//
-//			if(_playForward)
-//			{
-//				if(_t == 1000)
-//				{
-//					_ind += _playAdd;
-//					_t = 0;
-//
-//					if(_ind == _points.Count - 1)
-//					{
-//						_playForward = false;
-//						_t = 1000;
-//						_ind--;
-//					}
-//				}
-//			}
-//			else
-//			{
-//				if(_t == 0)
-//				{
-//					_ind += _playAdd;
-//					_t = 1000;
-//
-//					if(_ind == -1)
-//					{
-//						_playForward = true;
-//						_t = 0;
-//					}
-//				}
-//			}
-//
-//			_t += 20 * _playAdd;
-//		}
-//
-//		if(_ind < 0) _ind = 0;
-//		if(_ind > _points.Count - 2) _ind = _points.Count - 2;
-//		if(_t < 0) _t = 0;
-//		if(_t > 1000) _t = 1000;
-//
-//		Vector3 pos = GetPosBetweenPoints(_ind, _t/_speed, 1000);
-//		_moveObject.position = pos;
+		Debug.DrawRay (_moveObject.position, Vector3.up, Color.red, 10.0f);
+//		Debug.Log("----- Speed: "+_speed * Time.deltaTime);
+		Vector3 nextPos = _moveObject.position;
+		float curDist = 0;
+		int divisor = 20000;
 
-
-		++_t;
-		_curPart += Time.deltaTime * 20.0f; // PROBLEM! Das stimmt nicht!
-		// TODO: Debug: HIER DIE GESCHW. ausrechnen und ausgeben!
-		if(_t < 0) _t = 0;
-		float test = (_ctrlPointDistances[0] / _speed);
-		if(_curPart > test)
+		while(true)
 		{
-			_t = 0;
-			_curPart = 0;
+			// JUST A PLAY DEMO.
+			if(_play)
+			{
+				if(_playForward)
+				{
+					_playAdd = 1;
+				}
+				else
+				{
+					_playAdd = -1;
+				}
+
+				if(_playForward)
+				{
+					if(_t == divisor)
+					{
+						_ind += _playAdd;
+						_t = 0;
+
+						if(_ind == _points.Count - 1)
+						{
+							_playForward = false;
+							_t = divisor;
+							_ind--;
+						}
+					}
+				}
+				else
+				{
+					if(_t == 0)
+					{
+						_ind += _playAdd;
+						_t = divisor;
+
+						if(_ind == -1)
+						{
+							_playForward = true;
+							_t = 0;
+						}
+					}
+				}
+
+				_t += 20 * _playAdd;
+			}
+
+			if(_ind < 0) _ind = 0;
+			if(_ind > _points.Count - 2) _ind = _points.Count - 2;
+			if(_t < 0) _t = 0;
+			if(_t > divisor) _t = divisor;
+
+			Vector3 pos = GetPosOnSpline(_ind, (float)_t/(float)divisor);
+			curDist += Vector3.Distance(nextPos, pos);
+			nextPos = pos;
+//			Debug.Log ("curDist: " + curDist);
+			if(curDist >= _speed * Time.deltaTime)
+			{
+//				Debug.Log ("GO!");
+//				Debug.Log ("Dist: " + Vector3.Distance(nextPos, pos));
+//				nextPos = pos;
+				break;
+			}
 		}
-		Vector3 pos = GetPosBetweenPoints(0, _curPart, _ctrlPointDistances[0]);
-		_moveObject.position = pos;
+
+		_moveObject.position = nextPos;
+
+//		++_t;
+//		_curPart += Time.deltaTime * 20.0f; // PROBLEM! Das stimmt nicht!
+//		if(_t < 0) _t = 0;
+//		float test = (_ctrlPointDistances[0] / _speed);
+//		if(_curPart > test)
+//		{
+//			_t = 0;
+//			_curPart = 0;
+//		}
+//		Vector3 pos = GetPosBetweenPoints(0, _curPart, _ctrlPointDistances[0]);
+//
+//		// TODO: Debug: HIER DIE GESCHW. ausrechnen und ausgeben!
+//		float geschw = Vector3.Distance(_moveObject.position, pos);
+//		Debug.Log ("Speed: " + geschw); // Sichtlich wird nicht immer der gleiche Abstand beim Fahren erziehlt...
+//		// GetPosBetweenPoints überdenken!!
+//
+//		_moveObject.position = pos;
 	}
 
 	/**
-	 * GetPosBetweenPoints calculates a position between 2 neighbour controlPoints.
-	 * @param indexFrom is the first index.
-	 * @param part is the part (0 - maxPart) of the splinePart.
-	 * @param maxPart is the maximum, that can be used for part.
+	 * GetPosOnSpline calculates a position between 2 neighbour controlPoints.
+	 * @param controlPointIndex is the index of the current control point on the spline.
+	 * @param section is the relative position (0 - 1) on the spline between the current nad the next control point.
 	 * @return the Position on the spline.
 	 **/
-	Vector3 GetPosBetweenPoints(int indexFrom, float part, float maxPart)
+	Vector3 GetPosOnSpline(int controlPointIndex, float section)
 	{
-		const float epsilon = 0.0001f;
-		if((part * _speed) > (maxPart + epsilon)) // Added epsilon, because if triggered, when both where equal -.-
+		// float.Epsilon
+		if(section < 0 || section > 1.0f)
 		{
-			Debug.LogError("Error: part ("+part+") is bigger than the maximum ("+(maxPart/_speed)+").");
+			Debug.LogError ("Section is out of range (0.0f - 1.0f) -> section: "+section);
 		}
 
 		int size = _points.Count;
 		Vector3 last=_points[0].position;
 
 
-		float t = (part * _speed) / maxPart;
-		int p = indexFrom;
+		float t = section;
+		int p = controlPointIndex;
 		
 		float h0 = 2 * t * t * t - 3 * t * t + 1;
 		float h1 = -2 * t * t * t + 3 * t * t;
@@ -140,11 +166,11 @@ public class MoveOnSpline : MonoBehaviour {
 		float firstvec=1;
 		float secvec=1;
 		
-		if(indexFrom==0)
+		if(controlPointIndex==0)
 		{
 			firstvec=0;
 		}
-		if(indexFrom==size-2)
+		if(controlPointIndex==size-2)
 		{
 			secvec=0;
 		}
@@ -168,11 +194,11 @@ public class MoveOnSpline : MonoBehaviour {
 	private float CalcDistBetweenCtrlPoints(int indexFrom)
 	{
 		float dist = 0;
-		Vector3 curPos = GetPosBetweenPoints(indexFrom, 0, 1000);
+		Vector3 curPos = GetPosOnSpline(indexFrom, 0);
 
-		for(int i = 1; i < 1000; ++i)
+		for(int i = 1; i <= 1000; ++i)
 		{
-			Vector3 nextPos = GetPosBetweenPoints(indexFrom, i/_speed, 1000);
+			Vector3 nextPos = GetPosOnSpline(indexFrom, i/1000.0f);
 
 			dist += Vector3.Distance(curPos, nextPos);
 			curPos = nextPos;
