@@ -12,7 +12,7 @@ using System.Collections.Generic;
  * 3) RequestUnregisterDevice() - Request the current device Token to be removed from GCM or APSN and our own server
  * - (GetDevToken() is there for convenience of the sample scene)
  */
-public class ECPNManager: MonoBehaviour
+public class BackendManager: MonoBehaviour
 {
 	
 	public string GoogleCloudMessageProjectID = "368000005971"; // Insert your Google Project ID
@@ -113,7 +113,7 @@ public class ECPNManager: MonoBehaviour
 		return response;
 	}
 	
-	public void SetIsChild(bool isChild)
+	public void SetUserIsChild(bool isChild)
 	{
 		this.isChild = isChild;
 	}
