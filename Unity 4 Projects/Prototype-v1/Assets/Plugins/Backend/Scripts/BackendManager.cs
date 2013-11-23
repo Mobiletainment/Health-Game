@@ -112,6 +112,11 @@ public class BackendManager: MonoBehaviour
 	{
 		return response;
 	}
+
+	public void ClearResponse()
+	{
+		this.response = "";
+	}
 	
 	public void SetUserIsChild(bool isChild)
 	{
@@ -217,6 +222,40 @@ public class BackendManager: MonoBehaviour
 			w.Dispose();
 		}
 	}
+
+
+	/*
+	 * Checks if both Parent and Child have registered
+	 */ 
+	public IEnumerator CheckIfParentAndChildAreRegistered()
+	{
+		Debug.Log("Checking Registration Completion");
+		response = ""; //clear old responses
+		// Send message to server with accName - devToken pair
+		WWWForm form = new WWWForm();
+		form.AddField("user", SystemInfo.deviceUniqueIdentifier);
+		form.AddField("username", username);
+		form.AddField("isChild", isChild.ToString());
+		
+		string targetAddress = "/CheckIfParentAndChildAreRegistered.php";
+		
+		WWW w = new WWW(phpFilesLocation + targetAddress, form);
+		yield return w;
+		
+		response = w.text;
+		
+		if(w.error != null)
+		{
+			Debug.Log("Error while sending message to all: " + w.error);
+		}
+		else
+		{
+			string formText = w.text;
+			Debug.Log(w.text);
+			w.Dispose();
+		}
+	}
+
 	/*
 	 * Sends delete device Token request to server
 	 */ 

@@ -9,6 +9,7 @@ public class SwitchPanel : MonoBehaviour {
 	private BackendManager backendManager;
 
     void OnClick() {
+
         NGUITools.SetActive(nextPanelObject, true);
         NGUITools.SetActive(currentPanelObject, false);
     }
