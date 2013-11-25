@@ -70,7 +70,7 @@ public class InsertArrowEditor : Editor
 	// Put the next TrackPart in the position and rotation of the old one (recursively):
 	private void InsertTrackPart()
 	{
-		Undo.RegisterSceneUndo("Insert Track Part");
+		//Undo.RegisterSceneUndo("Insert Track Part");
 		
 		int insPartInd = _target.trackReference.currentTrackParts.IndexOf(_target.trackPart);
 		

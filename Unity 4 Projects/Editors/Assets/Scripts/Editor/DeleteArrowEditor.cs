@@ -43,7 +43,7 @@ public class DeleteArrowEditor : Editor
 	
 	private void DeleteTrackPart()
 	{
-		Undo.RegisterSceneUndo("Delete Track Part");
+		//Undo.RegisterSceneUndo("Delete Track Part");
 		
 		// Put the next TrackPart in the position and rotation from the deleted one (recursively):
 		int delPartInd = _target.trackReference.currentTrackParts.IndexOf(_target.trackPart);

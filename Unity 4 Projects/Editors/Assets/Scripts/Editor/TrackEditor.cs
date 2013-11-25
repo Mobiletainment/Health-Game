@@ -25,21 +25,41 @@ public class TrackEditor : Editor
 		{
 			Debug.LogError("No target data is initialized...");
 		}
+		else if(EditorUtility.IsPersistent(_data))
+		{
+			// Do not initialize anything, if the target is a prefab. (It won't work anyway.)
+			return;
+		}
 		
 		// Initialize the trackPart Names:
 		_partNames = new List<string>();
-		
-		foreach(TrackPartScript trackPart in _data.trackPartManager._parts)
+
+		if(_data.trackPartManager != null)
 		{
-			_partNames.Add(trackPart.Name);
+			if(_data.trackPartManager._parts != null)
+			{
+				foreach(TrackPartScript trackPart in _data.trackPartManager._parts)
+				{
+					_partNames.Add(trackPart.Name);
+				}
+				if(_partNames.Count == 0)
+				{
+					Debug.LogError("No TrackParts are connected to the TrackPartManager.");
+				}
+				else if(_data.partSelectionInd >= _partNames.Count)
+				{
+					_data.partSelectionInd = 0;
+				}
+			}
+			else
+			{
+				Debug.LogError("The TrackPartManager is not configured. Please add some TrackParts to the Manager.");
+			}
 		}
-		if(_partNames.Count == 0)
+		else
 		{
-			Debug.LogError("No TrackParts are connected to the TrackPartManager.");
-		}
-		else if(_data.partSelectionInd >= _partNames.Count)
-		{
-			_data.partSelectionInd = 0;
+			Debug.LogError("TrackPartManager has not been set yet.\n" +
+				"Go to Menu: TrackEditor -> Create Asset -> TrackPartMgr Asset.");
 		}
 		
 		// Check if the current Track was manipulated:
@@ -76,32 +96,47 @@ public class TrackEditor : Editor
 		}
 		
 		// Initialize the savedTrackNames List:
-		if(_data.saveTracks.trackList.Count > 0)
+		if(_data.saveTracks != null)
 		{
-			_savedTrackNames = new List<string>(_data.saveTracks.trackList.Count);
-			
-			for(int i = 0; i < _data.saveTracks.trackList.Count; ++i)
+			if(_data.saveTracks.trackList.Count > 0)
 			{
-				MasterTrackScript masterTrack = _data.saveTracks.trackList[i];
-				if(masterTrack == null)
+				_savedTrackNames = new List<string>(_data.saveTracks.trackList.Count);
+				
+				for(int i = 0; i < _data.saveTracks.trackList.Count; ++i)
 				{
-					_data.saveTracks.trackList.RemoveAt(i);
-					--i;
+					MasterTrackScript masterTrack = _data.saveTracks.trackList[i];
+					if(masterTrack == null)
+					{
+						_data.saveTracks.trackList.RemoveAt(i);
+						--i;
+					}
+					else
+					{
+						_savedTrackNames.Add(masterTrack.trackName);
+					}
 				}
-				else
-				{
-					_savedTrackNames.Add(masterTrack.trackName);
-				}
+			}
+			else
+			{
+				_savedTrackNames = new List<string>();
 			}
 		}
 		else
 		{
-			_savedTrackNames = new List<string>();
+			Debug.LogError("The SaveTracks-Asset has not been set yet.\n" +
+			               "Go to Menu: TrackEditor -> Create Asset -> SaveTracks Asset.");
 		}
 	}
 	
 	public override void OnInspectorGUI()
-	{	
+	{
+		// Do not show the Editor, if the target is a prefab. (It only works for scene objects!)
+		if(EditorUtility.IsPersistent(_data))
+		{
+			EditorGUILayout.LabelField("This editor is deactivated for prefabs.");
+			return;
+		}
+
 		// --- GUI START ---
 		EditorGUILayout.Space();
 		
@@ -168,11 +203,9 @@ public class TrackEditor : Editor
 		
 		if(GUILayout.Button("Add part to track"))
 		{
-			Undo.RegisterSceneUndo("Add part to track");
+			//Undo.RegisterSceneUndo("Add part to track");
 			
-			// GameObject trackPart = Instantiate(Resources.Load("Prefabs/TrackParts/Part1")) as GameObject;
 			TrackPartScript trackPart = Instantiate(_data.trackPartManager._parts[_data.partSelectionInd]) as TrackPartScript;
-			// TrackPartScript trackPartScript = trackPart.GetComponent<TrackPartScript>();
 			trackPart.transform.parent = Selection.activeTransform;
 			
 			// Put the new TrackPart in the correct position and rotation:
@@ -199,7 +232,7 @@ public class TrackEditor : Editor
 		
 		if(GUILayout.Button("Enter Erase-Mode..."))
 		{
-			Undo.RegisterSceneUndo("Enter Erase Mode");
+			//Undo.RegisterSceneUndo("Enter Erase Mode");
 			
 			_data.editorMode = MasterTrackScript.Mode.ERASE;
 			
@@ -241,7 +274,7 @@ public class TrackEditor : Editor
 		
 		if(GUILayout.Button("Enter Insertion-Mode..."))
 		{
-			Undo.RegisterSceneUndo("Enter Insert Mode");
+			//Undo.RegisterSceneUndo("Enter Insert Mode");
 			
 			_data.editorMode = MasterTrackScript.Mode.INSERT;
 			
@@ -263,7 +296,7 @@ public class TrackEditor : Editor
 		// TODO: Save Button... (Clean and Normal)
 		if(GUILayout.Button("Save or Load Track..."))
 		{
-			Undo.RegisterSceneUndo("Enter Save Mode");
+			//Undo.RegisterSceneUndo("Enter Save Mode");
 			
 			_data.editorMode = MasterTrackScript.Mode.SAVE;
 			
@@ -272,23 +305,54 @@ public class TrackEditor : Editor
 				Debug.LogError("No SaveTracks Asset has been configured to save the Tracks.\n" +
 					"See the Config-Section in the TrackEditor.");
 			}
-			// TODO: Give User two options: Clean Save and Debug Save.
-			// Clean Save erases all the Meta-Information like "Reference Object Start".
-			// Debug Save does not erase these data.
-			// TODO: Make an Asset, that can handle this Track and the list (data.currentTrackList) to save this.
-			// Alternatively I could simply save the Track as Prefab.
+		}
+	}
+
+/*
+	public override bool HasPreviewGUI()
+	{
+		if(_data.editorMode == MasterTrackScript.Mode.NORMAL)
+		{
+			return true;
 		}
 		
-		// TODO: Maybe, a "Load Track"-button would be nice...
+		return false;
 	}
-	
+
+	public override void OnPreviewGUI(Rect r, GUIStyle background)
+	{
+		if(_data.editorMode == MasterTrackScript.Mode.NORMAL)
+		{
+			Transform meshTrans = _data.trackPartManager._parts[_data.partSelectionInd].transform.GetChild(0);
+			Mesh mesh = meshTrans.GetComponent<MeshFilter>().sharedMesh;
+			
+			// TODO: Preview!!
+			
+//			if(mesh == null)
+//			{
+//				Debug.Log("NULL");
+//			}
+			if(mesh != null)
+			{
+//				Graphics.DrawMeshNow(mesh, Vector3.zero, Quaternion.identity);
+//				//Graphics.DrawMeshNow(mesh, Matrix4x4.TRS(_data.transform.position,_data.transform.rotation,_data.transform.localScale));
+//				
+//				RenderTexture rt = new RenderTexture(256, 256, 16, RenderTextureFormat.ARGB32);
+//				rt.Create();
+//				
+//				GUI.Box(r, rt);
+			}
+		}
+	}
+*/
+
 	public void EditorInEraseMode()
 	{
 		_data.deleteWithoutConfirmation = EditorGUILayout.Toggle("Delete Part without confirmation", _data.deleteWithoutConfirmation); 
 		
 		if(GUILayout.Button("Delete complete Track."))
 		{
-			Undo.RegisterSceneUndo("Delete complete Track");
+			//Undo.RegisterSceneUndo("Delete complete Track");
 			
 			for(int i = _data.currentTrackParts.Count - 1; i >= 0; --i)
 			{
@@ -311,7 +375,7 @@ public class TrackEditor : Editor
 	
 	public void SwitchFromEraseToNormal()
 	{
-		Undo.RegisterSceneUndo("Enter Normal Mode");
+		//Undo.RegisterSceneUndo("Enter Normal Mode");
 		
 		_data.editorMode = MasterTrackScript.Mode.NORMAL;
 			
@@ -332,7 +396,7 @@ public class TrackEditor : Editor
 		
 		if(GUILayout.Button("Leave Insertion-Mode"))
 		{
-			Undo.RegisterSceneUndo("Enter Normal Mode");
+			//Undo.RegisterSceneUndo("Enter Normal Mode");
 			
 			_data.editorMode = MasterTrackScript.Mode.NORMAL;
 			
@@ -530,7 +594,7 @@ public class TrackEditor : Editor
 		
 		if(GUILayout.Button("Leave Save-Mode"))
 		{
-			Undo.RegisterSceneUndo("Enter Normal Mode");
+			//Undo.RegisterSceneUndo("Enter Normal Mode");
 			
 			_data.editorMode = MasterTrackScript.Mode.NORMAL;
 		}
