@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class TrackPartScript : MonoBehaviour
 {
@@ -11,7 +12,11 @@ public class TrackPartScript : MonoBehaviour
 	private GameObject _referenceObjectStart;
 	[SerializeField]
 	private GameObject _referenceObjectEnd;
-	
+
+	[SerializeField]
+//	private List<Transform>[] _splines = new List<Transform>[System.Enum.GetNames(typeof(SplineLine)).Length];
+	private SplineContainerTrans _splines = new SplineContainerTrans();
+
 	// Getter & Setter:
 	public string Name
 	{
@@ -29,5 +34,10 @@ public class TrackPartScript : MonoBehaviour
 	{
 		get { return _referenceObjectEnd; }
 		set { _referenceObjectEnd = value; }
+	}
+
+	public List<Transform> GetSpline(SplineLine line)
+	{
+		return _splines.GetSpline(line);
 	}
 }

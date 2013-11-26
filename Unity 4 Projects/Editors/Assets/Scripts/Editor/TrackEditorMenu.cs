@@ -27,4 +27,10 @@ public class TrackEditorMenu
 		GameObject trackEditor = new GameObject("TrackEditorObject");
 		trackEditor.AddComponent<MasterTrackScript>();
 	}
+
+	[MenuItem("TrackEditor/Create Asset/TrackSplineMgr Asset")]
+	public static void CreateTrackSplineManagerAsset()
+	{
+		CustomAssetUtility.CreateAsset<TrackSplineMgr>();
+	}
 }

@@ -192,7 +192,11 @@ public class TrackEditor : Editor
 			
 			// A Arrow Asset Field, to config the arrow, that should be loaded for erase / insert.
 			_data.arrowAsset = EditorGUILayout.ObjectField("Arrow Asset: ", _data.arrowAsset, typeof(Transform), false) as Transform;
-			
+
+			// Config, if splines shall be shown or not:
+			_data.showSplines = EditorGUILayout.Toggle("Show Splines: ", _data.showSplines);
+			ManageSplines(_data.showSplines);
+
 			EditorGUI.indentLevel--;
 		}
 		
@@ -640,5 +644,27 @@ public class TrackEditor : Editor
 		
 		insertArrow.gameObject.renderer.sharedMaterial.color = Color.green;
 		insertArrow.transform.parent = trackReference.changeArrowContainer.transform;
+	}
+
+	private void ManageSplines(bool showSplines)
+	{
+		if(showSplines == true)
+		{
+			if(_data.splineObject == null)
+			{
+				_data.splineObject = new GameObject("SplineObject");
+//				_data.splineObject.AddComponent<...>();
+
+				// TODO: Configure!
+			}
+		}
+		else
+		{
+			if(_data.splineObject != null)
+			{
+				DestroyImmediate(_data.splineObject);
+				_data.splineObject = null;
+			}
+		}
 	}
 }

@@ -50,4 +50,8 @@ public class MasterTrackScript : MonoBehaviour
 	public int loadTrackIndex = 0;
 	// The index of the chouce of deleting a saved track:
 	public int deleteTrackIndex = 0;
+	// Show the splines in the editor:
+	public bool showSplines = false;
+	// The runTime object to draw the splines:
+	public GameObject splineObject = null;
 }
