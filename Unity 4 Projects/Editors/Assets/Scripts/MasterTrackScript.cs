@@ -13,6 +13,7 @@ public class MasterTrackScript : MonoBehaviour
 		NORMAL,
 		ERASE,
 		INSERT,
+		PICKUP,
 		SAVE
 	};
 	

@@ -155,6 +155,10 @@ public class TrackEditor : Editor
 		{
 			EditorInInsertMode();
 		}
+		else if(_data.editorMode == MasterTrackScript.Mode.PICKUP)
+		{
+			EditorInPickupMode();
+		}
 		else if(_data.editorMode == MasterTrackScript.Mode.SAVE)
 		{
 			EditorInSaveMode();
@@ -306,6 +310,41 @@ public class TrackEditor : Editor
 			}
 		}
 
+		if(GUILayout.Button ("Enter Pickup-Mode..."))
+		{
+			_data.editorMode = MasterTrackScript.Mode.PICKUP;
+
+			// HACK: Use different colors with shared materials without unity-complining-warnings...
+			// I just needed a gameObject, that has a renderer, so I took the Ref.Obj.Start, because it was easy to get.
+			Material matGreen = new Material(_data.currentTrackParts[0].ReferenceObjectStart.renderer.sharedMaterial);
+			matGreen.color = Color.green;
+			Material matRed = new Material(_data.currentTrackParts[0].ReferenceObjectStart.renderer.sharedMaterial);
+			matRed.color = Color.red;
+
+			foreach(TrackPartScript part in _data.currentTrackParts)
+			{
+				PickupContainerTrans pickups = part.GetPickupContainer();
+				foreach(KeyValuePair<PickupLine, List<PickupElementTrans>> pickupKV in pickups.GetLineDict())
+				{
+					foreach(PickupElementTrans puElement in pickupKV.Value)
+					{
+						if(puElement.active)
+						{
+							puElement.position.renderer.sharedMaterial = matGreen;
+						}
+						else
+						{
+							puElement.position.renderer.sharedMaterial = matRed;
+						}
+
+						PickupActivityScript pickupAS = puElement.position.gameObject.AddComponent<PickupActivityScript>();
+						pickupAS.trackReference = _data;
+						pickupAS.pickupElement = puElement;
+					}
+				}
+			}
+		}
+
 		if(GUILayout.Button("Save or Load Track..."))
 		{
 			//Undo.RegisterSceneUndo("Enter Save Mode");
@@ -418,6 +457,35 @@ public class TrackEditor : Editor
 			_data.changeArrowContainer = null;
 		}
 	}
+
+	public void EditorInPickupMode()
+	{
+		EditorGUILayout.LabelField("Just click on a Pickup-Cube to change its\nactivity. Only active (green) " +
+		                           "Pickup-Cubes\nwill spawn pickup-elements at runtime.", GUILayout.Height(50.0f));
+
+		if(GUILayout.Button("Leave Pickup-Mode"))
+		{
+			_data.editorMode = MasterTrackScript.Mode.NORMAL;
+
+			foreach(TrackPartScript part in _data.currentTrackParts)
+			{
+				PickupContainerTrans pickups = part.GetPickupContainer();
+				foreach(KeyValuePair<PickupLine, List<PickupElementTrans>> pickupKV in pickups.GetLineDict())
+				{
+					foreach(PickupElementTrans puElement in pickupKV.Value)
+					{
+						// Switch back color:
+						Color tempColor = Color.white;
+						tempColor.a = 0.5f;
+						puElement.position.renderer.sharedMaterial.color = tempColor;
+
+						// Remove Script Component:
+						DestroyImmediate(puElement.position.gameObject.GetComponent<PickupActivityScript>());
+					}
+				}
+			}
+		}
+	}
 	
 	public void EditorInSaveMode()
 	{
@@ -488,7 +556,7 @@ public class TrackEditor : Editor
 				
 				Debug.Log("Track has been saved as Assets/Resources/Prefabs/SavedTracks/"+_data.trackName+".prefab\n" +
 					"Note: This is an Debug-Asset that can be loaded and changed by the editor at any time.\n" +
-					"For a save Track Asset use the \"Export Clean Track\" Button.", prefab);
+					"For a prefab Track Asset use the \"Export Clean Track\" Button.", prefab);
 			}
 			GUILayout.EndHorizontal();
 			
@@ -506,6 +574,7 @@ public class TrackEditor : Editor
 					DestroyImmediate(tps.ReferenceObjectStart, true);
 					DestroyImmediate(tps.ReferenceObjectEnd, true);
 					DestroyImmediate(tps.ReferenceObjectSpline, true);
+					DestroyImmediate(tps.ReferenceObjectPickup, true);
 					DestroyImmediate(trackPart.GetComponent<TrackPartScript>(), true);
 				}
 
@@ -515,11 +584,13 @@ public class TrackEditor : Editor
 				// Add the Clean-Data Script to add Spline information:
 				CleanTrackData cleanData = prefab.AddComponent<CleanTrackData>();
 
-				// Gather all information and get the full spline (Transform-Based):
+				// Gather all information and get the full spline & all Pickups (Transform-Based):
 				SplineContainerTrans fullSpline = new SplineContainerTrans();
+				PickupContainerTrans allPickups = new PickupContainerTrans();
 				foreach(TrackPartScript trackPart in _data.currentTrackParts)
 				{
 					fullSpline.AddSplineContainer(trackPart.GetSplineContainer());
+					allPickups.AddPickupContainer(trackPart.GetPickupContainer());
 				}
 				// Add the controlPoints of all TrackParts to the Clean-Data script (Vector3-Based):
 				foreach(KeyValuePair<SplineLine, List<Transform>> entry in fullSpline.GetSplineDict())
@@ -528,6 +599,22 @@ public class TrackEditor : Editor
 					foreach(Transform ctrlPnt in entry.Value)
 					{
 						curSpline.Add(ctrlPnt.position);
+					}
+				}
+				// Add all active Pickups to the Clean-Data script (Vector3-Based):
+				foreach(KeyValuePair<PickupLine, List<PickupElementTrans>> entry in allPickups.GetLineDict())
+				{
+					List<PickupElementVec3> pickupList = cleanData.pickupContainer.GetLine(entry.Key);
+					foreach(PickupElementTrans pickupElement in entry.Value)
+					{
+						// Only add active ones!
+						if(pickupElement.active)
+						{
+							PickupElementVec3 tempElement = new PickupElementVec3();
+							tempElement.active = pickupElement.active;
+							tempElement.position = pickupElement.position.position;
+							pickupList.Add(tempElement);
+						}
 					}
 				}
 				

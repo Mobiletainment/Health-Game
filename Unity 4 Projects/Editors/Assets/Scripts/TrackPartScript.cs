@@ -14,6 +14,8 @@ public class TrackPartScript : MonoBehaviour
 	private GameObject _referenceObjectEnd;
 	[SerializeField]
 	private GameObject _referenceObjectSpline;
+	[SerializeField]
+	private GameObject _referenceObjectPickup;
 
 	[SerializeField]
 	private SplineContainerTrans _splines = new SplineContainerTrans();
@@ -43,6 +45,12 @@ public class TrackPartScript : MonoBehaviour
 	{
 		get { return _referenceObjectSpline; }
 		set { _referenceObjectSpline = value; }
+	}
+
+	public GameObject ReferenceObjectPickup
+	{
+		get { return _referenceObjectPickup; }
+		set { _referenceObjectPickup = value; }
 	}
 
 	public SplineContainerTrans GetSplineContainer()
