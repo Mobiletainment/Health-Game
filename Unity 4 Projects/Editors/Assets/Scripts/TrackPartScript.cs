@@ -12,6 +12,8 @@ public class TrackPartScript : MonoBehaviour
 	private GameObject _referenceObjectStart;
 	[SerializeField]
 	private GameObject _referenceObjectEnd;
+	[SerializeField]
+	private GameObject _referenceObjectSpline;
 
 	[SerializeField]
 	private SplineContainerTrans _splines = new SplineContainerTrans();
@@ -33,6 +35,12 @@ public class TrackPartScript : MonoBehaviour
 	{
 		get { return _referenceObjectEnd; }
 		set { _referenceObjectEnd = value; }
+	}
+
+	public GameObject ReferenceObjectSpline
+	{
+		get { return _referenceObjectSpline; }
+		set { _referenceObjectSpline = value; }
 	}
 
 	public List<Transform> GetSpline(SplineLine line)

@@ -505,6 +505,7 @@ public class TrackEditor : Editor
 					TrackPartScript tps = trackPart.GetComponent<TrackPartScript>();
 					DestroyImmediate(tps.ReferenceObjectStart, true);
 					DestroyImmediate(tps.ReferenceObjectEnd, true);
+					DestroyImmediate(tps.ReferenceObjectSpline, true);
 					DestroyImmediate(trackPart.GetComponent<TrackPartScript>(), true);
 				}
 
