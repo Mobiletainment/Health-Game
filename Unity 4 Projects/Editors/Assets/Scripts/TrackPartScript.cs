@@ -17,6 +17,8 @@ public class TrackPartScript : MonoBehaviour
 
 	[SerializeField]
 	private SplineContainerTrans _splines = new SplineContainerTrans();
+	[SerializeField]
+	private PickupContainerTrans _pickups = new PickupContainerTrans();
 
 	// Getter & Setter:
 	public string Name
@@ -43,13 +45,13 @@ public class TrackPartScript : MonoBehaviour
 		set { _referenceObjectSpline = value; }
 	}
 
-	public List<Transform> GetSpline(SplineLine line)
-	{
-		return _splines.GetSpline(line);
-	}
-
 	public SplineContainerTrans GetSplineContainer()
 	{
 		return _splines;
+	}
+
+	public PickupContainerTrans GetPickupContainer()
+	{
+		return _pickups;
 	}
 }
