@@ -5,7 +5,7 @@ using System.Collections.Generic;
 [ExecuteInEditMode]
 public class ShowSplineEditor : MonoBehaviour
 {
-	public int smoothness = 100; // Higher is better.
+	public int smoothness = 10; // Higher is better.
 	private SplineContainerTrans _splines = null;
 
 	// Use this for initialization

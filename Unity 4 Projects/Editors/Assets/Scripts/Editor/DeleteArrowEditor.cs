@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
-
+//test
 
 [CustomEditor(typeof(DeleteArrowScript))]
 public class DeleteArrowEditor : Editor
@@ -103,5 +103,9 @@ public class DeleteArrowEditor : Editor
 		
 		// Destroy the Deletion-Arrow:
 		DestroyImmediate(_target.gameObject);
+
+		// Lets generate new spline lines:
+		DestroyImmediate(_target.trackReference.splineObject);
+		_target.trackReference.splineObject = null;
 	}
 }

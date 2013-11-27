@@ -14,7 +14,6 @@ public class TrackPartScript : MonoBehaviour
 	private GameObject _referenceObjectEnd;
 
 	[SerializeField]
-//	private List<Transform>[] _splines = new List<Transform>[System.Enum.GetNames(typeof(SplineLine)).Length];
 	private SplineContainerTrans _splines = new SplineContainerTrans();
 
 	// Getter & Setter:
@@ -39,5 +38,10 @@ public class TrackPartScript : MonoBehaviour
 	public List<Transform> GetSpline(SplineLine line)
 	{
 		return _splines.GetSpline(line);
+	}
+
+	public SplineContainerTrans GetSplineContainer()
+	{
+		return _splines;
 	}
 }

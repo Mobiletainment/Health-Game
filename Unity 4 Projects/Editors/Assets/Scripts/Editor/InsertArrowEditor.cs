@@ -107,6 +107,10 @@ public class InsertArrowEditor : Editor
 		
 		// Insert the new trackPart in currentTrackParts at correct position:
 		_target.trackReference.currentTrackParts.Insert(insPartInd, trackPart);
+
+		// Lets generate new spline lines:
+		DestroyImmediate(_target.trackReference.splineObject);
+		_target.trackReference.splineObject = null;
 	}
 	
 	private void BackToTrackEditor()

@@ -3,6 +3,9 @@ using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
+// Known Bugs:
+// - Splines are not shown constantly. After adding/inserting/removing they are refreshed but do not show up
+//	 until something else is used in the GUI (e.g. button press).
 
 [System.Serializable]
 [CustomEditor(typeof(MasterTrackScript))]
@@ -195,10 +198,12 @@ public class TrackEditor : Editor
 
 			// Config, if splines shall be shown or not:
 			_data.showSplines = EditorGUILayout.Toggle("Show Splines: ", _data.showSplines);
-			ManageSplines(_data.showSplines);
 
 			EditorGUI.indentLevel--;
 		}
+
+		// Spline Drawin-Check for Track:
+		ManageSplines(_data.showSplines);
 		
 		EditorGUILayout.Space();
 		
@@ -230,6 +235,10 @@ public class TrackEditor : Editor
 			
 			// Add the new TrackPart to the list:
 			_data.currentTrackParts.Add(trackPart);
+
+			// Lets generate new spline lines:
+			DestroyImmediate(_data.splineObject);
+			_data.splineObject = null;
 		}
 		
 		EditorGUILayout.Space();
@@ -296,8 +305,7 @@ public class TrackEditor : Editor
 				CreateInsertionArrow(part, _data);
 			}
 		}
-		
-		// TODO: Save Button... (Clean and Normal)
+
 		if(GUILayout.Button("Save or Load Track..."))
 		{
 			//Undo.RegisterSceneUndo("Enter Save Mode");
@@ -364,6 +372,8 @@ public class TrackEditor : Editor
 			}
 			
 			_data.currentTrackParts.Clear();
+			DestroyImmediate(_data.splineObject);
+			_data.splineObject = null;
 			
 			_data.nameCounter = 0;
 			
@@ -497,8 +507,28 @@ public class TrackEditor : Editor
 					DestroyImmediate(tps.ReferenceObjectEnd, true);
 					DestroyImmediate(trackPart.GetComponent<TrackPartScript>(), true);
 				}
-				
+
+				// Remove the Editor-Script:
 				DestroyImmediate(prefab.GetComponent<MasterTrackScript>(), true);
+
+				// Add the Clean-Data Script to add Spline information:
+				CleanTrackData cleanData = prefab.AddComponent<CleanTrackData>();
+
+				// Gather all information and get the full spline (Transform-Based):
+				SplineContainerTrans fullSpline = new SplineContainerTrans();
+				foreach(TrackPartScript trackPart in _data.currentTrackParts)
+				{
+					fullSpline.AddSplineContainer(trackPart.GetSplineContainer());
+				}
+				// Add the controlPoints of all TrackParts to the Clean-Data script (Vector3-Based):
+				foreach(KeyValuePair<SplineLine, List<Transform>> entry in fullSpline.GetSplineDict())
+				{
+					List<Vector3> curSpline = cleanData.splineContainer.GetSpline(entry.Key);
+					foreach(Transform ctrlPnt in entry.Value)
+					{
+						curSpline.Add(ctrlPnt.position);
+					}
+				}
 				
 				Debug.Log("Track has been saved as Assets/Resources/Prefabs/CleanTracks/"+_data.trackName+".prefab", prefab);
 			}
@@ -653,9 +683,15 @@ public class TrackEditor : Editor
 			if(_data.splineObject == null)
 			{
 				_data.splineObject = new GameObject("SplineObject");
-//				_data.splineObject.AddComponent<...>();
+				ShowSplineEditor showSpline = _data.splineObject.AddComponent<ShowSplineEditor>();
 
-				// TODO: Configure!
+				// Add Points of all TrackParts to the drawer:
+				SplineContainerTrans fullSpline = new SplineContainerTrans();
+				foreach(TrackPartScript trackPart in _data.currentTrackParts)
+				{
+					fullSpline.AddSplineContainer(trackPart.GetSplineContainer());
+				}
+				showSpline.SetSplineContainer(fullSpline);
 			}
 		}
 		else
