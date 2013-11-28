@@ -12,13 +12,14 @@ public class NavigateForwardWithAction : NavigateForward {
 	}
 
 	public ActionType PerformAction = ActionType.NotSpecified;
-	bool _done=false;
-	private BackendManager backendManager;
+	public UIInput input;
+	public UILabel errorMessage;
+	
 
 	// Use this for initialization
-	void Start ()
+	void Start()
 	{
-		backendManager = FindObjectOfType(typeof(BackendManager)) as BackendManager; //get reference to Server-Communication GameObject
+		BackendManager.Instance.callback = ActionPerformed;
 	}
 
 	void OnClick()
@@ -31,8 +32,11 @@ public class NavigateForwardWithAction : NavigateForward {
 				Debug.LogError("PushType not specified!");
 				break;
 			case ActionType.NoAction:
-				_done = true;
+				ActionCompleted();
 				break;
+		case ActionType.RegisterChild:
+			BackendManager.Instance.RegisterUser(getInput(), true);
+			break;
 			default:
 				break;
 		}
@@ -44,11 +48,25 @@ public class NavigateForwardWithAction : NavigateForward {
 		//	Forward.OnClick();
 
 	}
-	// Update is called once per frame
-	void Update () {
-		//oder hier..
-		if (_done){
-			ClickForward();
+
+	public void ActionPerformed(string response)
+	{
+		Debug.Log("Action performed: " + response);
+	}
+
+	void ActionCompleted ()
+	{
+		ClickForward();
+	}
+
+	string getInput()
+	{
+		if (input == null)
+		{
+			Debug.LogError("Trying to access UIInput, but not assigned!");
 		}
+
+		return NGUIText.StripSymbols(input.value);
 	}
 }
+

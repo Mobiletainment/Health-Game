@@ -14,14 +14,46 @@ using System.Collections.Generic;
  */
 public class BackendManager: MonoBehaviour
 {
-	
+	private static BackendManager _instance;
+	public delegate void Delegate(string response);
+
+	public Delegate callback;
+
+
 	public string GoogleCloudMessageProjectID = "368000005971"; // Insert your Google Project ID
-	public string phpFilesLocation = "http://your.ftp.server/ECPN"; // remote location of the PHP files
+	public string phpFilesLocation = "/"; // remote location of the PHP files
 	public string packageName = "at.technikum.mgs.healthgame"; // name of your app bundle identifier
 	private string devToken;
 	private string username;
 	private string response;
 	private bool isChild = true;
+
+	public static BackendManager Instance
+	{
+		get
+		{
+			if (_instance == null)
+			{
+				_instance = GameObject.Find("ComponentManager").GetComponent<BackendManager>();
+				
+				if(_instance == null)
+				{
+					Debug.LogError("No BackendManager Component attached to ComponentManager! Error creating BackendManager Singleton");
+				}
+				
+			}
+
+			return _instance;
+		}
+	}
+
+	public void RegisterUser(string username, bool isChild)
+	{
+		SetUserIsChild(isChild); //child/parent handling
+		SetUsername(username);
+		RequestDeviceToken();
+
+	}
 	
 #if UNITY_ANDROID
 	private AndroidJavaObject playerActivityContext;
@@ -189,6 +221,8 @@ public class BackendManager: MonoBehaviour
 			Debug.Log(w.text);
 			w.Dispose();
 		}
+
+		callback(response);
 	}
 	
 	
