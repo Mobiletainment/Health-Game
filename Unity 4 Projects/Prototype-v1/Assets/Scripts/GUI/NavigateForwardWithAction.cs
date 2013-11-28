@@ -1,16 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ForwardPush : Forward {
+public class NavigateForwardWithAction : NavigateForward {
 
-	public enum PushType
+	public enum ActionType
 	{
-		None,
+		NotSpecified,
+		NoAction,
 		RegisterChild,
 		RegisterParent
 	}
 
-	public PushType PerformAction = PushType.None;
+	public ActionType PerformAction = ActionType.NotSpecified;
 	bool _done=false;
 	private BackendManager backendManager;
 
@@ -26,7 +27,10 @@ public class ForwardPush : Forward {
 
 		switch (PerformAction)
 		{
-			case PushType.None:
+			case ActionType.NotSpecified:
+				Debug.LogError("PushType not specified!");
+				break;
+			case ActionType.NoAction:
 				_done = true;
 				break;
 			default:
