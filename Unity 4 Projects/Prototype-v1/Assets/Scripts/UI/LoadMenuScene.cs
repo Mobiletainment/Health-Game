@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class LoadGameOverScene : MonoBehaviour
+public class LoadMenuScene : MonoBehaviour
 {
     void OnClick ()
     {

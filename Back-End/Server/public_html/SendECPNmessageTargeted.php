@@ -15,7 +15,10 @@ $isChild = strtolower(strip_tags($_POST["isChild"]));
 $query= "";
 
 if ($isChild == "true")
+{
 	$query = "SELECT parent AS target FROM Child_Parent WHERE child = '$username'";
+	$message = $username . " completed a level. Send a gift?";
+}
 else
 {
 	$parentName = get_parent_name($username);

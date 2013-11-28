@@ -10,16 +10,16 @@ $isChild = strtolower(strip_tags($_POST["isChild"]));
 
 
 //check if they have already registered
-$query="SELECT * FROM Child_Parent WHERE username = '$username'";
+$query="SELECT * FROM ECPN_table WHERE username = '$username'";
 $result=mysql_query($query);
 
 	if(mysql_numrows($result) == 0)
 	{
-		echo "No Registration so far.";
+		echo "Error: No Registration so far. Try again in a few minutes.";
 	}
 	else if(mysql_numrows($result) == 1)
 	{
-		echo "Waiting for other player";
+		echo "Error: Waiting for other player";
 	}
 	else if (mysql_numrows($result) == 2)
 	{

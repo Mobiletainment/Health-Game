@@ -8,18 +8,20 @@ public class NavigateForwardWithAction : NavigateForward {
 		NotSpecified,
 		NoAction,
 		RegisterChild,
-		RegisterParent
+		RegisterParent,
+		CheckIfParentAndChildRegistered
 	}
 
 	public ActionType PerformAction = ActionType.NotSpecified;
 	public UIInput input;
 	public UILabel errorMessage;
+	public UILabel output;
 	
 
 	// Use this for initialization
 	void Start()
 	{
-		BackendManager.Instance.callback = ActionPerformed;
+		BackendManager.Instance.Callback = ActionPerformed;
 	}
 
 	void OnClick()
@@ -37,7 +39,17 @@ public class NavigateForwardWithAction : NavigateForward {
 		case ActionType.RegisterChild:
 			BackendManager.Instance.RegisterUser(getInput(), true);
 			break;
-			default:
+		case ActionType.RegisterParent:
+			BackendManager.Instance.RegisterUser(getInput(), false);
+			break;
+		case ActionType.CheckIfParentAndChildRegistered:
+			BackendManager.Instance.CheckIfParentAndChildAreRegistered();
+			//TODO: this is for test purposes only and is just a convenience hack if you don't have 2 devices to perform the whole process
+#if UNITY_EDITOR
+			ActionPerformed("Success: For Test purpose only! TODO");
+#endif
+			break;
+		default:
 				break;
 		}
 
@@ -52,7 +64,6 @@ public class NavigateForwardWithAction : NavigateForward {
 	public void ActionPerformed(string response)
 	{
 		Debug.Log("Action performed: " + response);
-		errorMessage.text = response;
 
 		if (response.StartsWith("Error:")) //TODO: refactor response as a class with errorcode and body
 		{
@@ -67,12 +78,22 @@ public class NavigateForwardWithAction : NavigateForward {
 
 	void ActionFailed(string response)
 	{
+		Debug.LogError(response);
+
 		//TODO: Show Popup with error message
 		errorMessage.text = response;
 	}
 
 	void ActionCompleted ()
 	{
+		switch (PerformAction) {
+			case ActionType.RegisterChild:
+				output.text = string.Format("Hallo, {0}!\nDein Benutzername {0} ist zugleich dein Team-Name.", getInput());
+				break;
+			default:
+				break;
+		}
+
 		ClickForward();
 	}
 
@@ -84,6 +105,11 @@ public class NavigateForwardWithAction : NavigateForward {
 		}
 
 		return NGUIText.StripSymbols(input.value);
+	}
+
+	void Update()
+	{
+
 	}
 }
 

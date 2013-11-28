@@ -18,7 +18,7 @@ define("GOOGLE_API_KEY", "AIzaSyC8zLJhriExUCvJL1jZRfaCfHfB-4UAA4Q"); // Place yo
 
 function get_parent_name($username)
 {
-	return "Supporter for " . $username;
+	return $username;
 }
 
 ?>
