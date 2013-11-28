@@ -52,6 +52,23 @@ public class NavigateForwardWithAction : NavigateForward {
 	public void ActionPerformed(string response)
 	{
 		Debug.Log("Action performed: " + response);
+		errorMessage.text = response;
+
+		if (response.StartsWith("Error:")) //TODO: refactor response as a class with errorcode and body
+		{
+			ActionFailed(response);
+		}
+		else
+		{
+			ActionCompleted();
+		}
+
+	}
+
+	void ActionFailed(string response)
+	{
+		//TODO: Show Popup with error message
+		errorMessage.text = response;
 	}
 
 	void ActionCompleted ()

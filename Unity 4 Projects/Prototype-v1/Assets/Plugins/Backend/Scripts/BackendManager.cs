@@ -49,6 +49,7 @@ public class BackendManager: MonoBehaviour
 
 	public void RegisterUser(string username, bool isChild)
 	{
+		callback("RegisterUser");
 		SetUserIsChild(isChild); //child/parent handling
 		SetUsername(username);
 		RequestDeviceToken();
@@ -71,6 +72,7 @@ public class BackendManager: MonoBehaviour
 	StartCoroutine(StoreDeviceID(SystemInfo.deviceUniqueIdentifier,"editor"));
 #endif
 #if UNITY_ANDROID
+		callback("RequestingDeviceToken1");
 		// Obtain unity context
         if(playerActivityContext == null) {
 			AndroidJavaClass actClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
@@ -78,6 +80,7 @@ public class BackendManager: MonoBehaviour
 		}
 		AndroidJavaClass jc = new AndroidJavaClass(packageName + ".GCMRegistration");
 		jc.CallStatic("RegisterDevice", playerActivityContext, GoogleCloudMessageProjectID);
+		callback("RequestingDeviceToken2");
 #endif
 #if UNITY_IPHONE
 		if(NotificationServices.deviceToken == null) {
@@ -198,6 +201,7 @@ public class BackendManager: MonoBehaviour
 	 */ 
 	private IEnumerator StoreDeviceID(string rID, string os)
 	{
+		callback("StoreDeviceID");
 		devToken = rID;
 		int errorCode;
 		WWWForm form = new WWWForm();
