@@ -26,6 +26,8 @@ public class MenuStack : MonoBehaviour {
 	void Start () {
 		_instance._panels=new Stack<GameObject>();
 		_instance._panels.Push(_start);
+		NGUITools.SetActive(_instance._panels.Peek(), true);
+
 	}
 
 	public static void ClickForward(GameObject obj){
