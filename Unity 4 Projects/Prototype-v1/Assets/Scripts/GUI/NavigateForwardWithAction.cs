@@ -21,7 +21,7 @@ public class NavigateForwardWithAction : NavigateForward {
 	// Use this for initialization
 	void Start()
 	{
-		BackendManager.Instance.Callback = ActionPerformed;
+		ECPNManager.Instance.Callback = ActionPerformed;
 	}
 
 	void OnClick()
@@ -37,18 +37,18 @@ public class NavigateForwardWithAction : NavigateForward {
 				ActionCompleted();
 				break;
 		case ActionType.RegisterChild:
-			BackendManager.Instance.RegisterUser(getInput(), true);
+			ECPNManager.Instance.RegisterUser(getInput(), true);
 			break;
 		case ActionType.RegisterParent:
 
 			#if UNITY_EDITOR
 			ActionPerformed("Success: For Test purpose only! TODO");
-			#elif
-			BackendManager.Instance.RegisterUser(getInput(), false);
+			#else
+			ECPNManager.Instance.RegisterUser(getInput(), false);
 			#endif
 			break;
 		case ActionType.CheckIfParentAndChildRegistered:
-			BackendManager.Instance.CheckIfParentAndChildAreRegistered();
+			ECPNManager.Instance.CheckIfParentAndChildAreRegistered();
 			//TODO: this is for test purposes only and is just a convenience hack if you don't have 2 devices to perform the whole process
 #if UNITY_EDITOR
 			ActionPerformed("Success: For Test purpose only! TODO");

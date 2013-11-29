@@ -22,7 +22,7 @@ import com.google.android.gcm.GCMBaseIntentService;
 public class GCMIntentService extends GCMBaseIntentService {
  
     private static final String TAG = "GCMIntentService";
-    private static final String NOTIFICATION_TITLE = "ECPN";
+    private static final String NOTIFICATION_TITLE = "AquaSpace";
     
     public static String message = "";
     

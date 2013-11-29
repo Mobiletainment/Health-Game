@@ -12,9 +12,9 @@ using System.Collections.Generic;
  * 3) RequestUnregisterDevice() - Request the current device Token to be removed from GCM or APSN and our own server
  * - (GetDevToken() is there for convenience of the sample scene)
  */
-public class BackendManager: MonoBehaviour
+public class ECPNManager: MonoBehaviour
 {
-		private static BackendManager _instance;
+		private static ECPNManager _instance;
 		public delegate void Delegate (string response);
 
 		private Delegate callback;
@@ -31,13 +31,13 @@ public class BackendManager: MonoBehaviour
 		private string response;
 		private bool isChild = true;
 
-		public static BackendManager Instance {
+		public static ECPNManager Instance {
 				get {
 						if (_instance == null) {
-								_instance = GameObject.Find ("ComponentManager").GetComponent<BackendManager> ();
+								_instance = GameObject.Find ("ComponentManager").GetComponent<ECPNManager> ();
 				
 								if (_instance == null) {
-										Debug.LogError ("No BackendManager Component attached to ComponentManager! Error creating BackendManager Singleton");
+										Debug.LogError ("No ECPNManager Component attached to ComponentManager! Error creating ECPNManager Singleton");
 								}
 				
 						}
@@ -170,11 +170,11 @@ public class BackendManager: MonoBehaviour
 	#endif
 	
 		// Called from Java class once the deviceToken is ready -should not be called manually
-		public void RegisterAndroidDevice (string rID)
+		public static void RegisterAndroidDevice (string rID)
 		{
 				//callback("Register Android Device");
 				Debug.Log ("DeviceToken: " + rID);
-				StartCoroutine (StoreDeviceID (rID, "android"));
+				Instance.StartCoroutine (Instance.StoreDeviceID (rID, "android"));
 				
 	}
 		// Called from Java class in response to Unregister event
