@@ -40,7 +40,12 @@ public class NavigateForwardWithAction : NavigateForward {
 			BackendManager.Instance.RegisterUser(getInput(), true);
 			break;
 		case ActionType.RegisterParent:
+
+			#if UNITY_EDITOR
+			ActionPerformed("Success: For Test purpose only! TODO");
+			#elif
 			BackendManager.Instance.RegisterUser(getInput(), false);
+			#endif
 			break;
 		case ActionType.CheckIfParentAndChildRegistered:
 			BackendManager.Instance.CheckIfParentAndChildAreRegistered();
@@ -64,7 +69,7 @@ public class NavigateForwardWithAction : NavigateForward {
 	public void ActionPerformed(string response)
 	{
 		Debug.Log("Action performed: " + response);
-
+	
 		if (response.StartsWith("Error:")) //TODO: refactor response as a class with errorcode and body
 		{
 			ActionFailed(response);
