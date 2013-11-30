@@ -7,12 +7,12 @@ public class NavigateForwardWithAction : NavigateForward {
 	public UIInput input;
 	public UILabel errorMessage;
 	public UILabel output;
-	
+
 
 	// Use this for initialization
 	void Start()
 	{
-		ECPNManager.Instance.Callback = ActionPerformed;
+		Backend.Callback = ActionPerformed;
 	}
 
 	void OnClick()
@@ -28,7 +28,7 @@ public class NavigateForwardWithAction : NavigateForward {
 				ActionCompleted();
 				break;
 		case ActionType.RegisterChild:
-			ECPNManager.Instance.RegisterUser(getInput(), true);
+			Backend.RegisterUser(getInput(), true);
 			break;
 		case ActionType.RegisterParent:
 
@@ -39,7 +39,7 @@ public class NavigateForwardWithAction : NavigateForward {
 			#endif
 			break;
 		case ActionType.CheckIfParentAndChildRegistered:
-			ECPNManager.Instance.CheckIfParentAndChildAreRegistered();
+			Backend.CheckIfParentAndChildAreRegistered();
 			//TODO: this is for test purposes only and is just a convenience hack if you don't have 2 devices to perform the whole process
 #if UNITY_EDITOR
 			ActionPerformed("Success: For Test purpose only! TODO");
@@ -105,7 +105,7 @@ public class NavigateForwardWithAction : NavigateForward {
 
 	void Update()
 	{
-
+		Debug.Log(Backend.GetUsername());
 	}
 }
 
