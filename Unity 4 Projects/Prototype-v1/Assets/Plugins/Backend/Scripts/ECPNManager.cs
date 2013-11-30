@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 
 /*
  * This class is responsible for polling device Token from either APSN (Apple) or Google Cloud Messaging Server and once it is received it is sent to the PHP server
@@ -12,6 +13,7 @@ using System.Collections.Generic;
  * 3) RequestUnregisterDevice() - Request the current device Token to be removed from GCM or APSN and our own server
  * - (GetDevToken() is there for convenience of the sample scene)
  */
+[System.Serializable]
 public class ECPNManager: MonoBehaviour
 {
 		private static ECPNManager _instance;
@@ -26,10 +28,16 @@ public class ECPNManager: MonoBehaviour
 		public string GoogleCloudMessageProjectID = "368000005971"; // Insert your Google Project ID
 		public string phpFilesLocation = "/"; // remote location of the PHP files
 		public string packageName = "at.technikum.mgs.healthgame"; // name of your app bundle identifier
-		private string devToken;
+		
+	[SerializeField]
+	private string devToken;
+
+	[SerializeField]
 		private string username;
 		private string response;
-		private bool isChild = true;
+		
+	[SerializeField]
+	private bool isChild = true;
 
 		public static ECPNManager Instance {
 				get {
@@ -205,7 +213,6 @@ public class ECPNManager: MonoBehaviour
 		private IEnumerator StoreDeviceID (string rID, string os)
 		{
 				devToken = rID;
-				int errorCode;
 				WWWForm form = new WWWForm ();
 				form.AddField ("user", SystemInfo.deviceUniqueIdentifier);
 				form.AddField ("OS", os);
@@ -218,9 +225,7 @@ public class ECPNManager: MonoBehaviour
 				this.response = w.text;
 		
 				if (w.error != null) {
-						errorCode = -1;
 				} else {
-						string formText = w.text;
 						Debug.Log (w.text);
 						w.Dispose ();
 				}
@@ -251,7 +256,6 @@ public class ECPNManager: MonoBehaviour
 				if (w.error != null) {
 						Debug.Log ("Error while sending message to all: " + w.error);
 				} else {
-						string formText = w.text;
 						Debug.Log (w.text);
 						w.Dispose ();
 				}
@@ -315,5 +319,52 @@ public class ECPNManager: MonoBehaviour
 						devToken = "";
 				}
 		}
-	
+
+	public void SendCheckboxFeedbackToServer(string screenName, IList<bool> checkboxFeedback, string customFeedback)
+	{
+		StartCoroutine(SendCheckboxFeedback(screenName, checkboxFeedback, customFeedback));
+	}
+
+	private IEnumerator SendCheckboxFeedback(string screenName, IList<bool> checkboxFeedback, string customFeedback)
+	{
+		Debug.Log ("Sending Feedback");
+		response = ""; //clear old responses
+
+		// Send message to server
+		WWWForm form = new WWWForm ();
+		form.AddField ("deviceID", SystemInfo.deviceUniqueIdentifier);
+		form.AddField ("username", GetUsername());
+		form.AddField ("isChild", isChild.ToString ());
+
+		form.AddField("screenName", screenName);
+		StringBuilder checkboxValues = new StringBuilder();
+
+		foreach (bool check in checkboxFeedback)
+		{
+			checkboxValues.Append(check.ToString());
+			checkboxValues.Append(',');
+		}
+
+		checkboxValues.Length--; // remove last ","
+
+		form.AddField("checkboxFeedback", checkboxValues.ToString());
+		form.AddField("customFeedback", customFeedback);
+		form.AddField("totalCheckboxes", checkboxFeedback.Count);
+
+		string targetAddress = "/CheckboxFeedback.php";
+		
+		WWW w = new WWW (phpFilesLocation + targetAddress, form);
+		yield return w;
+		
+		response = w.text;
+		
+		if (w.error != null) {
+			Debug.Log ("Error while sending message to all: " + w.error);
+		} else {
+			Debug.Log (w.text);
+			w.Dispose ();
+		}
+
+		callback(response);
+	}
 }

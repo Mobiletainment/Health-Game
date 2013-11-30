@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS `Checkbox_Feedback` (
+  `uid` int(10) NOT NULL AUTO_INCREMENT,
+  `deviceID` text COLLATE latin1_spanish_ci NOT NULL,
+  `username` varchar(32) COLLATE latin1_spanish_ci NOT NULL,
+  `isChild` tinyint(1) NOT NULL,
+  `customFeedback` text COLLATE latin1_spanish_ci,
+  `cb1` tinyint(1),
+  `cb2` tinyint(1),
+  `cb3` tinyint(1),
+  `cb4` tinyint(1),
+  `cb5` tinyint(1),
+  `cb6` tinyint(1),
+  `cb7` tinyint(1),
+  `cb8` tinyint(1),
+  `cb9` tinyint(1),
+  `cb10` tinyint(1),
+  `cb11` tinyint(1),
+  `cb12` tinyint(1),
+  `cb13` tinyint(1),
+  `cb14` tinyint(1),
+  `cb15` tinyint(1),
+  PRIMARY KEY (`uid`)
+)

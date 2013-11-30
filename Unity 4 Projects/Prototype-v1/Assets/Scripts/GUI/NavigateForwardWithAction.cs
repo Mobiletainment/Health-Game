@@ -3,15 +3,6 @@ using System.Collections;
 
 public class NavigateForwardWithAction : NavigateForward {
 
-	public enum ActionType
-	{
-		NotSpecified,
-		NoAction,
-		RegisterChild,
-		RegisterParent,
-		CheckIfParentAndChildRegistered
-	}
-
 	public ActionType PerformAction = ActionType.NotSpecified;
 	public UIInput input;
 	public UILabel errorMessage;
