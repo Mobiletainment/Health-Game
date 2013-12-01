@@ -61,6 +61,6 @@ public class NavigateForwardWithCheckboxAction : NavigateForward
 
 	// Update is called once per frame
 	void Update () {
-		Debug.Log(Backend.GetUsername());
+		//Debug.Log(Backend.GetUsername());
 	}
 }

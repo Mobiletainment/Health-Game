@@ -35,7 +35,7 @@ public class NavigateForwardWithAction : NavigateForward {
 			#if UNITY_EDITOR
 			ActionPerformed("Success: For Test purpose only! TODO");
 			#else
-			ECPNManager.Instance.RegisterUser(getInput(), false);
+			Backend.RegisterUser(getInput(), false);
 			#endif
 			break;
 		case ActionType.CheckIfParentAndChildRegistered:
@@ -105,7 +105,7 @@ public class NavigateForwardWithAction : NavigateForward {
 
 	void Update()
 	{
-		Debug.Log(Backend.GetUsername());
+		//Debug.Log(Backend.GetUsername());
 	}
 }
 

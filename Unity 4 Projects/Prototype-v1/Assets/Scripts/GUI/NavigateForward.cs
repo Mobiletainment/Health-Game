@@ -40,6 +40,6 @@ public class NavigateForward : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-		Debug.Log(Backend.GetUsername());
+		//Debug.Log(Backend.GetUsername());
 	}
 }

@@ -89,7 +89,7 @@ public class ECPNManager: MonoBehaviour
 				#endif
 				#if UNITY_IPHONE
 		NotificationServices.UnregisterForRemoteNotifications();	
-		StartCoroutine(DeleteDeviceFromServer(devToken));
+		StartCoroutine(DeleteDeviceFromServer(userManager.GetDevToken()));
 				#endif
 				#if UNITY_ANDROID && !UNITY_EDITOR
 		// Obtain unity context
