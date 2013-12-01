@@ -86,6 +86,10 @@ public class NavigateForwardWithAction : NavigateForward {
 			case ActionType.RegisterChild:
 				output.text = string.Format("Hallo, {0}!\nDein Benutzername {0} ist zugleich dein Team-Name.", getInput());
 				break;
+			case ActionType.RegisterParent:
+				//send push notification to child
+				Backend.SendPushMessage("Deinen Eltern haben das Team-Passwort erhalten. Das Spiel kann beginnen!");
+			break;
 			default:
 				break;
 		}
