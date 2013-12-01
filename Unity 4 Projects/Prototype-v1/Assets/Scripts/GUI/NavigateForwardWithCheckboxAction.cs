@@ -12,7 +12,7 @@ public class NavigateForwardWithCheckboxAction : NavigateForward
 	// Use this for initialization
 	void Start()
 	{
-		ECPNManager.Instance.Callback = ActionPerformed;
+		Backend.Callback = ActionPerformed;
 	}
 
 	
@@ -39,7 +39,7 @@ public class NavigateForwardWithCheckboxAction : NavigateForward
 		Debug.Log("Checks: " + checkboxFeedback);
 		Debug.Log("Custom: " + customFeedback);
 
-		ECPNManager.Instance.SendCheckboxFeedbackToServer(screenName, checkboxFeedback, customFeedback.text);
+		Backend.SendCheckboxFeedbackToServer(screenName, checkboxFeedback, customFeedback.text);
 	}
 
 	public void ActionPerformed(string response)
@@ -61,6 +61,6 @@ public class NavigateForwardWithCheckboxAction : NavigateForward
 
 	// Update is called once per frame
 	void Update () {
-		Debug.Log(ECPNManager.Instance.GetUsername());
+		//Debug.Log(Backend.GetUsername());
 	}
 }

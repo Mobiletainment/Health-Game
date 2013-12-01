@@ -19,12 +19,22 @@ for ($i = 1; $i <= $totalCheckboxes; $i++)
 	$checkboxes = $checkboxes . "cb" . $i . ",";
 }
 
-rtrim($checkboxes, ",");
+echo $checkboxes . "\n";
+
+$checkboxes = rtrim($checkboxes, ",");
+
+echo $checkboxes . "\n";
 
 
 //check if they have already registered
-$query="INSERT INTO Checkbox_Feedback (deviceID, username, isChild, screenName, customFeedback, '$checkboxes' VALUES('$deviceID', '$username', '$isChild', '$screenName', '$customFeedback', '$checkboxFeedback')";
+$query= "INSERT INTO Checkbox_Feedback (deviceID, username, isChild, screenName, customFeedback, $checkboxes) VALUES('$deviceID', '$username', '$isChild', '$screenName', '$customFeedback', $checkboxFeedback)";
+
+echo $query . "\n";
+
+
 $result=mysql_query($query);
+
+echo mysql_errno($query) . ": " . mysql_error($query) . "\n";
 
 echo $result;
 

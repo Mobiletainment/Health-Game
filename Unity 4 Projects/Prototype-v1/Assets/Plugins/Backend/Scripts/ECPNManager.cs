@@ -13,72 +13,50 @@ using System.Text;
  * 3) RequestUnregisterDevice() - Request the current device Token to be removed from GCM or APSN and our own server
  * - (GetDevToken() is there for convenience of the sample scene)
  */
+
 [System.Serializable]
 public class ECPNManager: MonoBehaviour
 {
-		private static ECPNManager _instance;
-		public delegate void Delegate (string response);
+	[SerializeField]
+	private UserManager
+		userManager;
+	
 
-		private Delegate callback;
-		public Delegate Callback {
-			get { _instance.ClearResponse(); return _instance.callback;}
-			set { _instance.callback = value; }
+	public string GetUsername ()
+	{
+		return userManager.GetUsername ();
 	}
 
-		public string GoogleCloudMessageProjectID = "368000005971"; // Insert your Google Project ID
-		public string phpFilesLocation = "/"; // remote location of the PHP files
-		public string packageName = "at.technikum.mgs.healthgame"; // name of your app bundle identifier
-		
-	[SerializeField]
-	private string devToken;
+	public void RegisterUser (string username, bool isChild)
+	{
+		//callback ("RegisterUser");
+		userManager.IsChild = isChild; //child/parent handling
+		userManager.SetUsername (username);
+		RequestDeviceToken ();
 
-	[SerializeField]
-		private string username;
-		private string response;
-		
-	[SerializeField]
-	private bool isChild = true;
+	}
 
-		public static ECPNManager Instance {
-				get {
-						if (_instance == null) {
-								_instance = GameObject.Find ("ComponentManager").GetComponent<ECPNManager> ();
-				
-								if (_instance == null) {
-										Debug.LogError ("No ECPNManager Component attached to ComponentManager! Error creating ECPNManager Singleton");
-								}
-				
-						}
+	void Start ()
+	{
+		userManager = ScriptableObject.CreateInstance<UserManager> ();
+	}
 
-						return _instance;
-				}
-		}
-
-		public void RegisterUser (string username, bool isChild)
-		{
-				//callback ("RegisterUser");
-				SetUserIsChild (isChild); //child/parent handling
-				SetUsername (username);
-				RequestDeviceToken ();
-
-		}
-	
 #if UNITY_ANDROID
 	private AndroidJavaObject playerActivityContext;
 #endif
-		// PUBLIC METHODS //
+	// PUBLIC METHODS //
 	
-		/* Only works in android and iOS devices
+	/* Only works in android and iOS devices
 	 * Android: It calls a static method in our GCMRegistration class which polls the device Token from Google Services
 	 * iOS: Uses Unity NotificationServices class to poll deviceToken -which we have to poll until found
 	 */
-		public void RequestDeviceToken ()
-		{
+	public void RequestDeviceToken ()
+	{
 #if UNITY_EDITOR
 	Debug.Log("You should only register iOS and android devices, not the editor!");
-	StartCoroutine(StoreDeviceID(SystemInfo.deviceUniqueIdentifier,"editor"));
+		StartCoroutine(StoreDeviceID(SystemInfo.deviceUniqueIdentifier,"editor"));
 #endif
-	#if UNITY_ANDROID && !UNITY_EDITOR
+		#if UNITY_ANDROID && !UNITY_EDITOR
 		// Obtain unity context
 		//callback("RequestDeviceToken1");
 		if(playerActivityContext == null) {
@@ -92,8 +70,8 @@ public class ECPNManager: MonoBehaviour
 		//callback("RequestDeviceToken5");
 		jc.CallStatic("RegisterDevice", playerActivityContext, GoogleCloudMessageProjectID);
 		//callback("RequestDeviceToken6");
-				#endif
-				#if UNITY_IPHONE
+		#endif
+		#if UNITY_IPHONE
 		if(NotificationServices.deviceToken == null) {
 			pollIOSDeviceToken = true;
 			NotificationServices.RegisterForRemoteNotificationTypes(RemoteNotificationType.Alert | 
@@ -102,19 +80,19 @@ public class ECPNManager: MonoBehaviour
 		} else {
 			RegisterIOSDevice();
 		}
-				#endif
-		}
+		#endif
+	}
 	
-		public void RequestUnregisterDevice ()
-		{
-				#if UNITY_EDITOR
+	public void RequestUnregisterDevice ()
+	{
+		#if UNITY_EDITOR
 		Debug.Log("You can only unregister iOS and android devices, not the editor!");
-				#endif
-				#if UNITY_IPHONE
+		#endif
+		#if UNITY_IPHONE
 		NotificationServices.UnregisterForRemoteNotifications();	
-		StartCoroutine(DeleteDeviceFromServer(devToken));
-				#endif
-				#if UNITY_ANDROID && !UNITY_EDITOR
+		StartCoroutine(DeleteDeviceFromServer(userManager.GetDevToken()));
+		#endif
+		#if UNITY_ANDROID && !UNITY_EDITOR
 		// Obtain unity context
 		if(playerActivityContext == null) {
 			AndroidJavaClass actClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
@@ -122,50 +100,19 @@ public class ECPNManager: MonoBehaviour
 		}
 		AndroidJavaClass jc = new AndroidJavaClass(packageName + ".GCMRegistration");
 		jc.CallStatic("UnregisterDevice",playerActivityContext);
-				#endif
-		}
+		#endif
+	}
 
-		/*
+	/*
 	 * Sends a notification to all server-registered devices
 	 */
-		public void SendMessage (bool targeted)
-		{
-				StartCoroutine (SendECPNmessage (targeted));
-		}
+	public void SendPushMessage (string message)
+	{
+		StartCoroutine (SendECPNmessage (message));
+	}
 	
 	
-		/*
-	 * Get the current device Token, if known (does not request it)
-	 */
-		public string GetDevToken ()
-		{
-				return devToken;
-		}
-	
-		public string GetUsername ()
-		{
-				return username;
-		}
-	
-		public void SetUsername (string username)
-		{
-				this.username = username;
-		}
-	
-		public string GetResponse ()
-		{
-				return response;
-		}
-
-		public void ClearResponse ()
-		{
-				this.response = "";
-		}
-	
-		public void SetUserIsChild (bool isChild)
-		{
-				this.isChild = isChild;
-		}
+		
 	
 	#if UNITY_IPHONE
 	private bool pollIOSDeviceToken = false;
@@ -177,20 +124,20 @@ public class ECPNManager: MonoBehaviour
 	}
 	#endif
 	
-		// Called from Java class once the deviceToken is ready -should not be called manually
-		public static void RegisterAndroidDevice (string rID)
-		{
-				//callback("Register Android Device");
-				Debug.Log ("DeviceToken: " + rID);
-				Instance.StartCoroutine (Instance.StoreDeviceID (rID, "android"));
+	// Called from Java class once the deviceToken is ready -should not be called manually
+	public  void RegisterAndroidDevice (string rID)
+	{
+		//callback("Register Android Device");
+		Debug.Log ("DeviceToken: " + rID);
+		StartCoroutine (StoreDeviceID (rID, "android"));
 				
 	}
-		// Called from Java class in response to Unregister event
-		public void UnregisterDevice (string rID)
-		{
-				Debug.Log ("Unregister DeviceToken: " + rID);
-				StartCoroutine (DeleteDeviceFromServer (rID));
-		}
+	// Called from Java class in response to Unregister event
+	public void UnregisterDevice (string rID)
+	{
+		Debug.Log ("Unregister DeviceToken: " + rID);
+		StartCoroutine (DeleteDeviceFromServer (rID));
+	}
 	
 	#if UNITY_IPHONE
 	/*
@@ -207,153 +154,170 @@ public class ECPNManager: MonoBehaviour
 	#endif
 
 
-		/*
+	/*
 	 * Sends store device Token request to server
 	 */ 
-		private IEnumerator StoreDeviceID (string rID, string os)
-		{
-				devToken = rID;
-				WWWForm form = new WWWForm ();
-				form.AddField ("user", SystemInfo.deviceUniqueIdentifier);
-				form.AddField ("OS", os);
-				form.AddField ("regID", devToken);
-				form.AddField ("username", username);
-				form.AddField ("isChild", isChild.ToString ());
-				WWW w = new WWW (phpFilesLocation + "/RegisterDeviceIDtoDB.php", form);
-				yield return w;
+	private IEnumerator StoreDeviceID (string rID, string os)
+	{
+		userManager.SetDevToken(rID);
+		WWWForm form = CreateDefaultForm();
+		form.AddField ("OS", os);
+
+		WWW w = new WWW (userManager.phpFilesLocation + "/RegisterDeviceIDtoDB.php", form);
+		yield return w;
 		
-				this.response = w.text;
+		string response = w.text;
 		
-				if (w.error != null) {
-				} else {
-						Debug.Log (w.text);
-						w.Dispose ();
-				}
-				
-				callback (response);
+		if (w.error != null) {
+		} else {
+			Debug.Log (w.text);
+			w.Dispose ();
 		}
+				
+		callback (response);
+	}
 	
 	
-		/*
+	/*
 	 * Sends notification message to all devices registered in the server
 	 * It displays the number of messages sent (via Debug.Log)
 	 */ 
-		private IEnumerator SendECPNmessage (bool targeted)
-		{
-				// Send message to server with accName - devToken pair
-				WWWForm form = new WWWForm ();
-				form.AddField ("user", SystemInfo.deviceUniqueIdentifier);
-				form.AddField ("username", username);
-				form.AddField ("isChild", isChild.ToString ());
-		
-				string targetAddress = targeted ? "/SendECPNmessageTargeted.php" : "/SendECPNmessageAll.php";
-		
-				WWW w = new WWW (phpFilesLocation + targetAddress, form);
-				yield return w;
-		
-				response = w.text;
-		
-				if (w.error != null) {
-						Debug.Log ("Error while sending message to all: " + w.error);
-				} else {
-						Debug.Log (w.text);
-						w.Dispose ();
-				}
-		}
-
-		public void CheckIfParentAndChildAreRegistered()
-		{
-			StartCoroutine(CheckIfParentAndChildAreRegisteredServer());
-		}
-
-		/*
-	 * Checks if both Parent and Child have registered
-	 */ 
-		private IEnumerator CheckIfParentAndChildAreRegisteredServer()
-		{
-				Debug.Log ("Checking Registration Completion");
-				response = ""; //clear old responses
-				// Send message to server with accName - devToken pair
-				WWWForm form = new WWWForm ();
-				form.AddField ("user", SystemInfo.deviceUniqueIdentifier);
-				form.AddField ("username", username);
-				form.AddField ("isChild", isChild.ToString ());
-		
-				string targetAddress = "/CheckIfParentAndChildAreRegistered.php";
-		
-				WWW w = new WWW (phpFilesLocation + targetAddress, form);
-				yield return w;
-		
-				response = w.text;
-		
-				if (w.error != null) {
-						Debug.Log ("Error while sending message to all: " + w.error);
-				} else {
-						string formText = w.text;
-						Debug.Log (w.text);
-						w.Dispose ();
-				}
-
-				callback(response);
-		}
-
-		/*
-	 * Sends delete device Token request to server
-	 */ 
-		private IEnumerator DeleteDeviceFromServer (string rID)
-		{
-				int errorCode;
-				WWWForm form = new WWWForm ();
-				form.AddField ("regID", rID);
-				WWW w = new WWW (phpFilesLocation + "/UnregisterDeviceIDfromDB.php", form);
-				yield return w;
-		
-				response = w.text;
-		
-				if (w.error != null) {
-						errorCode = -1;
-				} else {
-						string formText = w.text; 
-						w.Dispose ();
-						errorCode = int.Parse (formText);
-						devToken = "";
-				}
-		}
-
-	public void SendCheckboxFeedbackToServer(string screenName, IList<bool> checkboxFeedback, string customFeedback)
+	private IEnumerator SendECPNmessage (string message)
 	{
-		StartCoroutine(SendCheckboxFeedback(screenName, checkboxFeedback, customFeedback));
+		// Send message to server with accName - devToken pair
+		WWWForm form = CreateDefaultForm();
+				
+		
+		string targetAddress = "/SendECPNmessageTargeted.php";
+		
+		WWW w = new WWW (userManager.phpFilesLocation + targetAddress, form);
+		yield return w;
+		
+		string response = w.text;
+		Debug.Log("Push reponse: " + response);
+		
+		if (w.error != null) {
+			Debug.Log ("Error while sending message to all: " + w.error);
+		} else {
+			Debug.Log (w.text);
+			w.Dispose ();
+		}
 	}
 
-	private IEnumerator SendCheckboxFeedback(string screenName, IList<bool> checkboxFeedback, string customFeedback)
+	private IEnumerator SendECPNmessageBroadcast (string message)
 	{
-		Debug.Log ("Sending Feedback");
-		response = ""; //clear old responses
+		// Send message to server with accName - devToken pair
+		WWWForm form = CreateDefaultForm();
+		
+		string targetAddress = "/SendECPNmessageAll.php";
+		
+		WWW w = new WWW (userManager.phpFilesLocation + targetAddress, form);
+		yield return w;
+		
+		string response = w.text;
+		
+		if (w.error != null) {
+			Debug.Log ("Error while sending message to all: " + w.error);
+		} else {
+			Debug.Log (w.text);
+			w.Dispose ();
+		}
+	}
 
-		// Send message to server
-		WWWForm form = new WWWForm ();
-		form.AddField ("deviceID", SystemInfo.deviceUniqueIdentifier);
-		form.AddField ("username", GetUsername());
-		form.AddField ("isChild", isChild.ToString ());
+	public void CheckIfParentAndChildAreRegistered ()
+	{
+		StartCoroutine (CheckIfParentAndChildAreRegisteredServer ());
+	}
 
-		form.AddField("screenName", screenName);
-		StringBuilder checkboxValues = new StringBuilder();
-
-		foreach (bool check in checkboxFeedback)
-		{
-			checkboxValues.Append(check.ToString());
-			checkboxValues.Append(',');
+	/*
+	 * Checks if both Parent and Child have registered
+	 */ 
+	private IEnumerator CheckIfParentAndChildAreRegisteredServer ()
+	{
+		Debug.Log ("Checking Registration Completion");
+		// Send message to server with accName - devToken pair
+		WWWForm form = CreateDefaultForm();
+		
+		string targetAddress = "/CheckIfParentAndChildAreRegistered.php";
+		
+		WWW w = new WWW (userManager.phpFilesLocation + targetAddress, form);
+		yield return w;
+		
+		string response = w.text;
+		
+		if (w.error != null) {
+			Debug.Log ("Error while sending message to all: " + w.error);
+		} else {
+			string formText = w.text;
+			Debug.Log (w.text);
+			w.Dispose ();
 		}
 
+		callback (response);
+	}
+
+	/*
+	 * Sends delete device Token request to server
+	 */ 
+	private IEnumerator DeleteDeviceFromServer (string rID)
+	{
+		int errorCode;
+		WWWForm form = CreateDefaultForm();
+		form.AddField ("regID", rID);
+		WWW w = new WWW (userManager.phpFilesLocation + "/UnregisterDeviceIDfromDB.php", form);
+		yield return w;
+		
+		string response = w.text;
+		
+		if (w.error != null) {
+			errorCode = -1;
+		} else {
+			string formText = w.text; 
+			w.Dispose ();
+			errorCode = int.Parse (formText);
+			userManager.SetDevToken("");
+		}
+	}
+
+	public void SendCheckboxFeedbackToServer (string screenName, IList<bool> checkboxFeedback, string customFeedback)
+	{
+		StartCoroutine (SendCheckboxFeedback (screenName, checkboxFeedback, customFeedback));
+	}
+
+	public delegate void Delegate (string response);
+	
+	private Delegate callback;
+
+	public Delegate Callback {
+		get { return callback;}
+		set { callback = value; }
+	}
+	
+	public IEnumerator SendCheckboxFeedback (string screenName, IList<bool> checkboxFeedback, string customFeedback)
+	{
+		Debug.Log ("Sending Feedback");
+		string response = "";
+		
+		// Send message to server
+		WWWForm form = CreateDefaultForm();
+		
+		form.AddField ("screenName", screenName);
+		StringBuilder checkboxValues = new StringBuilder ();
+		
+		foreach (bool check in checkboxFeedback) {
+			checkboxValues.Append (check.ToString ());
+			checkboxValues.Append (',');
+		}
+		
 		checkboxValues.Length--; // remove last ","
-
-		form.AddField("checkboxFeedback", checkboxValues.ToString());
-		form.AddField("customFeedback", customFeedback);
-		form.AddField("totalCheckboxes", checkboxFeedback.Count);
-
+		
+		form.AddField ("checkboxFeedback", checkboxValues.ToString ());
+		form.AddField ("customFeedback", customFeedback);
+		form.AddField ("totalCheckboxes", checkboxFeedback.Count);
+		
 		string targetAddress = "/CheckboxFeedback.php";
 		
-		WWW w = new WWW (phpFilesLocation + targetAddress, form);
+		WWW w = new WWW (userManager.phpFilesLocation + targetAddress, form);
 		yield return w;
 		
 		response = w.text;
@@ -364,7 +328,20 @@ public class ECPNManager: MonoBehaviour
 			Debug.Log (w.text);
 			w.Dispose ();
 		}
-
-		callback(response);
+		
+		callback (response);
 	}
+
+	WWWForm CreateDefaultForm()
+	{
+		WWWForm form = new WWWForm ();
+
+		form.AddField ("user", SystemInfo.deviceUniqueIdentifier);
+		form.AddField ("regID", userManager.GetDevToken());
+		form.AddField ("username", userManager.GetUsername());
+		form.AddField ("isChild", userManager.IsChild.ToString());
+
+		return form;
+	}
+
 }
