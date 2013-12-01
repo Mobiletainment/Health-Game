@@ -1,4 +1,5 @@
 <?php
+
 include("settings.php");
 
 mysql_connect($loginURL,$username,$password);

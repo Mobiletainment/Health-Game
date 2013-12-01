@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NavigateForwardWithAction : NavigateForward {
+public class NavigateForwardWithAction : NavigateForward
+{
 
 	public ActionType PerformAction = ActionType.NotSpecified;
 	public UIInput input;
@@ -10,42 +11,43 @@ public class NavigateForwardWithAction : NavigateForward {
 
 
 	// Use this for initialization
-	void Start()
+	void Start ()
 	{
 		Backend.Callback = ActionPerformed;
 	}
 
-	void OnClick()
+	void OnClick ()
 	{
-		Debug.Log("Push Type: " + PerformAction.ToString());
+		Debug.Log ("Push Type: " + PerformAction.ToString ());
 
-		switch (PerformAction)
-		{
+		switch (PerformAction) {
 			case ActionType.NotSpecified:
-				Debug.LogError("PushType not specified!");
+				Debug.LogError ("PushType not specified!");
 				break;
 			case ActionType.NoAction:
-				ActionCompleted();
+				ActionCompleted ();
 				break;
-		case ActionType.RegisterChild:
-			Backend.RegisterUser(getInput(), true);
-			break;
-		case ActionType.RegisterParent:
+			case ActionType.RegisterChild:
+				Backend.RegisterUser (getInput (), true);
+				Backend.SendPushMessage ("Registriert");
+				break;
+			case ActionType.RegisterParent:
 
 			#if UNITY_EDITOR
-			ActionPerformed("Success: For Test purpose only! TODO");
-			#else
+			//ActionPerformed("Success: For Test purpose only! TODO");
 			Backend.RegisterUser(getInput(), false);
+			#else
+				Backend.RegisterUser (getInput (), false);
 			#endif
-			break;
-		case ActionType.CheckIfParentAndChildRegistered:
-			Backend.CheckIfParentAndChildAreRegistered();
+				break;
+			case ActionType.CheckIfParentAndChildRegistered:
+				Backend.CheckIfParentAndChildAreRegistered ();
 			//TODO: this is for test purposes only and is just a convenience hack if you don't have 2 devices to perform the whole process
 #if UNITY_EDITOR
 			ActionPerformed("Success: For Test purpose only! TODO");
 #endif
-			break;
-		default:
+				break;
+			default:
 				break;
 		}
 
@@ -57,24 +59,21 @@ public class NavigateForwardWithAction : NavigateForward {
 
 	}
 
-	public void ActionPerformed(string response)
+	public void ActionPerformed (string response)
 	{
-		Debug.Log("Action performed: " + response);
+		Debug.Log ("Action performed: " + response);
 	
-		if (response.StartsWith("Error:")) //TODO: refactor response as a class with errorcode and body
-		{
-			ActionFailed(response);
-		}
-		else
-		{
-			ActionCompleted();
+		if (response.StartsWith ("Error:")) { //TODO: refactor response as a class with errorcode and body
+			ActionFailed (response);
+		} else {
+			ActionCompleted ();
 		}
 
 	}
 
-	void ActionFailed(string response)
+	void ActionFailed (string response)
 	{
-		Debug.LogError(response);
+		Debug.LogError (response);
 
 		//TODO: Show Popup with error message
 		errorMessage.text = response;
@@ -84,30 +83,29 @@ public class NavigateForwardWithAction : NavigateForward {
 	{
 		switch (PerformAction) {
 			case ActionType.RegisterChild:
-				output.text = string.Format("Hallo, {0}!\nDein Benutzername {0} ist zugleich dein Team-Name.", getInput());
+				output.text = string.Format ("Hallo, {0}!\nDein Benutzername {0} ist zugleich dein Team-Name.", getInput ());
 				break;
 			case ActionType.RegisterParent:
 				//send push notification to child
-				Backend.SendPushMessage("Deinen Eltern haben das Team-Passwort erhalten. Das Spiel kann beginnen!");
-			break;
+				Backend.SendPushMessage ("Deinen Eltern haben das Team-Passwort erhalten. Das Spiel kann beginnen!");
+				break;
 			default:
 				break;
 		}
 
-		ClickForward();
+		ClickForward ();
 	}
 
-	string getInput()
+	string getInput ()
 	{
-		if (input == null)
-		{
-			Debug.LogError("Trying to access UIInput, but not assigned!");
+		if (input == null) {
+			Debug.LogError ("Trying to access UIInput, but not assigned!");
 		}
 
-		return NGUIText.StripSymbols(input.value);
+		return NGUIText.StripSymbols (input.value);
 	}
 
-	void Update()
+	void Update ()
 	{
 		//Debug.Log(Backend.GetUsername());
 	}

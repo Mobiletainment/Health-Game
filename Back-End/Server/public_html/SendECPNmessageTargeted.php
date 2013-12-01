@@ -6,7 +6,7 @@ mysql_connect($loginURL,$username,$password);
 @mysql_select_db($database) or die( "9");
 
 //$message = strip_tags($_POST["username"]) . " says hi to ";
-$message = "Your supporter sent you a gift :)";
+$message = strip_tags($_POST["message"]);
 $androidIDs = array();
 $iosIDs = array();
 $username = strip_tags($_POST["username"]);
@@ -14,17 +14,20 @@ $isChild = strtolower(strip_tags($_POST["isChild"]));
 
 $query= "";
 
+
 if ($isChild == "true")
 {
 	$query = "SELECT parent AS target FROM Child_Parent WHERE child = '$username'";
-	$message = $username . " completed a level. Send a gift?";
 }
 else
 {
 	$parentName = get_parent_name($username);
 	$query = "SELECT child AS target from Child_Parent WHERE parent = '$parentName'";
-}	
+}
 $result=mysql_query($query);
+
+
+echo $message;
 
 if(mysql_numrows($result) == 0)
 {
@@ -37,13 +40,13 @@ while($row = mysql_fetch_array($result)) {
 }
 
 // For each deviceID, add to either android or iOS bucket
-if(count($targets) > 0) {
+if(count($targets) > 0)
+{
 	foreach($targets as $contact) {
 		$query="SELECT * FROM ECPN_table WHERE username = '$contact'";
 
 		$result=mysql_query($query);
 
-		//$message = strip_tags($_POST["username"]) . " says hi to " . $contact;
 		echo $message;
 
 		if(mysql_numrows($result) > 0) {

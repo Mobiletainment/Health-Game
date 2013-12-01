@@ -17,14 +17,19 @@ public class UserManager : ScriptableObject
 
 	public void OnEnable()
 	{
+		Debug.Log("Getting UserData");
 		hideFlags = HideFlags.None;
+
+		username = PlayerPrefs.GetString("username");
+		isChild = Convert.ToBoolean(PlayerPrefs.GetInt("isChild"));
+		devToken = PlayerPrefs.GetString("devToken");
 	}
 
 	[SerializeField]
-	public string devToken;
+	private string devToken;
 	
 	[SerializeField]
-	public string username;
+	private string username;
 
 	[SerializeField]
 	private bool isChild = true;
@@ -38,6 +43,7 @@ public class UserManager : ScriptableObject
 		set
 		{
 			isChild = value;
+			PlayerPrefs.SetInt("isChild", Convert.ToInt32(isChild));
 		}
 	}
 
@@ -57,10 +63,13 @@ public class UserManager : ScriptableObject
 	public void SetUsername (string username)
 	{
 		this.username = username;
+		PlayerPrefs.SetString("username", username);
+	}
+
+	public void SetDevToken (string devToken)
+	{
+		this.devToken = devToken;
+		PlayerPrefs.SetString("devToken", devToken);
 	}
 	
-	public void SetUserIsChild (bool isChild)
-	{
-		this.isChild = isChild;
-	}
 }
