@@ -47,6 +47,12 @@ public class NavigateForwardWithAction : NavigateForward
 			ActionPerformed("Success: For Test purpose only! TODO");
 #endif
 				break;
+			case ActionType.SendInGameBonus:
+				string rewardMessage = "Du hast " + GetContextInfo () + " von deinen Eltern bekommen, weil du " + input.value;
+				Debug.Log(rewardMessage);
+				Backend.SendPushMessage (rewardMessage);
+				ActionCompleted();
+				break;
 			default:
 				break;
 		}
