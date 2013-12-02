@@ -613,6 +613,7 @@ public class TrackEditor : Editor
 							PickupElementVec3 tempElement = new PickupElementVec3();
 							tempElement.active = pickupElement.active;
 							tempElement.position = pickupElement.position.position;
+							tempElement.rotation = pickupElement.position.rotation;
 							pickupList.Add(tempElement);
 						}
 					}
