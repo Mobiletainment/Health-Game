@@ -37,6 +37,10 @@ public class MenuStack : MonoBehaviour {
 		_instance._panels.Push(obj);
 
 	}
+	public static void CloseTop() {
+		NGUITools.SetActive(_instance._panels.Peek(), false);
+
+	}
 	public static void ClickBack()
 	{
 
