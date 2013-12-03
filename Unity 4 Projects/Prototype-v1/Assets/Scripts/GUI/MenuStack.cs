@@ -31,10 +31,14 @@ public class MenuStack : MonoBehaviour {
 	}
 
 	public static void ClickForward(GameObject obj){
-
+		
 		NGUITools.SetActive(_instance._panels.Peek(), false);
 		NGUITools.SetActive(obj, true);
 		_instance._panels.Push(obj);
+
+	}
+	public static void CloseTop() {
+		NGUITools.SetActive(_instance._panels.Peek(), false);
 
 	}
 	public static void ClickBack()

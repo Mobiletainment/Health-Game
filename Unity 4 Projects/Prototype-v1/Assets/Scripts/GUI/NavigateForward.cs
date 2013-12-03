@@ -1,18 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NavigateForward : MonoBehaviour {
+public class NavigateForward : MonoBehaviour
+{
 	public GameObject _next;
 	private ECPNManager ecpnManager;
+	public string customInfoForNextScreen = "";
 
 	public ECPNManager Backend {
-			get
-			{
+		get {
 			if (ecpnManager == null)
-				ecpnManager = GameObject.Find("ComponentManager").GetComponent<ECPNManager>();
+				ecpnManager = GameObject.Find ("ComponentManager").GetComponent<ECPNManager> ();
 
 			return ecpnManager;
-			}
+		}
 	}
 
 
@@ -22,24 +23,45 @@ public class NavigateForward : MonoBehaviour {
 		NoAction,
 		RegisterChild,
 		RegisterParent,
-		CheckIfParentAndChildRegistered
+		CheckIfParentAndChildRegistered,
+		SendInGameBonus
 	}
 	
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 	
 	}
 
-	void OnClick(){
-		ClickForward();
+	void OnClick ()
+	{
+		ClickForward ();
 	}
-	public void ClickForward(){
 
-		MenuStack.ClickForward(_next);
+	public void ClickForward ()
+	{
 
+		MenuStack.ClickForward (_next);
+
+		if (customInfoForNextScreen.Length > 0) {
+			ContextInfo contextInfo = _next.GetComponent<ContextInfo> ();
+			contextInfo.contextInfo = customInfoForNextScreen;
+		}
 	}
+
+	public string GetContextInfo()
+	{
+		ContextInfo contextInfo = transform.parent.GetComponent<ContextInfo>();
+
+		if (contextInfo == null)
+			return "";
+
+		return contextInfo.contextInfo;
+	}
+
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 		//Debug.Log(Backend.GetUsername());
 	}
 }
