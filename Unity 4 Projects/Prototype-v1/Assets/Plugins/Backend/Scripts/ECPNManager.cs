@@ -20,6 +20,7 @@ public class ECPNManager: MonoBehaviour
 	[SerializeField]
 	private UserManager
 		userManager;
+	
 
 	public string GetUsername ()
 	{
@@ -29,7 +30,7 @@ public class ECPNManager: MonoBehaviour
 	public void RegisterUser (string username, bool isChild)
 	{
 		//callback ("RegisterUser");
-		userManager.SetUserIsChild (isChild); //child/parent handling
+		userManager.IsChild = isChild; //child/parent handling
 		userManager.SetUsername (username);
 		RequestDeviceToken ();
 
@@ -158,13 +159,10 @@ public class ECPNManager: MonoBehaviour
 	 */ 
 	private IEnumerator StoreDeviceID (string rID, string os)
 	{
-		userManager.devToken = rID;
-		WWWForm form = new WWWForm ();
-		form.AddField ("user", SystemInfo.deviceUniqueIdentifier);
+		userManager.SetDevToken(rID);
+		WWWForm form = CreateDefaultForm();
 		form.AddField ("OS", os);
-		form.AddField ("regID", userManager.devToken);
-		form.AddField ("username", userManager.username);
-		form.AddField ("isChild", userManager.IsChild.ToString ());
+
 		WWW w = new WWW (userManager.phpFilesLocation + "/RegisterDeviceIDtoDB.php", form);
 		yield return w;
 		
@@ -187,10 +185,7 @@ public class ECPNManager: MonoBehaviour
 	private IEnumerator SendECPNmessage (string message)
 	{
 		// Send message to server with accName - devToken pair
-		WWWForm form = new WWWForm ();
-		form.AddField ("user", SystemInfo.deviceUniqueIdentifier);
-		form.AddField ("username", userManager.GetUsername ());
-		form.AddField ("isChild", userManager.IsChild.ToString ());
+		WWWForm form = CreateDefaultForm();
 				
 		
 		string targetAddress = "/SendECPNmessageTargeted.php";
@@ -199,6 +194,7 @@ public class ECPNManager: MonoBehaviour
 		yield return w;
 		
 		string response = w.text;
+		Debug.Log("Push reponse: " + response);
 		
 		if (w.error != null) {
 			Debug.Log ("Error while sending message to all: " + w.error);
@@ -211,10 +207,7 @@ public class ECPNManager: MonoBehaviour
 	private IEnumerator SendECPNmessageBroadcast (string message)
 	{
 		// Send message to server with accName - devToken pair
-		WWWForm form = new WWWForm ();
-		form.AddField ("user", SystemInfo.deviceUniqueIdentifier);
-		form.AddField ("username", userManager.GetUsername ());
-		form.AddField ("isChild", userManager.IsChild.ToString ());
+		WWWForm form = CreateDefaultForm();
 		
 		string targetAddress = "/SendECPNmessageAll.php";
 		
@@ -243,10 +236,7 @@ public class ECPNManager: MonoBehaviour
 	{
 		Debug.Log ("Checking Registration Completion");
 		// Send message to server with accName - devToken pair
-		WWWForm form = new WWWForm ();
-		form.AddField ("user", SystemInfo.deviceUniqueIdentifier);
-		form.AddField ("username", userManager.GetUsername ());
-		form.AddField ("isChild", userManager.IsChild.ToString ());
+		WWWForm form = CreateDefaultForm();
 		
 		string targetAddress = "/CheckIfParentAndChildAreRegistered.php";
 		
@@ -272,7 +262,7 @@ public class ECPNManager: MonoBehaviour
 	private IEnumerator DeleteDeviceFromServer (string rID)
 	{
 		int errorCode;
-		WWWForm form = new WWWForm ();
+		WWWForm form = CreateDefaultForm();
 		form.AddField ("regID", rID);
 		WWW w = new WWW (userManager.phpFilesLocation + "/UnregisterDeviceIDfromDB.php", form);
 		yield return w;
@@ -285,7 +275,7 @@ public class ECPNManager: MonoBehaviour
 			string formText = w.text; 
 			w.Dispose ();
 			errorCode = int.Parse (formText);
-			userManager.devToken = "";
+			userManager.SetDevToken("");
 		}
 	}
 
@@ -309,10 +299,7 @@ public class ECPNManager: MonoBehaviour
 		string response = "";
 		
 		// Send message to server
-		WWWForm form = new WWWForm ();
-		form.AddField ("deviceID", SystemInfo.deviceUniqueIdentifier);
-		form.AddField ("username", userManager.GetUsername ());
-		form.AddField ("isChild", userManager.IsChild.ToString ());
+		WWWForm form = CreateDefaultForm();
 		
 		form.AddField ("screenName", screenName);
 		StringBuilder checkboxValues = new StringBuilder ();
@@ -343,6 +330,18 @@ public class ECPNManager: MonoBehaviour
 		}
 		
 		callback (response);
+	}
+
+	WWWForm CreateDefaultForm()
+	{
+		WWWForm form = new WWWForm ();
+
+		form.AddField ("user", SystemInfo.deviceUniqueIdentifier);
+		form.AddField ("regID", userManager.GetDevToken());
+		form.AddField ("username", userManager.GetUsername());
+		form.AddField ("isChild", userManager.IsChild.ToString());
+
+		return form;
 	}
 
 }
