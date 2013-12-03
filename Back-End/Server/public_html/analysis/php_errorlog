@@ -1,0 +1,102 @@
+[03-Dec-2013 14:49:04 CST6CDT] PHP Fatal error:  Please provide all of -ftphost, -ftpuser, and -ftppass parameters in the POST variables. in /home/pertille/public_html/aqua/analysis/installer.php on line 476
+[03-Dec-2013 14:55:09 CST6CDT] PHP Fatal error:  Uncaught exception 'Exception' with message 'The table 'Feedback_Verhaltensweisen' has no primary key.  Please add one.' in /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php:106
+Stack trace:
+#0 /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php(535): Dataface_QueryTool->Dataface_QueryTool('Feedback_Verhal...', Resource id #10, Array)
+#1 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(1227): Dataface_QueryTool::loadResult('Feedback_Verhal...', Resource id #10, Array)
+#2 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(1300): Dataface_Application->getResultSet()
+#3 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(2984): Dataface_Application->getRecord()
+#4 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(3013): Dataface_Application->getPermissions()
+#5 /home/pertille/public_html/aqua/analysis/Dataface/ActionTool.php(237): Dataface_Application->checkPermission('view')
+#6 /home/pertille/public_html/aqua/analysis/Datafa in /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php on line 106
+[03-Dec-2013 14:56:54 CST6CDT] PHP Fatal error:  Uncaught exception 'Exception' with message 'The table 'Feedback_Verhaltensweisen' has no primary key.  Please add one.' in /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php:106
+Stack trace:
+#0 /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php(535): Dataface_QueryTool->Dataface_QueryTool('Feedback_Verhal...', Resource id #10, Array)
+#1 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(1227): Dataface_QueryTool::loadResult('Feedback_Verhal...', Resource id #10, Array)
+#2 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(1300): Dataface_Application->getResultSet()
+#3 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(2984): Dataface_Application->getRecord()
+#4 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(3013): Dataface_Application->getPermissions()
+#5 /home/pertille/public_html/aqua/analysis/Dataface/ActionTool.php(237): Dataface_Application->checkPermission('view')
+#6 /home/pertille/public_html/aqua/analysis/Datafa in /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php on line 106
+[03-Dec-2013 14:59:43 CST6CDT] PHP Fatal error:  Uncaught exception 'Exception' with message 'The table 'Feedback_Verhaltensweisen' has no primary key.  Please add one.' in /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php:106
+Stack trace:
+#0 /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php(535): Dataface_QueryTool->Dataface_QueryTool('Feedback_Verhal...', Resource id #10, Array)
+#1 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(1227): Dataface_QueryTool::loadResult('Feedback_Verhal...', Resource id #10, Array)
+#2 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(1300): Dataface_Application->getResultSet()
+#3 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(2984): Dataface_Application->getRecord()
+#4 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(3013): Dataface_Application->getPermissions()
+#5 /home/pertille/public_html/aqua/analysis/Dataface/ActionTool.php(237): Dataface_Application->checkPermission('view')
+#6 /home/pertille/public_html/aqua/analysis/Datafa in /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php on line 106
+[03-Dec-2013 14:59:44 CST6CDT] PHP Fatal error:  Uncaught exception 'Exception' with message 'The table 'Feedback_Verhaltensweisen' has no primary key.  Please add one.' in /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php:106
+Stack trace:
+#0 /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php(535): Dataface_QueryTool->Dataface_QueryTool('Feedback_Verhal...', Resource id #10, Array)
+#1 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(1227): Dataface_QueryTool::loadResult('Feedback_Verhal...', Resource id #10, Array)
+#2 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(1300): Dataface_Application->getResultSet()
+#3 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(2984): Dataface_Application->getRecord()
+#4 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(3013): Dataface_Application->getPermissions()
+#5 /home/pertille/public_html/aqua/analysis/Dataface/ActionTool.php(237): Dataface_Application->checkPermission('view')
+#6 /home/pertille/public_html/aqua/analysis/Datafa in /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php on line 106
+[03-Dec-2013 14:59:45 CST6CDT] PHP Fatal error:  Uncaught exception 'Exception' with message 'The table 'Feedback_Verhaltensweisen' has no primary key.  Please add one.' in /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php:106
+Stack trace:
+#0 /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php(535): Dataface_QueryTool->Dataface_QueryTool('Feedback_Verhal...', Resource id #10, Array)
+#1 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(1227): Dataface_QueryTool::loadResult('Feedback_Verhal...', Resource id #10, Array)
+#2 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(1300): Dataface_Application->getResultSet()
+#3 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(2984): Dataface_Application->getRecord()
+#4 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(3013): Dataface_Application->getPermissions()
+#5 /home/pertille/public_html/aqua/analysis/Dataface/ActionTool.php(237): Dataface_Application->checkPermission('view')
+#6 /home/pertille/public_html/aqua/analysis/Datafa in /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php on line 106
+[03-Dec-2013 14:59:46 CST6CDT] PHP Fatal error:  Uncaught exception 'Exception' with message 'The table 'Feedback_Verhaltensweisen' has no primary key.  Please add one.' in /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php:106
+Stack trace:
+#0 /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php(535): Dataface_QueryTool->Dataface_QueryTool('Feedback_Verhal...', Resource id #10, Array)
+#1 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(1227): Dataface_QueryTool::loadResult('Feedback_Verhal...', Resource id #10, Array)
+#2 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(1300): Dataface_Application->getResultSet()
+#3 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(2984): Dataface_Application->getRecord()
+#4 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(3013): Dataface_Application->getPermissions()
+#5 /home/pertille/public_html/aqua/analysis/Dataface/ActionTool.php(237): Dataface_Application->checkPermission('view')
+#6 /home/pertille/public_html/aqua/analysis/Datafa in /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php on line 106
+[03-Dec-2013 14:59:46 CST6CDT] PHP Fatal error:  Uncaught exception 'Exception' with message 'The table 'Feedback_Verhaltensweisen' has no primary key.  Please add one.' in /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php:106
+Stack trace:
+#0 /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php(535): Dataface_QueryTool->Dataface_QueryTool('Feedback_Verhal...', Resource id #10, Array)
+#1 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(1227): Dataface_QueryTool::loadResult('Feedback_Verhal...', Resource id #10, Array)
+#2 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(1300): Dataface_Application->getResultSet()
+#3 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(2984): Dataface_Application->getRecord()
+#4 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(3013): Dataface_Application->getPermissions()
+#5 /home/pertille/public_html/aqua/analysis/Dataface/ActionTool.php(237): Dataface_Application->checkPermission('view')
+#6 /home/pertille/public_html/aqua/analysis/Datafa in /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php on line 106
+[03-Dec-2013 14:59:47 CST6CDT] PHP Fatal error:  Uncaught exception 'Exception' with message 'The table 'Feedback_Verhaltensweisen' has no primary key.  Please add one.' in /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php:106
+Stack trace:
+#0 /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php(535): Dataface_QueryTool->Dataface_QueryTool('Feedback_Verhal...', Resource id #10, Array)
+#1 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(1227): Dataface_QueryTool::loadResult('Feedback_Verhal...', Resource id #10, Array)
+#2 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(1300): Dataface_Application->getResultSet()
+#3 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(2984): Dataface_Application->getRecord()
+#4 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(3013): Dataface_Application->getPermissions()
+#5 /home/pertille/public_html/aqua/analysis/Dataface/ActionTool.php(237): Dataface_Application->checkPermission('view')
+#6 /home/pertille/public_html/aqua/analysis/Datafa in /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php on line 106
+[03-Dec-2013 14:59:48 CST6CDT] PHP Fatal error:  Uncaught exception 'Exception' with message 'The table 'Feedback_Verhaltensweisen' has no primary key.  Please add one.' in /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php:106
+Stack trace:
+#0 /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php(535): Dataface_QueryTool->Dataface_QueryTool('Feedback_Verhal...', Resource id #10, Array)
+#1 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(1227): Dataface_QueryTool::loadResult('Feedback_Verhal...', Resource id #10, Array)
+#2 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(1300): Dataface_Application->getResultSet()
+#3 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(2984): Dataface_Application->getRecord()
+#4 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(3013): Dataface_Application->getPermissions()
+#5 /home/pertille/public_html/aqua/analysis/Dataface/ActionTool.php(237): Dataface_Application->checkPermission('view')
+#6 /home/pertille/public_html/aqua/analysis/Datafa in /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php on line 106
+[03-Dec-2013 14:59:48 CST6CDT] PHP Fatal error:  Uncaught exception 'Exception' with message 'The table 'Feedback_Verhaltensweisen' has no primary key.  Please add one.' in /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php:106
+Stack trace:
+#0 /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php(535): Dataface_QueryTool->Dataface_QueryTool('Feedback_Verhal...', Resource id #10, Array)
+#1 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(1227): Dataface_QueryTool::loadResult('Feedback_Verhal...', Resource id #10, Array)
+#2 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(1300): Dataface_Application->getResultSet()
+#3 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(2984): Dataface_Application->getRecord()
+#4 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(3013): Dataface_Application->getPermissions()
+#5 /home/pertille/public_html/aqua/analysis/Dataface/ActionTool.php(237): Dataface_Application->checkPermission('view')
+#6 /home/pertille/public_html/aqua/analysis/Datafa in /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php on line 106
+[03-Dec-2013 14:59:49 CST6CDT] PHP Fatal error:  Uncaught exception 'Exception' with message 'The table 'Feedback_Verhaltensweisen' has no primary key.  Please add one.' in /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php:106
+Stack trace:
+#0 /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php(535): Dataface_QueryTool->Dataface_QueryTool('Feedback_Verhal...', Resource id #10, Array)
+#1 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(1227): Dataface_QueryTool::loadResult('Feedback_Verhal...', Resource id #10, Array)
+#2 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(1300): Dataface_Application->getResultSet()
+#3 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(2984): Dataface_Application->getRecord()
+#4 /home/pertille/public_html/aqua/analysis/Dataface/Application.php(3013): Dataface_Application->getPermissions()
+#5 /home/pertille/public_html/aqua/analysis/Dataface/ActionTool.php(237): Dataface_Application->checkPermission('view')
+#6 /home/pertille/public_html/aqua/analysis/Datafa in /home/pertille/public_html/aqua/analysis/Dataface/QueryTool.php on line 106
+[03-Dec-2013 15:03:44 CST6CDT] Error executing SQL: select mtime from dataface__record_mtimes where recordhash='5d1531792a1a19963f12fcbe0817f373'
+[03-Dec-2013 15:03:44 CST6CDT] Table 'pertille_aquaSpace.dataface__record_mtimes' doesn't exist
