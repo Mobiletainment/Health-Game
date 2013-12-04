@@ -1,6 +1,7 @@
 ﻿ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class NavigateForwardWithCheckboxAction : NavigateForward
 {
@@ -26,9 +27,12 @@ public class NavigateForwardWithCheckboxAction : NavigateForward
 
 		IList<bool> checkboxFeedback = new List<bool>();
 
+		toggles = toggles.OrderBy(l => l.transform.name).ToArray();
+
 		foreach (var toggle in toggles)
 		{
 			checkboxFeedback.Add(toggle.value);
+			Debug.Log(toggle.transform.name);
 			//UILabel lab = toggles [i].GetComponentInChildren<UILabel>();
 			//Debug.Log (toggle.value + "  "+lab.text);
 		}
