@@ -9,7 +9,7 @@ mysql_connect($loginURL,$username,$password);
 $message = strip_tags($_POST["username"]) . " says hi";
 $androidIDs = array();
 $iosIDs = array();
-$username = strip_tags($_POST["username"]);
+$username = getUsername();
 
 // Get all device ids from table
 $sql = "SELECT * FROM ECPN_table";

@@ -9,7 +9,7 @@ mysql_connect($loginURL,$username,$password);
 $message = strip_tags($_POST["message"]);
 $androidIDs = array();
 $iosIDs = array();
-$username = strip_tags($_POST["username"]);
+$username = getUsername();
 $isChild = strtolower(strip_tags($_POST["isChild"]));
 
 $query= "";

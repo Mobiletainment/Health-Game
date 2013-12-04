@@ -5,7 +5,7 @@ mysql_connect($loginURL,$username,$password);
 
 @mysql_select_db($database) or die( "9");
 
-$username = strip_tags($_POST["username"]);
+$username = getUsername();
 $isChild = strtolower(strip_tags($_POST["isChild"]));
 
 

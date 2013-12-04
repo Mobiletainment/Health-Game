@@ -15,7 +15,7 @@ mysql_query('SET collation_connection=utf8_general_ci');
 $regID = strip_tags($_POST["regID"]);
 $unityID = strip_tags($_POST["user"]);
 $OS = strip_tags($_POST["OS"]);
-$username = getUsername();
+$username = strip_tags($_POST["username"]);
 
 if (empty($username))
 {

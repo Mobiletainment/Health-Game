@@ -21,4 +21,9 @@ function get_parent_name($username)
 	return $username;
 }
 
+function getUsername()
+{
+	return base64_decode(strip_tags($_POST["username"]));
+}
+
 ?>

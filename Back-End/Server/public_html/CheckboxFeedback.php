@@ -3,15 +3,24 @@ include("settings.php");
 
 mysql_connect($loginURL,$username,$password);
 
+mysql_query('SET character_set_results=utf8');
+mysql_query('SET names=utf8');
+mysql_query('SET character_set_client=utf8');
+mysql_query('SET character_set_connection=utf8');
+mysql_query('SET character_set_results=utf8');
+mysql_query('SET collation_connection=utf8_general_ci');
+
 @mysql_select_db($database) or die( "9");
 
-$username = strip_tags($_POST["username"]);
+$username = getUsername();
 $isChild = strtolower(strip_tags($_POST["isChild"]));
 $deviceID = strip_tags($_POST["deviceID"]);
-$screenName = strip_tags($_POST["screenName"]);
+$screenName = base64_decode(strip_tags($_POST["screenName"]));
 $customFeedback = strip_tags($_POST["customFeedback"]);
 $checkboxFeedback = strip_tags($_POST["checkboxFeedback"]);
 $totalCheckboxes = strip_tags($_POST["totalCheckboxes"]);
+
+echo "Screen: " . $screenName;
 
 $checkboxes = "";
 for ($i = 1; $i <= $totalCheckboxes; $i++)

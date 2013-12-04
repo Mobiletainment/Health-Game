@@ -29,7 +29,6 @@ public class NavigateForwardWithAction : NavigateForward
 				break;
 			case ActionType.RegisterChild:
 				Backend.RegisterUser (getInput (), true);
-				Backend.SendPushMessage ("Registriert");
 				break;
 			case ActionType.RegisterParent:
 

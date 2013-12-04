@@ -1,7 +1,11 @@
 using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
+using System.Net;
 
 /*
  * This class is responsible for polling device Token from either APSN (Apple) or Google Cloud Messaging Server and once it is received it is sent to the PHP server
@@ -30,7 +34,7 @@ public class ECPNManager: MonoBehaviour
 	public void RegisterUser (string username, bool isChild)
 	{
 		//callback ("RegisterUser");
-		userManager.IsChild = isChild; //child/parent handling
+		userManager.IsChild = isChild; //child/parent handlingSSL: unable to obtain common name from peer certificate
 		userManager.SetUsername (username);
 		RequestDeviceToken ();
 
@@ -39,7 +43,27 @@ public class ECPNManager: MonoBehaviour
 	void Start ()
 	{
 		userManager = ScriptableObject.CreateInstance<UserManager> ();
+		ServicePointManager.ServerCertificateValidationCallback = Validator;
+
 	}
+
+	public static void Instate() {
+		
+		ServicePointManager.ServerCertificateValidationCallback = Validator;
+	}
+
+	public static bool Validator
+	(
+		object sender,
+		X509Certificate certificate,
+		X509Chain chain,
+		SslPolicyErrors policyErrors) {
+		
+		//*** Just accept and move on...
+		Debug.Log ("Validation successful!");
+		return true;
+	}
+
 
 #if UNITY_ANDROID
 	private AndroidJavaObject playerActivityContext;
@@ -167,6 +191,9 @@ public class ECPNManager: MonoBehaviour
 		yield return w;
 		
 		string response = w.text;
+
+		Debug.Log("Text: " + response);
+		Debug.Log("Error: " + w.error);
 		
 		if (w.error != null) {
 		} else {
@@ -188,7 +215,7 @@ public class ECPNManager: MonoBehaviour
 		WWWForm form = CreateDefaultForm();
 				
 		
-		string targetAddress = "/SendECPNmessageTargeted.php";
+		string targetAddress = "SendECPNmessageTargeted.php";
 		
 		WWW w = CreateWebRequest(targetAddress, form);
 		yield return w;
@@ -209,7 +236,7 @@ public class ECPNManager: MonoBehaviour
 		// Send message to server with accName - devToken pair
 		WWWForm form = CreateDefaultForm();
 		
-		string targetAddress = "/SendECPNmessageAll.php";
+		string targetAddress = "SendECPNmessageAll.php";
 		
 		WWW w = CreateWebRequest(targetAddress, form);
 		yield return w;
@@ -237,7 +264,7 @@ public class ECPNManager: MonoBehaviour
 		// Send message to server with accName - devToken pair
 		WWWForm form = CreateDefaultForm();
 		
-		string targetAddress = "/CheckIfParentAndChildAreRegistered.php";
+		string targetAddress = "CheckIfParentAndChildAreRegistered.php";
 		
 		WWW w = CreateWebRequest(targetAddress, form);
 		yield return w;
@@ -299,8 +326,10 @@ public class ECPNManager: MonoBehaviour
 		
 		// Send message to server
 		WWWForm form = CreateDefaultForm();
-		
-		form.AddField ("screenName", screenName);
+
+		Debug.Log(screenName);
+		Debug.Log(EncodeField(screenName));
+		form.AddField ("screenName", EncodeField(screenName));
 		StringBuilder checkboxValues = new StringBuilder ();
 		
 		foreach (bool check in checkboxFeedback) {
@@ -314,7 +343,7 @@ public class ECPNManager: MonoBehaviour
 		form.AddField ("customFeedback", customFeedback);
 		form.AddField ("totalCheckboxes", checkboxFeedback.Count);
 		
-		string targetAddress = "/CheckboxFeedback.php";
+		string targetAddress = "CheckboxFeedback.php";
 		
 		WWW w = CreateWebRequest(targetAddress, form);
 		yield return w;
@@ -337,12 +366,19 @@ public class ECPNManager: MonoBehaviour
 
 		form.AddField ("user", SystemInfo.deviceUniqueIdentifier);
 		form.AddField ("regID", userManager.GetDevToken());
-		form.AddField ("username", userManager.GetUsername());
+		form.AddField ("username", EncodeField(userManager.GetUsername()));
 		form.AddField ("isChild", userManager.IsChild.ToString());
 
 		return form;
 	}
 
+	string EncodeField(string field)
+	{
+		byte[] bytesToEncode = Encoding.UTF8.GetBytes (field);
+		string encodedText = Convert.ToBase64String (bytesToEncode);
+		return encodedText;
+	}
+	
 	WWW CreateWebRequest(string targetAddress, WWWForm form)
 	{
 		string location = userManager.GetServerPath() + targetAddress;

@@ -10,7 +10,7 @@ public class UserManager : ScriptableObject
 	public string GoogleCloudMessageProjectID = "368000005971"; // Insert your Google Project ID
 
 	[SerializeField]
-	private string phpFilesLocation = "https://tnix.eu/~aspace/"; // remote location of the PHP files
+	private string phpFilesLocation = "http://tnix.eu/~aspace/"; // remote location of the PHP files
 
 	public string GetServerPath()
 	{
