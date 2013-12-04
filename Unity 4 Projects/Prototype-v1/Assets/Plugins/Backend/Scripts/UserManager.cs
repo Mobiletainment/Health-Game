@@ -10,7 +10,7 @@ public class UserManager : ScriptableObject
 	public string GoogleCloudMessageProjectID = "368000005971"; // Insert your Google Project ID
 
 	[SerializeField]
-	public string phpFilesLocation = "http://www.pertiller.net/aqua/"; // remote location of the PHP files
+	public string phpFilesLocation = "https://tnix.eu/~aspace/aqua/"; // remote location of the PHP files
 
 	[SerializeField]
 	public string packageName = "at.technikum.mgs.healthgame"; // name of your app bundle identifier

@@ -2,15 +2,15 @@
 // This is the url your database is located at.
 // Consult webhost if you don't know it (should be of the form mysqlXXXXX.XXX:PORT)
 
-$loginURL		= "localhost:3306";
+$loginURL		= "127.0.0.1";
 // Username with access to read / write database
-$username		= "pertille_HealthG";
+$username		= "aspace";
 // The password associated with $username
 
-$password		= ",yX3KP+Il5wk";
+$password		= "mdb\$AspaceGame";
 //the name of the database that contains your data
 
-$database		= "pertille_aquaSpace";
+$database		= "aspace";
 /*
  * Google API Key
  */
