@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 public class NavigateForwardWithCheckboxAction : NavigateForward
 {
@@ -26,13 +27,20 @@ public class NavigateForwardWithCheckboxAction : NavigateForward
 		Debug.Log(toggles);
 
 		IList<bool> checkboxFeedback = new List<bool>();
+		                     
 
-		toggles = toggles.OrderBy(l => l.transform.name).ToArray();
+		for (int i = 0; i < toggles.Count(); ++i)
+			checkboxFeedback.Add(false);
 
+		//toggles = toggles.OrderBy(l => l.transform.name).ToArray(); //causes memory leak on iphone ^^ manual workaround instead
+
+		                       
 		foreach (var toggle in toggles)
 		{
-			checkboxFeedback.Add(toggle.value);
-			Debug.Log(toggle.transform.name);
+			int index = Convert.ToInt32(toggle.transform.name.Remove(0, 3));
+			Debug.Log("Index: " + index);
+			checkboxFeedback[index] = toggle.value;
+			Debug.Log("Index: " + index + ", Name: " + toggle.transform.name);
 			//UILabel lab = toggles [i].GetComponentInChildren<UILabel>();
 			//Debug.Log (toggle.value + "  "+lab.text);
 		}

@@ -80,7 +80,7 @@ public class ECPNManager: MonoBehaviour
 	Debug.Log("You should only register iOS and android devices, not the editor!");
 		StartCoroutine(StoreDeviceID(SystemInfo.deviceUniqueIdentifier,"editor"));
 #endif
-		#if UNITY_ANDROID && !UNITY_EDITOR
+		#if UNITY_ANDROID
 		// Obtain unity context
 		//callback("RequestDeviceToken1");
 		if(playerActivityContext == null) {
@@ -90,9 +90,9 @@ public class ECPNManager: MonoBehaviour
 			playerActivityContext = actClass.GetStatic<AndroidJavaObject>("currentActivity");
 			//callback("RequestDeviceToken4");
 		}
-		AndroidJavaClass jc = new AndroidJavaClass(packageName + ".GCMRegistration");
+		AndroidJavaClass jc = new AndroidJavaClass(userManager.packageName + ".GCMRegistration");
 		//callback("RequestDeviceToken5");
-		jc.CallStatic("RegisterDevice", playerActivityContext, GoogleCloudMessageProjectID);
+		jc.CallStatic("RegisterDevice", playerActivityContext, userManager.GoogleCloudMessageProjectID);
 		//callback("RequestDeviceToken6");
 		#endif
 		#if UNITY_IPHONE
@@ -122,7 +122,7 @@ public class ECPNManager: MonoBehaviour
 			AndroidJavaClass actClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
 			playerActivityContext = actClass.GetStatic<AndroidJavaObject>("currentActivity");
 		}
-		AndroidJavaClass jc = new AndroidJavaClass(packageName + ".GCMRegistration");
+		AndroidJavaClass jc = new AndroidJavaClass(userManager.packageName + ".GCMRegistration");
 		jc.CallStatic("UnregisterDevice",playerActivityContext);
 		#endif
 	}
@@ -336,9 +336,9 @@ public class ECPNManager: MonoBehaviour
 		
 		checkboxValues.Length--; // remove last ","
 		
-		form.AddField ("checkboxFeedback", checkboxValues.ToString ());
-		form.AddField ("customFeedback", customFeedback);
-		form.AddField ("totalCheckboxes", checkboxFeedback.Count);
+		AddFormField(form, "checkboxFeedback", checkboxValues.ToString ());
+		AddFormField(form, "customFeedback", customFeedback);
+		AddFormField(form, "totalCheckboxes", checkboxFeedback.Count.ToString());
 		
 		string targetAddress = "CheckboxFeedback.php";
 		

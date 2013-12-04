@@ -13,12 +13,12 @@ mysql_query('SET collation_connection=utf8_general_ci');
 @mysql_select_db($database) or die( "9");
 
 $username = getUsername();
-$isChild = strtolower(strip_tags($_POST["isChild"]));
-$deviceID = strip_tags($_POST["deviceID"]);
-$screenName = base64_decode(strip_tags($_POST["screenName"]));
-$customFeedback = strip_tags($_POST["customFeedback"]);
-$checkboxFeedback = strip_tags($_POST["checkboxFeedback"]);
-$totalCheckboxes = strip_tags($_POST["totalCheckboxes"]);
+$isChild = getField("isChild");
+$deviceID = getField("deviceID");
+$screenName = getField("screenName");
+$customFeedback = getField("customFeedback");
+$checkboxFeedback = getField("checkboxFeedback");
+$totalCheckboxes = getField("totalCheckboxes");
 
 echo "Screen: " . $screenName;
 echo "\n" . $checkboxFeedback;
@@ -37,7 +37,7 @@ echo $checkboxes . "\n";
 
 
 //check if they have already registered
-$query= "INSERT INTO Checkbox_Feedback (deviceID, username, isChild, screenName, customFeedback, $checkboxes) VALUES('$deviceID', '$username', '$isChild', '$screenName', '$customFeedback', $checkboxFeedback)";
+$query= "INSERT INTO Checkbox_Feedback (deviceID, username, isChild, screenName, customFeedback, $checkboxes) VALUES('$deviceID', '$username', $isChild, '$screenName', '$customFeedback', $checkboxFeedback)";
 
 echo $query . "\n";
 

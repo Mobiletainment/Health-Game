@@ -23,6 +23,9 @@ else
 	$parentName = get_parent_name($username);
 	$query = "SELECT child AS target from Child_Parent WHERE parent = '$parentName'";
 }
+
+echo $query;
+
 $result=mysql_query($query);
 
 
