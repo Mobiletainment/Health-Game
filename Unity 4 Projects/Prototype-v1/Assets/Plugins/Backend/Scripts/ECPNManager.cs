@@ -163,7 +163,7 @@ public class ECPNManager: MonoBehaviour
 		WWWForm form = CreateDefaultForm();
 		form.AddField ("OS", os);
 
-		WWW w = new WWW (userManager.phpFilesLocation + "/RegisterDeviceIDtoDB.php", form);
+		WWW w = CreateWebRequest("RegisterDeviceIDtoDB.php", form);
 		yield return w;
 		
 		string response = w.text;
@@ -190,7 +190,7 @@ public class ECPNManager: MonoBehaviour
 		
 		string targetAddress = "/SendECPNmessageTargeted.php";
 		
-		WWW w = new WWW (userManager.phpFilesLocation + targetAddress, form);
+		WWW w = CreateWebRequest(targetAddress, form);
 		yield return w;
 		
 		string response = w.text;
@@ -211,11 +211,10 @@ public class ECPNManager: MonoBehaviour
 		
 		string targetAddress = "/SendECPNmessageAll.php";
 		
-		WWW w = new WWW (userManager.phpFilesLocation + targetAddress, form);
+		WWW w = CreateWebRequest(targetAddress, form);
 		yield return w;
 		
-		string response = w.text;
-		
+
 		if (w.error != null) {
 			Debug.Log ("Error while sending message to all: " + w.error);
 		} else {
@@ -240,7 +239,7 @@ public class ECPNManager: MonoBehaviour
 		
 		string targetAddress = "/CheckIfParentAndChildAreRegistered.php";
 		
-		WWW w = new WWW (userManager.phpFilesLocation + targetAddress, form);
+		WWW w = CreateWebRequest(targetAddress, form);
 		yield return w;
 		
 		string response = w.text;
@@ -264,7 +263,7 @@ public class ECPNManager: MonoBehaviour
 		int errorCode;
 		WWWForm form = CreateDefaultForm();
 		form.AddField ("regID", rID);
-		WWW w = new WWW (userManager.phpFilesLocation + "/UnregisterDeviceIDfromDB.php", form);
+		WWW w = CreateWebRequest("UnregisterDeviceIDfromDB.php", form);
 		yield return w;
 		
 		string response = w.text;
@@ -317,7 +316,7 @@ public class ECPNManager: MonoBehaviour
 		
 		string targetAddress = "/CheckboxFeedback.php";
 		
-		WWW w = new WWW (userManager.phpFilesLocation + targetAddress, form);
+		WWW w = CreateWebRequest(targetAddress, form);
 		yield return w;
 		
 		response = w.text;
@@ -342,6 +341,15 @@ public class ECPNManager: MonoBehaviour
 		form.AddField ("isChild", userManager.IsChild.ToString());
 
 		return form;
+	}
+
+	WWW CreateWebRequest(string targetAddress, WWWForm form)
+	{
+		string location = userManager.GetServerPath() + targetAddress;
+		WWW w = new WWW (location, form);
+
+		Debug.Log("Web request to location: " + location);
+		return w;
 	}
 
 }
