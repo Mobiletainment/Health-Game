@@ -12,9 +12,9 @@ mysql_query('SET collation_connection=utf8_general_ci');
 
 @mysql_select_db($database) or die( "9");
 
-$regID = strip_tags($_POST["regID"]);
-$unityID = strip_tags($_POST["user"]);
-$OS = strip_tags($_POST["OS"]);
+$regID = getField("regID");
+$unityID = getField("user");
+$OS = getField("OS");
 $username = getUsername();
 
 if (empty($username))
@@ -42,7 +42,7 @@ echo $success;
 
 function store_user($user,$regID,$OS, $username)
 {
-	$isChild = strtolower(strip_tags($_POST["isChild"]));
+	$isChild = strtolower(getField("isChild"));
 	
 	if ($isChild == "false") //registration request from the parent
 	{

@@ -26,4 +26,9 @@ function getUsername()
 	return base64_decode(strip_tags($_POST["username"]));
 }
 
+function getField($field)
+{
+	return base64_decode(strip_tags($_POST["$field"]));
+}
+
 ?>

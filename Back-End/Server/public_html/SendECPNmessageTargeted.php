@@ -5,13 +5,12 @@ mysql_connect($loginURL,$username,$password);
 
 @mysql_select_db($database) or die( "9");
 
-//$message = strip_tags($_POST["username"]) . " says hi to ";
-$message = strip_tags($_POST["message"]);
+$message = base64_decode(strip_tags($_POST["message"]));
 $androidIDs = array();
 $iosIDs = array();
 $username = getUsername();
-$isChild = strtolower(strip_tags($_POST["isChild"]));
-
+$isChild = strtolower(getField("isChild"));
+echo "Child: " . $isChild; 
 $query= "";
 
 
@@ -43,7 +42,9 @@ while($row = mysql_fetch_array($result)) {
 if(count($targets) > 0)
 {
 	foreach($targets as $contact) {
-		$query="SELECT * FROM ECPN_table WHERE username = '$contact'";
+		$searchParent = ($isChild == "false") ? 1 : 0;
+		$query="SELECT * FROM ECPN_table WHERE username = '$contact' AND isChild = $searchParent";
+		echo "Query: " . $query;
 
 		$result=mysql_query($query);
 
@@ -171,8 +172,15 @@ function send_ios_notification($deviceIDs,$message) {
 			);
 		$payload = json_encode($body);
 		
+		echo "\nDeviceToken: " . $deviceToken;
+		echo "\nPayload: " . $payload;
+
 		// Build & send notification
-		$msg = chr(0) . pack('n', 32) . pack('H*', $deviceToken) . pack('n', strlen($payload)) . $payload;
+		$msg = chr(0) . pack('n', 32);
+		$msg = $msg . pack('H*', trim($deviceToken));
+		$msg = $msg . pack('n', strlen($payload));
+		$msg = $msg . $payload;
+
 		$result = fwrite($fp, $msg, strlen($msg));
 		
 		if (!$result)

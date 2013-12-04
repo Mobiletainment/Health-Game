@@ -185,7 +185,7 @@ public class ECPNManager: MonoBehaviour
 	{
 		userManager.SetDevToken(rID);
 		WWWForm form = CreateDefaultForm();
-		form.AddField ("OS", os);
+		AddFormField(form, "OS", os);
 
 		WWW w = CreateWebRequest("RegisterDeviceIDtoDB.php", form);
 		yield return w;
@@ -213,8 +213,8 @@ public class ECPNManager: MonoBehaviour
 	{
 		// Send message to server with accName - devToken pair
 		WWWForm form = CreateDefaultForm();
-				
-		
+		AddFormField(form, "message", message);
+
 		string targetAddress = "SendECPNmessageTargeted.php";
 		
 		WWW w = CreateWebRequest(targetAddress, form);
@@ -274,7 +274,6 @@ public class ECPNManager: MonoBehaviour
 		if (w.error != null) {
 			Debug.Log ("Error while sending message to all: " + w.error);
 		} else {
-			string formText = w.text;
 			Debug.Log (w.text);
 			w.Dispose ();
 		}
@@ -287,20 +286,18 @@ public class ECPNManager: MonoBehaviour
 	 */ 
 	private IEnumerator DeleteDeviceFromServer (string rID)
 	{
-		int errorCode;
 		WWWForm form = CreateDefaultForm();
-		form.AddField ("regID", rID);
+		AddFormField(form, "regID", rID);
 		WWW w = CreateWebRequest("UnregisterDeviceIDfromDB.php", form);
 		yield return w;
 		
-		string response = w.text;
-		
+
 		if (w.error != null) {
-			errorCode = -1;
+			Debug.Log(w.error);
 		} else {
 			string formText = w.text; 
 			w.Dispose ();
-			errorCode = int.Parse (formText);
+			Debug.Log(formText);
 			userManager.SetDevToken("");
 		}
 	}
@@ -329,7 +326,7 @@ public class ECPNManager: MonoBehaviour
 
 		Debug.Log(screenName);
 		Debug.Log(EncodeField(screenName));
-		form.AddField ("screenName", EncodeField(screenName));
+		AddFormField(form, "screenName", screenName);
 		StringBuilder checkboxValues = new StringBuilder ();
 		
 		foreach (bool check in checkboxFeedback) {
@@ -364,20 +361,26 @@ public class ECPNManager: MonoBehaviour
 	{
 		WWWForm form = new WWWForm ();
 
-		form.AddField ("user", SystemInfo.deviceUniqueIdentifier);
-		form.AddField ("regID", userManager.GetDevToken());
-		form.AddField ("username", EncodeField(userManager.GetUsername()));
-		form.AddField ("isChild", userManager.IsChild.ToString());
+		AddFormField(form, "user", SystemInfo.deviceUniqueIdentifier);
+		AddFormField(form, "regID", userManager.GetDevToken());
+		AddFormField(form, "username", userManager.GetUsername());
+		AddFormField(form, "isChild", userManager.IsChild.ToString());
 
 		return form;
 	}
 
-	string EncodeField(string field)
+	public void AddFormField(WWWForm form, string name, string field)
+	{
+		form.AddField(name, EncodeField((field)));
+	}
+
+	protected string EncodeField(string field)
 	{
 		byte[] bytesToEncode = Encoding.UTF8.GetBytes (field);
 		string encodedText = Convert.ToBase64String (bytesToEncode);
 		return encodedText;
 	}
+
 	
 	WWW CreateWebRequest(string targetAddress, WWWForm form)
 	{

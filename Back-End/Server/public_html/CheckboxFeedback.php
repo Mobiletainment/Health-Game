@@ -21,6 +21,7 @@ $checkboxFeedback = strip_tags($_POST["checkboxFeedback"]);
 $totalCheckboxes = strip_tags($_POST["totalCheckboxes"]);
 
 echo "Screen: " . $screenName;
+echo "\n" . $checkboxFeedback;
 
 $checkboxes = "";
 for ($i = 1; $i <= $totalCheckboxes; $i++)
