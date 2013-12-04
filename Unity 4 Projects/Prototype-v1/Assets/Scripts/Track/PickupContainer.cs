@@ -28,6 +28,9 @@ public class PickupElement<T>
 {
 	[SerializeField]
 	public T position;
+	// Position will do anything for T = Transform, but for T = Vector3, I additionally need a Quaternion:
+	[SerializeField]
+	public Quaternion rotation;
 	[SerializeField]
 	public bool active = false;
 	// This class might be extended... e.g. what element it has to be, etc.

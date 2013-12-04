@@ -15,6 +15,7 @@ public class MoveOnTrack : MonoBehaviour
 
 	private List<Vector3> _points = new List<Vector3>();
 	private Transform _moveObject;
+	private Vector3 _lastPos;
 
 	private bool _switchInProgress = false;
 	private List<Vector3> _switchPoints = new List<Vector3>();
@@ -36,6 +37,7 @@ public class MoveOnTrack : MonoBehaviour
 		
 		// Initilialize Avatar position:
 		_moveObject.position = GetPosOnSpline(0, 0);
+		_lastPos = _moveObject.position;
 	}
 	
 	// Update is called once per frame
@@ -140,10 +142,18 @@ public class MoveOnTrack : MonoBehaviour
 				break;
 			}
 		}
-		
+
+		_lastPos = _moveObject.position;
 		_moveObject.position = nextPos;
+
+		Vector3 curDir = _moveObject.position - _lastPos;
+//		Debug.Log (curDir);
+//		float angle = Vector3.Angle(_moveObject.forward, curDir);
+//		_moveObject.Rotate(_moveObject.up * angle);
+		Quaternion nextRot = Quaternion.Slerp(_moveObject.rotation, Quaternion.LookRotation(curDir), 0.1f);
+		_moveObject.rotation = nextRot;
 	}
-	
+
 	/**
 	 * GetPosOnSpline calculates a position between 2 neighbour controlPoints.
 	 * @param controlPointIndex is the index of the current control point on the spline.

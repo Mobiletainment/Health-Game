@@ -1,0 +1,533 @@
+fileFormatVersion: 2
+guid: c3541bfd26933f249918012a29c82c62
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: a
+    100002: a 1
+    100004: a 2
+    100006: a 3
+    100008: a 4
+    100010: a 5
+    100012: a 6
+    100014: a 7
+    100016: a 8
+    100018: a 9
+    100020: //RootNode
+    100022: b
+    100024: b 1
+    100026: b 2
+    100028: b 3
+    100030: b 4
+    100032: b 5
+    100034: b 6
+    100036: b 7
+    100038: b 8
+    100040: b 9
+    100042: c
+    100044: c 1
+    100046: c 2
+    100048: c 3
+    100050: c 4
+    100052: c 5
+    100054: d
+    100056: group1
+    100058: group10
+    100060: group11
+    100062: group2
+    100064: group3
+    100066: group36
+    100068: group37
+    100070: group38
+    100072: group39
+    100074: group4
+    100076: group40
+    100078: group41
+    100080: group42
+    100082: group43
+    100084: group44
+    100086: group45
+    100088: group5
+    100090: group6
+    100092: group7
+    100094: group8
+    100096: group9
+    100098: pickup_grp3
+    100100: pivotpoints_grp4
+    100102: pSphere1
+    100104: pSphere11
+    100106: pSphere133
+    100108: pSphere134
+    100110: pSphere135
+    100112: pSphere136
+    100114: pSphere137
+    100116: pSphere138
+    100118: pSphere139
+    100120: pSphere140
+    100122: pSphere141
+    100124: pSphere142
+    100126: pSphere143
+    100128: pSphere144
+    100130: pSphere145
+    100132: pSphere146
+    100134: pSphere147
+    100136: pSphere148
+    100138: pSphere149
+    100140: pSphere150
+    100142: pSphere151
+    100144: pSphere152
+    100146: pSphere153
+    100148: pSphere154
+    100150: pSphere155
+    100152: pSphere156
+    100154: pSphere157
+    100156: pSphere158
+    100158: pSphere159
+    100160: pSphere16
+    100162: pSphere160
+    100164: pSphere161
+    100166: pSphere162
+    100168: pSphere163
+    100170: pSphere164
+    100172: pSphere165
+    100174: pSphere166
+    100176: pSphere167
+    100178: pSphere168
+    100180: pSphere169
+    100182: pSphere170
+    100184: pSphere171
+    100186: pSphere172
+    100188: pSphere173
+    100190: pSphere174
+    100192: pSphere175
+    100194: pSphere176
+    100196: pSphere21
+    100198: pSphere26
+    100200: pSphere31
+    100202: pSphere36
+    100204: pSphere41
+    100206: pSphere46
+    100208: pSphere51
+    100210: pSphere6
+    100212: spline_points_grp4
+    100214: startpoint
+    100216: startpoint1
+    100218: streckenteil_rechtskurve_geo1
+    400000: a
+    400002: a 1
+    400004: a 2
+    400006: a 3
+    400008: a 4
+    400010: a 5
+    400012: a 6
+    400014: a 7
+    400016: a 8
+    400018: a 9
+    400020: //RootNode
+    400022: b
+    400024: b 1
+    400026: b 2
+    400028: b 3
+    400030: b 4
+    400032: b 5
+    400034: b 6
+    400036: b 7
+    400038: b 8
+    400040: b 9
+    400042: c
+    400044: c 1
+    400046: c 2
+    400048: c 3
+    400050: c 4
+    400052: c 5
+    400054: d
+    400056: group1
+    400058: group10
+    400060: group11
+    400062: group2
+    400064: group3
+    400066: group36
+    400068: group37
+    400070: group38
+    400072: group39
+    400074: group4
+    400076: group40
+    400078: group41
+    400080: group42
+    400082: group43
+    400084: group44
+    400086: group45
+    400088: group5
+    400090: group6
+    400092: group7
+    400094: group8
+    400096: group9
+    400098: pickup_grp3
+    400100: pivotpoints_grp4
+    400102: pSphere1
+    400104: pSphere11
+    400106: pSphere133
+    400108: pSphere134
+    400110: pSphere135
+    400112: pSphere136
+    400114: pSphere137
+    400116: pSphere138
+    400118: pSphere139
+    400120: pSphere140
+    400122: pSphere141
+    400124: pSphere142
+    400126: pSphere143
+    400128: pSphere144
+    400130: pSphere145
+    400132: pSphere146
+    400134: pSphere147
+    400136: pSphere148
+    400138: pSphere149
+    400140: pSphere150
+    400142: pSphere151
+    400144: pSphere152
+    400146: pSphere153
+    400148: pSphere154
+    400150: pSphere155
+    400152: pSphere156
+    400154: pSphere157
+    400156: pSphere158
+    400158: pSphere159
+    400160: pSphere16
+    400162: pSphere160
+    400164: pSphere161
+    400166: pSphere162
+    400168: pSphere163
+    400170: pSphere164
+    400172: pSphere165
+    400174: pSphere166
+    400176: pSphere167
+    400178: pSphere168
+    400180: pSphere169
+    400182: pSphere170
+    400184: pSphere171
+    400186: pSphere172
+    400188: pSphere173
+    400190: pSphere174
+    400192: pSphere175
+    400194: pSphere176
+    400196: pSphere21
+    400198: pSphere26
+    400200: pSphere31
+    400202: pSphere36
+    400204: pSphere41
+    400206: pSphere46
+    400208: pSphere51
+    400210: pSphere6
+    400212: spline_points_grp4
+    400214: startpoint
+    400216: startpoint1
+    400218: streckenteil_rechtskurve_geo1
+    2300000: a
+    2300002: a 1
+    2300004: a 2
+    2300006: a 3
+    2300008: a 4
+    2300010: a 5
+    2300012: a 6
+    2300014: a 7
+    2300016: a 8
+    2300018: a 9
+    2300020: b
+    2300022: b 1
+    2300024: b 2
+    2300026: b 3
+    2300028: b 4
+    2300030: b 5
+    2300032: b 6
+    2300034: b 7
+    2300036: b 8
+    2300038: b 9
+    2300040: c
+    2300042: c 1
+    2300044: c 2
+    2300046: c 3
+    2300048: c 4
+    2300050: c 5
+    2300052: d
+    2300054: pSphere1
+    2300056: pSphere11
+    2300058: pSphere133
+    2300060: pSphere134
+    2300062: pSphere135
+    2300064: pSphere136
+    2300066: pSphere137
+    2300068: pSphere138
+    2300070: pSphere139
+    2300072: pSphere140
+    2300074: pSphere141
+    2300076: pSphere142
+    2300078: pSphere143
+    2300080: pSphere144
+    2300082: pSphere145
+    2300084: pSphere146
+    2300086: pSphere147
+    2300088: pSphere148
+    2300090: pSphere149
+    2300092: pSphere150
+    2300094: pSphere151
+    2300096: pSphere152
+    2300098: pSphere153
+    2300100: pSphere154
+    2300102: pSphere155
+    2300104: pSphere156
+    2300106: pSphere157
+    2300108: pSphere158
+    2300110: pSphere159
+    2300112: pSphere16
+    2300114: pSphere160
+    2300116: pSphere161
+    2300118: pSphere162
+    2300120: pSphere163
+    2300122: pSphere164
+    2300124: pSphere165
+    2300126: pSphere166
+    2300128: pSphere167
+    2300130: pSphere168
+    2300132: pSphere169
+    2300134: pSphere170
+    2300136: pSphere171
+    2300138: pSphere172
+    2300140: pSphere173
+    2300142: pSphere174
+    2300144: pSphere175
+    2300146: pSphere176
+    2300148: pSphere21
+    2300150: pSphere26
+    2300152: pSphere31
+    2300154: pSphere36
+    2300156: pSphere41
+    2300158: pSphere46
+    2300160: pSphere51
+    2300162: pSphere6
+    2300164: startpoint
+    2300166: startpoint1
+    2300168: streckenteil_rechtskurve_geo1
+    3300000: a
+    3300002: a 1
+    3300004: a 2
+    3300006: a 3
+    3300008: a 4
+    3300010: a 5
+    3300012: a 6
+    3300014: a 7
+    3300016: a 8
+    3300018: a 9
+    3300020: b
+    3300022: b 1
+    3300024: b 2
+    3300026: b 3
+    3300028: b 4
+    3300030: b 5
+    3300032: b 6
+    3300034: b 7
+    3300036: b 8
+    3300038: b 9
+    3300040: c
+    3300042: c 1
+    3300044: c 2
+    3300046: c 3
+    3300048: c 4
+    3300050: c 5
+    3300052: d
+    3300054: pSphere1
+    3300056: pSphere11
+    3300058: pSphere133
+    3300060: pSphere134
+    3300062: pSphere135
+    3300064: pSphere136
+    3300066: pSphere137
+    3300068: pSphere138
+    3300070: pSphere139
+    3300072: pSphere140
+    3300074: pSphere141
+    3300076: pSphere142
+    3300078: pSphere143
+    3300080: pSphere144
+    3300082: pSphere145
+    3300084: pSphere146
+    3300086: pSphere147
+    3300088: pSphere148
+    3300090: pSphere149
+    3300092: pSphere150
+    3300094: pSphere151
+    3300096: pSphere152
+    3300098: pSphere153
+    3300100: pSphere154
+    3300102: pSphere155
+    3300104: pSphere156
+    3300106: pSphere157
+    3300108: pSphere158
+    3300110: pSphere159
+    3300112: pSphere16
+    3300114: pSphere160
+    3300116: pSphere161
+    3300118: pSphere162
+    3300120: pSphere163
+    3300122: pSphere164
+    3300124: pSphere165
+    3300126: pSphere166
+    3300128: pSphere167
+    3300130: pSphere168
+    3300132: pSphere169
+    3300134: pSphere170
+    3300136: pSphere171
+    3300138: pSphere172
+    3300140: pSphere173
+    3300142: pSphere174
+    3300144: pSphere175
+    3300146: pSphere176
+    3300148: pSphere21
+    3300150: pSphere26
+    3300152: pSphere31
+    3300154: pSphere36
+    3300156: pSphere41
+    3300158: pSphere46
+    3300160: pSphere51
+    3300162: pSphere6
+    3300164: startpoint
+    3300166: startpoint1
+    3300168: streckenteil_rechtskurve_geo1
+    4300000: streckenteil_rechtskurve_geo1
+    4300002: startpoint
+    4300004: startpoint1
+    4300006: pSphere1
+    4300008: pSphere133
+    4300010: pSphere134
+    4300012: pSphere135
+    4300014: pSphere136
+    4300016: pSphere6
+    4300018: pSphere137
+    4300020: pSphere138
+    4300022: pSphere139
+    4300024: pSphere140
+    4300026: pSphere11
+    4300028: pSphere141
+    4300030: pSphere142
+    4300032: pSphere143
+    4300034: pSphere144
+    4300036: pSphere16
+    4300038: pSphere145
+    4300040: pSphere146
+    4300042: pSphere147
+    4300044: pSphere148
+    4300046: pSphere21
+    4300048: pSphere149
+    4300050: pSphere150
+    4300052: pSphere151
+    4300054: pSphere152
+    4300056: pSphere26
+    4300058: pSphere153
+    4300060: pSphere154
+    4300062: pSphere155
+    4300064: pSphere156
+    4300066: pSphere31
+    4300068: pSphere157
+    4300070: pSphere158
+    4300072: pSphere159
+    4300074: pSphere160
+    4300076: pSphere36
+    4300078: pSphere161
+    4300080: pSphere162
+    4300082: pSphere163
+    4300084: pSphere164
+    4300086: pSphere41
+    4300088: pSphere165
+    4300090: pSphere166
+    4300092: pSphere167
+    4300094: pSphere168
+    4300096: pSphere46
+    4300098: pSphere169
+    4300100: pSphere170
+    4300102: pSphere171
+    4300104: pSphere172
+    4300106: pSphere51
+    4300108: pSphere173
+    4300110: pSphere174
+    4300112: pSphere175
+    4300114: pSphere176
+    4300116: a
+    4300118: b
+    4300120: a
+    4300122: b
+    4300124: a
+    4300126: b
+    4300128: c
+    4300130: a
+    4300132: b
+    4300134: c
+    4300136: a
+    4300138: b
+    4300140: c
+    4300142: a
+    4300144: b
+    4300146: c
+    4300148: a
+    4300150: b
+    4300152: c
+    4300154: d
+    4300156: a
+    4300158: b
+    4300160: a
+    4300162: b
+    4300164: a
+    4300166: b
+    4300168: c
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  userData: 
