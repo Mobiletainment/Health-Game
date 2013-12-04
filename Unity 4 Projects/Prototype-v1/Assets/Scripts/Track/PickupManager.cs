@@ -41,14 +41,26 @@ public class PickupManager : MonoBehaviour
 
 				if(goodOrEvil <= 0.5f)
 				{
-					item = Instantiate(_rulesSwitcher.GetRandomGoodItem(), pickup.position, pickup.rotation) as GameObject;
+					GameObject randItem = _rulesSwitcher.GetRandomGoodItem();
+					item = Instantiate(randItem, pickup.position, Quaternion.identity) as GameObject;
+//					Quaternion rot = item.transform.rotation * pickup.rotation;
+//					item.transform.rotation = rot;
+
+					// PFUSCH:
+					item.transform.rotation = randItem.transform.localRotation;
 				}
 				else
 				{
-					item = Instantiate(_rulesSwitcher.GetRandomBadItem(), pickup.position, pickup.rotation) as GameObject;
+					GameObject randItem = _rulesSwitcher.GetRandomBadItem();
+					item = Instantiate(randItem, pickup.position, Quaternion.identity) as GameObject;
+//					Quaternion rot = item.transform.rotation * pickup.rotation;
+//					item.transform.rotation = rot;
+
+					// PFUSCH:
+					item.transform.rotation = randItem.transform.localRotation;
 				}
 
-				item.transform.localScale *= 0.02f;
+//				item.transform.localScale *= 0.02f;
 				item.transform.parent = itemContainer.transform;		
 			}
 		}

@@ -10,7 +10,7 @@ public class LevelInfo : MonoBehaviour
 	private static int[] TotalItemCountConfig = new int[] { 70, 90, 110, 120, 140, 150, 170 };
 	private static int[] TotalPositiveItemCountConfig = new int[] { 35, 45, 55, 60, 70, 90, 120 };
 	
-	public static Rule Rule1 = new Rule(0, 2, 3, 0, 1);
+	public static Rule Rule1 = new Rule(0, 0, 0, 1, 1);
 	public static Rule Rule2 = new Rule(1, 0, 2, 1, 3);
 	public static Rule Rule3 = new Rule(2, 1, 3, 0, 2);
 	public static Rule Rule4 = new Rule(3, 0, 3, 1, 2);

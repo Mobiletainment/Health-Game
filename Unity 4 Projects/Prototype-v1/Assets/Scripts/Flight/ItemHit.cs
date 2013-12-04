@@ -6,8 +6,8 @@ public class ItemHit : MonoBehaviour
 	[HideInInspector]
 	public RulesSwitcher RuleSwitcher;
 
-	protected AudioSource _audioSource;
-	protected AudioReverbZone _audioReverb;
+//	protected AudioSource _audioSource;
+//	protected AudioReverbZone _audioReverb;
 	
 	public enum ActiveHit
 	{
@@ -28,8 +28,8 @@ public class ItemHit : MonoBehaviour
 	{
 		activeHit = ActiveHit.None;
 		
-		_audioSource = GameObject.Find("ItemHitSound").GetComponent<AudioSource>();
-		_audioReverb = GameObject.Find("ItemHitSound").GetComponent<AudioReverbZone>();
+//		_audioSource = GameObject.Find("ItemHitSound").GetComponent<AudioSource>();
+//		_audioReverb = GameObject.Find("ItemHitSound").GetComponent<AudioReverbZone>();
 	}
 	public void Start(){
 		 RuleSwitcher= GameObject.Find("Rule Switcher").GetComponent<RulesSwitcher>();
@@ -52,16 +52,16 @@ public class ItemHit : MonoBehaviour
 		if (RuleSwitcher.IsItemHitGood(hitObject))
 		{
 			SetHit(ItemHit.ActiveHit.Good);
-			_audioReverb.enabled = false;
+//			_audioReverb.enabled = false;
 		}
 		else
 		{
 			SetHit(ItemHit.ActiveHit.Bad);
-			_audioReverb.enabled = true;
+//			_audioReverb.enabled = true;
 		}
 		
-		_audioSource.gameObject.transform.position = hitObject.transform.position;
-		_audioSource.Play();
+//		_audioSource.gameObject.transform.position = hitObject.transform.position;
+//		_audioSource.Play();
 		
 		if (hit.tag != "UI")
 		{

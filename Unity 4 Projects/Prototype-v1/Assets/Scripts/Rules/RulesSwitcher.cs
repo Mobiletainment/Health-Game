@@ -91,13 +91,13 @@ public class RulesSwitcher : MonoBehaviour
 	
 	public GameObject GetRandomBadItem()
 	{
-		int itemIndex = Random.Range(0, 2);
+		int itemIndex = Random.Range(0, CurrentActiveRule.BadItems.Count - 1);
 		return Items[CurrentActiveRule.BadItems[itemIndex]]; //TODO: refine logic for returning a good item according to the active rule
 	}
 	
 	public GameObject GetRandomGoodItem()
 	{
-		int itemIndex = Random.Range(0, 2);
+		int itemIndex = Random.Range(0, CurrentActiveRule.GoodItems.Count - 1);
 		return Items[CurrentActiveRule.GoodItems[itemIndex]]; //TOOD: refine logic for returning a good item according to the active rule
 	}
 	
