@@ -11,7 +11,11 @@ public class PopUpError : MonoBehaviour {
 	public void setErrorMsg(string ErrorMsg) {
 		_text.text = ErrorMsg;
 		_sprite.height = _text.height + 60;
-		_button.transform.position.Set(50, _text.height / 2.0f,0);
+
+		Vector3 temp = _button.transform.localPosition;
+		temp.y = -_sprite.height / 2.0f+20;
+		_button.transform.localPosition = temp;
+		Debug.Log (_button.transform.localPosition);
 
 	}
 	void OnEnable(){
