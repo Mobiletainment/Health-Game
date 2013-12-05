@@ -16,6 +16,7 @@ public class PickupManager : MonoBehaviour
 		
 		if (rulesSwitcherGameObject == null)
 		{
+			Debug.Log ("RuleSwitcher was null.");
 			rulesSwitcherGameObject = Instantiate(Resources.Load("Prefabs/Rule Switcher", typeof(GameObject))) as GameObject;
 			rulesSwitcherGameObject.name = "Rule Switcher";
 		}

@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿#if UNITY_IPHONE || UNITY_ANDROID
+#	define MOBILE
+#endif
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -46,34 +49,63 @@ public class MoveOnTrack : MonoBehaviour
 	{
 		int divisor = 20000;
 
+		bool leftInput = false;
+		bool rightInput = false;
+
+#		if UNITY_EDITOR
 		if(Input.GetKeyDown(KeyCode.A))
+		{
+			leftInput = true;
+		}
+		else if(Input.GetKeyDown(KeyCode.D))
+		{
+			rightInput = true;
+		}
+#		elif MOBILE
+//		Debug.LogWarning(Input.touchCount);
+		if (Input.touchCount > 0)
+		{
+			Touch touch = Input.GetTouch(Input.touchCount - 1);
+			float touchPos = touch.position.x;
+
+			if(touchPos < Screen.width * 0.5f)
+			{
+				leftInput = true;
+			}
+			else
+			{
+				rightInput = true;
+			}
+		}
+#		endif
+
+
+		if(leftInput == true)
 		{
 			if(_spline > _leftMaxSpline)
 			{
 				_spline--;
 				_points = _track.splineContainer.GetSpline(_spline);
-//				_switchPoints = _track.splineContainer.GetSpline(_spline - 1);
-//				_switchInProgress = true;
-
+				//				_switchPoints = _track.splineContainer.GetSpline(_spline - 1);
+				//				_switchInProgress = true;
+				
 				_moveObject.position = GetPosOnSpline(_ind, (float)_t/(float)divisor, _points);
 				_lastPos = _moveObject.position;
 			}
 		}
-		else if(Input.GetKeyDown(KeyCode.D))
+		else if(rightInput == true)
 		{
 			if(_spline < _rightMaxSpline)
 			{
 				_spline++;
 				_points = _track.splineContainer.GetSpline(_spline);
-//				_switchPoints = _track.splineContainer.GetSpline(_spline + 1);
-//				_switchInProgress = true;
-
+				//				_switchPoints = _track.splineContainer.GetSpline(_spline + 1);
+				//				_switchInProgress = true;
+				
 				_moveObject.position = GetPosOnSpline(_ind, (float)_t/(float)divisor, _points);
 				_lastPos = _moveObject.position;
 			}
 		}
-
-
 
 		// Get the list of the spline-controlPoint-positions
 //		_points = _track.splineContainer.GetSpline(_spline);
