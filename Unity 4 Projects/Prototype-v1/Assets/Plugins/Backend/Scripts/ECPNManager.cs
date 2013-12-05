@@ -76,7 +76,7 @@ public class ECPNManager: MonoBehaviour
 	 */
 	public void RequestDeviceToken ()
 	{
-#if UNITY_EDITOR
+#if UNITY_EDITOR || WINDWOS
 	Debug.Log("You should only register iOS and android devices, not the editor!");
 		StartCoroutine(StoreDeviceID(SystemInfo.deviceUniqueIdentifier,"editor"));
 #endif

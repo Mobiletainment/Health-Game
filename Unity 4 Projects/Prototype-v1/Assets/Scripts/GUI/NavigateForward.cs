@@ -33,6 +33,7 @@ public class NavigateForward : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		ResetButton ();
 	}
 
 	void OnClick ()

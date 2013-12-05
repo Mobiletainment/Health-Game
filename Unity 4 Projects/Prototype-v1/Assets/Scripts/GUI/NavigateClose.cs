@@ -5,7 +5,6 @@ public class NavigateClose : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
 	}
 	void OnClick()
 	{	

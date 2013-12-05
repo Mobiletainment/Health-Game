@@ -15,6 +15,7 @@ public class NavigateForwardWithCheckboxAction : NavigateForward
 	void Start()
 	{
 		Backend.Callback = ActionPerformed;
+		ResetButton ();
 	}
 
 	
@@ -64,6 +65,7 @@ public class NavigateForwardWithCheckboxAction : NavigateForward
 		if (response.StartsWith("Error:")) //TODO: refactor response as a class with errorcode and body
 		{
 			infoLabel.text = response;
+			MenuStack.ShowError(response);
 			ResetButton();
 		}
 		else

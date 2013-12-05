@@ -14,6 +14,7 @@ public class NavigateForwardWithAction : NavigateForward
 	void Start ()
 	{
 		Backend.Callback = ActionPerformed;
+		ResetButton ();
 	}
 
 	void OnClick ()
@@ -34,7 +35,7 @@ public class NavigateForwardWithAction : NavigateForward
 				break;
 			case ActionType.RegisterParent:
 
-			#if UNITY_EDITOR
+			#if UNITY_EDITOR || WINDOWS
 			//ActionPerformed("Success: For Test purpose only! TODO");
 			Backend.RegisterUser(getInput(), false);
 			#else
@@ -44,7 +45,7 @@ public class NavigateForwardWithAction : NavigateForward
 			case ActionType.CheckIfParentAndChildRegistered:
 				Backend.CheckIfParentAndChildAreRegistered ();
 			//TODO: this is for test purposes only and is just a convenience hack if you don't have 2 devices to perform the whole process
-#if UNITY_EDITOR
+#if UNITY_EDITOR || WIDNDOWS
 			ActionPerformed("Success: For Test purpose only! TODO");
 #endif
 				break;
