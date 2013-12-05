@@ -22,6 +22,17 @@ public class RulesSwitcher : MonoBehaviour
 	
 	protected List<Rule> CurrentRuleSet;
 	protected Rule CurrentActiveRule;
+
+	private ECPNManager ecpnManager;
+
+	public ECPNManager Backend {
+		get {
+			if (ecpnManager == null)
+				ecpnManager = GameObject.Find ("ComponentManager").GetComponent<ECPNManager> ();
+			
+			return ecpnManager;
+		}
+	}
 	
 	void Awake()
 	{
@@ -30,7 +41,7 @@ public class RulesSwitcher : MonoBehaviour
 	
 	void Start()
 	{
-		DontDestroyOnLoad(this);
+		//DontDestroyOnLoad(this);
 		Init();
 	}
 	
@@ -136,6 +147,9 @@ public class RulesSwitcher : MonoBehaviour
 		{
 			CancelInvoke("Countdown");
 			CancelInvoke("RuleFlashBegin");
+
+			Backend.SendPushMessage("Ihr Kind hat 1 Level geschafft! Bitte loben Sie es!");
+
 			LoadGameOverScene();
 		}
 		
