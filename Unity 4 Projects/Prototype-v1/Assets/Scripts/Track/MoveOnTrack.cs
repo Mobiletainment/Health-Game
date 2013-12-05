@@ -6,6 +6,7 @@ public class MoveOnTrack : MonoBehaviour
 {
 	// Config Members:
 	public CleanTrackData _track = null;
+	public Transform _camMover = null;
 	public float _speed = 1.0f; // Units per Second.
 	public SplineLine _spline = SplineLine.CENTER;
 	public SplineLine _leftMaxSpline = SplineLine.LEFT1;
@@ -36,13 +37,15 @@ public class MoveOnTrack : MonoBehaviour
 		_points = _track.splineContainer.GetSpline(_spline);
 		
 		// Initilialize Avatar position:
-		_moveObject.position = GetPosOnSpline(0, 0);
+		_moveObject.position = GetPosOnSpline(0, 0, _points);
 		_lastPos = _moveObject.position;
 	}
 	
 	// Update is called once per frame
 	void Update() 
 	{
+		int divisor = 20000;
+
 		if(Input.GetKeyDown(KeyCode.A))
 		{
 			if(_spline > _leftMaxSpline)
@@ -51,6 +54,9 @@ public class MoveOnTrack : MonoBehaviour
 				_points = _track.splineContainer.GetSpline(_spline);
 //				_switchPoints = _track.splineContainer.GetSpline(_spline - 1);
 //				_switchInProgress = true;
+
+				_moveObject.position = GetPosOnSpline(_ind, (float)_t/(float)divisor, _points);
+				_lastPos = _moveObject.position;
 			}
 		}
 		else if(Input.GetKeyDown(KeyCode.D))
@@ -61,6 +67,9 @@ public class MoveOnTrack : MonoBehaviour
 				_points = _track.splineContainer.GetSpline(_spline);
 //				_switchPoints = _track.splineContainer.GetSpline(_spline + 1);
 //				_switchInProgress = true;
+
+				_moveObject.position = GetPosOnSpline(_ind, (float)_t/(float)divisor, _points);
+				_lastPos = _moveObject.position;
 			}
 		}
 
@@ -75,7 +84,6 @@ public class MoveOnTrack : MonoBehaviour
 		//		Debug.Log("----- Speed: "+_speed * Time.deltaTime);
 		Vector3 nextPos = _moveObject.position;
 		float curDist = 0;
-		int divisor = 20000;
 		
 		while(true)
 		{
@@ -130,7 +138,7 @@ public class MoveOnTrack : MonoBehaviour
 				// TODO...	
 			}
 			
-			Vector3 pos = GetPosOnSpline(_ind, (float)_t/(float)divisor);
+			Vector3 pos = GetPosOnSpline(_ind, (float)_t/(float)divisor, _points);
 			curDist += Vector3.Distance(nextPos, pos);
 			nextPos = pos;
 			//			Debug.Log ("curDist: " + curDist);
@@ -139,6 +147,11 @@ public class MoveOnTrack : MonoBehaviour
 				//				Debug.Log ("GO!");
 				//				Debug.Log ("Dist: " + Vector3.Distance(nextPos, pos));
 				//				nextPos = pos;
+
+
+				Vector3 camPos = GetPosOnSpline(_ind, (float)_t/(float)divisor, _track.splineContainer.GetSpline(SplineLine.CENTER));
+				_camMover.position = camPos;
+
 				break;
 			}
 		}
@@ -152,6 +165,9 @@ public class MoveOnTrack : MonoBehaviour
 //		_moveObject.Rotate(_moveObject.up * angle);
 		Quaternion nextRot = Quaternion.Slerp(_moveObject.rotation, Quaternion.LookRotation(curDir), 0.1f);
 		_moveObject.rotation = nextRot;
+		
+		Quaternion nextRot2 = Quaternion.Slerp(_camMover.rotation, Quaternion.LookRotation(curDir), 0.1f);
+		_camMover.rotation = nextRot2;
 	}
 
 	/**
@@ -160,7 +176,7 @@ public class MoveOnTrack : MonoBehaviour
 	 * @param section is the relative position (0 - 1) on the spline between the current nad the next control point.
 	 * @return the Position on the spline.
 	 **/
-	Vector3 GetPosOnSpline(int controlPointIndex, float section)
+	Vector3 GetPosOnSpline(int controlPointIndex, float section, List<Vector3> points)
 	{
 		// float.Epsilon
 		if(section < 0 || section > 1.0f)
@@ -168,8 +184,8 @@ public class MoveOnTrack : MonoBehaviour
 			Debug.LogError ("Section is out of range (0.0f - 1.0f) -> section: "+section);
 		}
 		
-		int size = _points.Count;
-		Vector3 last=_points[0];
+		int size = points.Count;
+		Vector3 last= points[0];
 		
 		
 		float t = section;
@@ -195,14 +211,14 @@ public class MoveOnTrack : MonoBehaviour
 		{
 			secvec=0;
 		}
-		Vector3 Tp1 = ((_points[p0]- _points[p_1])
-		               + (_points[pp1] - _points[p])) *firstvec* (1 - 0.65f); // TODO: Change hardcoded!
+		Vector3 Tp1 = ((points[p0]- points[p_1])
+		               + (points[pp1] - points[p])) *firstvec* (1 - 0.65f); // TODO: Change hardcoded!
 		int pp2 = (p + 2) % size;
-		Vector3 Tp2 = ((_points[pp1] - _points[p0])
-		               + (_points[pp2] - _points[pp1])) *secvec* (1 -0.65f); // TODO: Change hardcoded!
+		Vector3 Tp2 = ((points[pp1] - points[p0])
+		               + (points[pp2] - points[pp1])) *secvec* (1 -0.65f); // TODO: Change hardcoded!
 		
-		Vector3 T1 = _points[(p) % size];
-		Vector3 T2 = _points[(p + 1) % size];
+		Vector3 T1 = points[(p) % size];
+		Vector3 T2 = points[(p + 1) % size];
 		
 		Vector3 P = T1 * h0 + T2 * h1 + Tp1 * h2 + Tp2 * h3;
 		
