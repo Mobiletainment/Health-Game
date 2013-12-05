@@ -7,7 +7,7 @@ public class MenuStack : MonoBehaviour {
 	private static MenuStack _instance;
 	public Stack<GameObject> _panels;
 	public GameObject _start;
-
+	public GameObject _errorPanel; 
 	void Awake ()
 	{
 		if (_instance == null)
@@ -29,7 +29,11 @@ public class MenuStack : MonoBehaviour {
 		NGUITools.SetActive(_instance._panels.Peek(), true);
 
 	}
-
+	public static void ShowError(string errorMsg){
+		NGUITools.SetActive (_instance._errorPanel,true);
+		PopUpError err = _instance._errorPanel.GetComponent<PopUpError> ();
+		err.setErrorMsg (errorMsg);
+	}
 	public static void ClickForward(GameObject obj){
 		
 		NGUITools.SetActive(_instance._panels.Peek(), false);

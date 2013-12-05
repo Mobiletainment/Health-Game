@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PopUpLoading : MonoBehaviour {
-	public UISlider _progress;
-	public UILabel message;
+public class PopUpErrorClose : MonoBehaviour {
+	
 	// Use this for initialization
 	void Start () {
-	
+		
 	}
-	
+	void OnClick(){
+
+		NGUITools.SetActive (transform.parent.gameObject, false);
+
+	}
 	// Update is called once per frame
 	void Update () {
 	

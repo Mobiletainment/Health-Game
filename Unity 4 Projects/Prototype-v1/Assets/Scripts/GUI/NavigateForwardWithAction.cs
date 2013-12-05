@@ -20,6 +20,8 @@ public class NavigateForwardWithAction : NavigateForward
 	{
 		Debug.Log ("Push Type: " + PerformAction.ToString ());
 
+		DisableButton ();
+		
 		switch (PerformAction) {
 			case ActionType.NotSpecified:
 				Debug.LogError ("PushType not specified!");
@@ -79,8 +81,11 @@ public class NavigateForwardWithAction : NavigateForward
 	void ActionFailed (string response)
 	{
 		Debug.LogError (response);
+			
+		ResetButton ();
+		//TODO: Show Popup with error message 
+		MenuStack.ShowError (response);
 
-		//TODO: Show Popup with error message
 		errorMessage.text = response;
 	}
 
@@ -101,6 +106,10 @@ public class NavigateForwardWithAction : NavigateForward
 		ClickForward ();
 	}
 
+
+
+
+
 	string getInput ()
 	{
 		if (input == null) {
@@ -112,6 +121,7 @@ public class NavigateForwardWithAction : NavigateForward
 
 	void Update ()
 	{
+		UpdatePoints ();
 		//Debug.Log(Backend.GetUsername());
 	}
 }

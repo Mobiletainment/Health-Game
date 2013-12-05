@@ -20,6 +20,7 @@ public class NavigateForwardWithCheckboxAction : NavigateForward
 	
 	void OnClick()
 	{
+		DisableButton ();
 		infoLabel.text = "Bitte warten ...";
 		Debug.Log(customFeedback.text);
 		UIToggle[] toggles=transform.parent.GetComponentsInChildren<UIToggle> ();
@@ -63,6 +64,7 @@ public class NavigateForwardWithCheckboxAction : NavigateForward
 		if (response.StartsWith("Error:")) //TODO: refactor response as a class with errorcode and body
 		{
 			infoLabel.text = response;
+			ResetButton();
 		}
 		else
 		{
@@ -73,6 +75,7 @@ public class NavigateForwardWithCheckboxAction : NavigateForward
 
 	// Update is called once per frame
 	void Update () {
+		UpdatePoints ();
 		//Debug.Log(Backend.GetUsername());
 	}
 }
