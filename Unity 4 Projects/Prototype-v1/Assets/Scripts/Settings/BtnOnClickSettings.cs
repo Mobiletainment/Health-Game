@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class BtnOnClickSettings : MonoBehaviour {
 
     public string btnName;

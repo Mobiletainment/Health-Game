@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using System.Collections;
 
 public class SettingsMenu : MonoBehaviour {
@@ -9,7 +10,6 @@ public class SettingsMenu : MonoBehaviour {
 	public UILabel LabelButtonEnglish;
 	
 	public string LocalisationDataFile;
-	
 	
 	// Use this for initialization
 	void Start () {

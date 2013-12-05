@@ -5,6 +5,7 @@ using UnityEngine;
 //TextFiles: http://answers.unity3d.com/questions/540203/how-do-i-read-unicode-text-file-on-ios-from-resour.html
 // http://forum.unity3d.com/threads/189649-Read-text-file-that-is-included-in-the-project
 
+
 enum Languages { en, de }
 
 static class Localisation
