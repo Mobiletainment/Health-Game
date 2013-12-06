@@ -24,13 +24,12 @@ public class MoveOnTrack : MonoBehaviour
 	private bool _switchInProgress = false;
 	private List<Vector3> _switchPoints = new List<Vector3>();
 	
-	private int _ind = 0;
-	private int _t = 0;
-	
-	private int _playAdd = 0;
-	private bool _playForward = true;
+	private int _splineIndex = 0;
+	private int _indexPart = 0;
 
 	private float _splineLength = 0;
+
+	private int _divisor = 20000;
 
 	// Use this for initialization
 	void Start () {
@@ -47,26 +46,15 @@ public class MoveOnTrack : MonoBehaviour
 	// Update is called once per frame
 	void Update() 
 	{
-		int divisor = 20000;
-
+		// ---- INPUT START ----
 		bool leftInput = false;
 		bool rightInput = false;
 
-#		if UNITY_EDITOR
-		if(Input.GetKeyDown(KeyCode.A))
+// Input for mobile devices:
+#		if MOBILE
+		if(Input.GetMouseButtonDown(0))
 		{
-			leftInput = true;
-		}
-		else if(Input.GetKeyDown(KeyCode.D))
-		{
-			rightInput = true;
-		}
-#		elif MOBILE
-//		Debug.LogWarning(Input.touchCount);
-		if (Input.touchCount > 0)
-		{
-			Touch touch = Input.GetTouch(Input.touchCount - 1);
-			float touchPos = touch.position.x;
+			float touchPos = Input.mousePosition.x;
 
 			if(touchPos < Screen.width * 0.5f)
 			{
@@ -77,6 +65,16 @@ public class MoveOnTrack : MonoBehaviour
 				rightInput = true;
 			}
 		}
+// else -> Desktop:
+#		else
+		if(Input.GetKeyDown(KeyCode.A))
+		{
+			leftInput = true;
+		}
+		else if(Input.GetKeyDown(KeyCode.D))
+		{
+			rightInput = true;
+		}
 #		endif
 
 
@@ -86,10 +84,10 @@ public class MoveOnTrack : MonoBehaviour
 			{
 				_spline--;
 				_points = _track.splineContainer.GetSpline(_spline);
-				//				_switchPoints = _track.splineContainer.GetSpline(_spline - 1);
-				//				_switchInProgress = true;
+				// _switchPoints = _track.splineContainer.GetSpline(_spline - 1);
+				// _switchInProgress = true;
 				
-				_moveObject.position = GetPosOnSpline(_ind, (float)_t/(float)divisor, _points);
+				_moveObject.position = GetPosOnSpline(_splineIndex, (float)_indexPart/(float)_divisor, _points);
 				_lastPos = _moveObject.position;
 			}
 		}
@@ -99,107 +97,79 @@ public class MoveOnTrack : MonoBehaviour
 			{
 				_spline++;
 				_points = _track.splineContainer.GetSpline(_spline);
-				//				_switchPoints = _track.splineContainer.GetSpline(_spline + 1);
-				//				_switchInProgress = true;
+				// _switchPoints = _track.splineContainer.GetSpline(_spline + 1);
+				// _switchInProgress = true;
 				
-				_moveObject.position = GetPosOnSpline(_ind, (float)_t/(float)divisor, _points);
+				_moveObject.position = GetPosOnSpline(_splineIndex, (float)_indexPart/(float)_divisor, _points);
 				_lastPos = _moveObject.position;
 			}
 		}
+		// ---- INPUT END ----
 
-		// Get the list of the spline-controlPoint-positions
-//		_points = _track.splineContainer.GetSpline(_spline);
+//		if(_switchInProgress)
+//		{
+//			// TODO...	
+//		}
 
 
-		// Movement...
-//		Debug.DrawRay (_moveObject.position, Vector3.up, Color.red, 10.0f);
-		//		Debug.Log("----- Speed: "+_speed * Time.deltaTime);
+
+
+		// Update Object Position:
+		Vector3 nextPos = GetNextStepOnSpline(_spline, ref _splineIndex, ref _indexPart);
+		_lastPos = _moveObject.position;
+		_moveObject.position = nextPos;
+
+		// Update Camera Position:
+		Vector3 camPos = GetPosOnSpline(_splineIndex, (float)_indexPart/(float)_divisor, _track.splineContainer.GetSpline(SplineLine.CENTER));
+		_camMover.position = camPos;
+
+		// Update Rotations:
+		Vector3 curDir = _moveObject.position - _lastPos;
+		Quaternion nextObjRot = Quaternion.Slerp(_moveObject.rotation, Quaternion.LookRotation(curDir), 0.1f);
+		_moveObject.rotation = nextObjRot;
+		// Camera Rotation:
+		Quaternion nextCamRot = Quaternion.Slerp(_camMover.rotation, Quaternion.LookRotation(curDir), 0.1f);
+		_camMover.rotation = nextCamRot;
+	}
+	
+	private Vector3 GetNextStepOnSpline(SplineLine spline, ref int splineIndex, ref int indexPart)
+	{
+		List<Vector3> points = _track.splineContainer.GetSpline(spline);
 		Vector3 nextPos = _moveObject.position;
 		float curDist = 0;
 		
 		while(true)
 		{
-			if(_playForward)
+			if(indexPart == _divisor)
 			{
-				_playAdd = 1;
-			}
-			else
-			{
-				_playAdd = -1;
-			}
-			
-			if(_playForward)
-			{
-				if(_t == divisor)
+				splineIndex++;
+				
+				if(splineIndex < points.Count)
 				{
-					_ind += _playAdd;
-					_t = 0;
-					
-					if(_ind == _points.Count - 1)
-					{
-						_playForward = false;
-						_t = divisor;
-						_ind--;
-					}
+					indexPart = 0;
 				}
 			}
-			else
-			{
-				if(_t == 0)
-				{
-					_ind += _playAdd;
-					_t = divisor;
-					
-					if(_ind == -1)
-					{
-						_playForward = true;
-						_t = 0;
-					}
-				}
-			}
-			
-			_t += 20 * _playAdd;
-			
-			if(_ind < 0) _ind = 0;
-			if(_ind > _points.Count - 2) _ind = _points.Count - 2;
-			if(_t < 0) _t = 0;
-			if(_t > divisor) _t = divisor;
 
-			if(_switchInProgress)
-			{
-				// TODO...	
-			}
+			// TODO: Check StepSize again... 20 might be too high... Or _divisor is too high.
+			indexPart += 20;
 			
-			Vector3 pos = GetPosOnSpline(_ind, (float)_t/(float)divisor, _points);
+			if(splineIndex < 0) splineIndex = 0;
+			if(splineIndex > points.Count - 2) splineIndex = points.Count - 2;
+			if(indexPart < 0) indexPart = 0;
+			if(indexPart > _divisor) indexPart = _divisor;
+
+			Vector3 pos = GetPosOnSpline(splineIndex, (float)indexPart/(float)_divisor, points);
 			curDist += Vector3.Distance(nextPos, pos);
 			nextPos = pos;
 			//			Debug.Log ("curDist: " + curDist);
 			if(curDist >= _speed * Time.deltaTime)
 			{
-				//				Debug.Log ("GO!");
-				//				Debug.Log ("Dist: " + Vector3.Distance(nextPos, pos));
-				//				nextPos = pos;
-
-
-				Vector3 camPos = GetPosOnSpline(_ind, (float)_t/(float)divisor, _track.splineContainer.GetSpline(SplineLine.CENTER));
-				_camMover.position = camPos;
-
+//				Debug.Log ("Dist: " + Vector3.Distance(nextPos, pos));
 				break;
 			}
 		}
 
-		_lastPos = _moveObject.position;
-		_moveObject.position = nextPos;
-
-		Vector3 curDir = _moveObject.position - _lastPos;
-//		Debug.Log (curDir);
-//		float angle = Vector3.Angle(_moveObject.forward, curDir);
-//		_moveObject.Rotate(_moveObject.up * angle);
-		Quaternion nextRot = Quaternion.Slerp(_moveObject.rotation, Quaternion.LookRotation(curDir), 0.1f);
-		_moveObject.rotation = nextRot;
-		
-		Quaternion nextRot2 = Quaternion.Slerp(_camMover.rotation, Quaternion.LookRotation(curDir), 0.1f);
-		_camMover.rotation = nextRot2;
+		return nextPos;
 	}
 
 	/**
@@ -258,5 +228,31 @@ public class MoveOnTrack : MonoBehaviour
 		last=P;
 		
 		return P;
+	}
+
+	// Calculates the Length on a Spline between the Start-Control-Point and the next Control-Point:
+	private float GetLengthBetweenCtrlPoints(SplineLine spline, int startCtrlPntInd)
+	{
+		float length = 0.0f;
+		List<Vector3> points = _track.splineContainer.GetSpline(spline);
+
+		// Is it the last point on the spline (or no point-index at all)?
+		if(startCtrlPntInd >= points.Count - 1 || startCtrlPntInd < 0)
+		{
+			Debug.LogWarning("Warning: Wrong Parameters for GetLengthBetweenCtrlPoints...");
+			return 0.0f;
+		}
+
+		// It is any point on the Spline:
+		Vector3 curPos = GetPosOnSpline(startCtrlPntInd, 0.0f, points);
+		const int divisor = 10;
+		for(int i = 1; i <= divisor; ++i)
+		{
+			Vector3 nextPos = GetPosOnSpline(startCtrlPntInd, (float)i/(float)divisor, points);
+			length += Vector3.Distance(curPos, nextPos);
+			curPos = nextPos;
+		}
+
+		return length;
 	}
 }
