@@ -55,6 +55,9 @@ public class NavigateForwardWithAction : NavigateForward
 				Backend.SendPushMessage (rewardMessage);
 				ActionCompleted();
 				break;
+			case ActionType.LoadGameScene:
+				NavigationHelper.LoadGameScene();
+				break;
 			default:
 				break;
 		}
