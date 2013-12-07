@@ -16,20 +16,28 @@ public class MoveOnTrack : MonoBehaviour
 	public SplineLine _rightMaxSpline = SplineLine.RIGHT1;
 
 	public AnimationCurve _switchCurve = new AnimationCurve();
+	private float _switchTime = 0.3f; // TODO: MAKE THIS PUBLIC (CONFIGUREABLE)
+	private float _sumSwitchTime;
+	private float _curSwitchTime = 0.0f;
+	private float _curSwitchTimeR = 0.0f;
 
 	private List<Vector3> _points = new List<Vector3>();
 	private Transform _moveObject;
 	private Vector3 _lastPos;
+	private Vector3 _nextPos;
 
-	private bool _switchInProgress = false;
-	private List<Vector3> _switchPoints = new List<Vector3>();
+//	private bool _switchInProgress = false;
+//	private List<Vector3> _switchPoints = new List<Vector3>();
 	
 	private int _splineIndex = 0;
 	private int _indexPart = 0;
 
-	private float _splineLength = 0;
+//	private float _splineLength = 0;
 
 	private int _divisor = 20000;
+
+	// The spline, the user wants to move on:
+	private SplineLine _switchSpline;
 
 	// Use this for initialization
 	void Start () {
@@ -41,6 +49,11 @@ public class MoveOnTrack : MonoBehaviour
 		// Initilialize Avatar position:
 		_moveObject.position = GetPosOnSpline(0, 0, _points);
 		_lastPos = _moveObject.position;
+		_nextPos = _lastPos;
+
+		// Init SwitchSpline:
+		_switchSpline = _spline;
+		_sumSwitchTime = _switchTime;
 	}
 	
 	// Update is called once per frame
@@ -80,28 +93,40 @@ public class MoveOnTrack : MonoBehaviour
 
 		if(leftInput == true)
 		{
-			if(_spline > _leftMaxSpline)
+			if(_switchSpline > _leftMaxSpline)
 			{
-				_spline--;
-				_points = _track.splineContainer.GetSpline(_spline);
-				// _switchPoints = _track.splineContainer.GetSpline(_spline - 1);
-				// _switchInProgress = true;
-				
-				_moveObject.position = GetPosOnSpline(_splineIndex, (float)_indexPart/(float)_divisor, _points);
-				_lastPos = _moveObject.position;
+//				_spline--;
+//				_points = _track.splineContainer.GetSpline(_spline);
+//				// _switchPoints = _track.splineContainer.GetSpline(_spline - 1);
+//				// _switchInProgress = true;
+//				
+//				_moveObject.position = GetPosOnSpline(_splineIndex, (float)_indexPart/(float)_divisor, _points);
+//				_lastPos = _moveObject.position;
+
+
+				_switchSpline--;
+				_sumSwitchTime += _switchTime - _curSwitchTimeR; //(_sumSwitchTime - _curSwitchTime);
+				_curSwitchTimeR = 0.0f;
+				//_curSwitchTime = 0.0f;
 			}
 		}
 		else if(rightInput == true)
 		{
-			if(_spline < _rightMaxSpline)
+			if(_switchSpline < _rightMaxSpline)
 			{
-				_spline++;
-				_points = _track.splineContainer.GetSpline(_spline);
-				// _switchPoints = _track.splineContainer.GetSpline(_spline + 1);
-				// _switchInProgress = true;
-				
-				_moveObject.position = GetPosOnSpline(_splineIndex, (float)_indexPart/(float)_divisor, _points);
-				_lastPos = _moveObject.position;
+//				_spline++;
+//				_points = _track.splineContainer.GetSpline(_spline);
+//				// _switchPoints = _track.splineContainer.GetSpline(_spline + 1);
+//				// _switchInProgress = true;
+//				
+//				_moveObject.position = GetPosOnSpline(_splineIndex, (float)_indexPart/(float)_divisor, _points);
+//				_lastPos = _moveObject.position;
+
+
+				_switchSpline++;
+				_sumSwitchTime += _switchTime - _curSwitchTimeR; //(_sumSwitchTime - _curSwitchTime);
+				_curSwitchTimeR = 0.0f;
+				//_curSwitchTime = 0.0f;
 			}
 		}
 		// ---- INPUT END ----
@@ -114,25 +139,66 @@ public class MoveOnTrack : MonoBehaviour
 
 
 
+		// Backup index & part:
+		int splineIndex = _splineIndex;
+		int indexPart = _indexPart;
+
 		// Update Object Position:
-		Vector3 nextPos = GetNextStepOnSpline(_spline, ref _splineIndex, ref _indexPart);
-		_lastPos = _moveObject.position;
-		_moveObject.position = nextPos;
+		_lastPos = _nextPos;
+		_nextPos = GetNextStepOnSpline(_spline, ref _splineIndex, ref _indexPart, _speed);
 
 		// Update Camera Position:
 		Vector3 camPos = GetPosOnSpline(_splineIndex, (float)_indexPart/(float)_divisor, _track.splineContainer.GetSpline(SplineLine.CENTER));
 		_camMover.position = camPos;
 
 		// Update Rotations:
-		Vector3 curDir = _moveObject.position - _lastPos;
+		Vector3 curDir = _nextPos - _lastPos;
 		Quaternion nextObjRot = Quaternion.Slerp(_moveObject.rotation, Quaternion.LookRotation(curDir), 0.1f);
 		_moveObject.rotation = nextObjRot;
 		// Camera Rotation:
 		Quaternion nextCamRot = Quaternion.Slerp(_camMover.rotation, Quaternion.LookRotation(curDir), 0.1f);
 		_camMover.rotation = nextCamRot;
+
+		if(_switchSpline != _spline)
+		{
+			// Check the length of the current line segments:
+			float curSplineLen = GetLengthBetweenCtrlPoints(_spline, _splineIndex);
+			float switchSplineLen = GetLengthBetweenCtrlPoints(_switchSpline, _splineIndex);
+
+			float proportion = switchSplineLen / curSplineLen;
+
+			Vector3 nextSwitchPos = GetNextStepOnSpline(_switchSpline, ref splineIndex, ref indexPart, _speed * proportion);
+
+			_curSwitchTime += Time.deltaTime;
+			_curSwitchTimeR += Time.deltaTime;
+			if(_curSwitchTime < _sumSwitchTime)
+			{
+				float splineProp = _switchCurve.Evaluate(_curSwitchTime / _sumSwitchTime);
+
+				Vector3 posProp = (nextSwitchPos * splineProp) + (_nextPos * (1 - splineProp));
+
+				// Finally, move the object:
+				_moveObject.position = posProp;
+			}
+			else
+			{
+				_spline = _switchSpline;
+
+				_moveObject.position = nextSwitchPos;
+				_splineIndex = splineIndex;
+				_indexPart = indexPart;
+
+				_curSwitchTime = 0.0f;
+				_sumSwitchTime = _switchTime;
+			}
+		}
+		else
+		{
+			_moveObject.position = _nextPos;
+		}
 	}
 	
-	private Vector3 GetNextStepOnSpline(SplineLine spline, ref int splineIndex, ref int indexPart)
+	private Vector3 GetNextStepOnSpline(SplineLine spline, ref int splineIndex, ref int indexPart, float speed)
 	{
 		List<Vector3> points = _track.splineContainer.GetSpline(spline);
 		Vector3 nextPos = _moveObject.position;
@@ -162,7 +228,7 @@ public class MoveOnTrack : MonoBehaviour
 			curDist += Vector3.Distance(nextPos, pos);
 			nextPos = pos;
 			//			Debug.Log ("curDist: " + curDist);
-			if(curDist >= _speed * Time.deltaTime)
+			if(curDist >= speed * Time.deltaTime)
 			{
 //				Debug.Log ("Dist: " + Vector3.Distance(nextPos, pos));
 				break;
@@ -187,7 +253,7 @@ public class MoveOnTrack : MonoBehaviour
 		}
 		
 		int size = points.Count;
-		Vector3 last= points[0];
+//		Vector3 last= points[0];
 		
 		
 		float t = section;
@@ -225,7 +291,7 @@ public class MoveOnTrack : MonoBehaviour
 		Vector3 P = T1 * h0 + T2 * h1 + Tp1 * h2 + Tp2 * h3;
 		
 //		Debug.DrawLine(last,P,Color.blue);
-		last=P;
+//		last=P;
 		
 		return P;
 	}
