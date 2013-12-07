@@ -15,16 +15,14 @@ public class MoveOnTrack : MonoBehaviour
 	public SplineLine _leftMaxSpline = SplineLine.LEFT1;
 	public SplineLine _rightMaxSpline = SplineLine.RIGHT1;
 
-	public AnimationCurve _switchCurve = new AnimationCurve();
 	private float _switchTime = 0.3f; // TODO: MAKE THIS PUBLIC (CONFIGUREABLE)
-	private float _sumSwitchTime;
-	private float _curSwitchTime = 0.0f;
-	private float _curSwitchTimeR = 0.0f;
 
 	private List<Vector3> _points = new List<Vector3>();
 	private Transform _moveObject;
 	private Vector3 _lastPos;
 	private Vector3 _nextPos;
+	private Vector3 _lastSwitchPos;
+	private Vector3 _nextSwitchPos;
 
 //	private bool _switchInProgress = false;
 //	private List<Vector3> _switchPoints = new List<Vector3>();
@@ -37,7 +35,7 @@ public class MoveOnTrack : MonoBehaviour
 	private int _divisor = 20000;
 
 	// The spline, the user wants to move on:
-	private SplineLine _switchSpline;
+	public SplineLine _switchSpline;
 
 	// Use this for initialization
 	void Start () {
@@ -53,7 +51,6 @@ public class MoveOnTrack : MonoBehaviour
 
 		// Init SwitchSpline:
 		_switchSpline = _spline;
-		_sumSwitchTime = _switchTime;
 	}
 	
 	// Update is called once per frame
@@ -105,9 +102,6 @@ public class MoveOnTrack : MonoBehaviour
 
 
 				_switchSpline--;
-				_sumSwitchTime += _switchTime - _curSwitchTimeR; //(_sumSwitchTime - _curSwitchTime);
-				_curSwitchTimeR = 0.0f;
-				//_curSwitchTime = 0.0f;
 			}
 		}
 		else if(rightInput == true)
@@ -124,9 +118,6 @@ public class MoveOnTrack : MonoBehaviour
 
 
 				_switchSpline++;
-				_sumSwitchTime += _switchTime - _curSwitchTimeR; //(_sumSwitchTime - _curSwitchTime);
-				_curSwitchTimeR = 0.0f;
-				//_curSwitchTime = 0.0f;
 			}
 		}
 		// ---- INPUT END ----
@@ -145,7 +136,9 @@ public class MoveOnTrack : MonoBehaviour
 
 		// Update Object Position:
 		_lastPos = _nextPos;
+		_lastSwitchPos = _nextSwitchPos;
 		_nextPos = GetNextStepOnSpline(_spline, ref _splineIndex, ref _indexPart, _speed);
+		Debug.DrawRay(_nextPos, _moveObject.up, Color.green, 10.0f);
 
 		// Update Camera Position:
 		Vector3 camPos = GetPosOnSpline(_splineIndex, (float)_indexPart/(float)_divisor, _track.splineContainer.GetSpline(SplineLine.CENTER));
@@ -161,35 +154,35 @@ public class MoveOnTrack : MonoBehaviour
 
 		if(_switchSpline != _spline)
 		{
-			// Check the length of the current line segments:
-			float curSplineLen = GetLengthBetweenCtrlPoints(_spline, _splineIndex);
-			float switchSplineLen = GetLengthBetweenCtrlPoints(_switchSpline, _splineIndex);
+//			Vector3 switchDiff = GetNextStepOnSpline(_switchSpline, ref splineIndex, ref indexPart, _speed);
+//			Vector3 switchDiff = GetPosOnSpline(splineIndex, (float)indexPart / (float)_divisor, _track.splineContainer.GetSpline(_switchSpline));
+//			float diff = Vector3.Distance(_moveObject.position, switchDiff);
+			float diff = Vector3.Distance(_moveObject.position, _lastSwitchPos);
+//			Debug.DrawRay(switchDiff, _moveObject.up, Color.red, 10.0f);
 
-			float proportion = switchSplineLen / curSplineLen;
+			_nextSwitchPos = GetPosOnSpline(_splineIndex, (float)_indexPart / (float)_divisor, _track.splineContainer.GetSpline(_switchSpline));
+			Debug.DrawRay(_nextSwitchPos, _moveObject.up, Color.blue, 10.0f);
 
-			Vector3 nextSwitchPos = GetNextStepOnSpline(_switchSpline, ref splineIndex, ref indexPart, _speed * proportion);
 
-			_curSwitchTime += Time.deltaTime;
-			_curSwitchTimeR += Time.deltaTime;
-			if(_curSwitchTime < _sumSwitchTime)
+//			Debug.Log (diff);
+			if(diff > 0.012f)
 			{
-				float splineProp = _switchCurve.Evaluate(_curSwitchTime / _sumSwitchTime);
-
-				Vector3 posProp = (nextSwitchPos * splineProp) + (_nextPos * (1 - splineProp));
+//				Debug.Log ("Switch in progress...");
+//				Debug.Log ("Big Diff");
+				Vector3 posProp = Vector3.Slerp(_moveObject.position, _nextSwitchPos, _switchTime);
 
 				// Finally, move the object:
 				_moveObject.position = posProp;
 			}
-			else
+			// If I do not write explicitly "diff <= ...f", it does not work. Well done, C# -.-
+			else if(diff <= 0.012f)
 			{
 				_spline = _switchSpline;
 
-				_moveObject.position = nextSwitchPos;
-				_splineIndex = splineIndex;
-				_indexPart = indexPart;
-
-				_curSwitchTime = 0.0f;
-				_sumSwitchTime = _switchTime;
+				_moveObject.position = _nextSwitchPos;
+				Debug.Log ("Switch END");
+				_nextPos = _nextSwitchPos;
+				_lastPos = _nextPos;
 			}
 		}
 		else
@@ -201,7 +194,7 @@ public class MoveOnTrack : MonoBehaviour
 	private Vector3 GetNextStepOnSpline(SplineLine spline, ref int splineIndex, ref int indexPart, float speed)
 	{
 		List<Vector3> points = _track.splineContainer.GetSpline(spline);
-		Vector3 nextPos = _moveObject.position;
+		Vector3 nextPos = GetPosOnSpline(splineIndex, (float)_indexPart/(float)_divisor, points);
 		float curDist = 0;
 		
 		while(true)
