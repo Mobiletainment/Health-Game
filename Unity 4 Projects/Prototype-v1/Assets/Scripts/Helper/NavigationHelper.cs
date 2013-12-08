@@ -44,4 +44,14 @@ public class NavigationHelper : MonoBehaviour {
 		Debug.Log("MenuStack: " + menuStack);
 		menuStack._start = ParentMenu;
 	}
+
+    public static string GetDummyUsername()
+    {
+        return "test";
+    }
+
+    public static bool IsDummyUser(string user)
+    {
+        return GetDummyUsername().CompareTo(user) == 0;
+    }
 }
