@@ -76,5 +76,18 @@ public class UserManager : ScriptableObject
 		this.devToken = devToken;
 		PlayerPrefs.SetString("devToken", devToken);
 	}
+
+	public bool IsLoggedIn()
+	{
+		return !string.IsNullOrEmpty(GetUsername()) && !string.IsNullOrEmpty(GetDevToken());
+	}
+
+	public void ResetData()
+	{
+		Debug.Log("Caution: Deleting User Data");
+		SetDevToken("");
+		SetUsername("");
+		IsChild = false;
+	}
 	
 }

@@ -7,18 +7,28 @@ public class MenuStack : MonoBehaviour {
 	private static MenuStack _instance;
 	public Stack<GameObject> _panels;
 	public GameObject _start;
-	public GameObject _errorPanel; 
+	public GameObject _errorPanel;
 	void Awake ()
 	{
-		if (_instance == null)
-		{
-			_instance = GameObject.Find("ComponentManager").GetComponent<MenuStack>();
+		_instance = MenuStack.Instance;
+	}
 
-			if(_instance == null)
+	public static MenuStack Instance
+	{
+		get
+		{
+			if (_instance == null)
 			{
-				Debug.LogError("No MenuStack Component attached to ComponentManager! Error creating MenuStack Singleton");
+				_instance = GameObject.Find("ComponentManager").GetComponent<MenuStack>();
+				
+				if(_instance == null)
+				{
+					Debug.LogError("No MenuStack Component attached to ComponentManager! Error creating MenuStack Singleton");
+				}
+				
 			}
 
+			return _instance;
 		}
 	}
 

@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PopUpError : MonoBehaviour {
 	public UILabel _text;
+    public UILabel _title;
 	UISprite _sprite;
 	UIButton _button;
 	// Use this for initialization
@@ -15,7 +16,10 @@ public class PopUpError : MonoBehaviour {
 		Vector3 temp = _button.transform.localPosition;
 		temp.y = -_sprite.height / 2.0f+20;
 		_button.transform.localPosition = temp;
-		Debug.Log (_button.transform.localPosition);
+
+        _title.transform.localPosition = new Vector3(0.0f, _text.height, 0.0f);
+
+		//Debug.Log (_button.transform.localPosition);
 
 	}
 	void OnEnable(){
