@@ -6,7 +6,6 @@ public class NavigateForwardWithAction : NavigateForward
 
 	public ActionType PerformAction = ActionType.NotSpecified;
 	public UIInput input;
-	public UILabel errorMessage;
 	public UILabel output;
 
 
@@ -89,8 +88,6 @@ public class NavigateForwardWithAction : NavigateForward
 		ResetButton ();
 		//TODO: Show Popup with error message 
 		MenuStack.ShowError (response);
-
-		errorMessage.text = response;
 	}
 
 	void ActionCompleted ()
