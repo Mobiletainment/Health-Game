@@ -21,34 +21,35 @@ using System.Net;
 [System.Serializable]
 public class ECPNManager: MonoBehaviour
 {
-    [SerializeField]
-    private UserManager
-        userManager;
+    public UserManager UserManager
+    {
+        get
+        {
+            return UserManager.Instance;
+        }
+    }
 
     public string GetUsername()
     {
-        return userManager.GetUsername();
+        return UserManager.GetUsername();
     }
 
     public void RegisterUser(string username, bool isChild)
     {
         //callback ("RegisterUser");
-        userManager.IsChild = isChild; //child/parent handlingSSL: unable to obtain common name from peer certificate
-        userManager.SetUsername(username);
+        UserManager.IsChild = isChild; //child/parent handlingSSL: unable to obtain common name from peer certificate
+        UserManager.SetUsername(username);
         RequestDeviceToken();
-
     }
 
     void Start()
     {
-        userManager = ScriptableObject.CreateInstance<UserManager>();
         ServicePointManager.ServerCertificateValidationCallback = Validator;
 
     }
 
     public static void Instate()
     {
-        
         ServicePointManager.ServerCertificateValidationCallback = Validator;
     }
 
@@ -91,9 +92,9 @@ public class ECPNManager: MonoBehaviour
             playerActivityContext = actClass.GetStatic<AndroidJavaObject>("currentActivity");
             //callback("RequestDeviceToken4");
         }
-        AndroidJavaClass jc = new AndroidJavaClass(userManager.packageName + ".GCMRegistration");
+        AndroidJavaClass jc = new AndroidJavaClass(UserManager.packageName + ".GCMRegistration");
         //callback("RequestDeviceToken5");
-        jc.CallStatic("RegisterDevice", playerActivityContext, userManager.GoogleCloudMessageProjectID);
+        jc.CallStatic("RegisterDevice", playerActivityContext, UserManager.GoogleCloudMessageProjectID);
         //callback("RequestDeviceToken6");
         #endif
         #if UNITY_IPHONE
@@ -115,7 +116,7 @@ public class ECPNManager: MonoBehaviour
         #endif
         #if UNITY_IPHONE
         NotificationServices.UnregisterForRemoteNotifications();    
-        StartCoroutine(DeleteDeviceFromServer(userManager.GetDevToken()));
+        StartCoroutine(DeleteDeviceFromServer(UserManager.GetDevToken()));
         #endif
         #if UNITY_ANDROID && !UNITY_EDITOR
         // Obtain unity context
@@ -123,7 +124,7 @@ public class ECPNManager: MonoBehaviour
             AndroidJavaClass actClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
             playerActivityContext = actClass.GetStatic<AndroidJavaObject>("currentActivity");
         }
-        AndroidJavaClass jc = new AndroidJavaClass(userManager.packageName + ".GCMRegistration");
+        AndroidJavaClass jc = new AndroidJavaClass(UserManager.packageName + ".GCMRegistration");
         jc.CallStatic("UnregisterDevice",playerActivityContext);
         #endif
     }
@@ -184,7 +185,7 @@ public class ECPNManager: MonoBehaviour
      */ 
     private IEnumerator StoreDeviceID(string rID, string os)
     {
-        userManager.SetDevToken(rID);
+        UserManager.SetDevToken(rID);
         WWWForm form = CreateDefaultForm();
         AddFormField(form, "OS", os);
 
@@ -260,7 +261,8 @@ public class ECPNManager: MonoBehaviour
 
         if (w.error == null)
         {
-            userManager.SetDevToken("");
+            UserManager.SetDevToken("");
+
         }
 
         HandleResponse(w);
@@ -319,9 +321,9 @@ public class ECPNManager: MonoBehaviour
         WWWForm form = new WWWForm();
 
         AddFormField(form, "user", SystemInfo.deviceUniqueIdentifier);
-        AddFormField(form, "regID", userManager.GetDevToken());
-        AddFormField(form, "username", userManager.GetUsername());
-        AddFormField(form, "isChild", userManager.IsChild.ToString());
+        AddFormField(form, "regID", UserManager.GetDevToken());
+        AddFormField(form, "username", UserManager.GetUsername());
+        AddFormField(form, "isChild", UserManager.IsChild.ToString());
 
         return form;
     }
@@ -340,7 +342,7 @@ public class ECPNManager: MonoBehaviour
     
     WWW CreateWebRequest(string targetAddress, WWWForm form)
     {
-        string location = userManager.GetServerPath() + targetAddress;
+        string location = UserManager.GetServerPath() + targetAddress;
         WWW w = new WWW(location, form);
 
         Debug.Log("Web request to location: " + location);

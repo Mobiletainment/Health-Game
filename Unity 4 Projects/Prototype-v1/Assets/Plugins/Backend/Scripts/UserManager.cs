@@ -4,9 +4,35 @@ using System.Collections;
 
 
 [Serializable]
-public class UserManager : ScriptableObject
+public class UserManager : MonoBehaviour
 {
-	[SerializeField]
+    private static UserManager instance;
+
+    public static UserManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = GameObject.Find("ComponentManager").GetComponent<UserManager>();
+                
+                if(instance == null)
+                {
+                    Debug.LogError("No UserManager Component attached to ComponentManager! Error creating UserManager Singleton");
+                }
+                
+            }
+            
+            return instance;
+        }
+    }
+
+    void Awake()
+    {
+        instance = UserManager.Instance;
+    }
+        
+        [SerializeField]
 	public string GoogleCloudMessageProjectID = "368000005971"; // Insert your Google Project ID
 
 	[SerializeField]
@@ -22,12 +48,11 @@ public class UserManager : ScriptableObject
 
 	public void OnEnable()
 	{
-		Debug.Log("Getting UserData");
-		hideFlags = HideFlags.None;
+		Instance.username = PlayerPrefs.GetString("username");
+        Instance.isChild = Convert.ToBoolean(PlayerPrefs.GetInt("isChild"));
+        Instance.devToken = PlayerPrefs.GetString("devToken");
 
-		username = PlayerPrefs.GetString("username");
-		isChild = Convert.ToBoolean(PlayerPrefs.GetInt("isChild"));
-		devToken = PlayerPrefs.GetString("devToken");
+        Debug.Log(String.Format("Getting UserData OnEnable: User={0}, isChild={1}, devToken={2}", Instance.username, Instance.isChild, Instance.devToken));
 	}
 
 	[SerializeField]
@@ -43,12 +68,12 @@ public class UserManager : ScriptableObject
 	{
 		get
 		{
-			return isChild;
+            return Instance.isChild;
 		}
 		set
 		{
-			isChild = value;
-			PlayerPrefs.SetInt("isChild", Convert.ToInt32(isChild));
+            Instance.isChild = value;
+			PlayerPrefs.SetInt("isChild", Convert.ToInt32(value));
 		}
 	}
 
@@ -57,23 +82,23 @@ public class UserManager : ScriptableObject
 	 */
 	public string GetDevToken ()
 	{
-		return devToken;
+        return Instance.devToken;
 	}
 	
 	public string GetUsername ()
 	{
-		return username;
+        return Instance.username;
 	}
 	
 	public void SetUsername (string username)
 	{
-		this.username = username;
+        Instance.username = username;
 		PlayerPrefs.SetString("username", username);
 	}
 
 	public void SetDevToken (string devToken)
 	{
-		this.devToken = devToken;
+        Instance.devToken = devToken;
 		PlayerPrefs.SetString("devToken", devToken);
 	}
 
