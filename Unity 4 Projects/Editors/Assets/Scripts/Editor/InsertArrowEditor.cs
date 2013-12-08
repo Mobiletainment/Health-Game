@@ -99,7 +99,7 @@ public class InsertArrowEditor : Editor
 		InsertArrowScript[] arrows = _target.trackReference.changeArrowContainer.GetComponentsInChildren<InsertArrowScript>();
 		foreach(InsertArrowScript insertArrow in arrows)
 		{
-			insertArrow.transform.position = insertArrow.trackPart.ReferenceObjectStart.transform.position + Vector3.up;
+			insertArrow.transform.position = insertArrow.trackPart.ReferenceObjectStart.transform.position + Vector3.up * 0.2f;
 		}
 		
 		// Add insertion Arrow over the new trackPart:

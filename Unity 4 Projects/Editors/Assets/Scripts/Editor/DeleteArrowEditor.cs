@@ -89,7 +89,7 @@ public class DeleteArrowEditor : Editor
 		{
 			//Debug.Log("Del Arrow Track Part Name: " + deleteArrow.trackPart.Name, deleteArrow);
 			Vector3 pos = TrackEditor.CalcCenterPos(deleteArrow.trackPart.transform);
-			deleteArrow.transform.position = pos + Vector3.up;
+			deleteArrow.transform.position = pos + Vector3.up * 0.2f;
 		}
 		
 		// Destroy the TrackPart:

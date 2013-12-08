@@ -33,6 +33,11 @@ public class TrackEditor : Editor
 			// Do not initialize anything, if the target is a prefab. (It won't work anyway.)
 			return;
 		}
+		else if(_data.gameObject.activeInHierarchy == false)
+		{
+			// Do not init anything, if the target is deactivated. (It won't work anyway.)
+			return;
+		}
 		
 		// Initialize the trackPart Names:
 		_partNames = new List<string>();
@@ -139,6 +144,11 @@ public class TrackEditor : Editor
 			EditorGUILayout.LabelField("This editor is deactivated for prefabs.");
 			return;
 		}
+		else if(_data.gameObject.activeInHierarchy == false)
+		{
+			// Do not show anything, if the target is deactivated. (It won't work anyway.)
+			return;
+		}
 
 		// --- GUI START ---
 		EditorGUILayout.Space();
@@ -202,6 +212,10 @@ public class TrackEditor : Editor
 
 			// Config, if splines shall be shown or not:
 			_data.showSplines = EditorGUILayout.Toggle("Show Splines: ", _data.showSplines);
+
+			// Config the environment object (Stones, Shells, etc.) that are put on the track for export:
+			// TODO: If this is changed to a list, presenting must be rewritten...
+			_data.environmentObject = EditorGUILayout.ObjectField("Environment: ", _data.environmentObject, typeof(GameObject), false) as GameObject;
 
 			EditorGUI.indentLevel--;
 		}
@@ -269,7 +283,8 @@ public class TrackEditor : Editor
 				
 				if(_data.arrowAsset != null)
 				{
-					Transform arrowTrans = Instantiate(_data.arrowAsset, centerPos + Vector3.up, Quaternion.identity) as Transform;
+					Transform arrowTrans = Instantiate(_data.arrowAsset, centerPos + Vector3.up * 0.2f, Quaternion.identity) as Transform;
+					arrowTrans.localScale = new Vector3(0.2f, 0.2f, 0.2f);
 					arrow = arrowTrans.gameObject;
 				}
 				else // No arrow asset has been set:
@@ -555,7 +570,7 @@ public class TrackEditor : Editor
 				_savedTrackNames.Add(_data.trackName);
 				
 				Debug.Log("Track has been saved as Assets/Resources/Prefabs/SavedTracks/"+_data.trackName+".prefab\n" +
-					"Note: This is an Debug-Asset that can be loaded and changed by the editor at any time.\n" +
+					"Note: This is a Debug-Asset that can be loaded and changed by the editor at any time.\n" +
 					"For a prefab Track Asset use the \"Export Clean Track\" Button.", prefab);
 			}
 			GUILayout.EndHorizontal();
@@ -564,18 +579,47 @@ public class TrackEditor : Editor
 			GUILayout.Space(13); // IndentLevel
 			if(GUILayout.Button("Export Clean Track (Prefab)"))
 			{
+				// First, create the environment on the track:
+				GameObject realEnvContainer = new GameObject("EnvironmentContainer");
+				realEnvContainer.transform.parent = _data.gameObject.transform;
+
+				foreach(Transform trackPart in _data.gameObject.transform)
+				{
+					TrackPartScript tps = trackPart.gameObject.GetComponent<TrackPartScript>();
+					// Not all items in the masterTrack are TrackParts. (e.g. the EnvironmentContainer is not...)
+					if(tps != null)
+					{
+						// Replace the Environment placeholder with the real objects:
+						foreach(Transform envTrans in tps.ReferenceObjectEnvironment.transform)
+						{
+							// TODO: if the environmentObject will be changed to list, a random object must be chosen
+							// from this list...
+							envTrans.RotateAround(envTrans.position, envTrans.up, Random.Range(0.0f, 360.0f));
+							GameObject realEnv = Instantiate(_data.environmentObject, envTrans.position, envTrans.rotation) as GameObject;
+							realEnv.transform.parent = realEnvContainer.transform;
+						}
+					}
+				}
+
+				// Now create the prefab and delete the unused place-holder assets:
 				// TODO: Hardcoded Path -> Make it configureable (instead of "Assets/Resources/Prefabs/SavedTracks/")
 				GameObject prefab = PrefabUtility.CreatePrefab("Assets/Resources/Prefabs/CleanTracks/"+_data.trackName+".prefab", _data.gameObject);
 				// TODO: Warn, if the asset already exists it will be overwritten!
-				
+
 				foreach(Transform trackPart in prefab.transform)
 				{
 					TrackPartScript tps = trackPart.GetComponent<TrackPartScript>();
-					DestroyImmediate(tps.ReferenceObjectStart, true);
-					DestroyImmediate(tps.ReferenceObjectEnd, true);
-					DestroyImmediate(tps.ReferenceObjectSpline, true);
-					DestroyImmediate(tps.ReferenceObjectPickup, true);
-					DestroyImmediate(trackPart.GetComponent<TrackPartScript>(), true);
+					// Check, if the item is realy a TPS:
+					if(tps != null)
+					{
+						DestroyImmediate(tps.ReferenceObjectStart, true);
+						DestroyImmediate(tps.ReferenceObjectEnd, true);
+						DestroyImmediate(tps.ReferenceObjectSpline, true);
+						DestroyImmediate(tps.ReferenceObjectPickup, true);
+						DestroyImmediate(tps.ReferenceObjectEnvironment, true);
+
+						DestroyImmediate(trackPart.GetComponent<TrackPartScript>(), true);
+					}
 				}
 
 				// Remove the Editor-Script:
@@ -618,6 +662,9 @@ public class TrackEditor : Editor
 						}
 					}
 				}
+
+				// Finally remove the environment assets from the debug-track in the scene, that was created before:
+				DestroyImmediate(realEnvContainer);
 				
 				Debug.Log("Track has been saved as Assets/Resources/Prefabs/CleanTracks/"+_data.trackName+".prefab", prefab);
 			}
@@ -746,7 +793,8 @@ public class TrackEditor : Editor
 		
 		if(trackReference.arrowAsset != null)
 		{
-			Transform arrowTrans = Instantiate(trackReference.arrowAsset, trackPart.ReferenceObjectStart.transform.position + Vector3.up, Quaternion.identity) as Transform;
+			Transform arrowTrans = Instantiate(trackReference.arrowAsset, trackPart.ReferenceObjectStart.transform.position + Vector3.up * 0.2f, Quaternion.identity) as Transform;
+			arrowTrans.localScale = new Vector3(0.2f, 0.2f, 0.2f);
 			arrow = arrowTrans.gameObject;
 		}
 		else // No arrow asset has been set:

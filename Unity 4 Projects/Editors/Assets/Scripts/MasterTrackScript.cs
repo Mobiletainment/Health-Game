@@ -55,4 +55,7 @@ public class MasterTrackScript : MonoBehaviour
 	public bool showSplines = false;
 	// The runTime object to draw the splines:
 	public GameObject splineObject = null;
+	// A list of environment objects, that will be placed on the track when exporting to prefab:
+	// TODO: This will be a list later on...
+	public GameObject environmentObject = null;
 }

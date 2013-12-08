@@ -16,6 +16,9 @@ public class TrackPartScript : MonoBehaviour
 	private GameObject _referenceObjectSpline;
 	[SerializeField]
 	private GameObject _referenceObjectPickup;
+	[SerializeField]
+	private GameObject _referenceObjectEnvironment;
+	// TODO: One for SeaWeed...
 
 	[SerializeField]
 	private SplineContainerTrans _splines = new SplineContainerTrans();
@@ -51,6 +54,12 @@ public class TrackPartScript : MonoBehaviour
 	{
 		get { return _referenceObjectPickup; }
 		set { _referenceObjectPickup = value; }
+	}
+
+	public GameObject ReferenceObjectEnvironment
+	{
+		get { return _referenceObjectEnvironment; }
+		set { _referenceObjectEnvironment = value; }
 	}
 
 	public SplineContainerTrans GetSplineContainer()

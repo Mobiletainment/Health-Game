@@ -1,0 +1,975 @@
+fileFormatVersion: 2
+guid: 5bccabb0f301a28419a055be97ea64dd
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: a
+    100002: a 1
+    100004: a 10
+    100006: a 11
+    100008: a 2
+    100010: a 3
+    100012: a 4
+    100014: a 5
+    100016: a 6
+    100018: a 7
+    100020: a 8
+    100022: a 9
+    100024: //RootNode
+    100026: b
+    100028: b 1
+    100030: b 10
+    100032: b 11
+    100034: b 2
+    100036: b 3
+    100038: b 4
+    100040: b 5
+    100042: b 6
+    100044: b 7
+    100046: b 8
+    100048: b 9
+    100050: c
+    100052: c 1
+    100054: c 2
+    100056: c 3
+    100058: c 4
+    100060: c 5
+    100062: c 6
+    100064: d
+    100066: env_placeholder_geo1
+    100068: env_placeholder_geo13
+    100070: env_placeholder_geo178
+    100072: env_placeholder_geo179
+    100074: env_placeholder_geo180
+    100076: env_placeholder_geo181
+    100078: env_placeholder_geo182
+    100080: env_placeholder_geo183
+    100082: env_placeholder_geo184
+    100084: env_placeholder_geo185
+    100086: env_placeholder_geo186
+    100088: env_placeholder_geo187
+    100090: env_placeholder_geo188
+    100092: env_placeholder_geo189
+    100094: env_placeholder_geo190
+    100096: env_placeholder_geo191
+    100098: env_placeholder_geo192
+    100100: env_placeholder_geo193
+    100102: env_placeholder_geo194
+    100104: env_placeholder_geo195
+    100106: env_placeholder_geo196
+    100108: env_placeholder_geo197
+    100110: env_placeholder_geo198
+    100112: env_placeholder_geo199
+    100114: env_placeholder_geo20
+    100116: env_placeholder_geo200
+    100118: env_placeholder_geo201
+    100120: env_placeholder_geo202
+    100122: env_placeholder_geo203
+    100124: env_placeholder_geo204
+    100126: env_placeholder_geo205
+    100128: env_placeholder_geo206
+    100130: env_placeholder_geo207
+    100132: env_placeholder_geo208
+    100134: env_placeholder_geo209
+    100136: env_placeholder_geo210
+    100138: env_placeholder_geo211
+    100140: env_placeholder_geo212
+    100142: env_placeholder_geo213
+    100144: env_placeholder_geo214
+    100146: env_placeholder_geo215
+    100148: env_placeholder_geo216
+    100150: env_placeholder_geo217
+    100152: env_placeholder_geo218
+    100154: env_placeholder_geo219
+    100156: env_placeholder_geo220
+    100158: env_placeholder_geo221
+    100160: env_placeholder_geo222
+    100162: env_placeholder_geo223
+    100164: env_placeholder_geo224
+    100166: env_placeholder_geo225
+    100168: env_placeholder_geo226
+    100170: env_placeholder_geo227
+    100172: env_placeholder_geo229
+    100174: env_placeholder_geo230
+    100176: env_placeholder_geo231
+    100178: env_placeholder_geo232
+    100180: env_placeholder_geo233
+    100182: env_placeholder_geo234
+    100184: env_placeholder_geo235
+    100186: env_placeholder_geo236
+    100188: env_placeholder_geo238
+    100190: env_placeholder_geo239
+    100192: env_placeholder_geo26
+    100194: env_placeholder_geo32
+    100196: env_placeholder_geo38
+    100198: env_placeholder_geo44
+    100200: env_placeholder_geo50
+    100202: env_placeholder_geo56
+    100204: env_placeholder_geo62
+    100206: env_placeholder_geo68
+    100208: env_placeholder_geo7
+    100210: env_placeholder_grp3
+    100212: group1
+    100214: group10
+    100216: group11
+    100218: group2
+    100220: group3
+    100222: group36
+    100224: group37
+    100226: group38
+    100228: group39
+    100230: group4
+    100232: group40
+    100234: group41
+    100236: group42
+    100238: group43
+    100240: group44
+    100242: group45
+    100244: group5
+    100246: group6
+    100248: group69
+    100250: group7
+    100252: group70
+    100254: group8
+    100256: group9
+    100258: pickup_grp3
+    100260: pivotpoints_grp4
+    100262: pSphere1
+    100264: pSphere11
+    100266: pSphere133
+    100268: pSphere134
+    100270: pSphere135
+    100272: pSphere136
+    100274: pSphere137
+    100276: pSphere138
+    100278: pSphere139
+    100280: pSphere140
+    100282: pSphere141
+    100284: pSphere142
+    100286: pSphere143
+    100288: pSphere144
+    100290: pSphere145
+    100292: pSphere146
+    100294: pSphere147
+    100296: pSphere148
+    100298: pSphere149
+    100300: pSphere150
+    100302: pSphere151
+    100304: pSphere152
+    100306: pSphere153
+    100308: pSphere154
+    100310: pSphere155
+    100312: pSphere156
+    100314: pSphere157
+    100316: pSphere158
+    100318: pSphere159
+    100320: pSphere16
+    100322: pSphere160
+    100324: pSphere161
+    100326: pSphere162
+    100328: pSphere163
+    100330: pSphere164
+    100332: pSphere165
+    100334: pSphere166
+    100336: pSphere167
+    100338: pSphere168
+    100340: pSphere169
+    100342: pSphere170
+    100344: pSphere171
+    100346: pSphere172
+    100348: pSphere173
+    100350: pSphere174
+    100352: pSphere175
+    100354: pSphere176
+    100356: pSphere21
+    100358: pSphere26
+    100360: pSphere31
+    100362: pSphere36
+    100364: pSphere41
+    100366: pSphere46
+    100368: pSphere51
+    100370: pSphere6
+    100372: seaweed_geo1
+    100374: seaweed_geo2
+    100376: seaweed_geo3
+    100378: seaweed_geo4
+    100380: seaweed_geo5
+    100382: seaweed_geo6
+    100384: seaweed_geo7
+    100386: seaweed_geo8
+    100388: seaweed_geo9
+    100390: seaweed_links
+    100392: seaweed_rechts
+    100394: seaweedgrp3
+    100396: spline_points_grp4
+    100398: startpoint
+    100400: startpoint1
+    100402: streckenteil_rechtskurve_geo1
+    400000: a
+    400002: a 1
+    400004: a 10
+    400006: a 11
+    400008: a 2
+    400010: a 3
+    400012: a 4
+    400014: a 5
+    400016: a 6
+    400018: a 7
+    400020: a 8
+    400022: a 9
+    400024: //RootNode
+    400026: b
+    400028: b 1
+    400030: b 10
+    400032: b 11
+    400034: b 2
+    400036: b 3
+    400038: b 4
+    400040: b 5
+    400042: b 6
+    400044: b 7
+    400046: b 8
+    400048: b 9
+    400050: c
+    400052: c 1
+    400054: c 2
+    400056: c 3
+    400058: c 4
+    400060: c 5
+    400062: c 6
+    400064: d
+    400066: env_placeholder_geo1
+    400068: env_placeholder_geo13
+    400070: env_placeholder_geo178
+    400072: env_placeholder_geo179
+    400074: env_placeholder_geo180
+    400076: env_placeholder_geo181
+    400078: env_placeholder_geo182
+    400080: env_placeholder_geo183
+    400082: env_placeholder_geo184
+    400084: env_placeholder_geo185
+    400086: env_placeholder_geo186
+    400088: env_placeholder_geo187
+    400090: env_placeholder_geo188
+    400092: env_placeholder_geo189
+    400094: env_placeholder_geo190
+    400096: env_placeholder_geo191
+    400098: env_placeholder_geo192
+    400100: env_placeholder_geo193
+    400102: env_placeholder_geo194
+    400104: env_placeholder_geo195
+    400106: env_placeholder_geo196
+    400108: env_placeholder_geo197
+    400110: env_placeholder_geo198
+    400112: env_placeholder_geo199
+    400114: env_placeholder_geo20
+    400116: env_placeholder_geo200
+    400118: env_placeholder_geo201
+    400120: env_placeholder_geo202
+    400122: env_placeholder_geo203
+    400124: env_placeholder_geo204
+    400126: env_placeholder_geo205
+    400128: env_placeholder_geo206
+    400130: env_placeholder_geo207
+    400132: env_placeholder_geo208
+    400134: env_placeholder_geo209
+    400136: env_placeholder_geo210
+    400138: env_placeholder_geo211
+    400140: env_placeholder_geo212
+    400142: env_placeholder_geo213
+    400144: env_placeholder_geo214
+    400146: env_placeholder_geo215
+    400148: env_placeholder_geo216
+    400150: env_placeholder_geo217
+    400152: env_placeholder_geo218
+    400154: env_placeholder_geo219
+    400156: env_placeholder_geo220
+    400158: env_placeholder_geo221
+    400160: env_placeholder_geo222
+    400162: env_placeholder_geo223
+    400164: env_placeholder_geo224
+    400166: env_placeholder_geo225
+    400168: env_placeholder_geo226
+    400170: env_placeholder_geo227
+    400172: env_placeholder_geo229
+    400174: env_placeholder_geo230
+    400176: env_placeholder_geo231
+    400178: env_placeholder_geo232
+    400180: env_placeholder_geo233
+    400182: env_placeholder_geo234
+    400184: env_placeholder_geo235
+    400186: env_placeholder_geo236
+    400188: env_placeholder_geo238
+    400190: env_placeholder_geo239
+    400192: env_placeholder_geo26
+    400194: env_placeholder_geo32
+    400196: env_placeholder_geo38
+    400198: env_placeholder_geo44
+    400200: env_placeholder_geo50
+    400202: env_placeholder_geo56
+    400204: env_placeholder_geo62
+    400206: env_placeholder_geo68
+    400208: env_placeholder_geo7
+    400210: env_placeholder_grp3
+    400212: group1
+    400214: group10
+    400216: group11
+    400218: group2
+    400220: group3
+    400222: group36
+    400224: group37
+    400226: group38
+    400228: group39
+    400230: group4
+    400232: group40
+    400234: group41
+    400236: group42
+    400238: group43
+    400240: group44
+    400242: group45
+    400244: group5
+    400246: group6
+    400248: group69
+    400250: group7
+    400252: group70
+    400254: group8
+    400256: group9
+    400258: pickup_grp3
+    400260: pivotpoints_grp4
+    400262: pSphere1
+    400264: pSphere11
+    400266: pSphere133
+    400268: pSphere134
+    400270: pSphere135
+    400272: pSphere136
+    400274: pSphere137
+    400276: pSphere138
+    400278: pSphere139
+    400280: pSphere140
+    400282: pSphere141
+    400284: pSphere142
+    400286: pSphere143
+    400288: pSphere144
+    400290: pSphere145
+    400292: pSphere146
+    400294: pSphere147
+    400296: pSphere148
+    400298: pSphere149
+    400300: pSphere150
+    400302: pSphere151
+    400304: pSphere152
+    400306: pSphere153
+    400308: pSphere154
+    400310: pSphere155
+    400312: pSphere156
+    400314: pSphere157
+    400316: pSphere158
+    400318: pSphere159
+    400320: pSphere16
+    400322: pSphere160
+    400324: pSphere161
+    400326: pSphere162
+    400328: pSphere163
+    400330: pSphere164
+    400332: pSphere165
+    400334: pSphere166
+    400336: pSphere167
+    400338: pSphere168
+    400340: pSphere169
+    400342: pSphere170
+    400344: pSphere171
+    400346: pSphere172
+    400348: pSphere173
+    400350: pSphere174
+    400352: pSphere175
+    400354: pSphere176
+    400356: pSphere21
+    400358: pSphere26
+    400360: pSphere31
+    400362: pSphere36
+    400364: pSphere41
+    400366: pSphere46
+    400368: pSphere51
+    400370: pSphere6
+    400372: seaweed_geo1
+    400374: seaweed_geo2
+    400376: seaweed_geo3
+    400378: seaweed_geo4
+    400380: seaweed_geo5
+    400382: seaweed_geo6
+    400384: seaweed_geo7
+    400386: seaweed_geo8
+    400388: seaweed_geo9
+    400390: seaweed_links
+    400392: seaweed_rechts
+    400394: seaweedgrp3
+    400396: spline_points_grp4
+    400398: startpoint
+    400400: startpoint1
+    400402: streckenteil_rechtskurve_geo1
+    2300000: a
+    2300002: a 1
+    2300004: a 10
+    2300006: a 11
+    2300008: a 2
+    2300010: a 3
+    2300012: a 4
+    2300014: a 5
+    2300016: a 6
+    2300018: a 7
+    2300020: a 8
+    2300022: a 9
+    2300024: b
+    2300026: b 1
+    2300028: b 10
+    2300030: b 11
+    2300032: b 2
+    2300034: b 3
+    2300036: b 4
+    2300038: b 5
+    2300040: b 6
+    2300042: b 7
+    2300044: b 8
+    2300046: b 9
+    2300048: c
+    2300050: c 1
+    2300052: c 2
+    2300054: c 3
+    2300056: c 4
+    2300058: c 5
+    2300060: c 6
+    2300062: d
+    2300064: env_placeholder_geo1
+    2300066: env_placeholder_geo13
+    2300068: env_placeholder_geo178
+    2300070: env_placeholder_geo179
+    2300072: env_placeholder_geo180
+    2300074: env_placeholder_geo181
+    2300076: env_placeholder_geo182
+    2300078: env_placeholder_geo183
+    2300080: env_placeholder_geo184
+    2300082: env_placeholder_geo185
+    2300084: env_placeholder_geo186
+    2300086: env_placeholder_geo187
+    2300088: env_placeholder_geo188
+    2300090: env_placeholder_geo189
+    2300092: env_placeholder_geo190
+    2300094: env_placeholder_geo191
+    2300096: env_placeholder_geo192
+    2300098: env_placeholder_geo193
+    2300100: env_placeholder_geo194
+    2300102: env_placeholder_geo195
+    2300104: env_placeholder_geo196
+    2300106: env_placeholder_geo197
+    2300108: env_placeholder_geo198
+    2300110: env_placeholder_geo199
+    2300112: env_placeholder_geo20
+    2300114: env_placeholder_geo200
+    2300116: env_placeholder_geo201
+    2300118: env_placeholder_geo202
+    2300120: env_placeholder_geo203
+    2300122: env_placeholder_geo204
+    2300124: env_placeholder_geo205
+    2300126: env_placeholder_geo206
+    2300128: env_placeholder_geo207
+    2300130: env_placeholder_geo208
+    2300132: env_placeholder_geo209
+    2300134: env_placeholder_geo210
+    2300136: env_placeholder_geo211
+    2300138: env_placeholder_geo212
+    2300140: env_placeholder_geo213
+    2300142: env_placeholder_geo214
+    2300144: env_placeholder_geo215
+    2300146: env_placeholder_geo216
+    2300148: env_placeholder_geo217
+    2300150: env_placeholder_geo218
+    2300152: env_placeholder_geo219
+    2300154: env_placeholder_geo220
+    2300156: env_placeholder_geo221
+    2300158: env_placeholder_geo222
+    2300160: env_placeholder_geo223
+    2300162: env_placeholder_geo224
+    2300164: env_placeholder_geo225
+    2300166: env_placeholder_geo226
+    2300168: env_placeholder_geo227
+    2300170: env_placeholder_geo229
+    2300172: env_placeholder_geo230
+    2300174: env_placeholder_geo231
+    2300176: env_placeholder_geo232
+    2300178: env_placeholder_geo233
+    2300180: env_placeholder_geo234
+    2300182: env_placeholder_geo235
+    2300184: env_placeholder_geo236
+    2300186: env_placeholder_geo238
+    2300188: env_placeholder_geo239
+    2300190: env_placeholder_geo26
+    2300192: env_placeholder_geo32
+    2300194: env_placeholder_geo38
+    2300196: env_placeholder_geo44
+    2300198: env_placeholder_geo50
+    2300200: env_placeholder_geo56
+    2300202: env_placeholder_geo62
+    2300204: env_placeholder_geo68
+    2300206: env_placeholder_geo7
+    2300208: pSphere1
+    2300210: pSphere11
+    2300212: pSphere133
+    2300214: pSphere134
+    2300216: pSphere135
+    2300218: pSphere136
+    2300220: pSphere137
+    2300222: pSphere138
+    2300224: pSphere139
+    2300226: pSphere140
+    2300228: pSphere141
+    2300230: pSphere142
+    2300232: pSphere143
+    2300234: pSphere144
+    2300236: pSphere145
+    2300238: pSphere146
+    2300240: pSphere147
+    2300242: pSphere148
+    2300244: pSphere149
+    2300246: pSphere150
+    2300248: pSphere151
+    2300250: pSphere152
+    2300252: pSphere153
+    2300254: pSphere154
+    2300256: pSphere155
+    2300258: pSphere156
+    2300260: pSphere157
+    2300262: pSphere158
+    2300264: pSphere159
+    2300266: pSphere16
+    2300268: pSphere160
+    2300270: pSphere161
+    2300272: pSphere162
+    2300274: pSphere163
+    2300276: pSphere164
+    2300278: pSphere165
+    2300280: pSphere166
+    2300282: pSphere167
+    2300284: pSphere168
+    2300286: pSphere169
+    2300288: pSphere170
+    2300290: pSphere171
+    2300292: pSphere172
+    2300294: pSphere173
+    2300296: pSphere174
+    2300298: pSphere175
+    2300300: pSphere176
+    2300302: pSphere21
+    2300304: pSphere26
+    2300306: pSphere31
+    2300308: pSphere36
+    2300310: pSphere41
+    2300312: pSphere46
+    2300314: pSphere51
+    2300316: pSphere6
+    2300318: seaweed_geo1
+    2300320: seaweed_geo2
+    2300322: seaweed_geo3
+    2300324: seaweed_geo4
+    2300326: seaweed_geo5
+    2300328: seaweed_geo6
+    2300330: seaweed_geo7
+    2300332: seaweed_geo8
+    2300334: seaweed_geo9
+    2300336: startpoint
+    2300338: startpoint1
+    2300340: streckenteil_rechtskurve_geo1
+    3300000: a
+    3300002: a 1
+    3300004: a 10
+    3300006: a 11
+    3300008: a 2
+    3300010: a 3
+    3300012: a 4
+    3300014: a 5
+    3300016: a 6
+    3300018: a 7
+    3300020: a 8
+    3300022: a 9
+    3300024: b
+    3300026: b 1
+    3300028: b 10
+    3300030: b 11
+    3300032: b 2
+    3300034: b 3
+    3300036: b 4
+    3300038: b 5
+    3300040: b 6
+    3300042: b 7
+    3300044: b 8
+    3300046: b 9
+    3300048: c
+    3300050: c 1
+    3300052: c 2
+    3300054: c 3
+    3300056: c 4
+    3300058: c 5
+    3300060: c 6
+    3300062: d
+    3300064: env_placeholder_geo1
+    3300066: env_placeholder_geo13
+    3300068: env_placeholder_geo178
+    3300070: env_placeholder_geo179
+    3300072: env_placeholder_geo180
+    3300074: env_placeholder_geo181
+    3300076: env_placeholder_geo182
+    3300078: env_placeholder_geo183
+    3300080: env_placeholder_geo184
+    3300082: env_placeholder_geo185
+    3300084: env_placeholder_geo186
+    3300086: env_placeholder_geo187
+    3300088: env_placeholder_geo188
+    3300090: env_placeholder_geo189
+    3300092: env_placeholder_geo190
+    3300094: env_placeholder_geo191
+    3300096: env_placeholder_geo192
+    3300098: env_placeholder_geo193
+    3300100: env_placeholder_geo194
+    3300102: env_placeholder_geo195
+    3300104: env_placeholder_geo196
+    3300106: env_placeholder_geo197
+    3300108: env_placeholder_geo198
+    3300110: env_placeholder_geo199
+    3300112: env_placeholder_geo20
+    3300114: env_placeholder_geo200
+    3300116: env_placeholder_geo201
+    3300118: env_placeholder_geo202
+    3300120: env_placeholder_geo203
+    3300122: env_placeholder_geo204
+    3300124: env_placeholder_geo205
+    3300126: env_placeholder_geo206
+    3300128: env_placeholder_geo207
+    3300130: env_placeholder_geo208
+    3300132: env_placeholder_geo209
+    3300134: env_placeholder_geo210
+    3300136: env_placeholder_geo211
+    3300138: env_placeholder_geo212
+    3300140: env_placeholder_geo213
+    3300142: env_placeholder_geo214
+    3300144: env_placeholder_geo215
+    3300146: env_placeholder_geo216
+    3300148: env_placeholder_geo217
+    3300150: env_placeholder_geo218
+    3300152: env_placeholder_geo219
+    3300154: env_placeholder_geo220
+    3300156: env_placeholder_geo221
+    3300158: env_placeholder_geo222
+    3300160: env_placeholder_geo223
+    3300162: env_placeholder_geo224
+    3300164: env_placeholder_geo225
+    3300166: env_placeholder_geo226
+    3300168: env_placeholder_geo227
+    3300170: env_placeholder_geo229
+    3300172: env_placeholder_geo230
+    3300174: env_placeholder_geo231
+    3300176: env_placeholder_geo232
+    3300178: env_placeholder_geo233
+    3300180: env_placeholder_geo234
+    3300182: env_placeholder_geo235
+    3300184: env_placeholder_geo236
+    3300186: env_placeholder_geo238
+    3300188: env_placeholder_geo239
+    3300190: env_placeholder_geo26
+    3300192: env_placeholder_geo32
+    3300194: env_placeholder_geo38
+    3300196: env_placeholder_geo44
+    3300198: env_placeholder_geo50
+    3300200: env_placeholder_geo56
+    3300202: env_placeholder_geo62
+    3300204: env_placeholder_geo68
+    3300206: env_placeholder_geo7
+    3300208: pSphere1
+    3300210: pSphere11
+    3300212: pSphere133
+    3300214: pSphere134
+    3300216: pSphere135
+    3300218: pSphere136
+    3300220: pSphere137
+    3300222: pSphere138
+    3300224: pSphere139
+    3300226: pSphere140
+    3300228: pSphere141
+    3300230: pSphere142
+    3300232: pSphere143
+    3300234: pSphere144
+    3300236: pSphere145
+    3300238: pSphere146
+    3300240: pSphere147
+    3300242: pSphere148
+    3300244: pSphere149
+    3300246: pSphere150
+    3300248: pSphere151
+    3300250: pSphere152
+    3300252: pSphere153
+    3300254: pSphere154
+    3300256: pSphere155
+    3300258: pSphere156
+    3300260: pSphere157
+    3300262: pSphere158
+    3300264: pSphere159
+    3300266: pSphere16
+    3300268: pSphere160
+    3300270: pSphere161
+    3300272: pSphere162
+    3300274: pSphere163
+    3300276: pSphere164
+    3300278: pSphere165
+    3300280: pSphere166
+    3300282: pSphere167
+    3300284: pSphere168
+    3300286: pSphere169
+    3300288: pSphere170
+    3300290: pSphere171
+    3300292: pSphere172
+    3300294: pSphere173
+    3300296: pSphere174
+    3300298: pSphere175
+    3300300: pSphere176
+    3300302: pSphere21
+    3300304: pSphere26
+    3300306: pSphere31
+    3300308: pSphere36
+    3300310: pSphere41
+    3300312: pSphere46
+    3300314: pSphere51
+    3300316: pSphere6
+    3300318: seaweed_geo1
+    3300320: seaweed_geo2
+    3300322: seaweed_geo3
+    3300324: seaweed_geo4
+    3300326: seaweed_geo5
+    3300328: seaweed_geo6
+    3300330: seaweed_geo7
+    3300332: seaweed_geo8
+    3300334: seaweed_geo9
+    3300336: startpoint
+    3300338: startpoint1
+    3300340: streckenteil_rechtskurve_geo1
+    4300000: streckenteil_rechtskurve_geo1
+    4300002: startpoint
+    4300004: startpoint1
+    4300006: pSphere1
+    4300008: pSphere133
+    4300010: pSphere134
+    4300012: pSphere135
+    4300014: pSphere136
+    4300016: pSphere6
+    4300018: pSphere137
+    4300020: pSphere138
+    4300022: pSphere139
+    4300024: pSphere140
+    4300026: pSphere11
+    4300028: pSphere141
+    4300030: pSphere142
+    4300032: pSphere143
+    4300034: pSphere144
+    4300036: pSphere16
+    4300038: pSphere145
+    4300040: pSphere146
+    4300042: pSphere147
+    4300044: pSphere148
+    4300046: pSphere21
+    4300048: pSphere149
+    4300050: pSphere150
+    4300052: pSphere151
+    4300054: pSphere152
+    4300056: pSphere26
+    4300058: pSphere153
+    4300060: pSphere154
+    4300062: pSphere155
+    4300064: pSphere156
+    4300066: pSphere31
+    4300068: pSphere157
+    4300070: pSphere158
+    4300072: pSphere159
+    4300074: pSphere160
+    4300076: pSphere36
+    4300078: pSphere161
+    4300080: pSphere162
+    4300082: pSphere163
+    4300084: pSphere164
+    4300086: pSphere41
+    4300088: pSphere165
+    4300090: pSphere166
+    4300092: pSphere167
+    4300094: pSphere168
+    4300096: pSphere46
+    4300098: pSphere169
+    4300100: pSphere170
+    4300102: pSphere171
+    4300104: pSphere172
+    4300106: pSphere51
+    4300108: pSphere173
+    4300110: pSphere174
+    4300112: pSphere175
+    4300114: pSphere176
+    4300116: a
+    4300118: b
+    4300120: a
+    4300122: b
+    4300124: a
+    4300126: b
+    4300128: c
+    4300130: a
+    4300132: b
+    4300134: c
+    4300136: a
+    4300138: b
+    4300140: c
+    4300142: a
+    4300144: b
+    4300146: c
+    4300148: a
+    4300150: b
+    4300152: c
+    4300154: d
+    4300156: a
+    4300158: b
+    4300160: a
+    4300162: b
+    4300164: a
+    4300166: b
+    4300168: c
+    4300170: a
+    4300172: b
+    4300174: c
+    4300176: a
+    4300178: b
+    4300180: seaweed_geo1
+    4300182: seaweed_geo4
+    4300184: seaweed_geo6
+    4300186: seaweed_geo7
+    4300188: seaweed_geo2
+    4300190: seaweed_geo3
+    4300192: seaweed_geo5
+    4300194: seaweed_geo8
+    4300196: seaweed_geo9
+    4300198: env_placeholder_geo1
+    4300200: env_placeholder_geo7
+    4300202: env_placeholder_geo13
+    4300204: env_placeholder_geo20
+    4300206: env_placeholder_geo26
+    4300208: env_placeholder_geo32
+    4300210: env_placeholder_geo38
+    4300212: env_placeholder_geo44
+    4300214: env_placeholder_geo50
+    4300216: env_placeholder_geo56
+    4300218: env_placeholder_geo62
+    4300220: env_placeholder_geo68
+    4300222: env_placeholder_geo178
+    4300224: env_placeholder_geo179
+    4300226: env_placeholder_geo180
+    4300228: env_placeholder_geo181
+    4300230: env_placeholder_geo182
+    4300232: env_placeholder_geo183
+    4300234: env_placeholder_geo184
+    4300236: env_placeholder_geo185
+    4300238: env_placeholder_geo186
+    4300240: env_placeholder_geo187
+    4300242: env_placeholder_geo188
+    4300244: env_placeholder_geo189
+    4300246: env_placeholder_geo190
+    4300248: env_placeholder_geo191
+    4300250: env_placeholder_geo192
+    4300252: env_placeholder_geo193
+    4300254: env_placeholder_geo194
+    4300256: env_placeholder_geo195
+    4300258: env_placeholder_geo196
+    4300260: env_placeholder_geo197
+    4300262: env_placeholder_geo198
+    4300264: env_placeholder_geo199
+    4300266: env_placeholder_geo200
+    4300268: env_placeholder_geo201
+    4300270: env_placeholder_geo202
+    4300272: env_placeholder_geo203
+    4300274: env_placeholder_geo204
+    4300276: env_placeholder_geo205
+    4300278: env_placeholder_geo206
+    4300280: env_placeholder_geo207
+    4300282: env_placeholder_geo208
+    4300284: env_placeholder_geo209
+    4300286: env_placeholder_geo210
+    4300288: env_placeholder_geo211
+    4300290: env_placeholder_geo212
+    4300292: env_placeholder_geo213
+    4300294: env_placeholder_geo214
+    4300296: env_placeholder_geo215
+    4300298: env_placeholder_geo216
+    4300300: env_placeholder_geo217
+    4300302: env_placeholder_geo218
+    4300304: env_placeholder_geo219
+    4300306: env_placeholder_geo220
+    4300308: env_placeholder_geo221
+    4300310: env_placeholder_geo222
+    4300312: env_placeholder_geo223
+    4300314: env_placeholder_geo224
+    4300316: env_placeholder_geo225
+    4300318: env_placeholder_geo226
+    4300320: env_placeholder_geo227
+    4300322: env_placeholder_geo229
+    4300324: env_placeholder_geo230
+    4300326: env_placeholder_geo231
+    4300328: env_placeholder_geo232
+    4300330: env_placeholder_geo233
+    4300332: env_placeholder_geo234
+    4300334: env_placeholder_geo235
+    4300336: env_placeholder_geo236
+    4300338: env_placeholder_geo238
+    4300340: env_placeholder_geo239
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  userData: 
