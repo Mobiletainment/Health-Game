@@ -60,8 +60,18 @@ public class MoveOnTrack : MonoBehaviour
 		bool leftInput = false;
 		bool rightInput = false;
 
+// Input for Editor or Win / Linux / Mac:
+#		if UNITY_EDITOR || UNITY_STANDALONE
+		if(Input.GetKeyDown(KeyCode.A))
+		{
+			leftInput = true;
+		}
+		else if(Input.GetKeyDown(KeyCode.D))
+		{
+			rightInput = true;
+		}
 // Input for mobile devices:
-#		if MOBILE
+#		elif MOBILE
 		if(Input.GetMouseButtonDown(0))
 		{
 			float touchPos = Input.mousePosition.x;
@@ -75,17 +85,8 @@ public class MoveOnTrack : MonoBehaviour
 				rightInput = true;
 			}
 		}
-// else -> Desktop:
-#		else
-		if(Input.GetKeyDown(KeyCode.A))
-		{
-			leftInput = true;
-		}
-		else if(Input.GetKeyDown(KeyCode.D))
-		{
-			rightInput = true;
-		}
 #		endif
+
 
 
 		if(leftInput == true)
