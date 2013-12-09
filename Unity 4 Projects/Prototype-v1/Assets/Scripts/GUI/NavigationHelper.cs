@@ -3,14 +3,14 @@ using System.Collections;
 
 public class NavigationHelper : MonoBehaviour {
     
-    public UserManager userManager;
+    private UserManager userManager;
     public GameObject ParentMenu;
     
     void OnEnable()
     {
         userManager = UserManager.Instance;
         
-        //userManager.ResetData(); //uncomment this to start from the beginning and not load the game directly on startup
+       //userManager.ResetData(); //uncomment this to start from the beginning and not load the game directly on startup
         
         if (userManager.IsLoggedIn())
         {
@@ -49,9 +49,14 @@ public class NavigationHelper : MonoBehaviour {
     {
         return "test";
     }
+
+    public static string GetDummyUsername2()
+    {
+        return "Test";
+    }
     
     public static bool IsDummyUser(string user)
     {
-        return GetDummyUsername().CompareTo(user) == 0;
+        return GetDummyUsername().CompareTo(user) == 0 || GetDummyUsername2().CompareTo(user) == 0 ;
     }
 }
