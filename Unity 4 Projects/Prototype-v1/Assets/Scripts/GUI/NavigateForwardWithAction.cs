@@ -48,7 +48,7 @@ public class NavigateForwardWithAction : NavigateForward
                 //TODO: for test purpose only!
                 if (NavigationHelper.IsDummyUser(input.value))
                 {
-                    ActionCompleted();
+                    ClickForward();
                     return;
                 }
                 Backend.RegisterUser(getInput(), false);
