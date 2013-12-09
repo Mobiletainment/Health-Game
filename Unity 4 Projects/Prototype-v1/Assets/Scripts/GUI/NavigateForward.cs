@@ -31,7 +31,8 @@ public class NavigateForward : MonoBehaviour
         RegisterParent,
         CheckIfParentAndChildRegistered,
         SendInGameBonus,
-        LoadGameScene
+        LoadGameScene,
+        SendPushMessage
     }
     
     // Use this for initialization

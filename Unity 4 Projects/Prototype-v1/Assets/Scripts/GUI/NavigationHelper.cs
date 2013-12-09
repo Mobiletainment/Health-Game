@@ -6,7 +6,7 @@ public class NavigationHelper : MonoBehaviour {
     public UserManager userManager;
     public GameObject ParentMenu;
     
-    void Awake()
+    void OnEnable()
     {
         userManager = UserManager.Instance;
         
@@ -27,7 +27,7 @@ public class NavigationHelper : MonoBehaviour {
     
     void Start()
     {
-        LoadParentMenu();
+        //LoadParentMenu();
     }
     
     

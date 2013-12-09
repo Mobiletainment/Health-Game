@@ -103,7 +103,10 @@ public class NavigateForwardWithAction : NavigateForward
                 break;
             case ActionType.RegisterParent:
                 //send push notification to child
+                PerformAction =  ActionType.SendPushMessage;
                 Backend.SendPushMessage("Deine Eltern haben das Team-Passwort eingegeben. Das Spiel kann beginnen!");
+                break;
+            case ActionType.SendPushMessage:
                 break;
             default:
                 break;
