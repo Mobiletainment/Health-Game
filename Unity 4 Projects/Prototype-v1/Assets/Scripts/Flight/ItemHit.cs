@@ -44,10 +44,6 @@ public class ItemHit : MonoBehaviour
 	{
 		GameObject hitObject = hit.gameObject;
 		
-		
-		
-
-		
 		lastHitPosition = hitObject.transform.position;
 		if (RuleSwitcher.IsItemHitGood(hitObject))
 		{
@@ -68,12 +64,25 @@ public class ItemHit : MonoBehaviour
 			//deactivate the collided object
 			hit.collider.enabled = false;
 			//hit.gameObject.renderer.material.color = Color.black;
-			hitObject.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
+
+//			hitObject.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
+			Vector3 minusSize = new Vector3(0.1f, 0.1f, 0.1f);
+
+			StartCoroutine(DownSizeItem(hit.transform, minusSize));
 		}
 		//hit.gameObject.renderer.enabled = false;
 	}
-	
-	
+
+	public IEnumerator DownSizeItem(Transform item, Vector3 minusSize)
+	{
+		for(int i = 0; i < 4; ++i)
+		{
+			item.localScale -= minusSize;
+			Debug.Log ("lol");
+			yield return new WaitForSeconds(0.1f);
+		}
+
+	}
 	
 	public void SetHit(ActiveHit hit)
 	{
