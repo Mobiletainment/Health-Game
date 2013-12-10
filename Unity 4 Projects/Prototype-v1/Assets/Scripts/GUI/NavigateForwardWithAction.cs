@@ -80,7 +80,7 @@ public class NavigateForwardWithAction : NavigateForward
 
     public void ActionPerformed(string response)
     {
-        Debug.Log("Action performed: " + response);
+        Debug.Log("NavigationFwdAction performed: " + response);
     
         if (response.StartsWith("Error:"))
         { //TODO: refactor response as a class with errorcode and body
