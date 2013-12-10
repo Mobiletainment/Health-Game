@@ -78,11 +78,10 @@ public class ECPNManager: MonoBehaviour
      */
     public void RequestDeviceToken()
     {
-#if UNITY_EDITOR || WINDWOS
-    Debug.Log("You should only register iOS and android devices, not the editor!");
-        StartCoroutine(StoreDeviceID(SystemInfo.deviceUniqueIdentifier,"editor"));
-#endif
-        #if UNITY_ANDROID
+
+#if UNITY_ANDROID
+        StartCoroutine(StoreDeviceID(SystemInfo.deviceUniqueIdentifier,"android"));
+        /*
         // Obtain unity context
         //callback("RequestDeviceToken1");
         if(playerActivityContext == null) {
@@ -96,8 +95,8 @@ public class ECPNManager: MonoBehaviour
         //callback("RequestDeviceToken5");
         jc.CallStatic("RegisterDevice", playerActivityContext, UserManager.GoogleCloudMessageProjectID);
         //callback("RequestDeviceToken6");
-        #endif
-        #if UNITY_IPHONE
+        */
+#elif UNITY_IPHONE
         if(NotificationServices.deviceToken == null) {
             pollIOSDeviceToken = true;
             NotificationServices.RegisterForRemoteNotificationTypes(RemoteNotificationType.Alert | 
@@ -106,6 +105,9 @@ public class ECPNManager: MonoBehaviour
         } else {
             RegisterIOSDevice();
         }
+#else
+        Debug.Log("You should only register iOS and android devices, not the editor!");
+        StartCoroutine(StoreDeviceID(SystemInfo.deviceUniqueIdentifier,"editor"));
         #endif
     }
     
