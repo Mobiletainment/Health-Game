@@ -59,20 +59,19 @@ public class MoveOnTrack : MonoBehaviour
 		// ---- INPUT START ----
 		bool leftInput = false;
 		bool rightInput = false;
-
 // Input for Editor or Win / Linux / Mac:
 #		if UNITY_EDITOR || UNITY_STANDALONE
-		if(Input.GetKeyDown(KeyCode.A))
+		if(Input.GetKey(KeyCode.A))
 		{
 			leftInput = true;
 		}
-		else if(Input.GetKeyDown(KeyCode.D))
+		else if(Input.GetKey(KeyCode.D))
 		{
 			rightInput = true;
 		}
 // Input for mobile devices:
 #		elif MOBILE
-		if(Input.GetMouseButtonDown(0))
+		if(Input.GetMouseButton(0))
 		{
 			float touchPos = Input.mousePosition.x;
 
@@ -88,7 +87,7 @@ public class MoveOnTrack : MonoBehaviour
 #		endif
 
 
-
+		if (_switchSpline==_spline)
 		if(leftInput == true)
 		{
 			if(_switchSpline > _leftMaxSpline)
@@ -100,7 +99,6 @@ public class MoveOnTrack : MonoBehaviour
 //				
 //				_moveObject.position = GetPosOnSpline(_splineIndex, (float)_indexPart/(float)_divisor, _points);
 //				_lastPos = _moveObject.position;
-
 
 				_switchSpline--;
 			}
@@ -155,39 +153,42 @@ public class MoveOnTrack : MonoBehaviour
 
 		if(_switchSpline != _spline)
 		{
+			_switchTime+=Time.deltaTime*6;
 //			Vector3 switchDiff = GetNextStepOnSpline(_switchSpline, ref splineIndex, ref indexPart, _speed);
 //			Vector3 switchDiff = GetPosOnSpline(splineIndex, (float)indexPart / (float)_divisor, _track.splineContainer.GetSpline(_switchSpline));
 //			float diff = Vector3.Distance(_moveObject.position, switchDiff);
-			float diff = Vector3.Distance(_moveObject.position, _lastSwitchPos);
+		//	float diff = Vector3.Distance(_moveObject.position, _lastSwitchPos);
 //			Debug.DrawRay(switchDiff, _moveObject.up, Color.red, 10.0f);
 
 			_nextSwitchPos = GetPosOnSpline(_splineIndex, (float)_indexPart / (float)_divisor, _track.splineContainer.GetSpline(_switchSpline));
+			_lastSwitchPos = GetPosOnSpline(_splineIndex, (float)_indexPart / (float)_divisor, _track.splineContainer.GetSpline(_spline));
+
 			Debug.DrawRay(_nextSwitchPos, _moveObject.up, Color.blue, 10.0f);
 
-
-//			Debug.Log (diff);
-			if(diff > 0.012f)
+			if(_switchTime<1.0f)
 			{
-//				Debug.Log ("Switch in progress...");
 //				Debug.Log ("Big Diff");
-				Vector3 posProp = Vector3.Slerp(_moveObject.position, _nextSwitchPos, _switchTime);
+				Vector3 posProp = Vector3.Slerp(_lastSwitchPos, _nextSwitchPos, _switchTime);
+		//		Debug.Log (diff+"   doing  "+_switchTime);
 
 				// Finally, move the object:
 				_moveObject.position = posProp;
 			}
 			// If I do not write explicitly "diff <= ...f", it does not work. Well done, C# -.-
-			else if(diff <= 0.012f)
+			else
 			{
+				_switchTime=0;
 				_spline = _switchSpline;
-
+			//	Debug.Log (diff+" done");
 				_moveObject.position = _nextSwitchPos;
-				Debug.Log ("Switch END");
+				//Debug.Log ("Switch END");
 				_nextPos = _nextSwitchPos;
 				_lastPos = _nextPos;
 			}
 		}
 		else
 		{
+			_switchTime=0;
 			_moveObject.position = _nextPos;
 		}
 	}
