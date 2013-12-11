@@ -8,7 +8,7 @@ import android.content.Context;
 public class GCMRegistration {
   
   public static void RegisterDevice(Context context, String SENDER_ID) {
-    Intent i = new Intent(context,GCMJava.class);
+    Intent i = new Intent(context,at.technikum.mgs.healthgame.GCMJava.class);
     i.putExtra("isRegistration", true);
     i.putExtra("senderID",SENDER_ID);
     i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -16,7 +16,7 @@ public class GCMRegistration {
   }
   
   public static void UnregisterDevice(Context context) {
-    Intent i = new Intent(context,GCMJava.class);
+    Intent i = new Intent(context,at.technikum.mgs.healthgame.GCMJava.class);
     i.putExtra("isRegistration", false);
     i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     context.startService(i);
