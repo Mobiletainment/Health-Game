@@ -544,7 +544,7 @@ public class TrackEditor : Editor
 			GUILayout.Space(13); // IndentLevel
 			if(GUILayout.Button("Save Track"))
 			{
-				AssetDatabase.StartAssetEditing();
+//				AssetDatabase.StartAssetEditing();
 				
 				// TODO: Hardcoded Path -> Make it configureable (instead of "Assets/Resources/Prefabs/SavedTracks/")
 				GameObject prefab = PrefabUtility.CreatePrefab("Assets/Resources/Prefabs/SavedTracks/"+_data.trackName+".prefab", _data.gameObject);
@@ -560,7 +560,7 @@ public class TrackEditor : Editor
 					_data.saveTracks.trackList[otherIndex] = prefab.GetComponent<MasterTrackScript>();
 				}
 				
-				AssetDatabase.StopAssetEditing();
+//				AssetDatabase.StopAssetEditing();
 				EditorUtility.SetDirty(_data.saveTracks);
 				AssetDatabase.SaveAssets();
 				
@@ -579,11 +579,17 @@ public class TrackEditor : Editor
 			GUILayout.Space(13); // IndentLevel
 			if(GUILayout.Button("Export Clean Track (Prefab)"))
 			{
-				// First, create the environment on the track:
-				GameObject realEnvContainer = new GameObject("EnvironmentContainer");
-				realEnvContainer.transform.parent = _data.gameObject.transform;
+				// First, make a deep copy of the original object:
+				MasterTrackScript copy = Instantiate(_data, _data.gameObject.transform.position, 
+				                                     _data.gameObject.transform.rotation) as MasterTrackScript;
+				GameObject copyObj = copy.gameObject;
+				copyObj.name = _data.trackName;
 
-				foreach(Transform trackPart in _data.gameObject.transform)
+				// Create the environment on the track:
+				GameObject realEnvContainer = new GameObject("EnvironmentContainer");
+				realEnvContainer.transform.parent = copyObj.transform;
+
+				foreach(Transform trackPart in copyObj.transform)
 				{
 					TrackPartScript tps = trackPart.gameObject.GetComponent<TrackPartScript>();
 					// Not all items in the masterTrack are TrackParts. (e.g. the EnvironmentContainer is not...)
@@ -594,39 +600,35 @@ public class TrackEditor : Editor
 						{
 							// TODO: if the environmentObject will be changed to list, a random object must be chosen
 							// from this list...
-							envTrans.RotateAround(envTrans.position, envTrans.up, Random.Range(0.0f, 360.0f));
-							GameObject realEnv = Instantiate(_data.environmentObject, envTrans.position, envTrans.rotation) as GameObject;
+							envTrans.RotateAround(envTrans.position, envTrans.up, Random.Range(0.0f, 359.9f));
+							GameObject realEnv = Instantiate(copy.environmentObject, envTrans.position, envTrans.rotation) as GameObject;
 							realEnv.transform.parent = realEnvContainer.transform;
 						}
 					}
 				}
 
-				// Now create the prefab and delete the unused place-holder assets:
-				// TODO: Hardcoded Path -> Make it configureable (instead of "Assets/Resources/Prefabs/SavedTracks/")
-				GameObject prefab = PrefabUtility.CreatePrefab("Assets/Resources/Prefabs/CleanTracks/"+_data.trackName+".prefab", _data.gameObject);
-				// TODO: Warn, if the asset already exists it will be overwritten!
-
-				foreach(Transform trackPart in prefab.transform)
+				// Destroy everything, that isn't needed in the clean prefab:
+				foreach(Transform trackPart in copy.transform)
 				{
 					TrackPartScript tps = trackPart.GetComponent<TrackPartScript>();
 					// Check, if the item is realy a TPS:
 					if(tps != null)
 					{
-						DestroyImmediate(tps.ReferenceObjectStart, true);
-						DestroyImmediate(tps.ReferenceObjectEnd, true);
-						DestroyImmediate(tps.ReferenceObjectSpline, true);
-						DestroyImmediate(tps.ReferenceObjectPickup, true);
-						DestroyImmediate(tps.ReferenceObjectEnvironment, true);
+						DestroyImmediate(tps.ReferenceObjectStart);
+						DestroyImmediate(tps.ReferenceObjectEnd);
+						DestroyImmediate(tps.ReferenceObjectSpline);
+						DestroyImmediate(tps.ReferenceObjectPickup);
+						DestroyImmediate(tps.ReferenceObjectEnvironment);
 
-						DestroyImmediate(trackPart.GetComponent<TrackPartScript>(), true);
+						DestroyImmediate(trackPart.GetComponent<TrackPartScript>());
 					}
 				}
 
 				// Remove the Editor-Script:
-				DestroyImmediate(prefab.GetComponent<MasterTrackScript>(), true);
+				DestroyImmediate(copyObj.GetComponent<MasterTrackScript>());
 
 				// Add the Clean-Data Script to add Spline information:
-				CleanTrackData cleanData = prefab.AddComponent<CleanTrackData>();
+				CleanTrackData cleanData = copyObj.AddComponent<CleanTrackData>();
 
 				// Gather all information and get the full spline & all Pickups (Transform-Based):
 				SplineContainerTrans fullSpline = new SplineContainerTrans();
@@ -663,8 +665,13 @@ public class TrackEditor : Editor
 					}
 				}
 
-				// Finally remove the environment assets from the debug-track in the scene, that was created before:
-				DestroyImmediate(realEnvContainer);
+				// Copy is clean, create the prefab:
+				// TODO: Hardcoded Path -> Make it configureable (instead of "Assets/Resources/Prefabs/SavedTracks/")
+				GameObject prefab = PrefabUtility.CreatePrefab("Assets/Resources/Prefabs/CleanTracks/"+copyObj.name+".prefab", copyObj);
+				// TODO: Warn, if the asset already exists it will be overwritten!
+
+				// Finally remove the copy:
+				DestroyImmediate(copyObj);
 				
 				Debug.Log("Track has been saved as Assets/Resources/Prefabs/CleanTracks/"+_data.trackName+".prefab", prefab);
 			}
