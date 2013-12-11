@@ -232,7 +232,7 @@ public class UIInput : MonoBehaviour
 	/// </summary>
 
 #if MOBILE
-	protected bool needsTextCursor { get { return (isSelected && mKeyboard == null); } }
+	protected bool needsTextCursor { get { return (isSelected && mKeyboard != null); } }
 #else
 	protected bool needsTextCursor { get { return isSelected; } }
 #endif
@@ -332,7 +332,7 @@ public class UIInput : MonoBehaviour
 
 		if (mDoInit) Init();
 
-		if (label != null && NGUITools.IsActive(this))
+		if (label != null && NGUITools.GetActive(this))
 		{
 			label.color = activeTextColor;
 #if MOBILE
@@ -348,7 +348,7 @@ public class UIInput : MonoBehaviour
 			{
 				mKeyboard = (inputType == InputType.Password) ?
 					TouchScreenKeyboard.Open(mValue, TouchScreenKeyboardType.Default, false, false, true) :
-					TouchScreenKeyboard.Open(mValue, (TouchScreenKeyboardType)((int)keyboardType), inputType == InputType.AutoCorrect);
+					TouchScreenKeyboard.Open(mValue, (TouchScreenKeyboardType)((int)keyboardType), inputType == InputType.AutoCorrect, label.multiLine);
 			}
 			else
 #endif
@@ -378,7 +378,7 @@ public class UIInput : MonoBehaviour
 	{
 		if (mDoInit) Init();
 
-		if (label != null && NGUITools.IsActive(this))
+		if (label != null && NGUITools.GetActive(this))
 		{
 			mValue = value;
 #if MOBILE
@@ -412,7 +412,7 @@ public class UIInput : MonoBehaviour
 #if MOBILE
 	void Update()
 	{
-		if (mKeyboard != null && isSelected && NGUITools.IsActive(this))
+		if (mKeyboard != null && isSelected && NGUITools.GetActive(this))
 		{
 			string val = mKeyboard.text;
 
@@ -454,7 +454,7 @@ public class UIInput : MonoBehaviour
 #if UNITY_EDITOR
 		if (!Application.isPlaying) return;
 #endif
-		if (isSelected && NGUITools.IsActive(this))
+		if (isSelected && NGUITools.GetActive(this))
 		{
 			if (mDoInit) Init();
 
@@ -606,7 +606,9 @@ public class UIInput : MonoBehaviour
 				}
 				else
 				{
+					UICamera.currentKey = ev.keyCode;
 					Submit();
+					UICamera.currentKey = KeyCode.None;
 					isSelected = false;
 					UpdateLabel();
 					ExecuteOnChange();
@@ -624,7 +626,7 @@ public class UIInput : MonoBehaviour
 
 	protected void Submit ()
 	{
-		if (NGUITools.IsActive(this))
+		if (NGUITools.GetActive(this))
 		{
 			current = this;
 			mValue = value;

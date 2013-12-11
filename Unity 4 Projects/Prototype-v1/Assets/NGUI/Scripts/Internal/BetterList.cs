@@ -5,6 +5,7 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 /// <summary>
 /// This improved version of the System.Collections.Generic.List that doesn't release the buffer on Clear(), resulting in better performance and less garbage collection.
@@ -87,6 +88,21 @@ public class BetterList<T>
 	public void RemoveAt (int index) { mList.RemoveAt(index); }
 
 	/// <summary>
+	/// Remove an item from the end.
+	/// </summary>
+
+	public T Pop ()
+	{
+		if (buffer != null && size != 0)
+		{
+			T val = buffer[mList.Count - 1];
+			mList.RemoveAt(mList.Count - 1);
+			return val;
+		}
+		return default(T);
+	}
+
+	/// <summary>
 	/// Mimic List's ToArray() functionality, except that in this case the list is resized to match the current size.
 	/// </summary>
 
@@ -116,6 +132,8 @@ public class BetterList<T>
 	/// For 'foreach' functionality.
 	/// </summary>
 
+	[DebuggerHidden]
+	[DebuggerStepThrough]
 	public IEnumerator<T> GetEnumerator ()
 	{
 		if (buffer != null)
@@ -130,7 +148,8 @@ public class BetterList<T>
 	/// <summary>
 	/// Convenience function. I recommend using .buffer instead.
 	/// </summary>
-	
+
+	[DebuggerHidden]
 	public T this[int i]
 	{
 		get { return buffer[i]; }
@@ -278,17 +297,67 @@ public class BetterList<T>
 
 	public T[] ToArray () { Trim(); return buffer; }
 
-	class Comparer : System.Collections.IComparer
+	//class Comparer : System.Collections.IComparer
+	//{
+	//    public System.Comparison<T> func;
+	//    public int Compare (object x, object y) { return func((T)x, (T)y); }
+	//}
+
+	//Comparer mComp = new Comparer();
+
+	/// <summary>
+	/// List.Sort equivalent. Doing Array.Sort causes GC allocations.
+	/// </summary>
+
+	//public void Sort (System.Comparison<T> comparer)
+	//{
+	//    if (size > 0)
+	//    {
+	//        mComp.func = comparer;
+	//        System.Array.Sort(buffer, 0, size, mComp);
+	//    }
+	//}
+
+	/// <summary>
+	/// List.Sort equivalent. Manual sorting causes no GC allocations.
+	/// </summary>
+
+	[DebuggerHidden]
+	[DebuggerStepThrough]
+	public void Sort (CompareFunc comparer)
 	{
-		System.Comparison<T> mCompare;
-		public Comparer (System.Comparison<T> comparer) { mCompare = comparer; }
-		public int Compare (object x, object y) { return mCompare((T)x, (T)y); }
+		int start = 0;
+		int max = size - 1;
+		bool changed = true;
+
+		while (changed)
+		{
+			changed = false;
+
+			for (int i = start; i < max; ++i)
+			{
+				// Compare the two values
+				if (comparer(buffer[i], buffer[i + 1]) > 0)
+				{
+					// Swap the values
+					T temp = buffer[i];
+					buffer[i] = buffer[i + 1];
+					buffer[i + 1] = temp;
+					changed = true;
+				}
+				else if (!changed)
+				{
+					// Nothing has changed -- we can start here next time
+					start = (i == 0) ? 0 : i - 1;
+				}
+			}
+		}
 	}
 
 	/// <summary>
-	/// List.Sort equivalent.
+	/// Comparison function should return -1 if left is less than right, 1 if left is greater than right, and 0 if they match.
 	/// </summary>
 
-	public void Sort (System.Comparison<T> comparer) { if (size > 0) System.Array.Sort(buffer, 0, size, new Comparer(comparer)); }
+	public delegate int CompareFunc (T left, T right);
 #endif
 }
