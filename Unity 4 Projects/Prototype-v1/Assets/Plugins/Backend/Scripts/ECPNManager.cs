@@ -79,9 +79,9 @@ public class ECPNManager: MonoBehaviour
     public void RequestDeviceToken()
     {
 
-#if UNITY_ANDROID
-        StartCoroutine(StoreDeviceID(SystemInfo.deviceUniqueIdentifier,"android"));
-        /*
+#if UNITY_ANDROID && !UNITY_EDITOR
+        //StartCoroutine(StoreDeviceID(SystemInfo.deviceUniqueIdentifier,"android"));
+
         // Obtain unity context
         //callback("RequestDeviceToken1");
         if(playerActivityContext == null) {
@@ -91,11 +91,14 @@ public class ECPNManager: MonoBehaviour
             playerActivityContext = actClass.GetStatic<AndroidJavaObject>("currentActivity");
             //callback("RequestDeviceToken4");
         }
-        AndroidJavaClass jc = new AndroidJavaClass(UserManager.packageName + ".GCMRegistration");
+        //string gcmRegistrationClass = UserManager.packageName + ".GCMRegistration";
+        string gcmRegistrationClass = UserManager.packageName + ".GCMRegistration";
+        Debug.Log("Invoking Class: " + gcmRegistrationClass);
+        AndroidJavaClass jc = new AndroidJavaClass(gcmRegistrationClass);
         //callback("RequestDeviceToken5");
         jc.CallStatic("RegisterDevice", playerActivityContext, UserManager.GoogleCloudMessageProjectID);
         //callback("RequestDeviceToken6");
-        */
+
 #elif UNITY_IPHONE
         if(NotificationServices.deviceToken == null) {
             pollIOSDeviceToken = true;
