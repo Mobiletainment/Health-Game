@@ -9,16 +9,17 @@ public class TrackPartScript : MonoBehaviour
 	private string _name;
 	
 	[SerializeField]
-	private GameObject _referenceObjectStart;
+	private GameObject _startReferenceObject;
 	[SerializeField]
-	private GameObject _referenceObjectEnd;
+	private GameObject _endReferenceObject;
 	[SerializeField]
-	private GameObject _referenceObjectSpline;
+	private GameObject _splineReferenceObject;
 	[SerializeField]
-	private GameObject _referenceObjectPickup;
+	private GameObject _pickupReferenceObject;
 	[SerializeField]
-	private GameObject _referenceObjectEnvironment;
-	// TODO: One for SeaWeed...
+	private GameObject _environmentReferenceObject;
+	[SerializeField]
+	private GameObject _bordersReferenceObject;
 
 	[SerializeField]
 	private SplineContainerTrans _splines = new SplineContainerTrans();
@@ -34,32 +35,38 @@ public class TrackPartScript : MonoBehaviour
 	
 	public GameObject ReferenceObjectStart
 	{
-		get { return _referenceObjectStart; }
-		set { _referenceObjectStart = value; }
+		get { return _startReferenceObject; }
+		set { _startReferenceObject = value; }
 	}
 	
 	public GameObject ReferenceObjectEnd
 	{
-		get { return _referenceObjectEnd; }
-		set { _referenceObjectEnd = value; }
+		get { return _endReferenceObject; }
+		set { _endReferenceObject = value; }
 	}
 
 	public GameObject ReferenceObjectSpline
 	{
-		get { return _referenceObjectSpline; }
-		set { _referenceObjectSpline = value; }
+		get { return _splineReferenceObject; }
+		set { _splineReferenceObject = value; }
 	}
 
 	public GameObject ReferenceObjectPickup
 	{
-		get { return _referenceObjectPickup; }
-		set { _referenceObjectPickup = value; }
+		get { return _pickupReferenceObject; }
+		set { _pickupReferenceObject = value; }
 	}
 
 	public GameObject ReferenceObjectEnvironment
 	{
-		get { return _referenceObjectEnvironment; }
-		set { _referenceObjectEnvironment = value; }
+		get { return _environmentReferenceObject; }
+		set { _environmentReferenceObject = value; }
+	}
+
+	public GameObject ReferenceObjectBorders
+	{
+		get { return _bordersReferenceObject; }
+		set { _bordersReferenceObject = value; }
 	}
 
 	public SplineContainerTrans GetSplineContainer()

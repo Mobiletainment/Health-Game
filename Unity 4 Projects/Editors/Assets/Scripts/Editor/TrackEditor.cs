@@ -329,35 +329,7 @@ public class TrackEditor : Editor
 		{
 			_data.editorMode = MasterTrackScript.Mode.PICKUP;
 
-			// HACK: Use different colors with shared materials without unity-complining-warnings...
-			// I just needed a gameObject, that has a renderer, so I took the Ref.Obj.Start, because it was easy to get.
-			Material matGreen = new Material(_data.currentTrackParts[0].ReferenceObjectStart.renderer.sharedMaterial);
-			matGreen.color = Color.green;
-			Material matRed = new Material(_data.currentTrackParts[0].ReferenceObjectStart.renderer.sharedMaterial);
-			matRed.color = Color.red;
-
-			foreach(TrackPartScript part in _data.currentTrackParts)
-			{
-				PickupContainerTrans pickups = part.GetPickupContainer();
-				foreach(KeyValuePair<PickupLine, List<PickupElementTrans>> pickupKV in pickups.GetLineDict())
-				{
-					foreach(PickupElementTrans puElement in pickupKV.Value)
-					{
-						if(puElement.active)
-						{
-							puElement.position.renderer.sharedMaterial = matGreen;
-						}
-						else
-						{
-							puElement.position.renderer.sharedMaterial = matRed;
-						}
-
-						PickupActivityScript pickupAS = puElement.position.gameObject.AddComponent<PickupActivityScript>();
-						pickupAS.trackReference = _data;
-						pickupAS.pickupElement = puElement;
-					}
-				}
-			}
+			RefreshPickupRGColors();
 		}
 
 		if(GUILayout.Button("Save or Load Track..."))
@@ -478,6 +450,55 @@ public class TrackEditor : Editor
 		EditorGUILayout.LabelField("Just click on a Pickup-Cube to change its\nactivity. Only active (green) " +
 		                           "Pickup-Cubes\nwill spawn pickup-elements at runtime.", GUILayout.Height(50.0f));
 
+		EditorGUILayout.LabelField("Randomize:");
+
+		_data.leftLine = (PickupLine)EditorGUILayout.EnumPopup("Included left spline: ", _data.leftLine);
+		_data.rightLine = (PickupLine)EditorGUILayout.EnumPopup("Included right spline: ", _data.rightLine);
+		_data.activePercentage = EditorGUILayout.Slider ("Active Percentage: ", _data.activePercentage, 0.0f, 1.0f);
+
+		if(GUILayout.Button("Randomize Pickup Activity"))
+		{
+			foreach(TrackPartScript trackPart in _data.currentTrackParts)
+			{
+				PickupContainerTrans pickupContainer = trackPart.GetPickupContainer();
+				for(int numLine = (int)PickupLine.LEFT6; numLine <= (int)PickupLine.RIGHT6; numLine++)
+				{
+					PickupLine activeLine = (PickupLine)numLine;
+					List<PickupElementTrans> line = pickupContainer.GetLine(activeLine);
+					// If the line shall be randomized:
+					if(activeLine >= _data.leftLine && activeLine <= _data.rightLine)
+					{
+						foreach(PickupElementTrans element in line)
+						{
+							float rand = Random.Range(0.0f, 1.0f);
+							if(rand <= _data.activePercentage)
+							{
+								element.active = true;
+							}
+							else
+							{
+								element.active = false;
+							}
+						}
+					}
+					// If not, make it false.
+					else
+					{
+						foreach(PickupElementTrans element in line)
+						{
+							element.active = false;
+						}
+					}
+				}
+			}
+
+			RefreshPickupRGColors();
+
+			Debug.Log ("Do not forget to update (use this option again) the pickups, after changing the track.");
+		}
+
+		EditorGUILayout.Space();
+
 		if(GUILayout.Button("Leave Pickup-Mode"))
 		{
 			_data.editorMode = MasterTrackScript.Mode.NORMAL;
@@ -595,14 +616,29 @@ public class TrackEditor : Editor
 					// Not all items in the masterTrack are TrackParts. (e.g. the EnvironmentContainer is not...)
 					if(tps != null)
 					{
-						// Replace the Environment placeholder with the real objects:
-						foreach(Transform envTrans in tps.ReferenceObjectEnvironment.transform)
+						// Environments are grouped in parallel lines... iterate over each group:
+						foreach(Transform envGroups in tps.ReferenceObjectEnvironment.transform)
 						{
-							// TODO: if the environmentObject will be changed to list, a random object must be chosen
-							// from this list...
-							envTrans.RotateAround(envTrans.position, envTrans.up, Random.Range(0.0f, 359.9f));
-							GameObject realEnv = Instantiate(copy.environmentObject, envTrans.position, envTrans.rotation) as GameObject;
-							realEnv.transform.parent = realEnvContainer.transform;
+							// Replace the Environment placeholder with the real objects:
+							foreach(Transform envTrans in envGroups)
+							{
+								// TODO: if the environmentObject will be changed to list, a random object must be chosen
+								// from this list...
+								envTrans.RotateAround(envTrans.position, envTrans.up, Random.Range(0.0f, 359.9f));
+								GameObject realEnv = Instantiate(copy.environmentObject, envTrans.position, envTrans.rotation) as GameObject;
+								realEnv.transform.parent = realEnvContainer.transform;
+							}
+						}
+
+						// Same for border objects:
+						foreach(Transform borderGroups in tps.ReferenceObjectBorders.transform)
+						{
+							// All borderelements shall be randomized turned:
+							foreach(Transform borderTrans in borderGroups)
+							{
+								// TODO: Remove Hardcoded values (+30°/-30°)
+								borderTrans.RotateAround(borderTrans.position, borderTrans.up, Random.Range(-30.0f, 30.0f));
+							}
 						}
 					}
 				}
@@ -844,6 +880,39 @@ public class TrackEditor : Editor
 			{
 				DestroyImmediate(_data.splineObject);
 				_data.splineObject = null;
+			}
+		}
+	}
+
+	private void RefreshPickupRGColors()
+	{
+		// HACK: Use different colors with shared materials without unity-complining-warnings...
+		// I just needed a gameObject, that has a renderer, so I took the Ref.Obj.Start, because it was easy to get.
+		Material matGreen = new Material(_data.currentTrackParts[0].ReferenceObjectStart.renderer.sharedMaterial);
+		matGreen.color = Color.green;
+		Material matRed = new Material(_data.currentTrackParts[0].ReferenceObjectStart.renderer.sharedMaterial);
+		matRed.color = Color.red;
+		
+		foreach(TrackPartScript part in _data.currentTrackParts)
+		{
+			PickupContainerTrans pickups = part.GetPickupContainer();
+			foreach(KeyValuePair<PickupLine, List<PickupElementTrans>> pickupKV in pickups.GetLineDict())
+			{
+				foreach(PickupElementTrans puElement in pickupKV.Value)
+				{
+					if(puElement.active)
+					{
+						puElement.position.renderer.sharedMaterial = matGreen;
+					}
+					else
+					{
+						puElement.position.renderer.sharedMaterial = matRed;
+					}
+					
+					PickupActivityScript pickupAS = puElement.position.gameObject.AddComponent<PickupActivityScript>();
+					pickupAS.trackReference = _data;
+					pickupAS.pickupElement = puElement;
+				}
 			}
 		}
 	}

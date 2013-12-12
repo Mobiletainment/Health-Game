@@ -58,4 +58,10 @@ public class MasterTrackScript : MonoBehaviour
 	// A list of environment objects, that will be placed on the track when exporting to prefab:
 	// TODO: This will be a list later on...
 	public GameObject environmentObject = null;
+	// For randomized pickup-activity, the left side line:
+	public PickupLine leftLine = PickupLine.LEFT6;
+	// For randomized pickup-activity, the right side line:
+	public PickupLine rightLine = PickupLine.RIGHT6;
+	// For randomized pickup-activity, the active-percentage:
+	public float activePercentage = 0.5f;
 }
