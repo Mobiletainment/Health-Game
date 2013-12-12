@@ -10,8 +10,9 @@ public class NavigationHelper : MonoBehaviour {
     {
         userManager = UserManager.Instance;
         
-        userManager.ResetData(); //uncomment this to start from the beginning and not load the game directly on startup
-        
+        //userManager.ResetData(); //uncomment this to start from the beginning and not load the game directly on startup
+        userManager.ResetDataOnNewVersionInstalled();
+
         if (userManager.IsLoggedIn())
         {
             Debug.Log("User is logged in");

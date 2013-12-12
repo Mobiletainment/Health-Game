@@ -6,6 +6,7 @@ using System.Collections;
 public class UserManager : MonoBehaviour
 {
     private static UserManager instance;
+    public static float Version = 1.12f;
 
     public static UserManager Instance
     {
@@ -115,6 +116,18 @@ public class UserManager : MonoBehaviour
         SetDevToken("");
         SetUsername("");
         IsChild = false;
+    }
+
+    public void ResetDataOnNewVersionInstalled()
+    {
+        float oldVersion = PlayerPrefs.GetFloat("version", 0.0f);
+
+        if (oldVersion < Version)
+        {
+            Debug.Log("New Version installed, deleting old User Data");
+            ResetData();
+            PlayerPrefs.SetFloat("version", Version);
+        }
     }
     
 }
