@@ -4,11 +4,45 @@ using System.Collections.Generic;
 
 public class PickupManager : MonoBehaviour 
 {
+	// PickupLev is used to manage the pickup levitation:
+	private class PickupLev
+	{
+		public PickupLev(Transform pickup)
+		{
+			Pickup = pickup;
+			StartPos = pickup.position;
+		}
+
+		private float _curTime;
+
+		public Transform Pickup { get; private set;	}
+		public Vector3 StartPos { get; private set; }
+		public float CurTime 
+		{ 
+			get
+			{
+				return _curTime;
+			}
+			set 
+			{
+				_curTime = value;
+				while(_curTime > 1.0f)
+				{
+					_curTime -= 1.0f;
+				}
+			}
+		}
+	}
+
 	public CleanTrackData _track = null;
 	public AnimationCurve _levitationCurve;
+	public float _levitationHight = 0.015f;
+	public float _levitationTime = 2.0f;
 
 	[HideInInspector]
 	public RulesSwitcher _rulesSwitcher;
+
+	private List<PickupLev> _pickups = new List<PickupLev>();
 
 	public void Awake()
 	{
@@ -54,13 +88,27 @@ public class PickupManager : MonoBehaviour
 					item.transform.rotation *= randItem.transform.localRotation;
 				}
 
-				item.transform.parent = itemContainer.transform;		
+				item.transform.parent = itemContainer.transform;
+
+				// Add items to the pickup-list:
+				PickupLev pickupLevitation = new PickupLev(item.transform);
+				pickupLevitation.CurTime = Random.Range(0.0f, 1.0f);
+				_pickups.Add(pickupLevitation);
 			}
 		}
 	}
 
 	public void Update() 
 	{
-	
+		// Let the pickups levitate:
+		foreach(PickupLev pickup in _pickups)
+		{
+			pickup.CurTime += Time.deltaTime / _levitationTime;
+
+			Vector3 nextPos = pickup.StartPos;
+			nextPos.y += _levitationCurve.Evaluate(pickup.CurTime) * _levitationHight;
+
+			pickup.Pickup.position = nextPos;
+		}
 	}
 }

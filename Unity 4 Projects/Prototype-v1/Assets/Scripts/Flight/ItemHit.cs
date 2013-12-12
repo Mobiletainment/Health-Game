@@ -78,7 +78,7 @@ public class ItemHit : MonoBehaviour
 		for(int i = 0; i < 4; ++i)
 		{
 			item.localScale -= minusSize;
-			Debug.Log ("lol");
+//			Debug.Log ("lol");
 			yield return new WaitForSeconds(0.1f);
 		}
 
