@@ -17,7 +17,7 @@ public class PopUpError : MonoBehaviour {
 		temp.y = -_sprite.height / 2.0f+20;
 		_button.transform.localPosition = temp;
 
-        _title.transform.localPosition = new Vector3(0.0f, _text.height, 0.0f);
+        _title.transform.localPosition = new Vector3(40.0f, _text.height, 0.0f);
 
 		//Debug.Log (_button.transform.localPosition);
 
