@@ -52,7 +52,7 @@ public class NavigateForward : MonoBehaviour
         
         DisableButton();
         MenuStack.ClickForward(_next);
-        UILabel test = transform.GetComponentInChildren<UILabel>();
+//        UILabel test = transform.GetComponentInChildren<UILabel>();
         if (customInfoForNextScreen.Length > 0)
         {
             ContextInfo contextInfo = _next.GetComponent<ContextInfo>();

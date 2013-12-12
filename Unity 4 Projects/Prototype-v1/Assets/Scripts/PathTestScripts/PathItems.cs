@@ -17,7 +17,7 @@ public class PathItems : MonoBehaviour {
 	
 	public float _camMovement=0;
 	private float _middleDistance = 0.0f;
-	private Vector3 _quadpos;
+//	private Vector3 _quadpos;
 	public Transform _marker;
 	
 	public float _directionMultiplier = 1.0f;
@@ -196,7 +196,7 @@ public class PathItems : MonoBehaviour {
 		
 		Vector3 cam= pos;
 
-		_quadpos=_flightObject.position = pos + rightDir * _middleDistance;
+//		_quadpos=_flightObject.position = pos + rightDir * _middleDistance;
 
 		float diff=_middleDistance-_camMovement;
 		//Debug.LogWarning(Mathf.Abs(_middleDistance-_camMovement));

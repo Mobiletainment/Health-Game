@@ -7,8 +7,8 @@ using UnityEngine;
 //{
 public static class Settings
 {
-    //private static string _filename = Application.dataPath + "/Resources/settings.ini";
-    private static string _filename = "settings";
+//    //private static string _filename = Application.dataPath + "/Resources/settings.ini";
+//    private static string _filename = "settings";
 
 
     public static bool SaveSettingToFile(string settingName, string settingValue)
@@ -136,6 +136,6 @@ public static class Settings
 	
 		//Debug.Log("Settings file " + _filename + " not found! Dir: " + Directory.GetDirectoryRoot(_filename) );
 
-        return null;
+//        return null;
     }
 }

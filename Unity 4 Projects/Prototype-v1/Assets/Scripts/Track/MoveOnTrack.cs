@@ -130,8 +130,8 @@ public class MoveOnTrack : MonoBehaviour
 
 
 		// Backup index & part:
-		int splineIndex = _splineIndex;
-		int indexPart = _indexPart;
+//		int splineIndex = _splineIndex;
+//		int indexPart = _indexPart;
 
 		// Update Object Position:
 		_lastPos = _nextPos;

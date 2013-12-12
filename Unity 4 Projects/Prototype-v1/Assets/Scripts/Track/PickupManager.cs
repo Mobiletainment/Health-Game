@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class PickupManager : MonoBehaviour 
 {
 	public CleanTrackData _track = null;
+	public AnimationCurve _levitationCurve;
 
 	[HideInInspector]
 	public RulesSwitcher _rulesSwitcher;
@@ -24,7 +25,7 @@ public class PickupManager : MonoBehaviour
 		_rulesSwitcher = rulesSwitcherGameObject.GetComponent<RulesSwitcher>();
 	}
 
-	void Start () 
+	public void Start() 
 	{
 //		_rulesSwitcher.countdownLabel = GameObject.Find("CountdownLabel").GetComponent<UILabel>();
 //		_rulesSwitcher.scoreLabel = GameObject.Find("ScoreLabel").GetComponent<UILabel>();
@@ -53,13 +54,12 @@ public class PickupManager : MonoBehaviour
 					item.transform.rotation *= randItem.transform.localRotation;
 				}
 
-//				item.transform.localScale *= 0.02f;
 				item.transform.parent = itemContainer.transform;		
 			}
 		}
 	}
 
-	void Update () 
+	public void Update() 
 	{
 	
 	}

@@ -28,7 +28,7 @@ public class GameOverUI : MonoBehaviour {
 			scoreLabel.text = string.Format("You got: {0} of {1} items!", rulesSwitcher.Score, rulesSwitcher.LevelInfo.NecessaryPositiveItems);
 			
 			float itemsCount = (float)rulesSwitcher.Score / rulesSwitcher.LevelInfo.NecessaryPositiveItems;
-			itemsCountSlider.sliderValue = itemsCount;
+			itemsCountSlider.value = itemsCount;
 			
 			/*
 			if (itemsCountSlider.sliderValue >= 0.5f)
@@ -37,12 +37,12 @@ public class GameOverUI : MonoBehaviour {
 				nextLevel.enabled = false;
 				*/
 			
-			Debug.Log("ItemsCount: " + itemsCount + ", current: " + itemsCountSlider.sliderValue);
+			Debug.Log("ItemsCount: " + itemsCount + ", current: " + itemsCountSlider.value);
 			
 			if (itemsCount > 1.0f)
-				bonusCountSlider.sliderValue = (float)rulesSwitcher.Score / rulesSwitcher.LevelInfo.TotalPositiveItemCount;
+				bonusCountSlider.value = (float)rulesSwitcher.Score / rulesSwitcher.LevelInfo.TotalPositiveItemCount;
 			else
-				bonusCountSlider.sliderValue = 0.0f;
+				bonusCountSlider.value = 0.0f;
 		}
 	}
 	
