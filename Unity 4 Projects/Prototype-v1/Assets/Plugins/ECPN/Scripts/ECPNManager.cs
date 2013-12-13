@@ -39,6 +39,7 @@ public class ECPNManager: MonoBehaviour
         //callback ("RegisterUser");
         UserManager.IsChild = isChild; //child/parent handlingSSL: unable to obtain common name from peer certificate
         UserManager.SetUsername(username);
+        Debug.Log("Requesting Device Token for: " + username);
         RequestDeviceToken();
     }
 
@@ -80,7 +81,7 @@ public class ECPNManager: MonoBehaviour
         jc.CallStatic("RegisterDevice", playerActivityContext, UserManager.GoogleCloudMessageProjectID);
         //callback("RequestDeviceToken6");
 
-#elif UNITY_IPHONE
+#elif UNITY_IPHONE && !UNITY_EDITOR
         if(NotificationServices.deviceToken == null) {
             pollIOSDeviceToken = true;
             NotificationServices.RegisterForRemoteNotificationTypes(RemoteNotificationType.Alert | 
@@ -197,7 +198,7 @@ public class ECPNManager: MonoBehaviour
         WWW w = CreateWebRequest(targetAddress, form);
         yield return w;
         
-        HandleResponse(w);
+        HandleResponseWithoutFeedback(w);
     }
 
     private IEnumerator SendECPNmessageBroadcast(string message)
@@ -337,6 +338,8 @@ public class ECPNManager: MonoBehaviour
 
     void HandleResponse(WWW w)
     {
+        Debug.Log("ECPNManager: handling response");
+
         if (w.error != null)
         {
             string errorMessage = w.error;
@@ -351,5 +354,23 @@ public class ECPNManager: MonoBehaviour
         }
 
 
+    }
+
+    void HandleResponseWithoutFeedback(WWW w)
+    {
+        if (w.error != null)
+        {
+            string errorMessage = w.error;
+            w.Dispose();
+            Debug.Log("Error Sending Push Message: " + errorMessage);
+        }
+        else
+        {
+            string response = w.text;
+            w.Dispose();
+            Debug.Log("Push Message Result: " + response);
+        }
+        
+        
     }
 }
