@@ -643,13 +643,19 @@ public class TrackEditor : Editor
 					}
 				}
 
-				// Destroy everything, that isn't needed in the clean prefab:
+				// Add the Clean-Data Script to add Spline information:
+				CleanTrackData cleanData = copyObj.AddComponent<CleanTrackData>();
+
 				foreach(Transform trackPart in copy.transform)
 				{
 					TrackPartScript tps = trackPart.GetComponent<TrackPartScript>();
 					// Check, if the item is realy a TPS:
 					if(tps != null)
 					{
+						// Add the reference to the plane:
+						cleanData.splinePlanes.Add(tps.ReferenceObjectPlane.transform);
+
+						// Destroy everything, that isn't needed in the clean prefab:
 						DestroyImmediate(tps.ReferenceObjectStart);
 						DestroyImmediate(tps.ReferenceObjectEnd);
 						DestroyImmediate(tps.ReferenceObjectSpline);
@@ -663,9 +669,6 @@ public class TrackEditor : Editor
 				// Remove the Editor-Script:
 				DestroyImmediate(copyObj.GetComponent<MasterTrackScript>());
 
-				// Add the Clean-Data Script to add Spline information:
-				CleanTrackData cleanData = copyObj.AddComponent<CleanTrackData>();
-
 				// Gather all information and get the full spline & all Pickups (Transform-Based):
 				SplineContainerTrans fullSpline = new SplineContainerTrans();
 				PickupContainerTrans allPickups = new PickupContainerTrans();
@@ -674,6 +677,7 @@ public class TrackEditor : Editor
 					fullSpline.AddSplineContainer(trackPart.GetSplineContainer());
 					allPickups.AddPickupContainer(trackPart.GetPickupContainer());
 				}
+
 				// Add the controlPoints of all TrackParts to the Clean-Data script (Vector3-Based):
 				foreach(KeyValuePair<SplineLine, List<Transform>> entry in fullSpline.GetSplineDict())
 				{
@@ -683,6 +687,7 @@ public class TrackEditor : Editor
 						curSpline.Add(ctrlPnt.position);
 					}
 				}
+
 				// Add all active Pickups to the Clean-Data script (Vector3-Based):
 				foreach(KeyValuePair<PickupLine, List<PickupElementTrans>> entry in allPickups.GetLineDict())
 				{
@@ -708,7 +713,7 @@ public class TrackEditor : Editor
 
 				// Finally remove the copy:
 				DestroyImmediate(copyObj);
-				
+
 				Debug.Log("Track has been saved as Assets/Resources/Prefabs/CleanTracks/"+_data.trackName+".prefab", prefab);
 			}
 			GUILayout.EndHorizontal();

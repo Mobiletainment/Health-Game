@@ -20,6 +20,8 @@ public class TrackPartScript : MonoBehaviour
 	private GameObject _environmentReferenceObject;
 	[SerializeField]
 	private GameObject _bordersReferenceObject;
+	[SerializeField]
+	private GameObject _planeReferenceObject;
 
 	[SerializeField]
 	private SplineContainerTrans _splines = new SplineContainerTrans();
@@ -67,6 +69,12 @@ public class TrackPartScript : MonoBehaviour
 	{
 		get { return _bordersReferenceObject; }
 		set { _bordersReferenceObject = value; }
+	}
+
+	public GameObject ReferenceObjectPlane
+	{
+		get { return _planeReferenceObject; }
+		set { _planeReferenceObject = value; }
 	}
 
 	public SplineContainerTrans GetSplineContainer()

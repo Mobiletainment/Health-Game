@@ -15,7 +15,10 @@ public class MoveOnTrack : MonoBehaviour
 	public SplineLine _leftMaxSpline = SplineLine.LEFT1;
 	public SplineLine _rightMaxSpline = SplineLine.RIGHT1;
 
-	private float _switchTime = 0.3f; // TODO: MAKE THIS PUBLIC (CONFIGUREABLE)
+	public float _switchTime = 0.3f;
+
+	public RoadIndicatorTextures _roadIndicatorTextures = null;
+	public int _skillMovement = 5; // TODO: change this to real skill...
 
 	private List<Vector3> _points = new List<Vector3>();
 	private Transform _moveObject;
@@ -51,6 +54,25 @@ public class MoveOnTrack : MonoBehaviour
 
 		// Init SwitchSpline:
 		_switchSpline = _spline;
+
+		// Init TrackIndicator Plane Material:
+		if(_roadIndicatorTextures == null)
+		{
+			Debug.LogError("Error: RoadIndicatorTextures has not been set!");
+		}
+		Texture indicatorTex = _roadIndicatorTextures.GetTextureLevel(_skillMovement);
+		if(indicatorTex != null)
+		{
+			// Change material for all trackParts:
+			foreach(Transform plane in _track.splinePlanes)
+			{
+				plane.renderer.material.mainTexture = indicatorTex;
+			}
+		}
+		else
+		{
+			Debug.LogError("Error: Level of skillMovement ("+_skillMovement+") does not have a texture!");
+		}
 	}
 	
 	// Update is called once per frame
@@ -100,7 +122,10 @@ public class MoveOnTrack : MonoBehaviour
 //				_moveObject.position = GetPosOnSpline(_splineIndex, (float)_indexPart/(float)_divisor, _points);
 //				_lastPos = _moveObject.position;
 
-				_switchSpline--;
+				if(SplineAccessGaranted(_switchSpline-1, _skillMovement))
+				{
+					_switchSpline--;
+				}
 			}
 		}
 		else if(rightInput == true)
@@ -115,8 +140,10 @@ public class MoveOnTrack : MonoBehaviour
 //				_moveObject.position = GetPosOnSpline(_splineIndex, (float)_indexPart/(float)_divisor, _points);
 //				_lastPos = _moveObject.position;
 
-
-				_switchSpline++;
+				if(SplineAccessGaranted(_switchSpline+1, _skillMovement))
+				{
+					_switchSpline++;
+				}
 			}
 		}
 		// ---- INPUT END ----
@@ -315,5 +342,32 @@ public class MoveOnTrack : MonoBehaviour
 		}
 
 		return length;
+	}
+
+	// TODO: Maybe this should be part of the Level/Skill Manager?!
+	private bool SplineAccessGaranted(SplineLine line, int movementLevel)
+	{
+		int iLine = (int)line;
+		int halfMovement = (int)(movementLevel / 2);
+		Debug.Log ("halfMovement: " + halfMovement);
+		// Even level:
+		if(movementLevel % 2 == 0)
+		{
+			if(iLine >= ((int)SplineLine.CENTER - halfMovement) && iLine <= ((int)SplineLine.CENTER + halfMovement))
+			{
+				return true;
+			}
+		}
+		// Odd level:
+		else
+		{
+			// One Spline more at left side:
+			if(iLine >= ((int)SplineLine.CENTER - halfMovement - 1) && iLine <= ((int)SplineLine.CENTER + halfMovement))
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 }
