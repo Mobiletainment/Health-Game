@@ -142,7 +142,7 @@ public class SkillManager {
 	
 	private Skill CastSkillFromString(string s)
 	{
-		Debug.Log("Skillmanager called CastSkillFromString for " + s);
+//		Debug.Log("Skillmanager called CastSkillFromString for " + s);
 		Skill skill = null;
 		
 		string[] delimiterstring = { "#" };
@@ -162,7 +162,7 @@ public class SkillManager {
 						skill.DefaultValue.ToString() + delimiter + 
 						skill.CurrentValue.ToString();
 
-		Debug.Log ("Skill2String: " + result);
+//		Debug.Log ("Skill2String: " + result);
 
 		return result;
 	}

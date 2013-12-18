@@ -20,10 +20,12 @@ public class MoveOnTrack : MonoBehaviour
 	public RoadIndicatorTextures _roadIndicatorTextures = null;
 
 	// Skills - For now configureable:
-	public int _skillMovement = 5; // TODO: change this to real skill...
-	public int _skillVisibility = 5; // TODO: change this to real skill...
 	public float _visSwitchTime = 0.25f; // Config the time, that the items need from low to high opaqueness.
 	public float _pickupDefaultAlpha = 0.2f;
+
+	private SkillManager _skillManager;
+	private int _skillMovement;
+	private int _skillVisibility;
 
 	private PickupManager _puManager = null;
 
@@ -53,6 +55,17 @@ public class MoveOnTrack : MonoBehaviour
 	private int _visSplineIndex = 0;
 	private int _visIndexPart = 0;
 	private float _visStepSize = 0.1f;
+
+	void Awake()
+	{
+		_skillManager = new SkillManager();
+		_skillManager.Init();
+
+		_skillMovement = _skillManager.GetSkillByName("Agility").CurrentValue;
+		_skillVisibility = _skillManager.GetSkillByName("Sight").CurrentValue;
+
+		Debug.Log ("Movement: " + _skillMovement + ", Visibility: " + _skillVisibility);
+	}
 
 	// Use this for initialization
 	void Start () {
