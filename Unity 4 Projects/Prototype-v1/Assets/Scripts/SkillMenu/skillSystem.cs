@@ -62,21 +62,31 @@ public class skillSystem : MonoBehaviour
         unusedSkillpoints.text = _sm.UnspentPoints.ToString();
 		
 		//Debug.Log("SM -> " + _sm);
+
+		// NOTE BY CLEMENS:
+		// SkillNames were set by this script, but I set them by Hand, so for now, I commented the text-labels out.
+		// The null-checking-conditions are not necessary anymore, if all skills are set, but for now, I'm not using all.
+		// TODO: Update this when working with all skills!
 		
-		skill1Name.text = _sm.SkillName1;
-		skill1Value.text = _sm.GetSkillByName(_sm.SkillName1).CurrentValue.ToString();
+//		skill1Name.text = _sm.SkillName1;
+		if(skill1Value != null)
+			skill1Value.text = _sm.GetSkillByName(_sm.SkillName1).CurrentValue.ToString();
 		
-		skill2Name.text = _sm.SkillName2;
-		skill2Value.text = _sm.GetSkillByName(_sm.SkillName2).CurrentValue.ToString();
+//		skill2Name.text = _sm.SkillName2;
+		if(skill2Value != null)
+			skill2Value.text = _sm.GetSkillByName(_sm.SkillName2).CurrentValue.ToString();
 		
-		skill3Name.text = _sm.SkillName3;
-		skill3Value.text = _sm.GetSkillByName(_sm.SkillName3).CurrentValue.ToString();
+//		skill3Name.text = _sm.SkillName3;
+		if(skill3Value != null)
+			skill3Value.text = _sm.GetSkillByName(_sm.SkillName3).CurrentValue.ToString();
 		
-		skill4Name.text = _sm.SkillName4;
-		skill4Value.text = _sm.GetSkillByName(_sm.SkillName4).CurrentValue.ToString();
+//		skill4Name.text = _sm.SkillName4;
+		if(skill4Value != null)
+			skill4Value.text = _sm.GetSkillByName(_sm.SkillName4).CurrentValue.ToString();
 		
-		skill5Name.text = _sm.SkillName5;
-		skill5Value.text = _sm.GetSkillByName(_sm.SkillName5).CurrentValue.ToString();
+//		skill5Name.text = _sm.SkillName5;
+		if(skill5Value != null)
+			skill5Value.text = _sm.GetSkillByName(_sm.SkillName5).CurrentValue.ToString();
 		
 		/*
         skill1Name.text = _sm.GetSkillByName("Beweglichkeit").Name;
@@ -101,6 +111,7 @@ public class skillSystem : MonoBehaviour
     public void SaveSkills()
     {
         //_sm.SaveSkillsToFile();
+		_sm.SaveSkills();
     }
 
     public void Increase(string skillName)

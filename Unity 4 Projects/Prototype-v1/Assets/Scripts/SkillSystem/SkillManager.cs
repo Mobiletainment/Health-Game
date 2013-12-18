@@ -30,8 +30,9 @@ public class SkillManager {
 		}
 		else
 		{
-			//TODO: usually 0 - for testing increased to 13
+			// TODO: usually 0 - for testing increased to 13
 			UnspentPoints = 13;
+			PlayerPrefs.SetInt ("unspentPoints", UnspentPoints);
 		}
 		
 		if(PlayerPrefs.HasKey(SkillName1))
@@ -41,6 +42,7 @@ public class SkillManager {
 		else
 		{
 			_skills[0] = new Skill(SkillName1, 3, 10, 3, 3);
+			PlayerPrefs.SetString(SkillName1, CastSkillToString(_skills[0]));
 		}
 		
 		if(PlayerPrefs.HasKey(SkillName2))
@@ -50,6 +52,7 @@ public class SkillManager {
 		else
 		{
 			_skills[1] = new Skill(SkillName2, 1, 10, 3, 3);
+			PlayerPrefs.SetString(SkillName2, CastSkillToString(_skills[1]));
 		}
 		
 		if(PlayerPrefs.HasKey(SkillName3))
@@ -59,6 +62,7 @@ public class SkillManager {
 		else
 		{
 			_skills[2] = new Skill(SkillName3, 0, 10, 1, 1);
+			PlayerPrefs.SetString(SkillName3, CastSkillToString(_skills[2]));
 		}
 		
 		if(PlayerPrefs.HasKey(SkillName4))
@@ -68,6 +72,7 @@ public class SkillManager {
 		else
 		{
 			_skills[3] = new Skill(SkillName4, 1, 10, 1, 1);
+			PlayerPrefs.SetString(SkillName4, CastSkillToString(_skills[3]));
 		}
 		
 		if(PlayerPrefs.HasKey(SkillName5))
@@ -77,18 +82,9 @@ public class SkillManager {
 		else
 		{
 			_skills[4] = new Skill(SkillName5, 0, 10, 0, 0);
+			PlayerPrefs.SetString(SkillName5, CastSkillToString(_skills[4]));
 		}
 	}
-	/*
-	// Use this for initialization
-	private void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	private void Update () {
-	
-	}*/
 	
 	public Skill GetSkillByName(string name)
 	{
@@ -113,7 +109,9 @@ public class SkillManager {
 				bool success = _skills[i].Increase();
 				
 				if(success)
+				{
 					--UnspentPoints;
+				}
 				
 				return success;
 			}
@@ -131,7 +129,9 @@ public class SkillManager {
 				bool success = _skills[i].Decrease();
 				
 				if(success)
+				{
 					++UnspentPoints;
+				}
 				
 				return success;
 			}
@@ -150,5 +150,34 @@ public class SkillManager {
 
 		skill = new Skill(attributes[0], Int32.Parse(attributes[1]), Int32.Parse(attributes[2]), Int32.Parse(attributes[3]), Int32.Parse(attributes[4]));
 		return skill;
+	}
+
+	private string CastSkillToString(Skill skill)
+	{
+		string delimiter = "#";
+
+		string result = skill.Name + delimiter + 
+						skill.MinValue.ToString() + delimiter + 
+						skill.MaxValue.ToString() + delimiter + 
+						skill.DefaultValue.ToString() + delimiter + 
+						skill.CurrentValue.ToString();
+
+		Debug.Log ("Skill2String: " + result);
+
+		return result;
+	}
+
+	public void SaveSkills()
+	{
+		// Save all skills:
+		for(int i = 0; i < _noOfSkills; ++i)
+		{
+			PlayerPrefs.SetString(_skills[i].Name, CastSkillToString(_skills[i]));
+		}
+		// Save the unspentPoints:
+		PlayerPrefs.SetInt("unspentPoints", UnspentPoints);
+		
+		Debug.Log ("Save!");
+		PlayerPrefs.Save();
 	}
 }

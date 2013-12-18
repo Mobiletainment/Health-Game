@@ -5,6 +5,6 @@ public class LoadSkillSystem : MonoBehaviour {
 
 	void OnClick ()
     {
-		Application.LoadLevel("SkillGUI");
+		Application.LoadLevel("SkillGUI_2");
     }
 }
