@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class PickupManager : MonoBehaviour 
 {
 	// PickupLev is used to manage the pickup levitation:
-	private class PickupLev
+	public class PickupLev
 	{
 		public PickupLev(Transform pickup)
 		{
@@ -42,7 +42,7 @@ public class PickupManager : MonoBehaviour
 	[HideInInspector]
 	public RulesSwitcher _rulesSwitcher;
 
-	private List<PickupLev> _pickups = new List<PickupLev>();
+	private PickupContainer<PickupLev> _pickups = new PickupContainer<PickupLev>();
 
 	public void Awake()
 	{
@@ -57,16 +57,10 @@ public class PickupManager : MonoBehaviour
 		}
 		
 		_rulesSwitcher = rulesSwitcherGameObject.GetComponent<RulesSwitcher>();
-	}
-
-	public void Start() 
-	{
-//		_rulesSwitcher.countdownLabel = GameObject.Find("CountdownLabel").GetComponent<UILabel>();
-//		_rulesSwitcher.scoreLabel = GameObject.Find("ScoreLabel").GetComponent<UILabel>();
 
 		GameObject itemContainer = new GameObject();
 		itemContainer.name = "ItemContainer";
-
+		
 		// Initialize good and bad pickups:
 		foreach(KeyValuePair<PickupLine, List<PickupElementVec3>> pickupLine in _track.pickupContainer.GetLineDict())
 		{
@@ -74,7 +68,7 @@ public class PickupManager : MonoBehaviour
 			{
 				GameObject item;
 				float goodOrEvil = Random.value;
-
+				
 				if(goodOrEvil <= 0.5f)
 				{
 					GameObject randItem = _rulesSwitcher.GetRandomGoodItem();
@@ -87,28 +81,42 @@ public class PickupManager : MonoBehaviour
 					item = Instantiate(randItem, pickup.position, pickup.rotation) as GameObject;
 					item.transform.rotation *= randItem.transform.localRotation;
 				}
-
+				
 				item.transform.parent = itemContainer.transform;
-
+				
 				// Add items to the pickup-list:
 				PickupLev pickupLevitation = new PickupLev(item.transform);
 				pickupLevitation.CurTime = Random.Range(0.0f, 1.0f);
-				_pickups.Add(pickupLevitation);
+				_pickups.GetLine(pickupLine.Key).Add(pickupLevitation);
 			}
 		}
+	}
+
+	public void Start() 
+	{
+		// MoveOnTrack and other classes need instances, that are saved here in PickupManager, so
+		// use the Awake() method to init everything that is needed outside!
 	}
 
 	public void Update() 
 	{
 		// Let the pickups levitate:
-		foreach(PickupLev pickup in _pickups)
+		foreach(KeyValuePair<PickupLine, List<PickupLev>> pickupLines in _pickups.GetLineDict())
 		{
-			pickup.CurTime += Time.deltaTime / _levitationTime;
+			foreach(PickupLev pickup in pickupLines.Value)
+			{
+				pickup.CurTime += Time.deltaTime / _levitationTime;
 
-			Vector3 nextPos = pickup.StartPos;
-			nextPos.y += _levitationCurve.Evaluate(pickup.CurTime) * _levitationHight;
+				Vector3 nextPos = pickup.StartPos;
+				nextPos.y += _levitationCurve.Evaluate(pickup.CurTime) * _levitationHight;
 
-			pickup.Pickup.position = nextPos;
+				pickup.Pickup.position = nextPos;
+			}
 		}
+	}
+
+	public PickupContainer<PickupLev> GetPickups()
+	{
+		return _pickups;
 	}
 }

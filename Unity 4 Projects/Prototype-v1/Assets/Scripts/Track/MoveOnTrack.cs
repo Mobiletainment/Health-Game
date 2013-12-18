@@ -18,7 +18,14 @@ public class MoveOnTrack : MonoBehaviour
 	public float _switchTime = 0.3f;
 
 	public RoadIndicatorTextures _roadIndicatorTextures = null;
+
+	// Skills - For now configureable:
 	public int _skillMovement = 5; // TODO: change this to real skill...
+	public int _skillVisibility = 5; // TODO: change this to real skill...
+	public float _visSwitchTime = 0.25f; // Config the time, that the items need from low to high opaqueness.
+	public float _pickupDefaultAlpha = 0.2f;
+
+	private PickupManager _puManager = null;
 
 	private List<Vector3> _points = new List<Vector3>();
 	private Transform _moveObject;
@@ -40,9 +47,22 @@ public class MoveOnTrack : MonoBehaviour
 	// The spline, the user wants to move on:
 	public SplineLine _switchSpline;
 
+	// Manage visibility of items:
+	private int[] itemVisibilityIndizes = new int[System.Enum.GetNames(typeof(PickupLine)).Length];
+	private float[] nextItemDistances = new float[System.Enum.GetNames(typeof(PickupLine)).Length];
+	private int _visSplineIndex = 0;
+	private int _visIndexPart = 0;
+	private float _visStepSize = 0.1f;
+
 	// Use this for initialization
 	void Start () {
+		// Init the moveable object (Avatar):
 		_moveObject = transform;
+
+		// Get Access to the PickupManager:
+		_puManager = gameObject.GetComponent<PickupManager>() as PickupManager;
+		if(!_puManager)
+			Debug.LogError("Error: No PickupManager available!\nPlease add a PickupManager Script to the MoveOnTrack-Object.");
 
 		// Init Controlpoints for current spline:
 		_points = _track.splineContainer.GetSpline(_spline);
@@ -73,6 +93,27 @@ public class MoveOnTrack : MonoBehaviour
 		{
 			Debug.LogError("Error: Level of skillMovement ("+_skillMovement+") does not have a texture!");
 		}
+
+		// Init item visibility: (make all Items transparent...)
+		Dictionary<PickupLine, List<PickupManager.PickupLev>> pickupContainer = _puManager.GetPickups().GetLineDict();
+		foreach(KeyValuePair<PickupLine, List<PickupManager.PickupLev>> pickupLine in pickupContainer)
+		{
+			foreach(PickupManager.PickupLev levItem in pickupLine.Value)
+			{
+				Color tempCol = levItem.Pickup.renderer.material.color;
+				tempCol.a = _pickupDefaultAlpha;
+				levItem.Pickup.renderer.material.color = tempCol;
+			}
+		}
+
+		// Init distances to the next pickup with maximum-float:
+		for(int i = 0; i < nextItemDistances.Length; ++i)
+		{
+			nextItemDistances[i] = float.MaxValue;
+		}
+		// Calculate the first -skill-distance- for normal visibility:
+		float visStartDist = _visStepSize * _skillVisibility;
+		MoveVisLineForDist(visStartDist);
 	}
 	
 	// Update is called once per frame
@@ -114,14 +155,6 @@ public class MoveOnTrack : MonoBehaviour
 		{
 			if(_switchSpline > _leftMaxSpline)
 			{
-//				_spline--;
-//				_points = _track.splineContainer.GetSpline(_spline);
-//				// _switchPoints = _track.splineContainer.GetSpline(_spline - 1);
-//				// _switchInProgress = true;
-//				
-//				_moveObject.position = GetPosOnSpline(_splineIndex, (float)_indexPart/(float)_divisor, _points);
-//				_lastPos = _moveObject.position;
-
 				if(SplineAccessGaranted(_switchSpline-1, _skillMovement))
 				{
 					_switchSpline--;
@@ -132,14 +165,6 @@ public class MoveOnTrack : MonoBehaviour
 		{
 			if(_switchSpline < _rightMaxSpline)
 			{
-//				_spline++;
-//				_points = _track.splineContainer.GetSpline(_spline);
-//				// _switchPoints = _track.splineContainer.GetSpline(_spline + 1);
-//				// _switchInProgress = true;
-//				
-//				_moveObject.position = GetPosOnSpline(_splineIndex, (float)_indexPart/(float)_divisor, _points);
-//				_lastPos = _moveObject.position;
-
 				if(SplineAccessGaranted(_switchSpline+1, _skillMovement))
 				{
 					_switchSpline++;
@@ -148,23 +173,13 @@ public class MoveOnTrack : MonoBehaviour
 		}
 		// ---- INPUT END ----
 
-//		if(_switchInProgress)
-//		{
-//			// TODO...	
-//		}
-
-
-
-
-		// Backup index & part:
-//		int splineIndex = _splineIndex;
-//		int indexPart = _indexPart;
+		// Update Pickup Visibility:
+		MoveVisLineForDist(_speed * Time.deltaTime);
 
 		// Update Object Position:
 		_lastPos = _nextPos;
 		_lastSwitchPos = _nextSwitchPos;
-		_nextPos = GetNextStepOnSpline(_spline, ref _splineIndex, ref _indexPart, _speed);
-		Debug.DrawRay(_nextPos, _moveObject.up, Color.green, 10.0f);
+		_nextPos = GetNextStepOnSpline(_spline, ref _splineIndex, ref _indexPart, _speed * Time.deltaTime);
 
 		// Update Camera Position:
 		Vector3 camPos = GetPosOnSpline(_splineIndex, (float)_indexPart/(float)_divisor, _track.splineContainer.GetSpline(SplineLine.CENTER));
@@ -181,34 +196,22 @@ public class MoveOnTrack : MonoBehaviour
 		if(_switchSpline != _spline)
 		{
 			_switchTime+=Time.deltaTime*6;
-//			Vector3 switchDiff = GetNextStepOnSpline(_switchSpline, ref splineIndex, ref indexPart, _speed);
-//			Vector3 switchDiff = GetPosOnSpline(splineIndex, (float)indexPart / (float)_divisor, _track.splineContainer.GetSpline(_switchSpline));
-//			float diff = Vector3.Distance(_moveObject.position, switchDiff);
-		//	float diff = Vector3.Distance(_moveObject.position, _lastSwitchPos);
-//			Debug.DrawRay(switchDiff, _moveObject.up, Color.red, 10.0f);
 
 			_nextSwitchPos = GetPosOnSpline(_splineIndex, (float)_indexPart / (float)_divisor, _track.splineContainer.GetSpline(_switchSpline));
 			_lastSwitchPos = GetPosOnSpline(_splineIndex, (float)_indexPart / (float)_divisor, _track.splineContainer.GetSpline(_spline));
 
-			Debug.DrawRay(_nextSwitchPos, _moveObject.up, Color.blue, 10.0f);
-
 			if(_switchTime<1.0f)
 			{
-//				Debug.Log ("Big Diff");
 				Vector3 posProp = Vector3.Slerp(_lastSwitchPos, _nextSwitchPos, _switchTime);
-		//		Debug.Log (diff+"   doing  "+_switchTime);
 
 				// Finally, move the object:
 				_moveObject.position = posProp;
 			}
-			// If I do not write explicitly "diff <= ...f", it does not work. Well done, C# -.-
 			else
 			{
 				_switchTime=0;
 				_spline = _switchSpline;
-			//	Debug.Log (diff+" done");
 				_moveObject.position = _nextSwitchPos;
-				//Debug.Log ("Switch END");
 				_nextPos = _nextSwitchPos;
 				_lastPos = _nextPos;
 			}
@@ -250,7 +253,8 @@ public class MoveOnTrack : MonoBehaviour
 			curDist += Vector3.Distance(nextPos, pos);
 			nextPos = pos;
 			//			Debug.Log ("curDist: " + curDist);
-			if(curDist >= speed * Time.deltaTime)
+//			if(curDist >= speed * Time.deltaTime)
+			if(curDist >= speed)
 			{
 //				Debug.Log ("Dist: " + Vector3.Distance(nextPos, pos));
 				break;
@@ -349,7 +353,7 @@ public class MoveOnTrack : MonoBehaviour
 	{
 		int iLine = (int)line;
 		int halfMovement = (int)(movementLevel / 2);
-		Debug.Log ("halfMovement: " + halfMovement);
+
 		// Even level:
 		if(movementLevel % 2 == 0)
 		{
@@ -369,5 +373,68 @@ public class MoveOnTrack : MonoBehaviour
 		}
 
 		return false;
+	}
+	
+	private void MoveVisLineForDist(float dist)
+	{
+		float checkedDist = 0;
+		Vector3 checkPos = GetPosOnSpline(_visSplineIndex, (float)_visIndexPart/(float)_divisor, _track.splineContainer.GetSpline(SplineLine.CENTER));
+		
+		while(checkedDist < dist)
+		{
+			Vector3 curLeftPos = GetPosOnSpline(_visSplineIndex, (float)_visIndexPart/(float)_divisor, _track.splineContainer.GetSpline(SplineLine.LEFT5));
+			Vector3 curRightPos = GetPosOnSpline(_visSplineIndex, (float)_visIndexPart/(float)_divisor, _track.splineContainer.GetSpline(SplineLine.RIGHT5));
+			Dictionary<PickupLine, List<PickupElementVec3>> pickupLines = _track.pickupContainer.GetLineDict();
+			foreach(KeyValuePair<PickupLine, List<PickupElementVec3>> pickupLine in pickupLines)
+			{
+				int tempIndex = (int)pickupLine.Key;
+				
+				if(itemVisibilityIndizes[tempIndex] >= pickupLine.Value.Count)
+				{
+					// All items on this line done...
+					continue;
+				}
+				
+				Vector3 curPickupPos = pickupLine.Value[itemVisibilityIndizes[tempIndex]].position;
+				float tempDist = Vector3.Distance(curLeftPos, curPickupPos) + Vector3.Distance(curRightPos, curPickupPos);
+				
+				if(nextItemDistances[tempIndex] > tempDist)
+				{
+					nextItemDistances[tempIndex] = tempDist;
+				}
+				else
+				{
+					// Change visibility (transparency) of the items, that are in the closer distance:
+					Transform curTrans = _puManager.GetPickups().GetLine(pickupLine.Key)[itemVisibilityIndizes[tempIndex]].Pickup;
+					StartCoroutine(ChangePickupVisability(curTrans, _visSwitchTime));
+					
+					itemVisibilityIndizes[tempIndex]++;
+					nextItemDistances[tempIndex] = float.MaxValue;
+				}
+			}
+			// This distance calculation is not perfect, but it's doing its job for the moment...
+			float nextStep = (_visStepSize > dist ? dist : _visStepSize);
+			Vector3 nextPos = GetNextStepOnSpline(SplineLine.CENTER, ref _visSplineIndex, ref _visIndexPart, nextStep);
+			checkedDist += Vector3.Distance(nextPos, checkPos);
+			checkPos = nextPos;
+		}
+	}
+
+	IEnumerator ChangePickupVisability(Transform item, float changeTime)
+	{
+		float startAlpha = item.renderer.material.color.a;
+		AnimationCurve curve = new AnimationCurve(new Keyframe(0, startAlpha), new Keyframe(changeTime, 1.0f));
+		float curTime = 0.0f;
+
+		while(curTime < changeTime)
+		{
+			curTime += Time.deltaTime;
+
+			Color tempCol = item.renderer.material.color;
+			tempCol.a = curve.Evaluate(curTime);
+			item.renderer.material.color = tempCol;
+
+			yield return new WaitForSeconds(Time.deltaTime);
+		}
 	}
 }
