@@ -41,6 +41,7 @@ public class MoveOnTrack : MonoBehaviour
 	
 	private int _splineIndex = 0;
 	private int _indexPart = 0;
+	private bool _endOfSpline = false;
 
 //	private float _splineLength = 0;
 
@@ -187,56 +188,64 @@ public class MoveOnTrack : MonoBehaviour
 		// ---- INPUT END ----
 
 		// Update Pickup Visibility:
-		MoveVisLineForDist(_speed * Time.deltaTime);
-
-		// Update Object Position:
-		_lastPos = _nextPos;
-		_lastSwitchPos = _nextSwitchPos;
-		_nextPos = GetNextStepOnSpline(_spline, ref _splineIndex, ref _indexPart, _speed * Time.deltaTime);
-
-		// Update Camera Position:
-		Vector3 camPos = GetPosOnSpline(_splineIndex, (float)_indexPart/(float)_divisor, _track.splineContainer.GetSpline(SplineLine.CENTER));
-		_camMover.position = camPos;
-
-		// Update Rotations:
-		Vector3 curDir = _nextPos - _lastPos;
-		Quaternion nextObjRot = Quaternion.Slerp(_moveObject.rotation, Quaternion.LookRotation(curDir), 0.1f);
-		_moveObject.rotation = nextObjRot;
-		// Camera Rotation:
-		Quaternion nextCamRot = Quaternion.Slerp(_camMover.rotation, Quaternion.LookRotation(curDir), 0.1f);
-		_camMover.rotation = nextCamRot;
-
-		if(_switchSpline != _spline)
+		if(_endOfSpline == false) // Did not yet reach the end of spline...
 		{
-			_switchTime+=Time.deltaTime*6;
+			MoveVisLineForDist(_speed * Time.deltaTime);
 
-			_nextSwitchPos = GetPosOnSpline(_splineIndex, (float)_indexPart / (float)_divisor, _track.splineContainer.GetSpline(_switchSpline));
-			_lastSwitchPos = GetPosOnSpline(_splineIndex, (float)_indexPart / (float)_divisor, _track.splineContainer.GetSpline(_spline));
+			// Update Object Position:
+			_lastPos = _nextPos;
+			_lastSwitchPos = _nextSwitchPos;
+			_nextPos = GetNextStepOnSpline(_spline, ref _splineIndex, ref _indexPart, _speed * Time.deltaTime, true);
 
-			if(_switchTime<1.0f)
+			// Update Camera Position:
+			Vector3 camPos = GetPosOnSpline(_splineIndex, (float)_indexPart/(float)_divisor, _track.splineContainer.GetSpline(SplineLine.CENTER));
+			_camMover.position = camPos;
+
+			// Update Rotations:
+			Vector3 curDir = _nextPos - _lastPos;
+			Quaternion nextObjRot = Quaternion.Slerp(_moveObject.rotation, Quaternion.LookRotation(curDir), 0.1f);
+			_moveObject.rotation = nextObjRot;
+			// Camera Rotation:
+			Quaternion nextCamRot = Quaternion.Slerp(_camMover.rotation, Quaternion.LookRotation(curDir), 0.1f);
+			_camMover.rotation = nextCamRot;
+
+			if(_switchSpline != _spline)
 			{
-				Vector3 posProp = Vector3.Slerp(_lastSwitchPos, _nextSwitchPos, _switchTime);
+				_switchTime+=Time.deltaTime*6;
 
-				// Finally, move the object:
-				_moveObject.position = posProp;
+				_nextSwitchPos = GetPosOnSpline(_splineIndex, (float)_indexPart / (float)_divisor, _track.splineContainer.GetSpline(_switchSpline));
+				_lastSwitchPos = GetPosOnSpline(_splineIndex, (float)_indexPart / (float)_divisor, _track.splineContainer.GetSpline(_spline));
+
+				if(_switchTime<1.0f)
+				{
+					Vector3 posProp = Vector3.Slerp(_lastSwitchPos, _nextSwitchPos, _switchTime);
+
+					// Finally, move the object:
+					_moveObject.position = posProp;
+				}
+				else
+				{
+					_switchTime=0;
+					_spline = _switchSpline;
+					_moveObject.position = _nextSwitchPos;
+					_nextPos = _nextSwitchPos;
+					_lastPos = _nextPos;
+				}
 			}
 			else
 			{
 				_switchTime=0;
-				_spline = _switchSpline;
-				_moveObject.position = _nextSwitchPos;
-				_nextPos = _nextSwitchPos;
-				_lastPos = _nextPos;
+				_moveObject.position = _nextPos;
 			}
 		}
 		else
 		{
-			_switchTime=0;
-			_moveObject.position = _nextPos;
+			// TODO...
+			Application.LoadLevel("GameOver");
 		}
 	}
 	
-	private Vector3 GetNextStepOnSpline(SplineLine spline, ref int splineIndex, ref int indexPart, float speed)
+	private Vector3 GetNextStepOnSpline(SplineLine spline, ref int splineIndex, ref int indexPart, float speed, bool avatarMovement = false)
 	{
 		List<Vector3> points = _track.splineContainer.GetSpline(spline);
 		Vector3 nextPos = GetPosOnSpline(splineIndex, (float)_indexPart/(float)_divisor, points);
@@ -256,6 +265,11 @@ public class MoveOnTrack : MonoBehaviour
 
 			// TODO: Check StepSize again... 20 might be too high... Or _divisor is too high.
 			indexPart += 20;
+
+			if(avatarMovement == true && splineIndex >= points.Count - 1)
+			{
+				ReachedEndOfSpline();
+			}
 			
 			if(splineIndex < 0) splineIndex = 0;
 			if(splineIndex > points.Count - 2) splineIndex = points.Count - 2;
@@ -433,7 +447,7 @@ public class MoveOnTrack : MonoBehaviour
 		}
 	}
 
-	IEnumerator ChangePickupVisability(Transform item, float changeTime)
+	private IEnumerator ChangePickupVisability(Transform item, float changeTime)
 	{
 		float startAlpha = item.renderer.material.color.a;
 		AnimationCurve curve = new AnimationCurve(new Keyframe(0, startAlpha), new Keyframe(changeTime, 1.0f));
@@ -449,5 +463,10 @@ public class MoveOnTrack : MonoBehaviour
 
 			yield return new WaitForSeconds(Time.deltaTime);
 		}
+	}
+
+	private void ReachedEndOfSpline()
+	{
+		_endOfSpline = true;
 	}
 }
