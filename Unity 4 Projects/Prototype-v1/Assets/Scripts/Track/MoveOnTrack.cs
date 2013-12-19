@@ -406,12 +406,13 @@ public class MoveOnTrack : MonoBehaviour
 	{
 		float checkedDist = 0;
 		Vector3 checkPos = GetPosOnSpline(_visSplineIndex, (float)_visIndexPart/(float)_divisor, _track.splineContainer.GetSpline(SplineLine.CENTER));
-		
+		Dictionary<PickupLine, List<PickupElementVec3>> pickupLines = _track.pickupContainer.GetLineDict();
+
 		while(checkedDist < dist)
 		{
-			Vector3 curLeftPos = GetPosOnSpline(_visSplineIndex, (float)_visIndexPart/(float)_divisor, _track.splineContainer.GetSpline(SplineLine.LEFT5));
-			Vector3 curRightPos = GetPosOnSpline(_visSplineIndex, (float)_visIndexPart/(float)_divisor, _track.splineContainer.GetSpline(SplineLine.RIGHT5));
-			Dictionary<PickupLine, List<PickupElementVec3>> pickupLines = _track.pickupContainer.GetLineDict();
+			Vector3 curSplinePos = GetPosOnSpline(_visSplineIndex, (float)_visIndexPart/(float)_divisor, _track.splineContainer.GetSpline(SplineLine.LEFT5));
+//			Vector3 curRightPos = GetPosOnSpline(_visSplineIndex, (float)_visIndexPart/(float)_divisor, _track.splineContainer.GetSpline(SplineLine.RIGHT5));
+
 			foreach(KeyValuePair<PickupLine, List<PickupElementVec3>> pickupLine in pickupLines)
 			{
 				int tempIndex = (int)pickupLine.Key;
@@ -423,7 +424,8 @@ public class MoveOnTrack : MonoBehaviour
 				}
 				
 				Vector3 curPickupPos = pickupLine.Value[itemVisibilityIndizes[tempIndex]].position;
-				float tempDist = Vector3.Distance(curLeftPos, curPickupPos) + Vector3.Distance(curRightPos, curPickupPos);
+//				float tempDist = Vector3.Distance(curLeftPos, curPickupPos) + Vector3.Distance(curRightPos, curPickupPos);
+				float tempDist = Vector3.Distance(curSplinePos, curPickupPos);
 				
 				if(nextItemDistances[tempIndex] > tempDist)
 				{
