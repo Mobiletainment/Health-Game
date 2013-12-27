@@ -77,6 +77,7 @@ public class InsertArrowEditor : Editor
 		// Instatiate the new TrackPart:
 		TrackPartScript trackPart = Instantiate(_target.trackReference.trackPartManager._parts[_target.trackReference.partSelectionInd]) as TrackPartScript;
 		trackPart.transform.parent = _target.trackReference.transform;
+//		trackPart.TrackPartMgrIndex = _target.trackReference.partSelectionInd;
 		trackPart.gameObject.name = "TrackPart_" + _target.trackReference.nameCounter.ToString() + "_" + trackPart.Name;
 		_target.trackReference.nameCounter++;
 		

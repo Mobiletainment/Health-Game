@@ -112,9 +112,9 @@ public class PickupContainer<T>
 	}
 	
 	// Add another PickupContainer to this one:
-	public void AddPickupContainer(PickupContainer<T> addLine)
+	public void AddPickupContainer(PickupContainer<T> container)
 	{
-		foreach(KeyValuePair<PickupLine, List<T>> lineKV in addLine.GetLineDict())
+		foreach(KeyValuePair<PickupLine, List<T>> lineKV in container.GetLineDict())
 		{
 			GetLine(lineKV.Key).AddRange(lineKV.Value);
 		}

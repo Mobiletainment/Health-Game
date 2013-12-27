@@ -7,6 +7,8 @@ using System.Collections.Generic;
 // - Splines are not shown constantly. After adding/inserting/removing they are refreshed but do not show up
 //	 until something else is used in the GUI (e.g. button press).
 
+// Maybe it's better to add a little editor-script to the TrackPartManager to give the Parts the index number...
+
 [System.Serializable]
 [CustomEditor(typeof(MasterTrackScript))]
 public class TrackEditor : Editor 
@@ -46,9 +48,12 @@ public class TrackEditor : Editor
 		{
 			if(_data.trackPartManager._parts != null)
 			{
-				foreach(TrackPartScript trackPart in _data.trackPartManager._parts)
+				for(int i = 0; i < _data.trackPartManager._parts.Length; ++i)
 				{
-					_partNames.Add(trackPart.Name);
+//					// Tell each trackPart, which index it has in the TrackPartManager:
+//					_data.trackPartManager._parts[i].TrackPartMgrIndex = i;
+					// Init the NamesList for chosing the trackPart in the Editor by name:
+					_partNames.Add(_data.trackPartManager._parts[i].Name);
 				}
 				if(_partNames.Count == 0)
 				{
@@ -234,6 +239,7 @@ public class TrackEditor : Editor
 			
 			TrackPartScript trackPart = Instantiate(_data.trackPartManager._parts[_data.partSelectionInd]) as TrackPartScript;
 			trackPart.transform.parent = Selection.activeTransform;
+//			trackPart.TrackPartMgrIndex = _data.partSelectionInd;
 			
 			// Put the new TrackPart in the correct position and rotation:
 			if(_data.currentTrackParts.Count == 0)
@@ -344,6 +350,70 @@ public class TrackEditor : Editor
 					"See the Config-Section in the TrackEditor.");
 			}
 		}
+
+		EditorGUILayout.Space();
+		
+		if(GUILayout.Button("Update TrackParts"))
+		{
+			// TODO: Make this a own mode -> Give options for: 1) takeover all pickup settings and 2) rename trackPart-GameObjects
+			// ad 2) This means, the first Track has TrackPart_0_[TYPE] and the n'th one TrackPart_n_[TYPE] (So the names after eraseing and inserting are in correct order)
+			List<TrackPartScript> changedTrackParts = new List<TrackPartScript>();
+			foreach(TrackPartScript origTPS in _data.currentTrackParts)
+			{
+				TrackPartScript trackPart = Instantiate(_data.trackPartManager._parts[origTPS.TrackPartMgrIndex]) as TrackPartScript;
+
+				// Takeover object information:
+				trackPart.transform.parent = origTPS.transform.parent;
+				trackPart.name = origTPS.name;
+
+				// Takeover transform information:
+				trackPart.transform.position = origTPS.transform.position;
+				trackPart.transform.rotation = origTPS.transform.rotation;
+				trackPart.transform.localScale = origTPS.transform.localScale;
+
+				// TODO: THIS WILL ABSOLUTELY FAIL if something with the pickups has changed betweeen the diffrenet trackParts...
+				// No safety net here! (Implement some kind of control, e.g. equal-check the length of the containers and use tryGetValue, etc...)
+
+				// Takeover pickup-activity information:
+				Dictionary<PickupLine, List<PickupElementTrans>> pickupContainer = trackPart.GetPickupContainer().GetLineDict();
+				Dictionary<PickupLine, List<PickupElementTrans>> origPickupContainer = origTPS.GetPickupContainer().GetLineDict();
+
+				foreach(KeyValuePair<PickupLine, List<PickupElementTrans>> kvPickupContainer in pickupContainer)
+				{
+					List<PickupElementTrans> pickupList = kvPickupContainer.Value;
+					List<PickupElementTrans> origPickupList = origPickupContainer[kvPickupContainer.Key];
+
+					for(int i = 0; i < pickupList.Count; ++i)
+					{
+						pickupList[i].active = origPickupList[i].active;
+					}
+				}
+
+				changedTrackParts.Add(trackPart);
+			}
+
+			// Copy complete, delete originals...
+			for(int i = _data.currentTrackParts.Count - 1; i >= 0; --i)
+			{
+				DestroyImmediate(_data.currentTrackParts[i].gameObject);
+			}
+			_data.currentTrackParts = changedTrackParts;
+
+			Debug.Log("Done: TrackParts have been updated.");
+		}
+
+//		if(GUILayout.Button("TEMP BUTTON"))
+//		{
+//			foreach(TrackPartScript tps in _data.currentTrackParts)
+//			{
+//				int index = System.Array.FindIndex(_data.trackPartManager._parts, 
+//				                       delegate(TrackPartScript tpsSearch)
+//				                       {
+//					return tpsSearch.Name == tps.Name;
+//				});
+//				tps.TrackPartMgrIndex = index;
+//			}
+//		}
 	}
 
 /*

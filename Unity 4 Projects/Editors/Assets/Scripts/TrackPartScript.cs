@@ -28,6 +28,16 @@ public class TrackPartScript : MonoBehaviour
 	[SerializeField]
 	private PickupContainerTrans _pickups = new PickupContainerTrans();
 
+	// Information for the TrackEditor (renew single TrackParts after changes):
+	[SerializeField]
+//	[HideInInspector]
+	private int _trackPartMgrIndex;
+	public int TrackPartMgrIndex
+	{
+		get { return _trackPartMgrIndex; }
+		set { _trackPartMgrIndex = value; }
+	}
+
 	// Getter & Setter:
 	public string Name
 	{
