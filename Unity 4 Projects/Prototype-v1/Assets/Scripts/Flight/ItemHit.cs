@@ -15,6 +15,12 @@ public class ItemHit : MonoBehaviour
 		Good,
 		Bad
 	}
+
+	public enum Side
+	{
+		LEFT = 0,
+		RIGHT
+	}
 	
 	private float lastItemHit = 0.0f;
 	
@@ -23,6 +29,8 @@ public class ItemHit : MonoBehaviour
 	private ActiveHit activeHit;
 	private bool other=false;
 	protected Vector3 lastHitPosition;
+
+	public Side _side;
 
 	public void Awake()
 	{
@@ -45,7 +53,7 @@ public class ItemHit : MonoBehaviour
 		GameObject hitObject = hit.gameObject;
 		
 		lastHitPosition = hitObject.transform.position;
-		if (RuleSwitcher.IsItemHitGood(hitObject))
+		if (RuleSwitcher.IsItemHitGood(hitObject, _side))
 		{
 			SetHit(ItemHit.ActiveHit.Good);
 //			_audioReverb.enabled = false;

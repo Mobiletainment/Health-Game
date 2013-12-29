@@ -23,6 +23,9 @@ public class RulesSwitcher : MonoBehaviour
 	protected List<Rule> CurrentRuleSet;
 	protected Rule CurrentActiveRule;
 
+	protected Rule _leftRule;
+	protected Rule _rightRule;
+
 	private ECPNManager ecpnManager;
 
 	public ECPNManager Backend {
@@ -37,6 +40,10 @@ public class RulesSwitcher : MonoBehaviour
 	void Awake()
 	{
 		CurrentActiveRule = LevelInfo.Rule1;
+
+		// TODO: Get rules from the current track situation...
+		_leftRule = new	Rule(PickupInfo.Shape.BOX);
+		_rightRule = new Rule(PickupInfo.Shape.CIRCLE);
 	}
 	
 	void Start()
@@ -91,21 +98,35 @@ public class RulesSwitcher : MonoBehaviour
 		InvokeRepeating("RuleFlashBegin", 0.0f, LevelInfo.RuleDuration);
 	}
 	
-	public bool IsItemHitGood(GameObject gameObject)
+	public bool IsItemHitGood(GameObject gameObject, ItemHit.Side side)
 	{
+		/*
+		// ORIGINAL:
 		if(gameObject.tag!="Untagged") {
 			int itemIndex = int.Parse(gameObject.tag);
 			return CurrentActiveRule.GoodItems.Contains(itemIndex);
 		}
-	return false;
+		return false;
+		*/
+
+		PickupInfo puInfo = gameObject.GetComponent<PickupInfo>();
+		if(puInfo != null)
+		{
+			Rule rule = (side == ItemHit.Side.LEFT ? _leftRule : _rightRule);
+			return rule.CheckRule(puInfo);
+		}
+
+		return false;
 	}
-	
+
+	// DEPRECATED
 	public GameObject GetRandomBadItem()
 	{
 		int itemIndex = Random.Range(0, CurrentActiveRule.BadItems.Count - 1);
 		return Items[CurrentActiveRule.BadItems[itemIndex]]; //TODO: refine logic for returning a good item according to the active rule
 	}
-	
+
+	// DEPRECATED
 	public GameObject GetRandomGoodItem()
 	{
 		int itemIndex = Random.Range(0, CurrentActiveRule.GoodItems.Count - 1);

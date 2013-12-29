@@ -39,8 +39,11 @@ public class PickupManager : MonoBehaviour
 	public float _levitationHight = 0.015f;
 	public float _levitationTime = 2.0f;
 
+	public Color[] _pickupColors;
+	public Transform[] _pickupShapes;
+
 	[HideInInspector]
-	public RulesSwitcher _rulesSwitcher;
+	public RulesSwitcher _rulesSwitcher; // DEPRECATED
 
 	private PickupContainer<PickupLev> _pickups = new PickupContainer<PickupLev>();
 
@@ -56,7 +59,7 @@ public class PickupManager : MonoBehaviour
 			rulesSwitcherGameObject.name = "Rule Switcher";
 		}
 		
-		_rulesSwitcher = rulesSwitcherGameObject.GetComponent<RulesSwitcher>();
+		_rulesSwitcher = rulesSwitcherGameObject.GetComponent<RulesSwitcher>(); // DEPRECATED
 
 		GameObject itemContainer = new GameObject();
 		itemContainer.name = "ItemContainer";
@@ -66,6 +69,7 @@ public class PickupManager : MonoBehaviour
 		{
 			foreach(PickupElementVec3 pickup in pickupLine.Value)
 			{
+				/*
 				GameObject item;
 				float goodOrEvil = Random.value;
 				
@@ -81,8 +85,18 @@ public class PickupManager : MonoBehaviour
 					item = Instantiate(randItem, pickup.position, pickup.rotation) as GameObject;
 					item.transform.rotation *= randItem.transform.localRotation;
 				}
-				
+				*/
+
+				// Create random item:
+				PickupInfo.Shape shape = (PickupInfo.Shape)Random.Range(0, 2); // 0-1 (min inclusive, max exclusive)
+				PickupInfo.Color color = (PickupInfo.Color)Random.Range(0, 2); // 0-1 (min inclusive, max exclusive)
+
+				GameObject item = Instantiate(_pickupShapes[(int)shape].gameObject, pickup.position, pickup.rotation) as GameObject;
+				PickupInfo pickupItem = item.AddComponent<PickupInfo>();
+				pickupItem.Initialize(shape, color);
+				item.transform.rotation *= _pickupShapes[(int)shape].localRotation;
 				item.transform.parent = itemContainer.transform;
+				item.renderer.material.color = _pickupColors[(int)color];
 				
 				// Add items to the pickup-list:
 				PickupLev pickupLevitation = new PickupLev(item.transform);
