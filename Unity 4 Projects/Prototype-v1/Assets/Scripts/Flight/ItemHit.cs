@@ -51,34 +51,39 @@ public class ItemHit : MonoBehaviour
 	public void OnTriggerEnter(Collider hit)
 	{
 		GameObject hitObject = hit.gameObject;
-		
-		lastHitPosition = hitObject.transform.position;
-		if (RuleSwitcher.IsItemHitGood(hitObject, _side))
+
+		// Check, if the thing, that was hit, is a pickupItem:
+		PickupInfo puInfo = hitObject.GetComponent<PickupInfo>();
+		if(puInfo != null)
 		{
-			SetHit(ItemHit.ActiveHit.Good);
-//			_audioReverb.enabled = false;
-		}
-		else
-		{
-			SetHit(ItemHit.ActiveHit.Bad);
-//			_audioReverb.enabled = true;
-		}
+			lastHitPosition = hitObject.transform.position;
+			if (RuleSwitcher.IsItemHitGood(hitObject, _side))
+			{
+				SetHit(ItemHit.ActiveHit.Good);
+	//			_audioReverb.enabled = false;
+			}
+			else
+			{
+				SetHit(ItemHit.ActiveHit.Bad);
+	//			_audioReverb.enabled = true;
+			}
 		
 //		_audioSource.gameObject.transform.position = hitObject.transform.position;
 //		_audioSource.Play();
 		
-		if (hit.tag != "UI")
-		{
-			//deactivate the collided object
-			hit.collider.enabled = false;
-			//hit.gameObject.renderer.material.color = Color.black;
+			if (hit.tag != "UI")
+			{
+				//deactivate the collided object
+				hit.collider.enabled = false;
+				//hit.gameObject.renderer.material.color = Color.black;
 
-//			hitObject.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
-			Vector3 minusSize = new Vector3(0.1f, 0.1f, 0.1f);
+	//			hitObject.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
+				Vector3 minusSize = new Vector3(0.1f, 0.1f, 0.1f);
 
-			StartCoroutine(DownSizeItem(hit.transform, minusSize));
+				StartCoroutine(DownSizeItem(hit.transform, minusSize));
+			}
+			//hit.gameObject.renderer.enabled = false;
 		}
-		//hit.gameObject.renderer.enabled = false;
 	}
 
 	public IEnumerator DownSizeItem(Transform item, Vector3 minusSize)

@@ -28,6 +28,16 @@ public class Rule
 		private set { _hasColor = true; _color = value; }
 	}
 
+	public bool HasShape()
+	{
+		return _hasShape;
+	}
+
+	public bool HasColor()
+	{
+		return _hasColor;
+	}
+
 	// Constructors & Initializer:
 	private void Init(bool hasShape, PickupInfo.Shape shape, bool hasColor, PickupInfo.Color color)
 	{

@@ -36,14 +36,24 @@ public class RulesSwitcher : MonoBehaviour
 			return ecpnManager;
 		}
 	}
+
+	public void SetLeftRule(Rule r)
+	{
+		_leftRule = r;
+	}
+
+	public void SetRightRule(Rule r)
+	{
+		_rightRule = r;
+	}
 	
 	void Awake()
 	{
 		CurrentActiveRule = LevelInfo.Rule1;
 
 		// TODO: Get rules from the current track situation...
-		_leftRule = new	Rule(PickupInfo.Shape.BOX);
-		_rightRule = new Rule(PickupInfo.Shape.CIRCLE);
+//		_leftRule = new	Rule(PickupInfo.Shape.BOX);
+//		_rightRule = new Rule(PickupInfo.Shape.CIRCLE);
 	}
 	
 	void Start()

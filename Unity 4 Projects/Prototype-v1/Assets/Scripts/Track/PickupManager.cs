@@ -39,8 +39,7 @@ public class PickupManager : MonoBehaviour
 	public float _levitationHight = 0.015f;
 	public float _levitationTime = 2.0f;
 
-	public Color[] _pickupColors;
-	public Transform[] _pickupShapes;
+	public RuleConfig _ruleConfig;
 
 	[HideInInspector]
 	public RulesSwitcher _rulesSwitcher; // DEPRECATED
@@ -91,12 +90,12 @@ public class PickupManager : MonoBehaviour
 				PickupInfo.Shape shape = (PickupInfo.Shape)Random.Range(0, 2); // 0-1 (min inclusive, max exclusive)
 				PickupInfo.Color color = (PickupInfo.Color)Random.Range(0, 2); // 0-1 (min inclusive, max exclusive)
 
-				GameObject item = Instantiate(_pickupShapes[(int)shape].gameObject, pickup.position, pickup.rotation) as GameObject;
+				GameObject item = Instantiate(_ruleConfig.GetPickupShape(shape).gameObject, pickup.position, pickup.rotation) as GameObject;
 				PickupInfo pickupItem = item.AddComponent<PickupInfo>();
 				pickupItem.Initialize(shape, color);
-				item.transform.rotation *= _pickupShapes[(int)shape].localRotation;
+				item.transform.rotation *= _ruleConfig.GetPickupShape(shape).localRotation;
 				item.transform.parent = itemContainer.transform;
-				item.renderer.material.color = _pickupColors[(int)color];
+				item.renderer.material.color = _ruleConfig.GetPickupColor(color);
 				
 				// Add items to the pickup-list:
 				PickupLev pickupLevitation = new PickupLev(item.transform);
