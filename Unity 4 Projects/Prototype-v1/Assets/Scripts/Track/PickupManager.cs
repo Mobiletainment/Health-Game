@@ -68,24 +68,6 @@ public class PickupManager : MonoBehaviour
 		{
 			foreach(PickupElementVec3 pickup in pickupLine.Value)
 			{
-				/*
-				GameObject item;
-				float goodOrEvil = Random.value;
-				
-				if(goodOrEvil <= 0.5f)
-				{
-					GameObject randItem = _rulesSwitcher.GetRandomGoodItem();
-					item = Instantiate(randItem, pickup.position, pickup.rotation) as GameObject;
-					item.transform.rotation *= randItem.transform.localRotation;
-				}
-				else
-				{
-					GameObject randItem = _rulesSwitcher.GetRandomBadItem();
-					item = Instantiate(randItem, pickup.position, pickup.rotation) as GameObject;
-					item.transform.rotation *= randItem.transform.localRotation;
-				}
-				*/
-
 				// Create random item:
 				PickupInfo.Shape shape = (PickupInfo.Shape)Random.Range(0, 2); // 0-1 (min inclusive, max exclusive)
 				PickupInfo.Color color = (PickupInfo.Color)Random.Range(0, 2); // 0-1 (min inclusive, max exclusive)

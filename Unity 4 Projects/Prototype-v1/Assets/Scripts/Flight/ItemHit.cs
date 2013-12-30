@@ -8,6 +8,9 @@ public class ItemHit : MonoBehaviour
 
 //	protected AudioSource _audioSource;
 //	protected AudioReverbZone _audioReverb;
+
+	private SkillManager _skillManager;
+	private static int _skillLifes = -1; // Needs to be static, because there are 2 ItemHit Objects (left & right arm)
 	
 	public enum ActiveHit
 	{
@@ -39,12 +42,19 @@ public class ItemHit : MonoBehaviour
 //		_audioSource = GameObject.Find("ItemHitSound").GetComponent<AudioSource>();
 //		_audioReverb = GameObject.Find("ItemHitSound").GetComponent<AudioReverbZone>();
 	}
-	public void Start(){
-		 RuleSwitcher= GameObject.Find("Rule Switcher").GetComponent<RulesSwitcher>();
-		 if (tag=="0"){
-			other=true;
-		 }else {
-			other=false;	
+
+	public void Start()
+	{
+		RuleSwitcher = GameObject.Find("Rule Switcher").GetComponent<RulesSwitcher>();
+
+		// Only the first time! (not for both arms...)
+		if(_skillLifes == -1)
+		{
+			_skillManager = new SkillManager();
+			_skillManager.Init();
+			
+			_skillLifes = _skillManager.GetSkillByName("Life").CurrentValue;
+			RuleSwitcher.UpdateLife(_skillLifes);
 		}
 	}
 
@@ -71,18 +81,12 @@ public class ItemHit : MonoBehaviour
 //		_audioSource.gameObject.transform.position = hitObject.transform.position;
 //		_audioSource.Play();
 		
-			if (hit.tag != "UI")
-			{
-				//deactivate the collided object
-				hit.collider.enabled = false;
-				//hit.gameObject.renderer.material.color = Color.black;
+			// Deactivate the collided object
+			hit.collider.enabled = false;
 
-	//			hitObject.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
-				Vector3 minusSize = new Vector3(0.1f, 0.1f, 0.1f);
-
-				StartCoroutine(DownSizeItem(hit.transform, minusSize));
-			}
-			//hit.gameObject.renderer.enabled = false;
+			// Shrink the cought pickup item:
+			Vector3 minusSize = new Vector3(0.1f, 0.1f, 0.1f);
+			StartCoroutine(DownSizeItem(hit.transform, minusSize));
 		}
 	}
 
@@ -99,8 +103,6 @@ public class ItemHit : MonoBehaviour
 	
 	public void SetHit(ActiveHit hit)
 	{
-		
-		
 		if (other){
 			if(hit==ActiveHit.Good){
 				hit=ActiveHit.Bad;
@@ -128,6 +130,13 @@ public class ItemHit : MonoBehaviour
 			goodItemHit.enabled = false;
 			badItemHit.enabled = true;
 			RuleSwitcher.UpdateScore(-1);
+			RuleSwitcher.UpdateLife(-1);
+			if(RuleSwitcher.LifesLeft <= 0)
+			{
+				Debug.Log ("NO LIFES LEFT - GAME OVER!");
+				Application.LoadLevel("GameOver");
+			}
+
 			lastItemHit = Time.time;
 			#if UNITY_IPHONE || UNITY_ANDROID
 				Handheld.Vibrate(); //vibration as feedback for wrong items

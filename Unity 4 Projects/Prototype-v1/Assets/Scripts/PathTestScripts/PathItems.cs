@@ -4,7 +4,9 @@
 using UnityEngine;
 using System.Collections.Generic;
 public class PathItems : MonoBehaviour {
-	
+
+	// DEPRECATED CLASS!
+	/*
 	// Define the width of the track (width is only one half of the track!)
 	public float _trackSideWidth;
 	public string _pathName = "FlightPath1";
@@ -100,7 +102,7 @@ public class PathItems : MonoBehaviour {
 				middleDistance = rangeRight;
 			}
 			
-			GameObject item;
+			GameObject item = null;
 			// For a random value < 0.3 put no item on this position.
 			float goodOrEvil = Random.value;
 			if(goodOrEvil >= 0.33f && goodOrEvil < 0.66f)
@@ -167,14 +169,14 @@ public class PathItems : MonoBehaviour {
 //			Vector3 hullPoint = pos + curDir.normalized * 10;
 //			Debug.DrawRay(pos, curDir.normalized * 10, Color.yellow, 100f);
 			
-			/*Collider[] hits = Physics.OverlapSphere(pos, _trackSideWidth); //.SphereCastAll(pos, 100.0f, curDir.normalized, 0);
-			
-			foreach(Collider hit in hits)
-			{
-				_marker.position=new Vector3(hit.transform.position.x,hit.transform.position.y,hit.transform.position.z);
-				Debug.Log("Hit object at dist " + (pos - hit.transform.position).magnitude, hit.transform);
-				break;
-			}*/
+//			Collider[] hits = Physics.OverlapSphere(pos, _trackSideWidth); //.SphereCastAll(pos, 100.0f, curDir.normalized, 0);
+//			
+//			foreach(Collider hit in hits)
+//			{
+//				_marker.position=new Vector3(hit.transform.position.x,hit.transform.position.y,hit.transform.position.z);
+//				Debug.Log("Hit object at dist " + (pos - hit.transform.position).magnitude, hit.transform);
+//				break;
+//			}
 		}
 #		elif MOBILE
 		Debug.LogWarning(Input.touchCount);
@@ -225,4 +227,5 @@ public class PathItems : MonoBehaviour {
 	{
 		return new Vector2(vec.y, -vec.x);
 	}
+	*/
 }

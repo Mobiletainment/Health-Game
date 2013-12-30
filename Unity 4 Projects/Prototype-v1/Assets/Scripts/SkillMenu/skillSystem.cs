@@ -10,11 +10,11 @@ public class skillSystem : MonoBehaviour
     //private SkillManager _sm;
 
     public UILabel unusedSkillpoints;
-    public UILabel skill1Name;
-    public UILabel skill2Name;
-    public UILabel skill3Name;
-    public UILabel skill4Name;
-    public UILabel skill5Name;
+//    public UILabel skill1Name;
+//    public UILabel skill2Name;
+//    public UILabel skill3Name;
+//    public UILabel skill4Name;
+//    public UILabel skill5Name;
     //public UILabel skill6Name;
     public UILabel skill1Value;
     public UILabel skill2Value;
