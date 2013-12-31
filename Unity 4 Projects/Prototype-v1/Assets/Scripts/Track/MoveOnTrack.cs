@@ -41,7 +41,9 @@ public class MoveOnTrack : MonoBehaviour
 	
 	private int _splineIndex = 0;
 	private int _indexPart = 0;
-	private bool _endOfSpline = false;
+	private bool _stopMovement = false;
+
+	private float _curSpeed = 0.0f;
 
 //	private float _splineLength = 0;
 
@@ -188,14 +190,19 @@ public class MoveOnTrack : MonoBehaviour
 		// ---- INPUT END ----
 
 		// Update Pickup Visibility:
-		if(_endOfSpline == false) // Did not yet reach the end of spline...
+		if(_stopMovement == false) // Did not yet reach the end of spline...
 		{
-			MoveVisLineForDist(_speed * Time.deltaTime);
+			if(_curSpeed == 0.0f)
+			{
+				StartCoroutine(SpeedChange(_speed));
+			}
+
+			MoveVisLineForDist(_curSpeed * Time.deltaTime);
 
 			// Update Object Position:
 			_lastPos = _nextPos;
 			_lastSwitchPos = _nextSwitchPos;
-			_nextPos = GetNextStepOnSpline(_spline, ref _splineIndex, ref _indexPart, _speed * Time.deltaTime, true);
+			_nextPos = GetNextStepOnSpline(_spline, ref _splineIndex, ref _indexPart, _curSpeed * Time.deltaTime, true);
 
 			// Update Camera Position:
 			Vector3 camPos = GetPosOnSpline(_splineIndex, (float)_indexPart/(float)_divisor, _track.splineContainer.GetSpline(SplineLine.CENTER));
@@ -275,6 +282,13 @@ public class MoveOnTrack : MonoBehaviour
 			if(splineIndex > points.Count - 2) splineIndex = points.Count - 2;
 			if(indexPart < 0) indexPart = 0;
 			if(indexPart > _divisor) indexPart = _divisor;
+
+			// Lower the Speed to zero, if the end of the track is reached...
+			if(splineIndex > points.Count - 4)
+			{
+				StartCoroutine(SpeedChange(0.0f, 1.0f, true));
+				// TODO: EndSequence of level can be started here!
+			}
 
 			Vector3 pos = GetPosOnSpline(splineIndex, (float)indexPart/(float)_divisor, points);
 			curDist += Vector3.Distance(nextPos, pos);
@@ -467,8 +481,35 @@ public class MoveOnTrack : MonoBehaviour
 		}
 	}
 
+	public IEnumerator SpeedChange(float aimSpeed, float duration = 1.0f, bool endOfSpline = false)
+	{
+		float curTime = 0.0f;
+		AnimationCurve curve = AnimationCurve.EaseInOut(curTime, _curSpeed, duration, aimSpeed);
+
+		while(curTime < duration)
+		{
+			curTime += Time.deltaTime;
+
+			// HACK: Don't know why there is such a huge problem with floats in C# -.-
+			if(curTime >= duration)
+			{
+				_curSpeed = aimSpeed;
+				break;
+			}
+
+			_curSpeed = curve.Evaluate(curTime);
+			
+			yield return new WaitForSeconds(Time.deltaTime);
+		}
+
+		if(endOfSpline)
+		{
+			ReachedEndOfSpline();
+		}
+	}
+
 	private void ReachedEndOfSpline()
 	{
-		_endOfSpline = true;
+		_stopMovement = true;
 	}
 }
