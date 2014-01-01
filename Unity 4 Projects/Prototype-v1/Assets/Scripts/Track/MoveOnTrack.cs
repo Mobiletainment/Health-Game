@@ -68,6 +68,10 @@ public class MoveOnTrack : MonoBehaviour
 		_skillVisibility = _skillManager.GetSkillByName("Sight").CurrentValue;
 
 		Debug.Log ("Movement: " + _skillMovement + ", Visibility: " + _skillVisibility);
+
+		// TEST:
+//		Camera.main.transparencySortMode = TransparencySortMode.Orthographic;
+//		Debug.Log("Camera", Camera.main);
 	}
 
 	// Use this for initialization
