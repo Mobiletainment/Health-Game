@@ -10,33 +10,42 @@ public class PickupActivityEditor : Editor
 
 	public void OnEnable()
 	{
-		// Blend out all tools:
-		_tool = Tools.current;
-		Tools.current = Tool.None;
-		
 		// Set target:
 		_target = target as PickupActivityScript;
 
-		// Change activity:
-		bool active = _target.pickupElement.active;
-		_target.pickupElement.active = !active;
-
-		// Change color:
-		// HACK: Use different colors with shared materials without unity-complining-warnings...
-		// I just needed a gameObject, that has a renderer, so I took the Ref.Obj.Start, because it was easy to get.
-		Material mat = new Material(_target.trackReference.currentTrackParts[0].ReferenceObjectStart.renderer.sharedMaterial);
-		if(!active)
+		// Is the Editor in Pickup Mode?
+		if(_target.trackReference.editorMode == MasterTrackScript.Mode.PICKUP)
 		{
-			mat.color = Color.green;
+			// Blend out all tools:
+			_tool = Tools.current;
+			Tools.current = Tool.None;
+
+			// Change activity:
+			bool active = _target.pickupElement.active;
+			_target.pickupElement.active = !active;
+
+			// Change color:
+			// HACK: Use different colors with shared materials without unity-complining-warnings...
+			// I just needed a gameObject, that has a renderer, so I took the Ref.Obj.Start, because it was easy to get.
+			Material mat = new Material(_target.trackReference.currentTrackParts[0].ReferenceObjectStart.renderer.sharedMaterial);
+			if(!active)
+			{
+				mat.color = Color.green;
+			}
+			else
+			{
+				mat.color = Color.red;
+			}
+			_target.pickupElement.position.renderer.material = mat;
+
+			// Switch back to main editor:
+			BackToTrackEditor();
 		}
 		else
 		{
-			mat.color = Color.red;
+			// Editor in any other mode:
+			DrawDefaultInspector();
 		}
-		_target.pickupElement.position.renderer.material = mat;
-
-		// Switch back to main editor:
-		BackToTrackEditor();
 	}
 
 	public void OnDisable()

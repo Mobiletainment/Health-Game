@@ -107,7 +107,7 @@ public class TrackEditor : Editor
 				}
 			}
 		}
-		
+
 		// Initialize the savedTrackNames List:
 		if(_data.saveTracks != null)
 		{
@@ -983,8 +983,13 @@ public class TrackEditor : Editor
 					{
 						puElement.position.renderer.sharedMaterial = matRed;
 					}
-					
-					PickupActivityScript pickupAS = puElement.position.gameObject.AddComponent<PickupActivityScript>();
+
+					// Add PickupActivity Script if not yet done:
+					PickupActivityScript pickupAS = puElement.position.gameObject.GetComponent<PickupActivityScript>();
+					if(pickupAS == null)
+					{
+						pickupAS = puElement.position.gameObject.AddComponent<PickupActivityScript>();
+					}
 					pickupAS.trackReference = _data;
 					pickupAS.pickupElement = puElement;
 				}
