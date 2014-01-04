@@ -5,8 +5,9 @@ public class LoadNextFlightScene : MonoBehaviour {
 
     void OnClick ()
     {
-		RulesSwitcher ruleSwitcher = GameObject.Find("Rule Switcher").GetComponent<RulesSwitcher>();
-		ruleSwitcher.LevelInfo.Level += 1;
+//		RulesSwitcher ruleSwitcher = GameObject.Find("Rule Switcher").GetComponent<RulesSwitcher>();
+//		ruleSwitcher.LevelInfo.Level += 1;
+		LevelManager.CurrentLevel += 1;
     	Application.LoadLevel("TrackFlight");
     }
 }

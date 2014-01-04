@@ -8,7 +8,7 @@ using System.Collections.Generic;
 public class MoveOnTrack : MonoBehaviour 
 {
 	// Config Members:
-	public CleanTrackData _track = null;
+	public LevelManager _levelManager = null;
 	public Transform _camMover = null;
 	public float _speed = 1.0f; // Units per Second.
 	public SplineLine _spline = SplineLine.CENTER;
@@ -27,6 +27,8 @@ public class MoveOnTrack : MonoBehaviour
 	private int _skillMovement;
 	private int _skillVisibility;
 
+	private CleanTrackData _track = null;
+	private LevelInfo _levelInfo = null;
 	private PickupManager _puManager = null;
 
 	private List<Vector3> _points = new List<Vector3>();
@@ -59,19 +61,32 @@ public class MoveOnTrack : MonoBehaviour
 	private int _visIndexPart = 0;
 	private float _visStepSize = 0.1f;
 
+	public CleanTrackData Track
+	{
+		get { return _track; }
+		private set { _track = value; }
+	}
+
 	void Awake()
 	{
+		// Load Track:
+		LevelInfo currentLevelPrefab = _levelManager.GetCurrentLevel();
+		GameObject levelObject = Instantiate(currentLevelPrefab.gameObject, Vector3.zero, Quaternion.identity) as GameObject;
+		_levelInfo = levelObject.GetComponent<LevelInfo>();
+		_track = _levelInfo.Track;
+		if(_track == null)
+		{
+			Debug.LogError("Error: No track could have been loaded!");
+		}
+
+		// Load Skills:
 		_skillManager = new SkillManager();
 		_skillManager.Init();
-
+		
 		_skillMovement = _skillManager.GetSkillByName("Agility").CurrentValue;
 		_skillVisibility = _skillManager.GetSkillByName("Sight").CurrentValue;
-
-		Debug.Log ("Movement: " + _skillMovement + ", Visibility: " + _skillVisibility);
-
-		// TEST:
-//		Camera.main.transparencySortMode = TransparencySortMode.Orthographic;
-//		Debug.Log("Camera", Camera.main);
+		
+//		Debug.Log ("Movement: " + _skillMovement + ", Visibility: " + _skillVisibility);
 	}
 
 	// Use this for initialization
@@ -83,6 +98,9 @@ public class MoveOnTrack : MonoBehaviour
 		_puManager = gameObject.GetComponent<PickupManager>() as PickupManager;
 		if(!_puManager)
 			Debug.LogError("Error: No PickupManager available!\nPlease add a PickupManager Script to the MoveOnTrack-Object.");
+
+		// Init PickupManager:
+		_puManager.InitPickups(_track);
 
 		// Init Controlpoints for current spline:
 		_points = _track.splineContainer.GetSpline(_spline);

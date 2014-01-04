@@ -34,7 +34,6 @@ public class PickupManager : MonoBehaviour
 		}
 	}
 
-	public CleanTrackData _track = null;
 	public AnimationCurve _levitationCurve;
 	public float _levitationHight = 0.015f;
 	public float _levitationTime = 2.0f;
@@ -45,6 +44,9 @@ public class PickupManager : MonoBehaviour
 	public RulesSwitcher _rulesSwitcher; // DEPRECATED
 
 	private PickupContainer<PickupLev> _pickups = new PickupContainer<PickupLev>();
+
+	private CleanTrackData _track = null;
+	private bool _isInitialized = false;
 
 	public void Awake()
 	{
@@ -59,11 +61,32 @@ public class PickupManager : MonoBehaviour
 		}
 		
 		_rulesSwitcher = rulesSwitcherGameObject.GetComponent<RulesSwitcher>(); // DEPRECATED
+	}
 
+	public void Start() 
+	{
+		// MoveOnTrack and other classes need instances, that are saved here in PickupManager, so
+		// use the Awake() method to init everything that is needed outside!
+	}
+
+	public void InitPickups(CleanTrackData track)
+	{
+		if(track != null)
+		{
+			_track = track;
+			_isInitialized = true;
+		}
+		else
+		{
+			Debug.LogError("Error: No valid track has been given for initialization!");
+			return;
+		}
+
+		// Parent object for all pickups:
 		GameObject itemContainer = new GameObject();
 		itemContainer.name = "ItemContainer";
 		
-		// Initialize good and bad pickups:
+		// Initialize good and bad pickups: (TODO: This is random only, if the player is especially lucky, he will only gain bad items...)
 		foreach(KeyValuePair<PickupLine, List<PickupElementVec3>> pickupLine in _track.pickupContainer.GetLineDict())
 		{
 			foreach(PickupElementVec3 pickup in pickupLine.Value)
@@ -71,7 +94,7 @@ public class PickupManager : MonoBehaviour
 				// Create random item:
 				PickupInfo.Shape shape = (PickupInfo.Shape)Random.Range(0, 2); // 0-1 (min inclusive, max exclusive)
 				PickupInfo.Color color = (PickupInfo.Color)Random.Range(0, 2); // 0-1 (min inclusive, max exclusive)
-
+				
 				GameObject item = Instantiate(_ruleConfig.GetPickupShape(shape).gameObject, pickup.position, pickup.rotation) as GameObject;
 				PickupInfo pickupItem = item.AddComponent<PickupInfo>();
 				pickupItem.Initialize(shape, color);
@@ -87,14 +110,19 @@ public class PickupManager : MonoBehaviour
 		}
 	}
 
-	public void Start() 
+	public bool IsInitialized()
 	{
-		// MoveOnTrack and other classes need instances, that are saved here in PickupManager, so
-		// use the Awake() method to init everything that is needed outside!
+		return _isInitialized;
 	}
 
 	public void Update() 
 	{
+		if(!_isInitialized)
+		{
+			Debug.Log("Error: No PickupManager initialization has been done!");
+			return;
+		}
+
 		// Let the pickups levitate:
 		foreach(KeyValuePair<PickupLine, List<PickupLev>> pickupLines in _pickups.GetLineDict())
 		{

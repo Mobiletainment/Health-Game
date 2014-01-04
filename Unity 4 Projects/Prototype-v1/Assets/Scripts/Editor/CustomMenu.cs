@@ -20,6 +20,6 @@ public class CustomMenu
 	[MenuItem("CustomMenu/Create Asset/LevelContainer Asset")]
 	public static void CreateLevelContainerAsset()
 	{
-		CustomAssetUtility.CreateAsset<LevelContainer>();
+		CustomAssetUtility.CreateAsset<LevelManager>();
 	}
 }
