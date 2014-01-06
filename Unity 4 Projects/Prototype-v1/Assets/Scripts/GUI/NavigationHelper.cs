@@ -1,13 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
+using TestFlightUnity;
 
 public class NavigationHelper : MonoBehaviour {
     
     private UserManager userManager;
     public GameObject ParentMenu;
+    private string flightTestToken = "6e59b120-3e9b-4c2c-aeed-ee41db24996a";
     
     void OnEnable()
     {
+        if( string.IsNullOrEmpty( flightTestToken ) ) {
+            Debug.LogError( "Please set your TestFlight SDK token in the editor." );
+        }
+        if( Debug.isDebugBuild ) {
+            // Must be called before TakeOff.
+            TestFlight.SetDeviceID();
+        }
+        
+        // Set some information for the session
+        TestFlight.AddCustomEnvironmentInformation( "Unity Version", Application.unityVersion );
+        TestFlight.AddCustomEnvironmentInformation( "System Language", Application.systemLanguage.ToString() );
+        
+        // Start the session
+        TestFlight.TakeOff( flightTestToken );
+        TestFlight.Log( "Starting AquaSpace" );
+
         userManager = UserManager.Instance;
         
         //userManager.ResetData(); //uncomment this to start from the beginning and not load the game directly on startup
