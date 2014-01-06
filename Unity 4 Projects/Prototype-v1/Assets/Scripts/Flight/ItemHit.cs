@@ -38,6 +38,8 @@ public class ItemHit : MonoBehaviour
 	public void Awake()
 	{
 		activeHit = ActiveHit.None;
+
+		_skillLifes = -1; // SkillLifes will be initialized in Start, but needs to be set to -1 first!
 		
 //		_audioSource = GameObject.Find("ItemHitSound").GetComponent<AudioSource>();
 //		_audioReverb = GameObject.Find("ItemHitSound").GetComponent<AudioReverbZone>();

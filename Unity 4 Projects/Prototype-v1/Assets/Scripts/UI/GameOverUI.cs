@@ -20,22 +20,21 @@ public class GameOverUI : MonoBehaviour {
 		UIButton nextLevel = GameObject.Find("Button - Next Level").GetComponent<UIButton>();
 		
 		Debug.Log(nextLevel);
-		
+
+		/*
 		if (ruleSwitcher != null)
 		{
 			RulesSwitcher rulesSwitcher = ruleSwitcher.GetComponent<RulesSwitcher>();
 			
-			scoreLabel.text = string.Format("You got: {0} of {1} items!", rulesSwitcher.Score, rulesSwitcher.LevelInfo.NecessaryPositiveItems);
+			scoreLabel.text = string.Format("You got: {0} items!", rulesSwitcher.Score);
 			
 			float itemsCount = (float)rulesSwitcher.Score / rulesSwitcher.LevelInfo.NecessaryPositiveItems;
 			itemsCountSlider.value = itemsCount;
-			
-			/*
-			if (itemsCountSlider.sliderValue >= 0.5f)
-				nextLevel.enabled = true;
-			else
-				nextLevel.enabled = false;
-				*/
+
+//			if (itemsCountSlider.sliderValue >= 0.5f)
+//				nextLevel.enabled = true;
+//			else
+//				nextLevel.enabled = false;
 			
 			Debug.Log("ItemsCount: " + itemsCount + ", current: " + itemsCountSlider.value);
 			
@@ -44,6 +43,7 @@ public class GameOverUI : MonoBehaviour {
 			else
 				bonusCountSlider.value = 0.0f;
 		}
+		*/
 	}
 	
 	// Update is called once per frame

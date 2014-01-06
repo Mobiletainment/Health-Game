@@ -4,14 +4,10 @@ using System.Collections.Generic;
 
 public class RulesSwitcher : MonoBehaviour
 {
-	public LevelInfo LevelInfo; // TODO...
-
 	public UILabel scoreLabel;
 	public UILabel lifesLabel;
 	public int Score { get; protected set; }
 	public int LifesLeft { get; protected set;}
-
-	private int level;
 
 	private Rule _leftRule;
 	private Rule _rightRule;
@@ -49,7 +45,6 @@ public class RulesSwitcher : MonoBehaviour
 	
 	protected void Init()
 	{
-		level = LevelInfo.Level;
 		Score = 0;
 		UpdateScore(0);	
 
@@ -88,8 +83,9 @@ public class RulesSwitcher : MonoBehaviour
 		
 		if (Score < 0) //avoid negative score
 			Score = 0;
-		
-		scoreLabel.text = string.Format("Score: {0}/{1}", Score.ToString(), LevelInfo.NecessaryPositiveItems);		
+
+		// TODO: Show, how many points are necessary to get the next medal (bronze, silver, gold):
+		scoreLabel.text = string.Format("Score: {0}", Score.ToString());		
 	}
 
 	public void UpdateLife(int i = -1)
@@ -99,15 +95,6 @@ public class RulesSwitcher : MonoBehaviour
 		if(LifesLeft >= 0)
 		{
 			lifesLabel.text = string.Format("Lifes left: {0}", LifesLeft.ToString());
-		}
-	}
-	
-	public void Update()
-	{
-		//if a new level has been started, this persistent object isn't awaked a second time so we manually need to update the information
-		if (level != LevelInfo.Level) 
-		{
-			Init();
 		}
 	}
 }
