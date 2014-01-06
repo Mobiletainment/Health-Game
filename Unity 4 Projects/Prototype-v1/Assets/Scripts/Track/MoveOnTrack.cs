@@ -67,8 +67,11 @@ public class MoveOnTrack : MonoBehaviour
 		private set { _track = value; }
 	}
 
+//	public int curLevel = 0; // REMOVE THAT AFTER TESTING!
+
 	void Awake()
 	{
+//		LevelManager.CurrentLevel = curLevel;
 		// Load Track:
 		LevelInfo currentLevelPrefab = _levelManager.GetCurrentLevel();
 		GameObject levelObject = Instantiate(currentLevelPrefab.gameObject, Vector3.zero, Quaternion.identity) as GameObject;
