@@ -3,23 +3,23 @@ using System.Collections;
 
 public class GameOverUI : MonoBehaviour {
 	
-	UISlider itemsCountSlider;
-	UISlider bonusCountSlider;
-	GameObject ruleSwitcher;
+//	UISlider itemsCountSlider;
+//	UISlider bonusCountSlider;
+//	GameObject ruleSwitcher;
 	
 	// Use this for initialization
 	void Start () {
-		itemsCountSlider = GameObject.Find("ItemsCount Slider").GetComponent<UISlider>();
-	
-		bonusCountSlider = GameObject.Find("Bonus Slider").GetComponent<UISlider>();
-		
-		ruleSwitcher = GameObject.Find("Rule Switcher");
-		
-		UILabel scoreLabel = GameObject.Find("Score Label").GetComponent<UILabel>();
-		
-		UIButton nextLevel = GameObject.Find("Button - Next Level").GetComponent<UIButton>();
-		
-		Debug.Log(nextLevel);
+//		itemsCountSlider = GameObject.Find("ItemsCount Slider").GetComponent<UISlider>();
+//	
+//		bonusCountSlider = GameObject.Find("Bonus Slider").GetComponent<UISlider>();
+//		
+//		ruleSwitcher = GameObject.Find("Rule Switcher");
+//		
+//		UILabel scoreLabel = GameObject.Find("Score Label").GetComponent<UILabel>();
+//		
+//		UIButton nextLevel = GameObject.Find("Button - Next Level").GetComponent<UIButton>();
+//		
+//		Debug.Log(nextLevel);
 
 		/*
 		if (ruleSwitcher != null)
