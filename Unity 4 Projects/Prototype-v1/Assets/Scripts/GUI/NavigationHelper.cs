@@ -15,8 +15,8 @@ public class NavigationHelper : MonoBehaviour
         string flightTestToken;
         #if UNITY_ANDROID
         flightTestToken = flightTestTokenAndroid;
-        #elif UNITY_IPHONE
-        flightTestTokenIOS = flightTestTokenIOS;
+        #else
+        flightTestToken = flightTestTokenIOS;
         #endif
 
         if (string.IsNullOrEmpty(flightTestToken))
@@ -44,7 +44,11 @@ public class NavigationHelper : MonoBehaviour
         userManager = UserManager.Instance;
         
         //userManager.ResetData(); //uncomment this to start from the beginning and not load the game directly on startup
-        userManager.ResetDataOnNewVersionInstalled();
+        //userManager.ResetDataOnNewVersionInstalled();
+        float currentVersion = float.Parse(new TrackedBundleVersion().current.version, System.Globalization.CultureInfo.InvariantCulture);
+        Debug.Log("Current Version: " + currentVersion + ", Previously installed: " + userManager.GetVersion());
+
+        userManager.SetVersion(currentVersion, true); //true = Resest UserData when new version is installed
 
         if (userManager.IsLoggedIn())
         {
@@ -52,10 +56,14 @@ public class NavigationHelper : MonoBehaviour
             
             if (userManager.IsChild == true)
             {
+                TestFlight.PassCheckpoint("Known User");
                 LoadGameScene();
             }
             else
+            {
+                TestFlight.PassCheckpoint("New User");
                 LoadParentMenu();
+            }
         }
     }
     

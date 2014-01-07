@@ -6,7 +6,6 @@ using System.Collections;
 public class UserManager : MonoBehaviour
 {
     private static UserManager instance;
-    public static float Version = 1.20f;
 
     public static UserManager Instance
     {
@@ -25,7 +24,7 @@ public class UserManager : MonoBehaviour
                     Instance.username = PlayerPrefs.GetString("username");
                     Instance.isChild = Convert.ToBoolean(PlayerPrefs.GetInt("isChild"));
                     Instance.devToken = PlayerPrefs.GetString("devToken");
-                    
+                    Instance.version =  PlayerPrefs.GetFloat("version", 0.0f);
                     Debug.Log(String.Format("Getting UserData OnEnable: User={0}, isChild={1}, devToken={2}", Instance.username, Instance.isChild, Instance.devToken));
                 }
                 
@@ -66,6 +65,10 @@ public class UserManager : MonoBehaviour
     [SerializeField]
     private bool
         isChild = true;
+
+    [SerializeField]
+    private float
+        version;
     
     public bool IsChild
     {
@@ -105,6 +108,23 @@ public class UserManager : MonoBehaviour
         PlayerPrefs.SetString("devToken", devToken);
     }
 
+    public float GetVersion()
+    {
+        return version;
+    }
+
+    public void SetVersion(float newVersion, bool resetDataOnNewVersionInstalled)
+    {
+        if (this.version < newVersion && resetDataOnNewVersionInstalled)
+        {
+            Debug.Log("New Version installed, deleting old User Data");
+            ResetData();
+        }
+
+        PlayerPrefs.SetFloat("version", newVersion);
+        this.version = newVersion;
+    }
+
     public bool IsLoggedIn()
     {
         return !string.IsNullOrEmpty(GetUsername()) && !string.IsNullOrEmpty(GetDevToken());
@@ -116,18 +136,6 @@ public class UserManager : MonoBehaviour
         SetDevToken("");
         SetUsername("");
         IsChild = false;
-    }
-
-    public void ResetDataOnNewVersionInstalled()
-    {
-        float oldVersion = PlayerPrefs.GetFloat("version", 0.0f);
-
-        if (oldVersion < Version)
-        {
-            Debug.Log("New Version installed, deleting old User Data");
-            ResetData();
-            PlayerPrefs.SetFloat("version", Version);
-        }
     }
     
 }
