@@ -23,6 +23,8 @@ public class MoveOnTrack : MonoBehaviour
 	public float _visSwitchTime = 0.25f; // Config the time, that the items need from low to high opaqueness.
 	public float _pickupDefaultAlpha = 0.2f;
 
+	public FinalPointsLabelDisplay _finalPointsDisplay;
+
 	private SkillManager _skillManager;
 	private int _skillMovement;
 	private int _skillVisibility;
@@ -272,8 +274,8 @@ public class MoveOnTrack : MonoBehaviour
 		}
 		else
 		{
-			// TODO...
-			Application.LoadLevel("GameOver");
+			// Rotate Camera slowly in the Background...
+			_camMover.Rotate(Vector3.up * 10 * Time.deltaTime);
 		}
 	}
 	
@@ -536,5 +538,7 @@ public class MoveOnTrack : MonoBehaviour
 	private void ReachedEndOfSpline()
 	{
 		_stopMovement = true;
+
+		_finalPointsDisplay.ShowFinalPoints(_levelInfo);
 	}
 }

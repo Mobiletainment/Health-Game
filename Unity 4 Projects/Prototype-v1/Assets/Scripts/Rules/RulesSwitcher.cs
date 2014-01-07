@@ -6,7 +6,6 @@ public class RulesSwitcher : MonoBehaviour
 {
 	public UILabel scoreLabel;
 	public UILabel lifesLabel;
-	public FinalPointsLabelDisplay _finalPointsDisplay;
 	public int Score { get; protected set; }
 	public int LifesLeft { get; protected set;}
 
