@@ -6,7 +6,7 @@ using System.Collections;
 public class UserManager : MonoBehaviour
 {
     private static UserManager instance;
-    public static float Version = 1.13f;
+    public static float Version = 1.20f;
 
     public static UserManager Instance
     {
