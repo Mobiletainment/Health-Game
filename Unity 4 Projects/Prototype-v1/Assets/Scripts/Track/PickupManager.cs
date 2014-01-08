@@ -40,9 +40,6 @@ public class PickupManager : MonoBehaviour
 
 	public RuleConfig _ruleConfig;
 
-	[HideInInspector]
-	public RulesSwitcher _rulesSwitcher; // DEPRECATED
-
 	private PickupContainer<PickupLev> _pickups = new PickupContainer<PickupLev>();
 
 	private CleanTrackData _track = null;
@@ -50,17 +47,6 @@ public class PickupManager : MonoBehaviour
 
 	public void Awake()
 	{
-		//Reuse RulesSwitcher between Levels for information transfer
-		GameObject rulesSwitcherGameObject = GameObject.Find("Rule Switcher");
-		
-		if (rulesSwitcherGameObject == null)
-		{
-			Debug.Log ("RuleSwitcher was null.");
-			rulesSwitcherGameObject = Instantiate(Resources.Load("Prefabs/Rule Switcher", typeof(GameObject))) as GameObject;
-			rulesSwitcherGameObject.name = "Rule Switcher";
-		}
-		
-		_rulesSwitcher = rulesSwitcherGameObject.GetComponent<RulesSwitcher>(); // DEPRECATED
 	}
 
 	public void Start() 
@@ -69,6 +55,7 @@ public class PickupManager : MonoBehaviour
 		// use the Awake() method to init everything that is needed outside!
 	}
 
+	// This is called from outside (MoveOnTrack)
 	public void InitPickups(CleanTrackData track)
 	{
 		if(track != null)
@@ -104,7 +91,8 @@ public class PickupManager : MonoBehaviour
 				
 				// Add items to the pickup-list:
 				PickupLev pickupLevitation = new PickupLev(item.transform);
-				pickupLevitation.CurTime = Random.Range(0.0f, 1.0f);
+//				pickupLevitation.CurTime = Random.Range(0.0f, 1.0f);
+				pickupLevitation.CurTime = 0.0f;
 				_pickups.GetLine(pickupLine.Key).Add(pickupLevitation);
 			}
 		}
@@ -124,6 +112,7 @@ public class PickupManager : MonoBehaviour
 		}
 
 		// Let the pickups levitate:
+		/*
 		foreach(KeyValuePair<PickupLine, List<PickupLev>> pickupLines in _pickups.GetLineDict())
 		{
 			foreach(PickupLev pickup in pickupLines.Value)
@@ -136,6 +125,7 @@ public class PickupManager : MonoBehaviour
 				pickup.Pickup.position = nextPos;
 			}
 		}
+		*/
 	}
 
 	public PickupContainer<PickupLev> GetPickups()
