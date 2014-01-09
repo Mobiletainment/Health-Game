@@ -37,6 +37,10 @@ public class ItemHit : MonoBehaviour
 	
 	public Behaviour goodItemHit;
 	public Behaviour badItemHit;
+
+	public ParticleSystem _badItemHitEffect;
+	private ParticleSystem[] _badItemHitEffects;
+
 	private ActiveHit _activeHit;
 //	private bool other = false;
 	protected Vector3 lastHitPosition;
@@ -52,6 +56,15 @@ public class ItemHit : MonoBehaviour
 
 //		_audioSource = GameObject.Find("ItemHitSound").GetComponent<AudioSource>();
 //		_audioReverb = GameObject.Find("ItemHitSound").GetComponent<AudioReverbZone>();
+
+		// Initialize bad-item-hit-effect instance array:
+		_badItemHitEffects = new ParticleSystem[5];
+		for(int i = 0; i < _badItemHitEffects.Length; ++i)
+		{
+			GameObject psObj = Instantiate(_badItemHitEffect.gameObject) as GameObject;
+			ParticleSystem ps = psObj.GetComponent<ParticleSystem>();
+			_badItemHitEffects[i] = ps;
+		}
 	}
 
 	public void Start()
@@ -99,12 +112,12 @@ public class ItemHit : MonoBehaviour
 			lastHitPosition = hitObject.transform.position;
 			if (RuleSwitcher.IsItemHitGood(hitObject, _side))
 			{
-				SetHit(ItemHit.ActiveHit.Good);
+				SetHit(ItemHit.ActiveHit.Good, hitObject);
 	//			_audioReverb.enabled = false;
 			}
 			else
 			{
-				SetHit(ItemHit.ActiveHit.Bad);
+				SetHit(ItemHit.ActiveHit.Bad, hitObject);
 	//			_audioReverb.enabled = true;
 			}
 		
@@ -130,7 +143,7 @@ public class ItemHit : MonoBehaviour
 
 	}
 	
-	public void SetHit(ActiveHit hit)
+	public void SetHit(ActiveHit hit, GameObject hitObject)
 	{
 //		if (other){
 //			if(hit==ActiveHit.Good){
@@ -166,6 +179,9 @@ public class ItemHit : MonoBehaviour
 			{
 				_iconLifeList[RuleSwitcher.LifesLeft - 1].mainTexture = _iconDead.mainTexture;
 			}
+
+			PlaceBadItemEffect(hitObject.transform.position);
+
 //			RuleSwitcher.UpdateScore(-1);
 			RuleSwitcher.UpdateLife(-1);
 			if(RuleSwitcher.LifesLeft <= 0)
@@ -185,12 +201,35 @@ public class ItemHit : MonoBehaviour
 		}
 	}
 
+	private void PlaceBadItemEffect(Vector3 position)
+	{
+		bool debugCheck = false;
+
+		foreach(ParticleSystem ps in _badItemHitEffects)
+		{
+			if(!ps.isPlaying)
+			{
+				ps.transform.position = position;
+				ps.Play();
+
+				debugCheck = true;
+				break;
+			}
+		}
+
+		if(debugCheck == false)
+		{
+			Debug.LogError("No ParticleSystems currently available. If this happens, think about increasing the array size for the particles, " +
+			               "that is currently set to 5.");
+		}
+	}
+
 	// Update is called once per frame
 	public void Update ()
 	{
 		if (Time.time > lastItemHit + 0.3f && _activeHit != ActiveHit.None)
 		{
-			SetHit(ActiveHit.None);
+			SetHit(ActiveHit.None, null);
 		}
 	}
 }

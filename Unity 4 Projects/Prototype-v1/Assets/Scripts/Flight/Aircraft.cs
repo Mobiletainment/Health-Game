@@ -144,11 +144,11 @@ public class Aircraft : MonoBehaviour
 	{
 		if (hit.tag == _goodItemTags[_itemTagIndex])
 		{
-			itemHit.SetHit(ItemHit.ActiveHit.Good);
+//			itemHit.SetHit(ItemHit.ActiveHit.Good);
 		}
 		else
 		{
-			itemHit.SetHit(ItemHit.ActiveHit.Bad);
+//			itemHit.SetHit(ItemHit.ActiveHit.Bad);
 		}
 		
 		Debug.Log(hit.tag);
