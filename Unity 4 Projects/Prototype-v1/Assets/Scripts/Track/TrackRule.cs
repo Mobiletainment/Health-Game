@@ -10,11 +10,11 @@ public class TrackRule : MonoBehaviour
 	public bool _enableOnAwake = false;
 	public TrackRule _nextRule = null;
 
-	public Transform _leftParticlePos;
-	public Transform _rightParticlePos;
+	public Transform _leftParticlePos; // TODO: If you rename this, all connections have to be set again...
+	public Transform _rightParticlePos; // Same here!
 
-	private ParticleSystem _leftParticle = null;
-	private ParticleSystem _rightParticle = null;
+	private Transform _leftShape = null;
+	private Transform _rightShape = null;
 
 	private bool _ruleTriggered = false;
 
@@ -22,45 +22,70 @@ public class TrackRule : MonoBehaviour
 	{
 		if(_enableOnAwake)
 		{
-			InitParticles();
+			InitShapes();
 		}
 	}
 
-	public void InitParticles()
+	public void InitShapes()
 	{
 		// Left side:
-		InitParticle(_leftRule, ref _leftParticle, _leftParticlePos);
+		InitRule(_leftRule, ref _leftShape, _leftParticlePos);
 
 		// Right side:
-		InitParticle(_rightRule, ref _rightParticle, _rightParticlePos);
+		InitRule(_rightRule, ref _rightShape, _rightParticlePos);
 	}
 
-	private void InitParticle(Rule rule, ref ParticleSystem particle, Transform placeholder)
+	private void InitRule(Rule rule, ref Transform shape, Transform placeholder)
 	{
-		RuleConfig.ParticleShape particleShape = RuleConfig.ParticleShape.NONE;
+		RuleConfig.RuleShape ruleShape = RuleConfig.RuleShape.NONE;
 		if(rule.HasShape())
 		{
-			particleShape = (RuleConfig.ParticleShape)rule.Shape;
+			ruleShape = (RuleConfig.RuleShape)rule.Shape;
 		}
 		
-		particle = Instantiate(_ruleConfig.GetRuleParticle(particleShape), placeholder.position, placeholder.rotation) as ParticleSystem;
-		particle.transform.parent = transform.parent;
+		shape = Instantiate(_ruleConfig.GetRuleShapeTrans(ruleShape), placeholder.position, placeholder.rotation) as Transform;
+		shape.parent = transform.parent;
 		
 		if(rule.HasColor())
 		{
-			particle.startColor = _ruleConfig.GetPickupColor(rule.Color);
+			Color col = _ruleConfig.GetPickupColor(rule.Color);
+			col.a = 225.0f / 255.0f; // TODO: HARDCODED
+			shape.renderer.material.color = col;
 		}
-		
-		particle.Play();
 	}
 
-	public void StopParticles()
+	// Knwon Bug: The Shape gets shortly full opaque, but the values tell me, that it should be transparent... No idea why.
+	public IEnumerator RuleFadeOut()
 	{
-		// TODO: Let them fade out before stop!
-		if(_leftParticle != null)
-			_leftParticle.Stop();
-		if(_rightParticle != null)
-			_rightParticle.Stop();
+		float curTime = 0.0f;
+		float duration = 1.0f;
+		AnimationCurve curve = AnimationCurve.Linear(curTime, (225.0f / 255.0f), duration, 0.0f); // TODO: HARDCODED 225
+		
+		while(curTime < duration)
+		{
+			curTime += Time.deltaTime;
+			
+			// HACK: Don't know why there is such a huge problem with floats in C# -.-
+			if(curTime >= duration)
+			{
+				break;
+			}
+			
+			float alpha = curve.Evaluate(curTime);
+
+			Color leftCol = _leftShape.renderer.material.color;
+			leftCol.a = alpha;
+			_leftShape.renderer.material.color = leftCol;
+
+			Color rightCol = _rightShape.renderer.material.color;
+			rightCol.a = alpha;
+			_rightShape.renderer.material.color = rightCol;
+			
+			yield return new WaitForSeconds(Time.deltaTime);
+		}
+		
+		_leftShape.gameObject.SetActive(false);
+		_rightShape.gameObject.SetActive(false);
 	}
 	
 	public void OnTriggerEnter(Collider other) 
@@ -68,7 +93,7 @@ public class TrackRule : MonoBehaviour
 		if(_ruleTriggered == false)
 		{
 			_ruleTriggered = true;
-			StopParticles();
+			StartCoroutine(RuleFadeOut());
 
 			// Is the HitObject the Avatar (or better asked, one of its arms)?
 			ItemHit hitObject = other.gameObject.GetComponent<ItemHit>();
@@ -80,7 +105,7 @@ public class TrackRule : MonoBehaviour
 
 				if(_nextRule != null)
 				{
-					_nextRule.InitParticles();
+					_nextRule.InitShapes();
 				}
 
 				Debug.Log ("RULE SWITCHED!");

@@ -5,11 +5,11 @@ using System.Collections.Generic;
 [System.Serializable]
 public class RuleConfig : ScriptableObject
 {
-	public enum ParticleShape
+	public enum RuleShape
 	{
 		BOX = 0,
 		CIRCLE,
-		NONE // PARTCILE MUST BE CREATED! TODO!
+		NONE
 	}
 
 	[SerializeField]
@@ -17,7 +17,7 @@ public class RuleConfig : ScriptableObject
 	[SerializeField]
 	private Transform[] _pickupShapes;
 	[SerializeField]
-	private ParticleSystem[] _ruleParticles;
+	private Transform[] _ruleShapes; // Must be configured with 3 shapes in same order as RuleShape enum -> Box, Circle, None
 
 	public Color[] PickupColors
 	{
@@ -41,14 +41,14 @@ public class RuleConfig : ScriptableObject
 		return _pickupShapes[(int)shape];
 	}
 
-	public ParticleSystem[] RuleParticles
+	public Transform[] RuleShapes
 	{
-		get { return _ruleParticles; }
-		private set { _ruleParticles = value; }
+		get { return _ruleShapes; }
+		private set { _ruleShapes = value; }
 	}
 	
-	public ParticleSystem GetRuleParticle(ParticleShape shape)
+	public Transform GetRuleShapeTrans(RuleShape shape)
 	{
-		return _ruleParticles[(int)shape];
+		return _ruleShapes[(int)shape];
 	}
 }
