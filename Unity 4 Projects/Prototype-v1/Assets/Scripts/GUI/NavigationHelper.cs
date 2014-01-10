@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿// Disable "Unused Variable" Warning for this Script. (Because one of them is always unused, Android- or iOS-Token.)
+#pragma warning disable 0414
+
+using UnityEngine;
 using System.Collections;
 using TestFlightUnity;
 

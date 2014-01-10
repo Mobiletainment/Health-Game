@@ -7,6 +7,8 @@ public class ItemHit : MonoBehaviour
 	[HideInInspector]
 	public RulesSwitcher RuleSwitcher;
 
+	public ArmManager _armManager;
+
 //	protected AudioSource _audioSource;
 //	protected AudioReverbZone _audioReverb;
 
@@ -43,7 +45,6 @@ public class ItemHit : MonoBehaviour
 	public AnimatedMaterial _armAlert;
 	public Material _greenAlert;
 	public Material _redAlert;
-	private bool _alertInProgress = false;
 
 	public ParticleSystem _badItemHitEffect;
 	private ParticleSystem[] _badItemHitEffects;
@@ -222,29 +223,36 @@ public class ItemHit : MonoBehaviour
 			break;
 
 		case ActiveHit.Bad:
-			badItemHit.transform.position = lastHitPosition;
-			goodItemHit.enabled = false;
-			badItemHit.enabled = true;
-			if(RuleSwitcher.LifesLeft >= 1)
+			if(_armManager.IsInvulnerable == false)
 			{
-				_iconLifeList[RuleSwitcher.LifesLeft - 1].mainTexture = _iconDead.mainTexture;
+				if(RuleSwitcher.LifesLeft >= 0)
+				{
+					StartCoroutine(_armManager.BlinkInvulnerable(1.0f));
+				}
+				badItemHit.transform.position = lastHitPosition;
+				goodItemHit.enabled = false;
+				badItemHit.enabled = true;
+				if(RuleSwitcher.LifesLeft >= 1)
+				{
+					_iconLifeList[RuleSwitcher.LifesLeft - 1].mainTexture = _iconDead.mainTexture;
+				}
+
+				PlaceBadItemEffect(hitObject.transform.position);
+				StartArmAlert(_redAlert);
+
+	//			RuleSwitcher.UpdateScore(-1);
+				RuleSwitcher.UpdateLife(-1);
+				if(RuleSwitcher.LifesLeft <= 0)
+				{
+					Debug.Log ("NO LIFES LEFT - GAME OVER!");
+					Application.LoadLevel("GameOver");
+				}
+
+				lastItemHit = Time.time;
+				#if UNITY_IPHONE || UNITY_ANDROID
+					Handheld.Vibrate(); //vibration as feedback for wrong items
+				#endif
 			}
-
-			PlaceBadItemEffect(hitObject.transform.position);
-			StartArmAlert(_redAlert);
-
-//			RuleSwitcher.UpdateScore(-1);
-			RuleSwitcher.UpdateLife(-1);
-			if(RuleSwitcher.LifesLeft <= 0)
-			{
-				Debug.Log ("NO LIFES LEFT - GAME OVER!");
-				Application.LoadLevel("GameOver");
-			}
-
-			lastItemHit = Time.time;
-			#if UNITY_IPHONE || UNITY_ANDROID
-				Handheld.Vibrate(); //vibration as feedback for wrong items
-			#endif
 			break;
 
 		default:
