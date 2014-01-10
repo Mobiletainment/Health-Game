@@ -38,8 +38,17 @@ public class ItemHit : MonoBehaviour
 	public Behaviour goodItemHit;
 	public Behaviour badItemHit;
 
+	public float _armAlertDuration = 1.0f;
+	private float _curAlertTime = 0.0f;
+	public AnimatedMaterial _armAlert;
+	public Material _greenAlert;
+	public Material _redAlert;
+	private bool _alertInProgress = false;
+
 	public ParticleSystem _badItemHitEffect;
 	private ParticleSystem[] _badItemHitEffects;
+
+	public float _itemShrinkTime = 0.2f;
 
 	private ActiveHit _activeHit;
 //	private bool other = false;
@@ -65,6 +74,9 @@ public class ItemHit : MonoBehaviour
 			ParticleSystem ps = psObj.GetComponent<ParticleSystem>();
 			_badItemHitEffects[i] = ps;
 		}
+
+		// Init Arm-Alert as invisible:
+		_armAlert.gameObject.SetActive(false);
 	}
 
 	public void Start()
@@ -127,20 +139,56 @@ public class ItemHit : MonoBehaviour
 			// Deactivate the collided object
 			hit.collider.enabled = false;
 
-			// Shrink the cought pickup item:
-			Vector3 minusSize = new Vector3(0.1f, 0.1f, 0.1f);
-			StartCoroutine(DownSizeItem(hit.transform, minusSize));
+			// Shrink and deactivate the cought pickup item:
+			StartCoroutine(DownSizeItem(hit.transform));
 		}
 	}
 
-	public IEnumerator DownSizeItem(Transform item, Vector3 minusSize)
+	public IEnumerator DownSizeItem(Transform item)
 	{
-		for(int i = 0; i < 4; ++i)
+		Vector3 origScale = item.localScale;
+		float curShrinkTime = 0.0f;
+		AnimationCurve curve = AnimationCurve.EaseInOut(curShrinkTime, 0.0f, _itemShrinkTime, 1.0f);
+
+		while(curShrinkTime <= _itemShrinkTime)
 		{
-			item.localScale -= minusSize;
-			yield return new WaitForSeconds(0.1f);
+			curShrinkTime += Time.deltaTime;
+			Vector3 minusSize = origScale * curve.Evaluate(curShrinkTime);
+			item.localScale = origScale - minusSize;
+
+			yield return new WaitForSeconds(Time.deltaTime);
 		}
 
+		item.gameObject.SetActive(false);
+	}
+
+	private void StartArmAlert(Material alertMat)
+	{
+		_armAlert.gameObject.renderer.material = alertMat;
+
+		if(_armAlert.gameObject.activeSelf)
+		{
+			_curAlertTime = 0.0f;
+		}
+		else
+		{
+			StartCoroutine(ArmAlert());
+		}
+	}
+
+	private IEnumerator ArmAlert()
+	{
+		_curAlertTime = 0.0f;
+		_armAlert.gameObject.SetActive(true);
+
+		while(_curAlertTime < _armAlertDuration)
+		{
+			_curAlertTime += Time.deltaTime;
+
+			yield return new WaitForSeconds(Time.deltaTime);
+		}
+
+		_armAlert.gameObject.SetActive(false);
 	}
 	
 	public void SetHit(ActiveHit hit, GameObject hitObject)
@@ -166,6 +214,8 @@ public class ItemHit : MonoBehaviour
 			goodItemHit.transform.position = lastHitPosition;
 			goodItemHit.enabled = true;
 			badItemHit.enabled = false;
+
+			StartArmAlert(_greenAlert);
 			
 			RuleSwitcher.UpdateScore(1);
 			lastItemHit = Time.time;
@@ -181,6 +231,7 @@ public class ItemHit : MonoBehaviour
 			}
 
 			PlaceBadItemEffect(hitObject.transform.position);
+			StartArmAlert(_redAlert);
 
 //			RuleSwitcher.UpdateScore(-1);
 			RuleSwitcher.UpdateLife(-1);
