@@ -40,6 +40,8 @@ public class PickupManager : MonoBehaviour
 
 	public RuleConfig _ruleConfig;
 
+	private MoveOnTrack _moveOnTrackInstance = null;
+
 	private PickupContainer<PickupLev> _pickups = new PickupContainer<PickupLev>();
 
 	private CleanTrackData _track = null;
@@ -53,6 +55,14 @@ public class PickupManager : MonoBehaviour
 	{
 		// MoveOnTrack and other classes need instances, that are saved here in PickupManager, so
 		// use the Awake() method to init everything that is needed outside!
+
+		// Get Access to the PickupManager:
+		_moveOnTrackInstance = gameObject.GetComponent<MoveOnTrack>();
+		if(!_moveOnTrackInstance)
+			Debug.LogError("Error: No MoveOnTrackInstance available!\nPlease add a MoveOnTrack Script to the PickupManager-Object.");
+		
+		// Init PickupManager:
+		_moveOnTrackInstance.RuleConfig = _ruleConfig;
 	}
 
 	// This is called from outside (MoveOnTrack)
@@ -87,7 +97,7 @@ public class PickupManager : MonoBehaviour
 				pickupItem.Initialize(shape, color);
 				item.transform.rotation *= _ruleConfig.GetPickupShape(shape).localRotation;
 				item.transform.parent = itemContainer.transform;
-				item.renderer.material.color = _ruleConfig.GetPickupColor(color);
+				item.renderer.material.color = Color.black; // _ruleConfig.GetPickupColor(color);
 				
 				// Add items to the pickup-list:
 				PickupLev pickupLevitation = new PickupLev(item.transform);

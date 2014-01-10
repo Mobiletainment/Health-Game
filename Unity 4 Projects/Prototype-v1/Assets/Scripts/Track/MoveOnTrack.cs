@@ -63,6 +63,14 @@ public class MoveOnTrack : MonoBehaviour
 	private int _visIndexPart = 0;
 	private float _visStepSize = 0.1f;
 
+	[HideInInspector]
+	private RuleConfig _ruleConfig; // RuleConfig is set by PickupManager in Start.
+	public RuleConfig RuleConfig
+	{
+		get { return _ruleConfig; }
+		set { _ruleConfig = value; }
+	}
+
 	public CleanTrackData Track
 	{
 		get { return _track; }
@@ -442,7 +450,8 @@ public class MoveOnTrack : MonoBehaviour
 
 		return false;
 	}
-	
+
+	// TODO: This seems to have a bug! (Items get visible to early.)
 	private void MoveVisLineForDist(float dist)
 	{
 		float checkedDist = 0;
@@ -490,17 +499,23 @@ public class MoveOnTrack : MonoBehaviour
 		}
 	}
 
+	// Changes transparency and color to full visibility:
 	private IEnumerator ChangePickupVisability(Transform item, float changeTime)
 	{
 		float startAlpha = item.renderer.material.color.a;
 		AnimationCurve curve = new AnimationCurve(new Keyframe(0, startAlpha), new Keyframe(changeTime, 1.0f));
+		AnimationCurve colorCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(changeTime, 1.0f));
 		float curTime = 0.0f;
+		PickupInfo puInfo = item.GetComponent<PickupInfo>();
+		Color startColor = item.renderer.material.color;
+		Color aimColor = _ruleConfig.GetPickupColor(puInfo.PickupColor);
 
 		while(curTime < changeTime)
 		{
 			curTime += Time.deltaTime;
 
-			Color tempCol = item.renderer.material.color;
+			Color tempCol = Color.Lerp(startColor, aimColor, colorCurve.Evaluate(curTime));
+//			Color tempCol = item.renderer.material.color;
 			tempCol.a = curve.Evaluate(curTime);
 			item.renderer.material.color = tempCol;
 
