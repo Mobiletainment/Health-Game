@@ -217,8 +217,10 @@ public class ItemHit : MonoBehaviour
 			badItemHit.enabled = false;
 
 			StartArmAlert(_greenAlert);
+
+			_armManager.UpdateScore();
+//			RuleSwitcher.UpdateScore(1);
 			
-			RuleSwitcher.UpdateScore(1);
 			lastItemHit = Time.time;
 			break;
 

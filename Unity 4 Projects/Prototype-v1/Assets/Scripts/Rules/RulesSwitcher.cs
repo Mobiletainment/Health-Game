@@ -6,7 +6,6 @@ public class RulesSwitcher : MonoBehaviour
 {
 	public UILabel scoreLabel;
 	public UILabel lifesLabel;
-	public int Score { get; protected set; }
 	public int LifesLeft { get; protected set;}
 
 	private Rule _leftRule;
@@ -45,9 +44,6 @@ public class RulesSwitcher : MonoBehaviour
 	
 	protected void Init()
 	{
-		Score = 0;
-		UpdateScore(0);	
-
 		LifesLeft = 0;
 		UpdateLife(0);
 	}
@@ -75,17 +71,6 @@ public class RulesSwitcher : MonoBehaviour
 	void LoadGameOverScene()
 	{
 		Application.LoadLevel("GameOver");
-	}
-	
-	public void UpdateScore(int i = 1)
-	{
-		Score = Score + i;
-		
-		if (Score < 0) //avoid negative score
-			Score = 0;
-
-		// TODO: Show, how many points are necessary to get the next medal (bronze, silver, gold):
-		scoreLabel.text = string.Format("Score: {0}", Score.ToString());		
 	}
 
 	public void UpdateLife(int i = -1)

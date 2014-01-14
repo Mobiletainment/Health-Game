@@ -5,8 +5,10 @@ using System.Collections.Generic;
 public class ArmManager : MonoBehaviour 
 {
 	// Public config member:
+	public InGameUIController _uiController;
 
 	// Member:
+	private MoveOnTrack _moveOnTrackInstance;
 	private bool _invulnerable;
 
 	// Getter & Setter:
@@ -19,13 +21,12 @@ public class ArmManager : MonoBehaviour
 	// Methods:
 
 	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	void Awake() 
+	{
+		// Get Access to the MoveOnTrack Instance:
+		_moveOnTrackInstance = gameObject.GetComponent<MoveOnTrack>();
+		if(!_moveOnTrackInstance)
+			Debug.LogError("Error: No MoveOnTrackInstance available!\nPlease add a MoveOnTrack Script to the ArmManager-Object.");
 	}
 
 	public IEnumerator BlinkInvulnerable(float blinkTime)
@@ -61,5 +62,11 @@ public class ArmManager : MonoBehaviour
 		}
 
 		IsInvulnerable = false;
+	}
+
+	public void UpdateScore()
+	{
+		Debug.Log ("ArmManager: Update Score!");
+		_uiController.UpdateScore(_moveOnTrackInstance._levelManager.GetCurrentLevel(), 1);
 	}
 }
