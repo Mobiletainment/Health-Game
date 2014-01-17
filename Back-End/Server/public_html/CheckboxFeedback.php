@@ -20,6 +20,7 @@ $customFeedback = getField("customFeedback");
 $checkboxFeedback = getField("checkboxFeedback");
 $totalCheckboxes = getField("totalCheckboxes");
 
+
 echo "Screen: " . $screenName;
 echo "\n" . $checkboxFeedback;
 
@@ -29,24 +30,27 @@ for ($i = 1; $i <= $totalCheckboxes; $i++)
 	$checkboxes = $checkboxes . "cb" . $i . ",";
 }
 
-echo $checkboxes . "\n";
+if (strlen($checkboxes) > 0)
+{
+	echo $checkboxes . "\n";
+	$checkboxes = rtrim($checkboxes, ",");
 
-$checkboxes = rtrim($checkboxes, ",");
+	echo $checkboxes . "\n";
 
-echo $checkboxes . "\n";
-
-
-//check if they have already registered
-$query= "INSERT INTO Checkbox_Feedback (deviceID, username, isChild, screenName, customFeedback, $checkboxes) VALUES('$deviceID', '$username', $isChild, '$screenName', '$customFeedback', $checkboxFeedback)";
+	$query= "INSERT INTO Checkbox_Feedback (deviceID, username, isChild, screenName, customFeedback, $checkboxes) VALUES('$deviceID', '$username', $isChild, '$screenName', '$customFeedback', $checkboxFeedback)";
+}
+else
+{
+	$query= "INSERT INTO Checkbox_Feedback (deviceID, username, isChild, screenName, customFeedback) VALUES('$deviceID', '$username', $isChild, '$screenName', '$customFeedback')";
+}
 
 echo $query . "\n";
 
 
 $result=mysql_query($query);
 
-echo mysql_errno($query) . ": " . mysql_error($query) . "\n";
+//echo mysql_errno($query) . ": " . mysql_error($query) . "\n";
 
-echo $result;
 
 mysql_close();
 

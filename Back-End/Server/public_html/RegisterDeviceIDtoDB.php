@@ -13,7 +13,7 @@ mysql_query('SET collation_connection=utf8_general_ci');
 @mysql_select_db($database) or die( "9");
 
 $regID = getField("regID");
-$unityID = getField("user");
+$unityID = getField("deviceID");
 $OS = getField("OS");
 $username = getUsername();
 
@@ -47,7 +47,8 @@ function store_user($user,$regID,$OS, $username)
 	if ($isChild == "false") //registration request from the parent
 	{
 		//check if the child has already registered
-		$query="SELECT * FROM Child_Parent WHERE child = '$username'";
+		$query="SELECT * FROM ECPN_table WHERE username = '$username' AND isChild = 1";
+		
 		$result=mysql_query($query);
 
 		if(mysql_numrows($result) == 0)
@@ -59,7 +60,8 @@ function store_user($user,$regID,$OS, $username)
     	if ($isChild == "true")
 	{
 		//check if User already exists
-		$query="SELECT * FROM ECPN_table WHERE username = '$username'";
+		$query="SELECT * FROM ECPN_table WHERE username = '$username' AND isChild = TRUE AND deviceID != '$regID'"; //if user re-registers on same phone with same username, it's okay (!=regID)
+		
 		$result=mysql_query($query);
 
 		if(mysql_numrows($result) > 0)
@@ -76,7 +78,6 @@ function store_user($user,$regID,$OS, $username)
 	}
 
 	mysql_query($query);
-	
 	
 	
 	//if the child is registering, create a username for the parent, store the child<->parent relationship and return the parent's username

@@ -289,10 +289,12 @@ public class ECPNManager: MonoBehaviour
             checkboxValues.Append(',');
         }
         
-        checkboxValues.Length--; // remove last ","
+        if (checkboxValues.Length > 0)
+            checkboxValues.Length--; // remove last ","
         
         AddFormField(form, "checkboxFeedback", checkboxValues.ToString());
         AddFormField(form, "customFeedback", customFeedback);
+        Debug.Log("# of Checkboxes: " + checkboxFeedback.Count.ToString());
         AddFormField(form, "totalCheckboxes", checkboxFeedback.Count.ToString());
         
         string targetAddress = "CheckboxFeedback.php";
@@ -307,7 +309,7 @@ public class ECPNManager: MonoBehaviour
     {
         WWWForm form = new WWWForm();
 
-        AddFormField(form, "user", SystemInfo.deviceUniqueIdentifier);
+        AddFormField(form, "deviceID", SystemInfo.deviceUniqueIdentifier);
         AddFormField(form, "regID", UserManager.GetDevToken());
         AddFormField(form, "username", UserManager.GetUsername());
         AddFormField(form, "isChild", UserManager.IsChild.ToString());

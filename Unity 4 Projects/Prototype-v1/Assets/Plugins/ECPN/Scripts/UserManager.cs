@@ -24,8 +24,9 @@ public class UserManager : MonoBehaviour
                     Instance.username = PlayerPrefs.GetString("username");
                     Instance.isChild = Convert.ToBoolean(PlayerPrefs.GetInt("isChild"));
                     Instance.devToken = PlayerPrefs.GetString("devToken");
-                    Instance.version =  PlayerPrefs.GetFloat("version", 0.0f);
-                    Debug.Log(String.Format("Getting UserData OnEnable: User={0}, isChild={1}, devToken={2}", Instance.username, Instance.isChild, Instance.devToken));
+                    Instance.version = PlayerPrefs.GetFloat("version", 0.0f);
+                    Instance.loginState = (Authentication)PlayerPrefs.GetInt("loginState", 0);
+                    Debug.Log(String.Format("Getting UserData OnEnable: User={0}, isChild={1}, devToken={2}, LoginState={3}", Instance.username, Instance.isChild, Instance.devToken, Instance.loginState));
                 }
                 
             }
@@ -65,10 +66,34 @@ public class UserManager : MonoBehaviour
     [SerializeField]
     private bool
         isChild = true;
-
     [SerializeField]
     private float
         version;
+          
+    public enum Authentication
+    {
+        NotLoggedIn = 0,
+        Registered  = 1, //this is when the player has registered, but its supporter hasn't registered yet
+        LoggedIn = 2     //parent and child are both successfully registered
+    }
+        
+    [SerializeField]
+    private Authentication
+        loginState;
+
+    public Authentication LoginState
+    {
+        get
+        {
+            return loginState;
+        }
+        set
+        {
+            Instance.loginState = value;
+            PlayerPrefs.SetInt("loginState", (int)value);
+            Debug.Log("New LoginState: " + value);
+        }
+    }
     
     public bool IsChild
     {
@@ -125,16 +150,19 @@ public class UserManager : MonoBehaviour
         this.version = newVersion;
     }
 
+    /*
     public bool IsLoggedIn()
     {
-        return !string.IsNullOrEmpty(GetUsername()) && !string.IsNullOrEmpty(GetDevToken());
+        Debug.Log("LoginState: " + LoginState);
+        return !string.IsNullOrEmpty(GetUsername()) && !string.IsNullOrEmpty(GetDevToken()) && LoginState == Authentication.LoggedIn;
     }
-
+*/
     public void ResetData()
     {
         Debug.Log("Caution: Deleting User Data");
         SetDevToken("");
         SetUsername("");
+        LoginState = Authentication.NotLoggedIn;
         IsChild = false;
     }
     

@@ -1,6 +1,5 @@
 ﻿// Disable "Unused Variable" Warning for this Script. (Because one of them is always unused, Android- or iOS-Token.)
 #pragma warning disable 0414
-
 using UnityEngine;
 using System.Collections;
 using TestFlightUnity;
@@ -10,6 +9,7 @@ public class NavigationHelper : MonoBehaviour
     
     private UserManager userManager;
     public GameObject ParentMenu;
+    public GameObject ChildFinishRegistration;
     private string flightTestTokenIOS = "6e59b120-3e9b-4c2c-aeed-ee41db24996a";
     private string flightTestTokenAndroid = "730dce34-dd87-40b3-bf4f-d6358b23d174";
 
@@ -46,14 +46,13 @@ public class NavigationHelper : MonoBehaviour
 #endif
         userManager = UserManager.Instance;
         
-        //userManager.ResetData(); //uncomment this to start from the beginning and not load the game directly on startup
-        //userManager.ResetDataOnNewVersionInstalled();
-        float currentVersion = float.Parse(new TrackedBundleVersion().current.version, System.Globalization.CultureInfo.InvariantCulture);
+        userManager.ResetData(); //uncomment this to start from the beginning and not load the game directly on startup
+        float currentVersion = float.Parse(new TrackedBundleVersion().current.version);
         Debug.Log("Current Version: " + currentVersion + ", Previously installed: " + userManager.GetVersion());
 
         userManager.SetVersion(currentVersion, true); //true = Resest UserData when new version is installed
 
-        if (userManager.IsLoggedIn())
+        if (userManager.LoginState == UserManager.Authentication.LoggedIn)
         {
             Debug.Log("User is logged in");
             
@@ -68,6 +67,11 @@ public class NavigationHelper : MonoBehaviour
                 LoadParentMenu();
             }
         }
+        else if (userManager.LoginState == UserManager.Authentication.Registered && userManager.IsChild == true)
+        {
+            LoadChildFinishRegistration();
+        }
+    
     }
     
     void Start()
@@ -80,6 +84,15 @@ public class NavigationHelper : MonoBehaviour
         Debug.Log("Loading Game Scene");
         Screen.orientation = ScreenOrientation.LandscapeLeft;
         Application.LoadLevel("TrackFlight");
+    }
+  
+    public void LoadChildFinishRegistration()
+    {
+        //in case the child registered but its parent didn't complete the registration, bring the child back to the registration screen
+        MenuStack menuStack = MenuStack.Instance;
+        UIInput action = ChildFinishRegistration.transform.FindChild("InputName").GetComponent<UIInput>();
+        action.value = userManager.GetUsername();
+        menuStack._start = ChildFinishRegistration;
     }
     
     public void LoadParentMenu()
