@@ -206,7 +206,7 @@ public class MoveOnTrack : MonoBehaviour
 		{
 			if(_switchSpline > _leftMaxSpline)
 			{
-				if(SplineAccessGaranted(_switchSpline-1, _skillMovement))
+				if(SplineAccessGaranted(_switchSpline-1, _skillMovement-1))
 				{
 					_switchSpline--;
 				}
@@ -216,7 +216,7 @@ public class MoveOnTrack : MonoBehaviour
 		{
 			if(_switchSpline < _rightMaxSpline)
 			{
-				if(SplineAccessGaranted(_switchSpline+1, _skillMovement))
+				if(SplineAccessGaranted(_switchSpline+1, _skillMovement-1))
 				{
 					_switchSpline++;
 				}

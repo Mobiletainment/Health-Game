@@ -31,6 +31,14 @@ public class BtnOnClick : MonoBehaviour {
 		{
 			Application.LoadLevel("GameOver");
 		}
+		else if(skillName.Equals("Reset"))
+		{
+			_skillSystem.Reset();
+		}
+		else if(skillName.Equals("Cheat"))
+		{
+			_skillSystem.AddCheatPoints();
+		}
         else
         {
             if (increase)

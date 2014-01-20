@@ -22,7 +22,7 @@ public class SkillManager {
 		
 	}
 	
-	public void Init() //HasKey must be called at Start-Method of an Unity Script
+	public void Init() // HasKey must be called at Start-Method of an Unity Script
 	{
 		if(PlayerPrefs.HasKey("unspentPoints"))
 		{
@@ -30,9 +30,8 @@ public class SkillManager {
 		}
 		else
 		{
-			// TODO: usually 0 - for testing increased to 13
-			UnspentPoints = 13;
-			PlayerPrefs.SetInt ("unspentPoints", UnspentPoints);
+			UnspentPoints = 0;
+			PlayerPrefs.SetInt("unspentPoints", UnspentPoints);
 		}
 		
 		if(PlayerPrefs.HasKey(SkillName1))
@@ -41,7 +40,7 @@ public class SkillManager {
 		}
 		else
 		{
-			_skills[0] = new Skill(SkillName1, 3, 10, 3, 3);
+			_skills[0] = new Skill(SkillName1, 3, 11, 3, 3);
 			PlayerPrefs.SetString(SkillName1, CastSkillToString(_skills[0]));
 		}
 		
@@ -84,6 +83,13 @@ public class SkillManager {
 			_skills[4] = new Skill(SkillName5, 0, 10, 0, 0);
 			PlayerPrefs.SetString(SkillName5, CastSkillToString(_skills[4]));
 		}
+	}
+
+	// DEBUG ONLY:
+	public void CheatAddUnspendPoints(int add = 10)
+	{
+		UnspentPoints += add;
+		PlayerPrefs.SetInt("unspentPoints", UnspentPoints);
 	}
 	
 	public Skill GetSkillByName(string name)
@@ -179,5 +185,19 @@ public class SkillManager {
 		
 		Debug.Log ("Save!");
 		PlayerPrefs.Save();
+	}
+
+	public void Reset()
+	{
+		// Reset all skills:
+		for(int i = 0; i < _noOfSkills; ++i)
+		{
+			PlayerPrefs.DeleteKey(_skills[i].Name);
+		}
+		// Reset the unspentPoints:
+		PlayerPrefs.DeleteKey("unspentPoints");
+		
+		Init();
+		Debug.Log ("Reset!");
 	}
 }

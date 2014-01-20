@@ -52,10 +52,6 @@ public class skillSystem : MonoBehaviour
 		
         TextUpdate();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	}
 
     void TextUpdate()
     {
@@ -146,4 +142,17 @@ public class skillSystem : MonoBehaviour
             //skill1Value.text = _sm.GetSkillByName(skillName).Value.ToString();
         }*/
     }
+
+	public void Reset()
+	{
+		_sm.Reset();
+		TextUpdate ();
+	}
+
+	// DEBUG ONLY:
+	public void AddCheatPoints()
+	{
+		_sm.CheatAddUnspendPoints();
+		TextUpdate();
+	}
 }
