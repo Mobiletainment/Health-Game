@@ -16,6 +16,11 @@ public class SkillManager {
 	public string SkillName5 = "Fatigue";
 	 
 	private Skill[] _skills = new Skill[_noOfSkills];
+
+	// TODO: Implement correct (scaleable) solution!
+	// QuickSolution for "MedalPoints to SkillPoints":
+	public int[] _medalToSkillTable = new int[] {3, 6, 10, 14, 19, 24};
+	public int _curMedalPoints;
 	
 	public SkillManager()
 	{
@@ -32,6 +37,16 @@ public class SkillManager {
 		{
 			UnspentPoints = 0;
 			PlayerPrefs.SetInt("unspentPoints", UnspentPoints);
+		}
+
+		if(PlayerPrefs.HasKey("medalPoints"))
+		{
+			_curMedalPoints = PlayerPrefs.GetInt("medalPoints");
+		}
+		else
+		{
+			_curMedalPoints = 0;
+			PlayerPrefs.SetInt("medalPoints", _curMedalPoints);
 		}
 		
 		if(PlayerPrefs.HasKey(SkillName1))
@@ -182,11 +197,13 @@ public class SkillManager {
 		}
 		// Save the unspentPoints:
 		PlayerPrefs.SetInt("unspentPoints", UnspentPoints);
+		PlayerPrefs.SetInt("medalPoints", _curMedalPoints);
 		
 		Debug.Log ("Save!");
 		PlayerPrefs.Save();
 	}
 
+	// DEBUG ONLY:
 	public void Reset()
 	{
 		// Reset all skills:
@@ -196,8 +213,44 @@ public class SkillManager {
 		}
 		// Reset the unspentPoints:
 		PlayerPrefs.DeleteKey("unspentPoints");
+		// ...and the medal Points:
+		PlayerPrefs.DeleteKey("medalPoints");
 		
 		Init();
 		Debug.Log ("Reset!");
+	}
+
+	// Quick solution: Add medal points, for enough collected points, a skillpoint will be given:
+	// Returns the amount of unused skillpoints.
+	public int AddMedalPoints(int medalPoints)
+	{
+		Debug.Log ("AddMedalPoints: " + medalPoints);
+		for(int i = 0; i < _medalToSkillTable.Length; ++i)
+		{
+//			Debug.Log ("Iteration: " + i);
+//			Debug.Log ("Table: " + _medalToSkillTable[i] + " > CurMedalPoints: " + _curMedalPoints);
+			if(_medalToSkillTable[i] > _curMedalPoints)
+			{
+				if(_medalToSkillTable[i] <= (_curMedalPoints + medalPoints))
+				{
+//					Debug.Log ("UnspentPoints++");
+					UnspentPoints++;
+				}
+				else
+				{
+//					Debug.Log ("Break");
+					break;
+				}
+			}
+		}
+
+		_curMedalPoints += medalPoints;
+
+		// Save the unspentPoints and medal points::
+		PlayerPrefs.SetInt("unspentPoints", UnspentPoints);
+		PlayerPrefs.SetInt("medalPoints", _curMedalPoints);
+		PlayerPrefs.Save();
+
+		return UnspentPoints;
 	}
 }

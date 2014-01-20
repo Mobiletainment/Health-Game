@@ -224,7 +224,6 @@ public class MoveOnTrack : MonoBehaviour
 		}
 		// ---- INPUT END ----
 
-		// Update Pickup Visibility:
 		if(_stopMovement == false) // Did not yet reach the end of spline...
 		{
 			if(_curSpeed == 0.0f)
@@ -232,6 +231,7 @@ public class MoveOnTrack : MonoBehaviour
 				StartCoroutine(SpeedChange(_speed));
 			}
 
+			// Update Pickup Visibility:
 			MoveVisLineForDist(_curSpeed * Time.deltaTime);
 
 			// Update Object Position:
@@ -308,10 +308,11 @@ public class MoveOnTrack : MonoBehaviour
 			// TODO: Check StepSize again... 20 might be too high... Or _divisor is too high.
 			indexPart += 20;
 
-			if(avatarMovement == true && splineIndex >= points.Count - 1)
-			{
-				ReachedEndOfSpline();
-			}
+//			if(avatarMovement == true && splineIndex >= points.Count - 1)
+//			{
+//				ReachedEndOfSpline();
+//				break;
+//			}
 			
 			if(splineIndex < 0) splineIndex = 0;
 			if(splineIndex > points.Count - 2) splineIndex = points.Count - 2;
@@ -544,7 +545,7 @@ public class MoveOnTrack : MonoBehaviour
 			yield return new WaitForSeconds(Time.deltaTime);
 		}
 
-		if(endOfSpline)
+		if(endOfSpline && !_stopMovement)
 		{
 			ReachedEndOfSpline();
 		}
@@ -554,6 +555,6 @@ public class MoveOnTrack : MonoBehaviour
 	{
 		_stopMovement = true;
 
-		_finalPointsDisplay.ShowFinalPoints(_levelInfo);
+		_finalPointsDisplay.ShowFinalPoints(_levelInfo, _skillManager);
 	}
 }
