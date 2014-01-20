@@ -10,20 +10,22 @@ public class NavigateForwardWithCheckboxAction : NavigateForward
 	public string screenName;
 	public UILabel infoLabel;
 	public UILabel customFeedback;
-	
+    public UISlider slider;
 	// Use this for initialization
 	void Start()
 	{
 		Backend.Callback = ActionPerformed;
 		ResetButton ();
+    
 	}
 
 	
 	void OnClick()
 	{
 		DisableButton ();
-		infoLabel.text = "Bitte warten ...";
-		Debug.Log(customFeedback.text);
+		if (infoLabel != null)
+            infoLabel.text = "Bitte warten ...";
+
 		UIToggle[] toggles=transform.parent.GetComponentsInChildren<UIToggle> ();
 
 		Debug.Log(toggles);
@@ -51,16 +53,20 @@ public class NavigateForwardWithCheckboxAction : NavigateForward
 		//string customFeedback = toggles[toggles.Length-1].GetComponentInChildren<UILabel>().text; //TODO: error handling -> too insecure because too generic, assigning custom feedback as public gameobject now
 
 		Debug.Log("Checks: " + checkboxFeedback);
-		Debug.Log("Custom: " + customFeedback);
 
-		Backend.SendCheckboxFeedbackToServer(screenName, checkboxFeedback, customFeedback.text);
+        string feedback = (customFeedback == null && slider != null) ? slider.value.ToString() : customFeedback.text;
+
+        Debug.Log("Custom: " + feedback);
+
+        Backend.SendCheckboxFeedbackToServer(screenName, checkboxFeedback, feedback);
 	}
 
 	public void ActionPerformed(string response)
 	{
 		Debug.Log("Action performed: " + response);
 
-		infoLabel.text = response;
+        if (infoLabel != null)
+		    infoLabel.text = response;
 
 		if (response.StartsWith("Error:")) //TODO: refactor response as a class with errorcode and body
 		{

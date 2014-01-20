@@ -99,12 +99,17 @@ public class NavigateForwardWithAction : NavigateForward
         {
             case ActionType.RegisterChild:
                 output.text = string.Format("Hallo, {0}!\nDein Benutzername {0} ist zugleich dein Team-Name.", getInput());
+                UserManager.Instance.LoginState = UserManager.Authentication.Registered;
                 customInfoForNextScreen = getInput();
                 break;
             case ActionType.RegisterParent:
                 //send push notification to child
                 PerformAction =  ActionType.SendPushMessage;
                 Backend.SendPushMessage("Deine Eltern haben das Team-Passwort eingegeben. Das Spiel kann beginnen!");
+                UserManager.Instance.LoginState = UserManager.Authentication.LoggedIn;
+                break;
+            case ActionType.CheckIfParentAndChildRegistered:
+                UserManager.Instance.LoginState = UserManager.Authentication.LoggedIn;
                 break;
             case ActionType.SendPushMessage:
                 break;
