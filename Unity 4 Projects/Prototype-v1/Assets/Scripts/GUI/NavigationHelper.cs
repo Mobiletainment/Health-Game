@@ -83,7 +83,7 @@ public class NavigationHelper : MonoBehaviour
     {
         Debug.Log("Loading Game Scene");
         Screen.orientation = ScreenOrientation.LandscapeLeft;
-        Application.LoadLevel("TrackFlight");
+        Application.LoadLevel("GameOver");
     }
   
     public void LoadChildFinishRegistration()
