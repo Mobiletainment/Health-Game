@@ -1,0 +1,1007 @@
+fileFormatVersion: 2
+guid: d462acf7529744046ac5f6ff7f914bec
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: a
+    100002: a 1
+    100004: a 10
+    100006: a 11
+    100008: a 12
+    100010: a 13
+    100012: a 14
+    100014: a 15
+    100016: a 16
+    100018: a 17
+    100020: a 18
+    100022: a 2
+    100024: a 3
+    100026: a 4
+    100028: a 5
+    100030: a 6
+    100032: a 7
+    100034: a 8
+    100036: a 9
+    100038: //RootNode
+    100040: b
+    100042: b 1
+    100044: b 10
+    100046: b 11
+    100048: b 12
+    100050: b 13
+    100052: b 14
+    100054: b 15
+    100056: b 16
+    100058: b 17
+    100060: b 18
+    100062: b 2
+    100064: b 3
+    100066: b 4
+    100068: b 5
+    100070: b 6
+    100072: b 7
+    100074: b 8
+    100076: b 9
+    100078: c
+    100080: c 1
+    100082: c 10
+    100084: c 11
+    100086: c 12
+    100088: c 13
+    100090: c 2
+    100092: c 3
+    100094: c 4
+    100096: c 5
+    100098: c 6
+    100100: c 7
+    100102: c 8
+    100104: c 9
+    100106: d
+    100108: d 1
+    100110: d 2
+    100112: d 3
+    100114: d 4
+    100116: d 5
+    100118: d 6
+    100120: d 7
+    100122: e
+    100124: e 1
+    100126: e 2
+    100128: e 3
+    100130: e 4
+    100132: e 5
+    100134: e 6
+    100136: env_placeholder_grp3
+    100138: f
+    100140: f 1
+    100142: f 2
+    100144: f 3
+    100146: f 4
+    100148: f 5
+    100150: f 6
+    100152: g
+    100154: g 1
+    100156: g 2
+    100158: g 3
+    100160: g 4
+    100162: g 5
+    100164: g 6
+    100166: group1
+    100168: group10
+    100170: group11
+    100172: group2
+    100174: group3
+    100176: group4
+    100178: group5
+    100180: group6
+    100182: group7
+    100184: group8
+    100186: group9
+    100188: group90
+    100190: group91
+    100192: group92
+    100194: group93
+    100196: group94
+    100198: group95
+    100200: h
+    100202: h 1
+    100204: h 2
+    100206: h 3
+    100208: h 4
+    100210: h 5
+    100212: h 6
+    100214: i
+    100216: i 1
+    100218: i 2
+    100220: i 3
+    100222: i 4
+    100224: i 5
+    100226: i 6
+    100228: j
+    100230: j 1
+    100232: j 2
+    100234: j 3
+    100236: j 4
+    100238: j 5
+    100240: j 6
+    100242: k
+    100244: k 1
+    100246: k 2
+    100248: k 3
+    100250: k 4
+    100252: k 5
+    100254: k 6
+    100256: l
+    100258: l 1
+    100260: l 2
+    100262: l 3
+    100264: l 4
+    100266: l 5
+    100268: l 6
+    100270: pickup_grp3
+    100272: pivotpoints_grp4
+    100274: pSphere1
+    100276: pSphere11
+    100278: pSphere133
+    100280: pSphere134
+    100282: pSphere135
+    100284: pSphere136
+    100286: pSphere137
+    100288: pSphere138
+    100290: pSphere139
+    100292: pSphere140
+    100294: pSphere141
+    100296: pSphere142
+    100298: pSphere143
+    100300: pSphere144
+    100302: pSphere145
+    100304: pSphere146
+    100306: pSphere147
+    100308: pSphere148
+    100310: pSphere149
+    100312: pSphere150
+    100314: pSphere151
+    100316: pSphere152
+    100318: pSphere153
+    100320: pSphere154
+    100322: pSphere155
+    100324: pSphere156
+    100326: pSphere157
+    100328: pSphere158
+    100330: pSphere159
+    100332: pSphere16
+    100334: pSphere160
+    100336: pSphere161
+    100338: pSphere162
+    100340: pSphere163
+    100342: pSphere164
+    100344: pSphere165
+    100346: pSphere166
+    100348: pSphere167
+    100350: pSphere168
+    100352: pSphere169
+    100354: pSphere170
+    100356: pSphere171
+    100358: pSphere172
+    100360: pSphere173
+    100362: pSphere174
+    100364: pSphere175
+    100366: pSphere176
+    100368: pSphere21
+    100370: pSphere26
+    100372: pSphere31
+    100374: pSphere36
+    100376: pSphere41
+    100378: pSphere46
+    100380: pSphere51
+    100382: pSphere6
+    100384: seaweed_geo1
+    100386: seaweed_geo16
+    100388: seaweed_geo17
+    100390: seaweed_geo18
+    100392: seaweed_geo2
+    100394: seaweed_geo3
+    100396: seaweed_geo4
+    100398: seaweed_geo5
+    100400: seaweed_geo6
+    100402: seaweed_geo7
+    100404: seaweed_geo8
+    100406: seaweed_geo9
+    100408: seaweed_links
+    100410: seaweed_rechts
+    100412: seaweedgrp3
+    100414: spline_points_grp4
+    100416: startpoint
+    100418: startpoint1
+    100420: streckenteil_rechtskurve_geo1
+    100422: streckenteil_rechtskurve_indicator_geo
+    400000: a
+    400002: a 1
+    400004: a 10
+    400006: a 11
+    400008: a 12
+    400010: a 13
+    400012: a 14
+    400014: a 15
+    400016: a 16
+    400018: a 17
+    400020: a 18
+    400022: a 2
+    400024: a 3
+    400026: a 4
+    400028: a 5
+    400030: a 6
+    400032: a 7
+    400034: a 8
+    400036: a 9
+    400038: //RootNode
+    400040: b
+    400042: b 1
+    400044: b 10
+    400046: b 11
+    400048: b 12
+    400050: b 13
+    400052: b 14
+    400054: b 15
+    400056: b 16
+    400058: b 17
+    400060: b 18
+    400062: b 2
+    400064: b 3
+    400066: b 4
+    400068: b 5
+    400070: b 6
+    400072: b 7
+    400074: b 8
+    400076: b 9
+    400078: c
+    400080: c 1
+    400082: c 10
+    400084: c 11
+    400086: c 12
+    400088: c 13
+    400090: c 2
+    400092: c 3
+    400094: c 4
+    400096: c 5
+    400098: c 6
+    400100: c 7
+    400102: c 8
+    400104: c 9
+    400106: d
+    400108: d 1
+    400110: d 2
+    400112: d 3
+    400114: d 4
+    400116: d 5
+    400118: d 6
+    400120: d 7
+    400122: e
+    400124: e 1
+    400126: e 2
+    400128: e 3
+    400130: e 4
+    400132: e 5
+    400134: e 6
+    400136: env_placeholder_grp3
+    400138: f
+    400140: f 1
+    400142: f 2
+    400144: f 3
+    400146: f 4
+    400148: f 5
+    400150: f 6
+    400152: g
+    400154: g 1
+    400156: g 2
+    400158: g 3
+    400160: g 4
+    400162: g 5
+    400164: g 6
+    400166: group1
+    400168: group10
+    400170: group11
+    400172: group2
+    400174: group3
+    400176: group4
+    400178: group5
+    400180: group6
+    400182: group7
+    400184: group8
+    400186: group9
+    400188: group90
+    400190: group91
+    400192: group92
+    400194: group93
+    400196: group94
+    400198: group95
+    400200: h
+    400202: h 1
+    400204: h 2
+    400206: h 3
+    400208: h 4
+    400210: h 5
+    400212: h 6
+    400214: i
+    400216: i 1
+    400218: i 2
+    400220: i 3
+    400222: i 4
+    400224: i 5
+    400226: i 6
+    400228: j
+    400230: j 1
+    400232: j 2
+    400234: j 3
+    400236: j 4
+    400238: j 5
+    400240: j 6
+    400242: k
+    400244: k 1
+    400246: k 2
+    400248: k 3
+    400250: k 4
+    400252: k 5
+    400254: k 6
+    400256: l
+    400258: l 1
+    400260: l 2
+    400262: l 3
+    400264: l 4
+    400266: l 5
+    400268: l 6
+    400270: pickup_grp3
+    400272: pivotpoints_grp4
+    400274: pSphere1
+    400276: pSphere11
+    400278: pSphere133
+    400280: pSphere134
+    400282: pSphere135
+    400284: pSphere136
+    400286: pSphere137
+    400288: pSphere138
+    400290: pSphere139
+    400292: pSphere140
+    400294: pSphere141
+    400296: pSphere142
+    400298: pSphere143
+    400300: pSphere144
+    400302: pSphere145
+    400304: pSphere146
+    400306: pSphere147
+    400308: pSphere148
+    400310: pSphere149
+    400312: pSphere150
+    400314: pSphere151
+    400316: pSphere152
+    400318: pSphere153
+    400320: pSphere154
+    400322: pSphere155
+    400324: pSphere156
+    400326: pSphere157
+    400328: pSphere158
+    400330: pSphere159
+    400332: pSphere16
+    400334: pSphere160
+    400336: pSphere161
+    400338: pSphere162
+    400340: pSphere163
+    400342: pSphere164
+    400344: pSphere165
+    400346: pSphere166
+    400348: pSphere167
+    400350: pSphere168
+    400352: pSphere169
+    400354: pSphere170
+    400356: pSphere171
+    400358: pSphere172
+    400360: pSphere173
+    400362: pSphere174
+    400364: pSphere175
+    400366: pSphere176
+    400368: pSphere21
+    400370: pSphere26
+    400372: pSphere31
+    400374: pSphere36
+    400376: pSphere41
+    400378: pSphere46
+    400380: pSphere51
+    400382: pSphere6
+    400384: seaweed_geo1
+    400386: seaweed_geo16
+    400388: seaweed_geo17
+    400390: seaweed_geo18
+    400392: seaweed_geo2
+    400394: seaweed_geo3
+    400396: seaweed_geo4
+    400398: seaweed_geo5
+    400400: seaweed_geo6
+    400402: seaweed_geo7
+    400404: seaweed_geo8
+    400406: seaweed_geo9
+    400408: seaweed_links
+    400410: seaweed_rechts
+    400412: seaweedgrp3
+    400414: spline_points_grp4
+    400416: startpoint
+    400418: startpoint1
+    400420: streckenteil_rechtskurve_geo1
+    400422: streckenteil_rechtskurve_indicator_geo
+    2300000: a 1
+    2300002: a 10
+    2300004: a 11
+    2300006: a 12
+    2300008: a 13
+    2300010: a 14
+    2300012: a 15
+    2300014: a 16
+    2300016: a 17
+    2300018: a 18
+    2300020: a 2
+    2300022: a 3
+    2300024: a 4
+    2300026: a 5
+    2300028: a 6
+    2300030: a 7
+    2300032: a 8
+    2300034: a 9
+    2300036: b 1
+    2300038: b 10
+    2300040: b 11
+    2300042: b 12
+    2300044: b 13
+    2300046: b 14
+    2300048: b 15
+    2300050: b 16
+    2300052: b 17
+    2300054: b 18
+    2300056: b 2
+    2300058: b 3
+    2300060: b 4
+    2300062: b 5
+    2300064: b 6
+    2300066: b 7
+    2300068: b 8
+    2300070: b 9
+    2300072: c 1
+    2300074: c 10
+    2300076: c 11
+    2300078: c 12
+    2300080: c 13
+    2300082: c 2
+    2300084: c 3
+    2300086: c 4
+    2300088: c 5
+    2300090: c 6
+    2300092: c 7
+    2300094: c 8
+    2300096: c 9
+    2300098: d 1
+    2300100: d 2
+    2300102: d 3
+    2300104: d 4
+    2300106: d 5
+    2300108: d 6
+    2300110: d 7
+    2300112: e 1
+    2300114: e 2
+    2300116: e 3
+    2300118: e 4
+    2300120: e 5
+    2300122: e 6
+    2300124: f 1
+    2300126: f 2
+    2300128: f 3
+    2300130: f 4
+    2300132: f 5
+    2300134: f 6
+    2300136: g 1
+    2300138: g 2
+    2300140: g 3
+    2300142: g 4
+    2300144: g 5
+    2300146: g 6
+    2300148: h 1
+    2300150: h 2
+    2300152: h 3
+    2300154: h 4
+    2300156: h 5
+    2300158: h 6
+    2300160: i 1
+    2300162: i 2
+    2300164: i 3
+    2300166: i 4
+    2300168: i 5
+    2300170: i 6
+    2300172: j 1
+    2300174: j 2
+    2300176: j 3
+    2300178: j 4
+    2300180: j 5
+    2300182: j 6
+    2300184: k 1
+    2300186: k 2
+    2300188: k 3
+    2300190: k 4
+    2300192: k 5
+    2300194: k 6
+    2300196: l 1
+    2300198: l 2
+    2300200: l 3
+    2300202: l 4
+    2300204: l 5
+    2300206: l 6
+    2300208: pSphere1
+    2300210: pSphere11
+    2300212: pSphere133
+    2300214: pSphere134
+    2300216: pSphere135
+    2300218: pSphere136
+    2300220: pSphere137
+    2300222: pSphere138
+    2300224: pSphere139
+    2300226: pSphere140
+    2300228: pSphere141
+    2300230: pSphere142
+    2300232: pSphere143
+    2300234: pSphere144
+    2300236: pSphere145
+    2300238: pSphere146
+    2300240: pSphere147
+    2300242: pSphere148
+    2300244: pSphere149
+    2300246: pSphere150
+    2300248: pSphere151
+    2300250: pSphere152
+    2300252: pSphere153
+    2300254: pSphere154
+    2300256: pSphere155
+    2300258: pSphere156
+    2300260: pSphere157
+    2300262: pSphere158
+    2300264: pSphere159
+    2300266: pSphere16
+    2300268: pSphere160
+    2300270: pSphere161
+    2300272: pSphere162
+    2300274: pSphere163
+    2300276: pSphere164
+    2300278: pSphere165
+    2300280: pSphere166
+    2300282: pSphere167
+    2300284: pSphere168
+    2300286: pSphere169
+    2300288: pSphere170
+    2300290: pSphere171
+    2300292: pSphere172
+    2300294: pSphere173
+    2300296: pSphere174
+    2300298: pSphere175
+    2300300: pSphere176
+    2300302: pSphere21
+    2300304: pSphere26
+    2300306: pSphere31
+    2300308: pSphere36
+    2300310: pSphere41
+    2300312: pSphere46
+    2300314: pSphere51
+    2300316: pSphere6
+    2300318: seaweed_geo1
+    2300320: seaweed_geo16
+    2300322: seaweed_geo17
+    2300324: seaweed_geo18
+    2300326: seaweed_geo2
+    2300328: seaweed_geo3
+    2300330: seaweed_geo4
+    2300332: seaweed_geo5
+    2300334: seaweed_geo6
+    2300336: seaweed_geo7
+    2300338: seaweed_geo8
+    2300340: seaweed_geo9
+    2300342: startpoint
+    2300344: startpoint1
+    2300346: streckenteil_rechtskurve_geo1
+    2300348: streckenteil_rechtskurve_indicator_geo
+    3300000: a 1
+    3300002: a 10
+    3300004: a 11
+    3300006: a 12
+    3300008: a 13
+    3300010: a 14
+    3300012: a 15
+    3300014: a 16
+    3300016: a 17
+    3300018: a 18
+    3300020: a 2
+    3300022: a 3
+    3300024: a 4
+    3300026: a 5
+    3300028: a 6
+    3300030: a 7
+    3300032: a 8
+    3300034: a 9
+    3300036: b 1
+    3300038: b 10
+    3300040: b 11
+    3300042: b 12
+    3300044: b 13
+    3300046: b 14
+    3300048: b 15
+    3300050: b 16
+    3300052: b 17
+    3300054: b 18
+    3300056: b 2
+    3300058: b 3
+    3300060: b 4
+    3300062: b 5
+    3300064: b 6
+    3300066: b 7
+    3300068: b 8
+    3300070: b 9
+    3300072: c 1
+    3300074: c 10
+    3300076: c 11
+    3300078: c 12
+    3300080: c 13
+    3300082: c 2
+    3300084: c 3
+    3300086: c 4
+    3300088: c 5
+    3300090: c 6
+    3300092: c 7
+    3300094: c 8
+    3300096: c 9
+    3300098: d 1
+    3300100: d 2
+    3300102: d 3
+    3300104: d 4
+    3300106: d 5
+    3300108: d 6
+    3300110: d 7
+    3300112: e 1
+    3300114: e 2
+    3300116: e 3
+    3300118: e 4
+    3300120: e 5
+    3300122: e 6
+    3300124: f 1
+    3300126: f 2
+    3300128: f 3
+    3300130: f 4
+    3300132: f 5
+    3300134: f 6
+    3300136: g 1
+    3300138: g 2
+    3300140: g 3
+    3300142: g 4
+    3300144: g 5
+    3300146: g 6
+    3300148: h 1
+    3300150: h 2
+    3300152: h 3
+    3300154: h 4
+    3300156: h 5
+    3300158: h 6
+    3300160: i 1
+    3300162: i 2
+    3300164: i 3
+    3300166: i 4
+    3300168: i 5
+    3300170: i 6
+    3300172: j 1
+    3300174: j 2
+    3300176: j 3
+    3300178: j 4
+    3300180: j 5
+    3300182: j 6
+    3300184: k 1
+    3300186: k 2
+    3300188: k 3
+    3300190: k 4
+    3300192: k 5
+    3300194: k 6
+    3300196: l 1
+    3300198: l 2
+    3300200: l 3
+    3300202: l 4
+    3300204: l 5
+    3300206: l 6
+    3300208: pSphere1
+    3300210: pSphere11
+    3300212: pSphere133
+    3300214: pSphere134
+    3300216: pSphere135
+    3300218: pSphere136
+    3300220: pSphere137
+    3300222: pSphere138
+    3300224: pSphere139
+    3300226: pSphere140
+    3300228: pSphere141
+    3300230: pSphere142
+    3300232: pSphere143
+    3300234: pSphere144
+    3300236: pSphere145
+    3300238: pSphere146
+    3300240: pSphere147
+    3300242: pSphere148
+    3300244: pSphere149
+    3300246: pSphere150
+    3300248: pSphere151
+    3300250: pSphere152
+    3300252: pSphere153
+    3300254: pSphere154
+    3300256: pSphere155
+    3300258: pSphere156
+    3300260: pSphere157
+    3300262: pSphere158
+    3300264: pSphere159
+    3300266: pSphere16
+    3300268: pSphere160
+    3300270: pSphere161
+    3300272: pSphere162
+    3300274: pSphere163
+    3300276: pSphere164
+    3300278: pSphere165
+    3300280: pSphere166
+    3300282: pSphere167
+    3300284: pSphere168
+    3300286: pSphere169
+    3300288: pSphere170
+    3300290: pSphere171
+    3300292: pSphere172
+    3300294: pSphere173
+    3300296: pSphere174
+    3300298: pSphere175
+    3300300: pSphere176
+    3300302: pSphere21
+    3300304: pSphere26
+    3300306: pSphere31
+    3300308: pSphere36
+    3300310: pSphere41
+    3300312: pSphere46
+    3300314: pSphere51
+    3300316: pSphere6
+    3300318: seaweed_geo1
+    3300320: seaweed_geo16
+    3300322: seaweed_geo17
+    3300324: seaweed_geo18
+    3300326: seaweed_geo2
+    3300328: seaweed_geo3
+    3300330: seaweed_geo4
+    3300332: seaweed_geo5
+    3300334: seaweed_geo6
+    3300336: seaweed_geo7
+    3300338: seaweed_geo8
+    3300340: seaweed_geo9
+    3300342: startpoint
+    3300344: startpoint1
+    3300346: streckenteil_rechtskurve_geo1
+    3300348: streckenteil_rechtskurve_indicator_geo
+    4300000: streckenteil_rechtskurve_geo1
+    4300002: startpoint
+    4300004: startpoint1
+    4300006: pSphere1
+    4300008: pSphere133
+    4300010: pSphere134
+    4300012: pSphere135
+    4300014: pSphere136
+    4300016: pSphere6
+    4300018: pSphere137
+    4300020: pSphere138
+    4300022: pSphere139
+    4300024: pSphere140
+    4300026: pSphere11
+    4300028: pSphere141
+    4300030: pSphere142
+    4300032: pSphere143
+    4300034: pSphere144
+    4300036: pSphere16
+    4300038: pSphere145
+    4300040: pSphere146
+    4300042: pSphere147
+    4300044: pSphere148
+    4300046: pSphere21
+    4300048: pSphere149
+    4300050: pSphere150
+    4300052: pSphere151
+    4300054: pSphere152
+    4300056: pSphere26
+    4300058: pSphere153
+    4300060: pSphere154
+    4300062: pSphere155
+    4300064: pSphere156
+    4300066: pSphere31
+    4300068: pSphere157
+    4300070: pSphere158
+    4300072: pSphere159
+    4300074: pSphere160
+    4300076: pSphere36
+    4300078: pSphere161
+    4300080: pSphere162
+    4300082: pSphere163
+    4300084: pSphere164
+    4300086: pSphere41
+    4300088: pSphere165
+    4300090: pSphere166
+    4300092: pSphere167
+    4300094: pSphere168
+    4300096: pSphere46
+    4300098: pSphere169
+    4300100: pSphere170
+    4300102: pSphere171
+    4300104: pSphere172
+    4300106: pSphere51
+    4300108: pSphere173
+    4300110: pSphere174
+    4300112: pSphere175
+    4300114: pSphere176
+    4300116: a
+    4300118: b
+    4300120: a
+    4300122: b
+    4300124: a
+    4300126: b
+    4300128: c
+    4300130: a
+    4300132: b
+    4300134: c
+    4300136: a
+    4300138: b
+    4300140: c
+    4300142: a
+    4300144: b
+    4300146: c
+    4300148: a
+    4300150: b
+    4300152: c
+    4300154: d
+    4300156: a
+    4300158: b
+    4300160: a
+    4300162: b
+    4300164: a
+    4300166: b
+    4300168: c
+    4300170: a
+    4300172: b
+    4300174: c
+    4300176: a
+    4300178: b
+    4300180: seaweed_geo1
+    4300182: seaweed_geo4
+    4300184: seaweed_geo6
+    4300186: seaweed_geo7
+    4300188: seaweed_geo17
+    4300190: seaweed_geo18
+    4300192: seaweed_geo2
+    4300194: seaweed_geo3
+    4300196: seaweed_geo5
+    4300198: seaweed_geo8
+    4300200: seaweed_geo9
+    4300202: seaweed_geo16
+    4300204: a
+    4300206: b
+    4300208: c
+    4300210: d
+    4300212: e
+    4300214: f
+    4300216: g
+    4300218: h
+    4300220: i
+    4300222: j
+    4300224: k
+    4300226: l
+    4300228: l
+    4300230: k
+    4300232: j
+    4300234: i
+    4300236: h
+    4300238: g
+    4300240: f
+    4300242: e
+    4300244: d
+    4300246: c
+    4300248: b
+    4300250: a
+    4300252: l
+    4300254: k
+    4300256: j
+    4300258: i
+    4300260: h
+    4300262: g
+    4300264: f
+    4300266: e
+    4300268: d
+    4300270: c
+    4300272: b
+    4300274: a
+    4300276: l
+    4300278: k
+    4300280: j
+    4300282: i
+    4300284: h
+    4300286: g
+    4300288: f
+    4300290: e
+    4300292: d
+    4300294: c
+    4300296: b
+    4300298: a
+    4300300: l
+    4300302: k
+    4300304: j
+    4300306: i
+    4300308: h
+    4300310: g
+    4300312: f
+    4300314: e
+    4300316: d
+    4300318: c
+    4300320: b
+    4300322: a
+    4300324: l
+    4300326: k
+    4300328: j
+    4300330: i
+    4300332: h
+    4300334: g
+    4300336: f
+    4300338: e
+    4300340: d
+    4300342: c
+    4300344: b
+    4300346: a
+    4300348: streckenteil_rechtskurve_indicator_geo
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  userData: 

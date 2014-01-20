@@ -56,7 +56,7 @@ public class PickupManager : MonoBehaviour
 		// MoveOnTrack and other classes need instances, that are saved here in PickupManager, so
 		// use the Awake() method to init everything that is needed outside!
 
-		// Get Access to the PickupManager:
+		// Get Access to the MoveOnTrack Instance:
 		_moveOnTrackInstance = gameObject.GetComponent<MoveOnTrack>();
 		if(!_moveOnTrackInstance)
 			Debug.LogError("Error: No MoveOnTrackInstance available!\nPlease add a MoveOnTrack Script to the PickupManager-Object.");

@@ -218,6 +218,7 @@ public class ItemHit : MonoBehaviour
 
 			StartArmAlert(_greenAlert);
 
+			_armManager.StartTrail(lastHitPosition);
 			_armManager.UpdateScore();
 //			RuleSwitcher.UpdateScore(1);
 			
