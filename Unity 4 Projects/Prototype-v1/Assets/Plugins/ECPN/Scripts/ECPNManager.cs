@@ -159,9 +159,14 @@ public class ECPNManager: MonoBehaviour
      */ 
     private void RegisterIOSDevice() {
         if(NotificationServices.registrationError != null) Debug.Log(NotificationServices.registrationError);
-        if(NotificationServices.deviceToken == null) return;
+        if(NotificationServices.deviceToken == null)
+        {
+            Debug.LogError("Notification Registration Error: No Device Token!");
+            return;
+        }
         pollIOSDeviceToken = false;
         string hexToken = System.BitConverter.ToString(NotificationServices.deviceToken).Replace ("-",string.Empty);
+        Debug.Log("Notification Token: " + hexToken);
         StartCoroutine(StoreDeviceID(hexToken,"ios"));
     }
     #endif
@@ -340,16 +345,18 @@ public class ECPNManager: MonoBehaviour
 
     void HandleResponse(WWW w)
     {
-        Debug.Log("ECPNManager: handling response");
+        Debug.Log("ECPNManager: handling response ");
 
         if (w.error != null)
         {
+            Debug.Log("ECPNManager: error occurred, no response");
             string errorMessage = w.error;
             w.Dispose();
             callback("Error: " + errorMessage);
         }
         else
         {
+            Debug.Log("ECPNManager: Response = " + w.text);
             string response = w.text;
             w.Dispose();
             callback(response);

@@ -22,6 +22,9 @@ public class NavigateForwardWithCheckboxAction : NavigateForward
 	
 	void OnClick()
 	{
+        ActionPerformed("Success: Fine");
+        return;
+
 		DisableButton ();
 		if (infoLabel != null)
             infoLabel.text = "Bitte warten ...";
@@ -54,7 +57,14 @@ public class NavigateForwardWithCheckboxAction : NavigateForward
 
 		Debug.Log("Checks: " + checkboxFeedback);
 
-        string feedback = (customFeedback == null && slider != null) ? slider.value.ToString() : customFeedback.text;
+        string feedback;
+
+        if (slider != null)
+            feedback = slider.value.ToString();
+        else if (customFeedback != null)
+            feedback = customFeedback.text;
+        else
+            feedback = "";
 
         Debug.Log("Custom: " + feedback);
 
