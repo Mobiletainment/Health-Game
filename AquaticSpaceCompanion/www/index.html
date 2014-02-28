@@ -18,7 +18,7 @@
         <link href="css/topcoat-mobile-light.css" rel="stylesheet">
         <link href="css/styles.css" rel="stylesheet">
         <link href="css/pageslider.css" rel="stylesheet">
-        
+        <link href="css/jquery-ui/jquery.ui.all.css" rel="stylesheet">
         <!-- Tile icon for Win8 (144x144 + tile color) -->
         <meta name="msapplication-TileImage" content="img/touch/apple-touch-icon-144x144-precomposed.png">
         <meta name="msapplication-TileColor" content="#222222">
@@ -67,15 +67,41 @@
             </div>
             </div>
         </script>
+        <script id="menu-tpl" type="text/x-handlebars-template">
+           <div class="item-list">
+            <div class="topcoat-navigation-bar">
+                <div class="topcoat-navigation-bar__item center full">
+                    <h1 class="topcoat-navigation-bar__title">Training</h1>
+                </div>
+            </div>
+            
+            <div class="topcoat-list">
+                
+                <div class="topcoat-list__header center">
+                    <div id="progressbar"><span class="progress-label center">Fortschritt</span></div>
+                </div>
+         
+                <ul class="topcoat-list__container">
+                
+                    <li class="topcoat-list__item"><p>1. Strategie</p></li>
+                   
+                </ul>
+            </div>
+            </div>
+        </script>
         
         <script src="js/helper.js"></script>
         <script src="cordova.js"></script>
         <script src="js/vendor/fastclick.js"></script>
         <script src="js/vendor/handlebars.js"></script>
         <script src="js/vendor/jquery.js"></script>
+        <script src="js/vendor/jquery-ui/jquery.ui.core.js"></script>
+	<script src="js/vendor/jquery-ui/jquery.ui.widget.js"></script>
+	<script src="js/vendor/jquery-ui/jquery.ui.progressbar.js"></script>
         <script src="js/vendor/pageslider.js"></script>
         <script src="js/adapters/localstorage-adapter.js"></script>
         <script src="js/HomeView.js"></script>
+        <script src="js/MenuView.js"></script>
         <script src="js/app.js"></script>
     </body>
 </html>

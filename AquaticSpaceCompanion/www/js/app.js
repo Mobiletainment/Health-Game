@@ -26,6 +26,7 @@
     });
     
     var homeTpl = Handlebars.compile($("#home-tpl").html());
+    var menuTpl = Handlebars.compile($("#menu-tpl").html());
    
     /* ---------------------------------- Local Variables ---------------------------------- */
     var slider = new PageSlider($('body'));
@@ -67,20 +68,54 @@
 	console.log("Location Hash: " + hash);
 	if (!hash)
 	{
-	    console.log("No hash found, starting with page 1");
+	    console.log("No hash found, starting with menu");
 	    hash = 1;
+	    
+	    slider.slidePage(new MenuView(adapter, menuTpl).render().el);
+	    
+	    
+	    var progressLabel = $( ".progress-label" );
+	    var progressbar = $("#progressbar");
+	    
+	    progressbar.progressbar({
+		value: false,
+		change: function() {
+		    var value = progressbar.progressbar("value");
+		    
+		    progressLabel.text("Fortschritt: " + value + "%" );
+		    
+		}
+	    });
+	    
+	    var selector = "#progressbar";
+            $(selector).bind('progressbarchange', function(event, ui) {
+                var selector = "#progressbar > div";
+                var value = this.getAttribute( "aria-valuenow" );
+                if (value < 10){
+                    $(selector).css({ 'background': 'Red' });
+                } else if (value < 30){
+                    $(selector).css({ 'background': 'Orange' });
+                } else if (value < 50){
+                    $(selector).css({ 'background': 'Yellow' });
+                } else{
+                    $(selector).css({ 'background': 'LightGreen' });
+                }
+            });
+	    
+	    progressbar.progressbar( "value", 33);
 	}
 	else
 	{
 	    if (hash.charAt(0) === '#')
 		hash = hash.substr(1);
 	    console.log("Hash: " + hash);
-	}
-	
-	adapter.findById(hash).done(function(item) {
+	    adapter.findById(hash).done(function(item) {
 	    console.log("item found: " + item.id);
 	    slider.slidePage(new HomeView(adapter, homeTpl, item).render().el);});
 	return;
+	}
+	
+	
 	
     }
 
