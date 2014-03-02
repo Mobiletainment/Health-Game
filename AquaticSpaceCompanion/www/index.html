@@ -47,7 +47,7 @@
            <div class="item-list">
             <div class="topcoat-navigation-bar">
                 <div class="topcoat-navigation-bar__item left quarter">
-                    <a href="#">
+                    <a href="#training">
                         <button class="topcoat-icon-button">
                             <img src="img/home.svg">
                         </button>
@@ -63,13 +63,20 @@
                 <ul class="topcoat-list__container">
                     <li class="topcoat-list__item">{{{text}}}</li>
                     <li class="topcoat-list__item center">
+                        {{#ifCond page ">" 1}}
                         <a href="javascript:history.back()">
-                            <button class="topcoat-button--cta">Zur&uuml;ck</button>
+                            <button class="topcoat-button--cta button-width">Zur&uuml;ck</button>
                         </a>
+                        {{/ifCond}}
+                        {{#ifCond page "<" pageCount}}
                         <a href="#{{next}}">
-                            <button class="topcoat-button--cta">Weiter</button>
+                            <button class="topcoat-button--cta button-width">Weiter</button>
                         </a>
-
+                        {{else}}
+                        <a href="#training">
+                            <button class="topcoat-button--cta button-width">Gelesen</button>
+                        </a>
+                        {{/ifCond}}
                     </li>
                 </ul>
             </div>
@@ -78,7 +85,14 @@
         <script id="training-tpl" type="text/x-handlebars-template">
            <div class="item-list">
             <div class="topcoat-navigation-bar">
-                <div class="topcoat-navigation-bar__item center full">
+                <div class="topcoat-navigation-bar__item left quarter">
+                    <a href="#">
+                        <button class="topcoat-icon-button">
+                            <img src="img/home.svg">
+                        </button>
+                    </a>
+                </div>
+                <div class="topcoat-navigation-bar__item center half">
                     <h1 class="topcoat-navigation-bar__title">Training</h1>
                 </div>
             </div>
@@ -127,7 +141,7 @@
         <script src="js/vendor/pageslider.js"></script>
         <script src="js/adapters/localstorage-adapter.js"></script>
         <script src="js/HomeView.js"></script>
-        <script src="js/MenuView.js"></script>
+        <script src="js/TrainingView.js"></script>
         <script src="js/app.js"></script>
     </body>
 </html>
