@@ -1,7 +1,7 @@
 var JSONPAdapter = function() {
 
     this.initialize = function(data) {
-        url = typeof data !== 'undefined' ? data : "http://coenraets.org/directory/api/employees";
+        url = typeof data !== 'undefined' ? data : "http://coenraets.org/directory/api/items";
         var deferred = $.Deferred();
         deferred.resolve();
         return deferred.promise();

@@ -3,6 +3,19 @@
     top: 10px;
 }
 
+.ui-progressbar {
+position: relative;
+}
+
+.progress-label {
+position: absolute;
+width: 100%;
+text-align: center;
+top: 4px;
+font-weight: bold;
+text-shadow: 1px 1px 0 #fff;
+}
+
 .scroller {
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
@@ -36,41 +49,6 @@ a {
     border-top: none !important;
 }
 
-.list > li {
-    position: relative;
-    clear: both;
-    padding: 0px;
-    margin: 0px;
-}
-
-.list > li:nth-of-type(1) {
-    border-top: none;
-}
-
-.list > li > a {
-    margin: 0px;
-    display: block;
-    height: 57px;
-    padding: 4px;
-}
-
-
-.list > li > a > p:nth-of-type(1) {
-    margin: 8px 0px 0px 0px;
-    font-weight: bold;
-}
-
-.list > li p:nth-of-type(2) {
-    margin: 0px;
-    color: #777;
-}
-
-.list > li img {
-    width: 57px;
-    height: 57px;
-    float: left;
-    margin-right: 8px;
-}
 
 .list li:active {
     background-color: #d6d6d6;
@@ -167,15 +145,3 @@ a {
     background-size: cover;
 }
 
-.chevron {
-    background: transparent url(../img/topcoat/next_blue.svg);
-    background-repeat: no-repeat;
-    background-size: contain;
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    right: 12px;
-    top: 22px;
-    height: 50px;
-    width: 28px;
-}

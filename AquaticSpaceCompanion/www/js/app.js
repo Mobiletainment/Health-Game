@@ -1,8 +1,13 @@
 // We use an "Immediate Function" to initialize the application to avoid leaving anything behind in the global scope
 (function()
 {
+Handlebars.registerHelper("inc", function(value, options)
+{
+    return parseInt(value) + 1;
+});
+    
     Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
-
+    
     switch (operator) {
         case '==':
             return (v1 == v2) ? options.fn(this) : options.inverse(this);
@@ -26,7 +31,8 @@
     });
     
     var homeTpl = Handlebars.compile($("#home-tpl").html());
-    var menuTpl = Handlebars.compile($("#menu-tpl").html());
+    var trainingTpl = Handlebars.compile($("#training-tpl").html());
+    var trainingListTpl = Handlebars.compile($("#training-li-tpl").html());
    
     /* ---------------------------------- Local Variables ---------------------------------- */
     var slider = new PageSlider($('body'));
@@ -69,40 +75,15 @@
 	if (!hash)
 	{
 	    console.log("No hash found, starting with menu");
-	    hash = 1;
-	    
-	    slider.slidePage(new MenuView(adapter, menuTpl).render().el);
-	    
-	    
-	    var progressLabel = $( ".progress-label" );
-	    var progressbar = $("#progressbar");
-	    
-	    progressbar.progressbar({
-		value: false,
-		change: function() {
-		    var value = progressbar.progressbar("value");
-		    
-		    progressLabel.text("Fortschritt: " + value + "%" );
-		    
-		}
+	    adapter.findById("menu").done(function(item)
+	    {
+		console.log("Menu Items found: " + item);
+		var menuView = new MenuView(adapter, trainingTpl, trainingListTpl, item);
+		slider.slidePage(menuView.render().el);
+		menuView.configure();
+		menuView.loadContent();
 	    });
 	    
-	    var selector = "#progressbar";
-            $(selector).bind('progressbarchange', function(event, ui) {
-                var selector = "#progressbar > div";
-                var value = this.getAttribute( "aria-valuenow" );
-                if (value < 10){
-                    $(selector).css({ 'background': 'Red' });
-                } else if (value < 30){
-                    $(selector).css({ 'background': 'Orange' });
-                } else if (value < 50){
-                    $(selector).css({ 'background': 'Yellow' });
-                } else{
-                    $(selector).css({ 'background': 'LightGreen' });
-                }
-            });
-	    
-	    progressbar.progressbar( "value", 33);
 	}
 	else
 	{

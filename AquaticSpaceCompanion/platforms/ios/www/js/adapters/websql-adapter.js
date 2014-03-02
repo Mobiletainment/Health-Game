@@ -2,7 +2,7 @@ var WebSqlAdapter = function () {
 
     this.initialize = function () {
         var deferred = $.Deferred();
-        this.db = window.openDatabase("EmployeeDemoDB", "1.0", "Employee Demo DB", 200000);
+        this.db = window.openDatabase("itemDemoDB", "1.0", "item Demo DB", 200000);
         this.db.transaction(
             function (tx) {
                 createTable(tx);
@@ -26,18 +26,18 @@ var WebSqlAdapter = function () {
             function (tx) {
 
                 var sql = "SELECT e.id, e.firstName, e.lastName, e.title, e.pic, count(r.id) reportCount " +
-                    "FROM employee e LEFT JOIN employee r ON r.managerId = e.id " +
+                    "FROM item e LEFT JOIN item r ON r.managerId = e.id " +
                     "WHERE e.firstName || ' ' || e.lastName LIKE ? " +
                     "GROUP BY e.id ORDER BY e.lastName, e.firstName";
 
                 tx.executeSql(sql, ['%' + searchKey + '%'], function (tx, results) {
                     var len = results.rows.length,
-                        employees = [],
+                        items = [],
                         i = 0;
                     for (; i < len; i = i + 1) {
-                        employees[i] = results.rows.item(i);
+                        items[i] = results.rows.item(i);
                     }
-                    deferred.resolve(employees);
+                    deferred.resolve(items);
                 });
             },
             function (error) {
@@ -53,9 +53,9 @@ var WebSqlAdapter = function () {
             function (tx) {
 
                 var sql = "SELECT e.id, e.firstName, e.lastName, e.title, e.city, e.officePhone, e.cellPhone, e.email, e.pic, e.managerId, m.firstName managerFirstName, m.lastName managerLastName, count(r.id) reportCount " +
-                    "FROM employee e " +
-                    "LEFT JOIN employee r ON r.managerId = e.id " +
-                    "LEFT JOIN employee m ON e.managerId = m.id " +
+                    "FROM item e " +
+                    "LEFT JOIN item r ON r.managerId = e.id " +
+                    "LEFT JOIN item m ON e.managerId = m.id " +
                     "WHERE e.id=:id";
 
                 tx.executeSql(sql, [id], function (tx, results) {
@@ -70,8 +70,8 @@ var WebSqlAdapter = function () {
     };
 
     var createTable = function (tx) {
-        tx.executeSql('DROP TABLE IF EXISTS employee');
-        var sql = "CREATE TABLE IF NOT EXISTS employee ( " +
+        tx.executeSql('DROP TABLE IF EXISTS item');
+        var sql = "CREATE TABLE IF NOT EXISTS item ( " +
             "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "firstName VARCHAR(50), " +
             "lastName VARCHAR(50), " +
@@ -91,9 +91,9 @@ var WebSqlAdapter = function () {
             });
     }
 
-    var addSampleData = function (tx, employees) {
+    var addSampleData = function (tx, items) {
 
-        var employees = [
+        var items = [
             {"id": 1, "firstName": "James", "lastName": "King", "managerId": 0, "managerName": "", "title": "President and CEO", "department": "Corporate", "cellPhone": "617-000-0001", "officePhone": "781-000-0001", "email": "jking@fakemail.com", "city": "Boston, MA", "pic": "James_King.jpg", "twitterId": "@fakejking", "blog": "http://coenraets.org"},
             {"id": 2, "firstName": "Julie", "lastName": "Taylor", "managerId": 1, "managerName": "James King", "title": "VP of Marketing", "department": "Marketing", "cellPhone": "617-000-0002", "officePhone": "781-000-0002", "email": "jtaylor@fakemail.com", "city": "Boston, MA", "pic": "Julie_Taylor.jpg", "twitterId": "@fakejtaylor", "blog": "http://coenraets.org"},
             {"id": 3, "firstName": "Eugene", "lastName": "Lee", "managerId": 1, "managerName": "James King", "title": "CFO", "department": "Accounting", "cellPhone": "617-000-0003", "officePhone": "781-000-0003", "email": "elee@fakemail.com", "city": "Boston, MA", "pic": "Eugene_Lee.jpg", "twitterId": "@fakeelee", "blog": "http://coenraets.org"},
@@ -107,13 +107,13 @@ var WebSqlAdapter = function () {
             {"id": 11, "firstName": "Amy", "lastName": "Jones", "managerId": 5, "managerName": "Ray Moore", "title": "Sales Representative", "department": "Sales", "cellPhone": "617-000-0011", "officePhone": "781-000-0011", "email": "ajones@fakemail.com", "city": "Boston, MA", "pic": "Amy_Jones.jpg", "twitterId": "@fakeajones", "blog": "http://coenraets.org"},
             {"id": 12, "firstName": "Steven", "lastName": "Wells", "managerId": 4, "managerName": "John Williams", "title": "Software Architect", "department": "Engineering", "cellPhone": "617-000-0012", "officePhone": "781-000-0012", "email": "swells@fakemail.com", "city": "Boston, MA", "pic": "Steven_Wells.jpg", "twitterId": "@fakeswells", "blog": "http://coenraets.org"}
         ];
-        var l = employees.length;
-        var sql = "INSERT OR REPLACE INTO employee " +
+        var l = items.length;
+        var sql = "INSERT OR REPLACE INTO item " +
             "(id, firstName, lastName, managerId, title, city, officePhone, cellPhone, email, pic) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         var e;
         for (var i = 0; i < l; i++) {
-            e = employees[i];
+            e = items[i];
             tx.executeSql(sql, [e.id, e.firstName, e.lastName, e.managerId, e.title, e.city, e.officePhone, e.cellPhone, e.email, e.pic],
                 function () {
                     console.log('INSERT success');

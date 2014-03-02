@@ -46,9 +46,17 @@
         <script id="home-tpl" type="text/x-handlebars-template">
            <div class="item-list">
             <div class="topcoat-navigation-bar">
-                <div class="topcoat-navigation-bar__item center full">
+                <div class="topcoat-navigation-bar__item left quarter">
+                    <a href="#">
+                        <button class="topcoat-icon-button">
+                            <img src="img/home.svg">
+                        </button>
+                    </a>
+                </div>
+                <div class="topcoat-navigation-bar__item center half">
                     <h1 class="topcoat-navigation-bar__title">{{title}}</h1>
                 </div>
+                
             </div>
             <div class="topcoat-list">
                 <h2 class="topcoat-list__header center">{{subTitle}}</h2>
@@ -56,10 +64,10 @@
                     <li class="topcoat-list__item">{{{text}}}</li>
                     <li class="topcoat-list__item center">
                         <a href="javascript:history.back()">
-                            <button class="topcoat-button--cta disabled" >Zur&uuml;ck</button>
+                            <button class="topcoat-button--cta">Zur&uuml;ck</button>
                         </a>
                         <a href="#{{next}}">
-                            <button class="topcoat-button--cta">Vor</button>
+                            <button class="topcoat-button--cta">Weiter</button>
                         </a>
 
                     </li>
@@ -67,7 +75,7 @@
             </div>
             </div>
         </script>
-        <script id="menu-tpl" type="text/x-handlebars-template">
+        <script id="training-tpl" type="text/x-handlebars-template">
            <div class="item-list">
             <div class="topcoat-navigation-bar">
                 <div class="topcoat-navigation-bar__item center full">
@@ -76,19 +84,37 @@
             </div>
             
             <div class="topcoat-list">
-                
                 <div class="topcoat-list__header center">
                     <div id="progressbar"><span class="progress-label center">Fortschritt</span></div>
                 </div>
          
-                <ul class="topcoat-list__container">
-                
-                    <li class="topcoat-list__item"><p>1. Strategie</p></li>
-                   
+                <ul class="topcoat-list__container training-list">
                 </ul>
-            </div>
+                </div>
             </div>
         </script>
+        
+        <script id="training-li-tpl" type="text/x-handlebars-template">
+            {{#each items}}
+            <li class="topcoat-list__item list_item_T3">
+                <a href="#{{inc @index}}">
+                    <div id="header"></div>
+                    <div class="containerT3">
+                        <div class="centerT3 column">{{inc @index}}. Strategie: <span>{{name}}<span></div>
+                        <div class="leftT3 column">
+                            {{#if done}}
+                            <img src="img/checkbox_done.png">
+                            {{else}}
+                            <img src="img/checkbox_notDone.png">
+                            {{/if}}
+                        </div>
+                        <div class="rightT3 column"><img src="img/topcoat/next_blue.svg" width="28px"></div>
+                    </div>
+                    <div id="footer"></div>
+                </a>
+            </li>
+            {{/each}}
+</script>
         
         <script src="js/helper.js"></script>
         <script src="cordova.js"></script>

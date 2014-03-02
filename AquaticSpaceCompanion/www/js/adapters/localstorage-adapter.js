@@ -6,6 +6,7 @@ var LocalStorageAdapter = function () {
 	
         window.localStorage.setItem("items", JSON.stringify(
             [
+		{"id": "menu", "items": [ { "name": "Zeit-Zu-Zweit", "done": true, "link": "zzz" }, { "name": "Lob", "done": false, "link": "lob" }, { "name": "Lob", "done": false, "link": "lob" }, { "name": "Lob", "done": true, "link": "lob" } ]},
                 {"id": 1, "title": "1. Strategie", "subTitle": "Zeit-zu-zweit", "page": 0, "pageCount": 4, "next": 2, "text": "<p>Versuchen Sie ca. 15 Minuten pro Tag Ihre ungeteilte Aufmerksamkeit ihrem Kind zu schenken.</p><p>Kündigen Sie die Zeit zu Zweit an und lassen Sie das Kind die Beschäftigung aussuchen.</p><p>Zeigen Sie Interesse an der Beschäf- tigung des Kindes, indem Sie wie ein Sportsmoderator nacherzählen was das Kind tut.</p>"},
                 {"id": 2, "title": "1. Strategie", "subTitle": "Zeit-zu-zweit", "page": 0, "pageCount": 4, "next": 3, "text": "Laleleu."},
 		{"id": 3, "title": "1. Strategie", "subTitle": "Zeit-zu-zweit", "page": 0, "pageCount": 4, "next": 3, "text": "Laleleu."}

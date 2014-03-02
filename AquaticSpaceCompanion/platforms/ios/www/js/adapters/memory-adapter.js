@@ -9,21 +9,21 @@ var MemoryAdapter = function() {
 
     this.findById = function(id) {
         var deferred = $.Deferred();
-        var employee = null;
-        var l = employees.length;
+        var item = null;
+        var l = items.length;
         for (var i=0; i < l; i++) {
-            if (employees[i].id === id) {
-                employee = employees[i];
+            if (items[i].id === id) {
+                item = items[i];
                 break;
             }
         }
-        deferred.resolve(employee);
+        deferred.resolve(item);
         return deferred.promise();
     }
 
     this.findByName = function(searchKey) {
         var deferred = $.Deferred();
-        var results = employees.filter(function(element) {
+        var results = items.filter(function(element) {
             var fullName = element.firstName + " " + element.lastName;
             return fullName.toLowerCase().indexOf(searchKey.toLowerCase()) > -1;
         });
@@ -31,7 +31,7 @@ var MemoryAdapter = function() {
         return deferred.promise();
     }
 
-    var employees = [
+    var items = [
         {"id": 1, "firstName": "James", "lastName": "King", "managerId": 0, "managerName": "", "title": "President and CEO", "department": "Corporate", "cellPhone": "617-000-0001", "officePhone": "781-000-0001", "email": "jking@fakemail.com", "city": "Boston, MA", "pic": "James_King.jpg", "twitterId": "@fakejking", "blog": "http://coenraets.org"},
         {"id": 2, "firstName": "Julie", "lastName": "Taylor", "managerId": 1, "managerName": "James King", "title": "VP of Marketing", "department": "Marketing", "cellPhone": "617-000-0002", "officePhone": "781-000-0002", "email": "jtaylor@fakemail.com", "city": "Boston, MA", "pic": "Julie_Taylor.jpg", "twitterId": "@fakejtaylor", "blog": "http://coenraets.org"},
         {"id": 3, "firstName": "Eugene", "lastName": "Lee", "managerId": 1, "managerName": "James King", "title": "CFO", "department": "Accounting", "cellPhone": "617-000-0003", "officePhone": "781-000-0003", "email": "elee@fakemail.com", "city": "Boston, MA", "pic": "Eugene_Lee.jpg", "twitterId": "@fakeelee", "blog": "http://coenraets.org"},

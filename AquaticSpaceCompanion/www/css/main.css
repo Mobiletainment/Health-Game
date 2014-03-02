@@ -21,6 +21,7 @@ textarea {
 body {
     font-size: 1em;
     line-height: 1.4;
+    min-width: 156px;
 }
 
 a {
@@ -64,9 +65,60 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+.containerT3
+{
+    padding-left: 64px;
+    padding-right: 28px;
+    height: 78px;
+    line-height: 78px;
+}
 
+.containerT3 .column
+{
+    position: relative;
+    float: left;
+    line-height: 68px;
+    vertical-align: middle;
+}
 
+.centerT3
+{
+    width: 100%;
+    
+}
 
+.leftT3
+{
+    width: 64px;
+    right: 54px;
+    margin-left: -100%;
+}
+
+.rightT3
+{
+    width: 28px;
+    margin-right: -38px;
+}
+
+.footerT3
+{
+  clear: both;
+}
+
+.list_item_T3
+{
+    height: 64px;
+    padding: 0px;
+}
+
+.chevron {
+    background: transparent url(../img/topcoat/next_blue.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    top: 10dppx;
+    height: 100%;
+    width: 100%;
+}
 
 
 

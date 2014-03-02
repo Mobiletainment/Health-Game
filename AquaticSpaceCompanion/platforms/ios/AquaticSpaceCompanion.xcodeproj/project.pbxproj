@@ -67,7 +67,6 @@
 		EF8731B6F47E40BABE0CF042 /* CDVNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 050C43246117418D83FC5F44 /* CDVNotification.m */; };
 		07960A6852E2415DA8B6B207 /* CDVNotification.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 003D50122E9347EC93B6E089 /* CDVNotification.bundle */; };
 		4EF74CB350604B099C033245 /* CDVCompass.m in Sources */ = {isa = PBXBuildFile; fileRef = F481FC106D2F4439860E803D /* CDVCompass.m */; };
-		4B718F8213BF4FAEAB3A2D8C /* CDVSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 80E1EDB45AAF4D19827E8D6E /* CDVSound.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -183,8 +182,6 @@
 		003D50122E9347EC93B6E089 /* CDVNotification.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = "CDVNotification.bundle"; path = "CDVNotification.bundle"; sourceTree = "<group>"; };
 		F481FC106D2F4439860E803D /* CDVCompass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVCompass.m"; path = "org.apache.cordova.device-orientation/CDVCompass.m"; sourceTree = "<group>"; fileEncoding = 4; };
 		F6962ED7C84542A39B7D4F3A /* CDVCompass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVCompass.h"; path = "org.apache.cordova.device-orientation/CDVCompass.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		80E1EDB45AAF4D19827E8D6E /* CDVSound.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVSound.m"; path = "org.apache.cordova.media/CDVSound.m"; sourceTree = "<group>"; fileEncoding = 4; };
-		5F5D6F0FB9EB456BBADD4297 /* CDVSound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVSound.h"; path = "org.apache.cordova.media/CDVSound.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -362,8 +359,6 @@
 				815ADF3EFCA44EC2A4A2C924 /* CDVNotification.h */,
 				F481FC106D2F4439860E803D /* CDVCompass.m */,
 				F6962ED7C84542A39B7D4F3A /* CDVCompass.h */,
-				80E1EDB45AAF4D19827E8D6E /* CDVSound.m */,
-				5F5D6F0FB9EB456BBADD4297 /* CDVSound.h */,
 			);
 			name = Plugins;
 			path = "AquaticSpaceCompanion/Plugins";
@@ -581,7 +576,6 @@
 				A25682ACC83842A799ACA1D2 /* CDVAccelerometer.m in Sources */,
 				EF8731B6F47E40BABE0CF042 /* CDVNotification.m in Sources */,
 				4EF74CB350604B099C033245 /* CDVCompass.m in Sources */,
-				4B718F8213BF4FAEAB3A2D8C /* CDVSound.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
