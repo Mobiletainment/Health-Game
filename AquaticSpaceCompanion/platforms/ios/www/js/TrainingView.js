@@ -50,7 +50,8 @@ var TrainingView = function(adapter, template, listTemplate, item)
     {
 	console.log("Filling Training-Menu");
 	console.log("Item: " + item);
-	$('.training-list').html(listTemplate(item));	
-    }
+	$('.training-list').html(listTemplate(item));
+	
+    };
 
 };

@@ -1,0 +1,42 @@
+2014-03-02 20:20:33.879 AquaticSpaceCompanion[8033:80b] Multi-tasking -> Device: YES, App: YES
+2014-03-02 20:20:33.932 AquaticSpaceCompanion[8033:80b] Unlimited access to network resources
+2014-03-02 20:20:34.291 AquaticSpaceCompanion[8033:80b] [CDVTimer][splashscreen] 90.788960ms
+2014-03-02 20:20:34.292 AquaticSpaceCompanion[8033:80b] [CDVTimer][TotalPluginStartup] 91.524959ms
+2014-03-02 20:20:34.634 AquaticSpaceCompanion[8033:80b] Resetting plugins due to page load.
+2014-03-02 20:20:35.242 AquaticSpaceCompanion[8033:80b] Finished load of: file:///Users/dp/Library/Application%20Support/iPhone%20Simulator/7.0.3/Applications/99E67EBC-4DE0-4BB9-BB66-20FF4CC7CB2A/AquaticSpaceCompanion.app/www/index.html
+2014-03-02 20:20:39.483 AquaticSpaceCompanion[8033:80b] Location Hash: #1
+2014-03-02 20:20:39.483 AquaticSpaceCompanion[8033:80b] Hash: 1
+2014-03-02 20:20:39.484 AquaticSpaceCompanion[8033:80b] item found: 1
+2014-03-02 20:20:39.484 AquaticSpaceCompanion[8033:80b] {"id":1,"title":"1. Strategie","subTitle":"Zeit-zu-zweit","page":1,"pageCount":3,"next":2,"text":"<p>Versuchen Sie ca. 15 Minuten pro Tag Ihre ungeteilte Aufmerksamkeit ihrem Kind zu schenken.</p><p>Kündigen Sie die Zeit zu Zweit an und lassen Sie das Kind die Beschäftigung aussuchen.</p><p>Zeigen Sie Interesse an der Beschäf- tigung des Kindes, indem Sie wie ein Sportsmoderator nacherzählen was das Kind tut.</p>"}
+2014-03-02 20:20:40.513 AquaticSpaceCompanion[8033:80b] Location Hash: #training
+2014-03-02 20:20:40.514 AquaticSpaceCompanion[8033:80b] Redirecting to training
+2014-03-02 20:20:40.514 AquaticSpaceCompanion[8033:80b] Training Items found: [object Object]
+2014-03-02 20:20:40.515 AquaticSpaceCompanion[8033:80b] Filling Training-Menu
+2014-03-02 20:20:40.515 AquaticSpaceCompanion[8033:80b] Item: [object Object]
+2014-03-02 20:20:41.400 AquaticSpaceCompanion[8033:80b] Location Hash: 
+2014-03-02 20:20:41.400 AquaticSpaceCompanion[8033:80b] Redirecting to training
+2014-03-02 20:20:41.401 AquaticSpaceCompanion[8033:80b] Training Items found: [object Object]
+2014-03-02 20:20:41.401 AquaticSpaceCompanion[8033:80b] Filling Training-Menu
+2014-03-02 20:20:41.401 AquaticSpaceCompanion[8033:80b] Item: [object Object]
+2014-03-02 20:20:43.645 AquaticSpaceCompanion[8033:80b] Location Hash: #1
+2014-03-02 20:20:43.646 AquaticSpaceCompanion[8033:80b] Hash: 1
+2014-03-02 20:20:43.646 AquaticSpaceCompanion[8033:80b] item found: 1
+2014-03-02 20:20:43.647 AquaticSpaceCompanion[8033:80b] {"id":1,"title":"1. Strategie","subTitle":"Zeit-zu-zweit","page":1,"pageCount":3,"next":2,"text":"<p>Versuchen Sie ca. 15 Minuten pro Tag Ihre ungeteilte Aufmerksamkeit ihrem Kind zu schenken.</p><p>Kündigen Sie die Zeit zu Zweit an und lassen Sie das Kind die Beschäftigung aussuchen.</p><p>Zeigen Sie Interesse an der Beschäf- tigung des Kindes, indem Sie wie ein Sportsmoderator nacherzählen was das Kind tut.</p>"}
+2014-03-02 20:20:44.842 AquaticSpaceCompanion[8033:80b] Location Hash: #2
+2014-03-02 20:20:44.843 AquaticSpaceCompanion[8033:80b] Hash: 2
+2014-03-02 20:20:44.844 AquaticSpaceCompanion[8033:80b] item found: 2
+2014-03-02 20:20:44.844 AquaticSpaceCompanion[8033:80b] {"id":2,"title":"1. Strategie","subTitle":"Zeit-zu-zweit","page":2,"pageCount":3,"next":3,"text":"Laleleu."}
+2014-03-02 20:20:45.873 AquaticSpaceCompanion[8033:80b] Location Hash: #1
+2014-03-02 20:20:45.873 AquaticSpaceCompanion[8033:80b] Hash: 1
+2014-03-02 20:20:45.874 AquaticSpaceCompanion[8033:80b] item found: 1
+2014-03-02 20:20:45.874 AquaticSpaceCompanion[8033:80b] {"id":1,"title":"1. Strategie","subTitle":"Zeit-zu-zweit","page":1,"pageCount":3,"next":2,"text":"<p>Versuchen Sie ca. 15 Minuten pro Tag Ihre ungeteilte Aufmerksamkeit ihrem Kind zu schenken.</p><p>Kündigen Sie die Zeit zu Zweit an und lassen Sie das Kind die Beschäftigung aussuchen.</p><p>Zeigen Sie Interesse an der Beschäf- tigung des Kindes, indem Sie wie ein Sportsmoderator nacherzählen was das Kind tut.</p>"}
+2014-03-02 20:20:46.742 AquaticSpaceCompanion[8033:80b] Location Hash: #training
+2014-03-02 20:20:46.742 AquaticSpaceCompanion[8033:80b] Redirecting to training
+2014-03-02 20:20:46.743 AquaticSpaceCompanion[8033:80b] Training Items found: [object Object]
+2014-03-02 20:20:46.743 AquaticSpaceCompanion[8033:80b] Filling Training-Menu
+2014-03-02 20:20:46.743 AquaticSpaceCompanion[8033:80b] Item: [object Object]
+2014-03-02 20:20:47.496 AquaticSpaceCompanion[8033:80b] Location Hash: 
+2014-03-02 20:20:47.496 AquaticSpaceCompanion[8033:80b] Redirecting to training
+2014-03-02 20:20:47.497 AquaticSpaceCompanion[8033:80b] Training Items found: [object Object]
+2014-03-02 20:20:47.497 AquaticSpaceCompanion[8033:80b] Filling Training-Menu
+2014-03-02 20:20:47.497 AquaticSpaceCompanion[8033:80b] Item: [object Object]

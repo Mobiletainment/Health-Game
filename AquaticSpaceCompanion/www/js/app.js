@@ -1,12 +1,7 @@
 // We use an "Immediate Function" to initialize the application to avoid leaving anything behind in the global scope
 (function()
 {
-    $(document).bind("mobileinit", function () {
-    $.mobile.ajaxEnabled = false;
-    $.mobile.linkBindingEnabled = false;
-    $.mobile.hashListeningEnabled = false;
-    $.mobile.pushStateEnabled = false;
-});
+    window.username = "Johnny";
     
     Handlebars.registerHelper("inc", function(value, options)
     {
@@ -48,13 +43,11 @@
     adapter.initialize().done(function() {
 	console.log("Data adapter initialized");
 	route();
+	
     });
-
-    var detailsURL = /^#items\/(\d{1,})/;
 
     /* --------------------------------- Event Registration -------------------------------- */
     document.addEventListener('deviceready', function() {
-
 	FastClick.attach(document.body);
 
 	if (navigator.notification)
@@ -70,16 +63,16 @@
 	    };
 	}
 
-
     }, false);
 
     $(window).on('hashchange', route);
 
     /* ---------------------------------- Local Functions ---------------------------------- */
     function route() {
+	
 	var hash = window.location.hash;
 	console.log("Location Hash: " + hash);
-	if (!hash || hash == "#training")
+	if (!hash || hash == "#" || hash == "#training")
 	{
 	    hash = "training";
 	    console.log("Redirecting to training");
@@ -90,6 +83,7 @@
 		slider.slidePage(trainingView.render().el);
 		trainingView.configure();
 		trainingView.loadContent();
+		
 	    });
 
 	}
@@ -101,6 +95,9 @@
 	    adapter.findById(hash).done(function(item) {
 		console.log("item found: " + item.id);
 		slider.slidePage(new HomeView(adapter, homeTpl, item).render().el);
+		
+		console.log("Submitting progress to server");
+		
 	    });
 	    return;
 	}
@@ -108,6 +105,8 @@
 
 
     }
+    
+    //function saveToServer()
 
 
 

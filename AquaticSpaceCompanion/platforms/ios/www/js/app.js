@@ -1,6 +1,13 @@
 // We use an "Immediate Function" to initialize the application to avoid leaving anything behind in the global scope
 (function()
 {
+    $(document).bind("mobileinit", function () {
+    $.mobile.ajaxEnabled = false;
+    $.mobile.linkBindingEnabled = false;
+    $.mobile.hashListeningEnabled = false;
+    $.mobile.pushStateEnabled = false;
+});
+    
     Handlebars.registerHelper("inc", function(value, options)
     {
 	return parseInt(value) + 1;
@@ -83,6 +90,8 @@
 		slider.slidePage(trainingView.render().el);
 		trainingView.configure();
 		trainingView.loadContent();
+		
+		
 	    });
 
 	}
@@ -94,6 +103,9 @@
 	    adapter.findById(hash).done(function(item) {
 		console.log("item found: " + item.id);
 		slider.slidePage(new HomeView(adapter, homeTpl, item).render().el);
+		
+		console.log("Submitting progress to server");
+		
 	    });
 	    return;
 	}
@@ -101,6 +113,8 @@
 
 
     }
+    
+    //function saveToServer()
 
 
 
