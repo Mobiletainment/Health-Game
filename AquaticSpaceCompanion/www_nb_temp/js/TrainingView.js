@@ -1,4 +1,4 @@
-var MenuView = function(adapter, template, listTemplate, item)
+var TrainingView = function(adapter, template, listTemplate, item)
 {
     this.initialize = function() {
 	this.el = $('<div/>');
@@ -48,7 +48,7 @@ var MenuView = function(adapter, template, listTemplate, item)
     
     this.loadContent = function()
     {
-	console.log("Filling Menu");
+	console.log("Filling Training-Menu");
 	console.log("Item: " + item);
 	$('.training-list').html(listTemplate(item));	
     }
