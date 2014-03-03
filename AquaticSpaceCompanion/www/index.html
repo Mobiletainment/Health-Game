@@ -15,11 +15,13 @@
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/touch/apple-touch-icon-72x72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="img/touch/apple-touch-icon-57x57-precomposed.png">
         <link rel="shortcut icon" href="img/touch/apple-touch-icon.png">
+        <link href="css/redmond/jquery-ui-1.10.4.custom.min.css" rel="stylesheet">
         <link href="css/topcoat-mobile-light.css" rel="stylesheet">
         <link href="css/styles.css" rel="stylesheet">
         <link href="css/pageslider.css" rel="stylesheet">
         <link href="css/jquery-ui/jquery.ui.all.css" rel="stylesheet">
         <link rel="stylesheet" href="css/jquery.mobile/jquery.mobile-1.4.2.min.css">
+        
         <!-- Tile icon for Win8 (144x144 + tile color) -->
         <meta name="msapplication-TileImage" content="img/touch/apple-touch-icon-144x144-precomposed.png">
         <meta name="msapplication-TileColor" content="#222222">
@@ -44,8 +46,8 @@
     <body>
 
         <!-- Add your site or application content here -->
-        <script id="home-tpl" type="text/x-handlebars-template">
-        <div id="home">
+        <script id="content-tpl" type="text/x-handlebars-template">
+        <div id="content">
             <div class="item-list" data-role="header">
                 <div class="topcoat-navigation-bar">
                     <div class="topcoat-navigation-bar__item left quarter">
@@ -114,7 +116,7 @@
         <script id="training-li-tpl" type="text/x-handlebars-template">
             {{#each items}}
         <li class="topcoat-list__item list_item_T3">
-            <a href="#{{inc @index}}">
+            <a href="#t{{inc @index}}">
                 <div id="header"></div>
                 <div class="containerT3">
                     <div class="centerT3 column">{{inc @index}}. Strategie: <span>{{name}}<span></div>
@@ -148,7 +150,7 @@
 
         <script src="js/vendor/pageslider.js"></script>
         <script src="js/adapters/localstorage-adapter.js"></script>
-        <script src="js/HomeView.js"></script>
+        <script src="js/ContentView.js"></script>
         <script src="js/TrainingView.js"></script>
         <script src="js/app.js"></script>
     </body>

@@ -32,7 +32,7 @@
 	}
     });
 
-    var homeTpl = Handlebars.compile($("#home-tpl").html());
+    var contentTpl = Handlebars.compile($("#content-tpl").html());
     var trainingTpl = Handlebars.compile($("#training-tpl").html());
     var trainingListTpl = Handlebars.compile($("#training-li-tpl").html());
 
@@ -94,7 +94,7 @@
 	    console.log("Hash: " + hash);
 	    adapter.findById(hash).done(function(item) {
 		console.log("item found: " + item.id);
-		slider.slidePage(new HomeView(adapter, homeTpl, item).render().el);
+		slider.slidePage(new ContentView(adapter, contentTpl, item).render().el);
 		
 		console.log("Submitting progress to server");
 		

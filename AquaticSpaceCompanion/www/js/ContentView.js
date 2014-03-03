@@ -1,4 +1,4 @@
-var HomeView = function(adapter, template, item)
+var ContentView = function(adapter, template, item)
 {
     this.initialize = function()
     {
