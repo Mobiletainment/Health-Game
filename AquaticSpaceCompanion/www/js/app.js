@@ -32,7 +32,11 @@
 	}
     });
 
+    //Content Templates
     var contentTpl = Handlebars.compile($("#content-tpl").html());
+    var subContentTpl = Handlebars.compile($("#sub-content-tpl").html());
+
+    //Training Templates
     var trainingTpl = Handlebars.compile($("#training-tpl").html());
     var trainingListTpl = Handlebars.compile($("#training-li-tpl").html());
 
@@ -93,10 +97,9 @@
 		hash = hash.substr(1);
 	    console.log("Hash: " + hash);
 	    adapter.findById(hash).done(function(item) {
-		console.log("item found: " + item.id);
-		slider.slidePage(new ContentView(adapter, contentTpl, item).render().el);
+		console.log("Loading Chapter: " + item.id);
+		slider.slidePage(new ContentView(adapter, contentTpl, subContentTpl, item).render().el);
 		
-		console.log("Submitting progress to server");
 		
 	    });
 	    return;

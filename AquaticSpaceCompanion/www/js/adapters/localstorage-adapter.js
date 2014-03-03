@@ -7,9 +7,9 @@ var LocalStorageAdapter = function() {
 	window.localStorage.setItem("items", JSON.stringify(
 		[
 		    {"id": "training", "items": [{"name": "Zeit-Zu-Zweit"}, {"name": "Lob"}, {"name": "Belohnung"}, {"name": "Anweisungen"}, {"name": "Aktives Ignorieren"}, {"name": "Auszeit"}, ]},
-		    {"id": "t1", "title": "1. Strategie", "subTitle": "Zeit-zu-zweit", "page": 1, "pageCount": 3, "next": 2, "text": "<p>Versuchen Sie ca. 15 Minuten pro Tag Ihre ungeteilte Aufmerksamkeit ihrem Kind zu schenken.</p><p>Kündigen Sie die Zeit zu Zweit an und lassen Sie das Kind die Beschäftigung aussuchen.</p><p>Zeigen Sie Interesse an der Beschäf- tigung des Kindes, indem Sie wie ein Sportsmoderator nacherzählen was das Kind tut.</p>"},
-		    {"id": 2, "title": "1. Strategie", "subTitle": "Zeit-zu-zweit", "page": 2, "pageCount": 3, "next": 3, "text": "Laleleu."},
-		    {"id": 3, "title": "1. Strategie", "subTitle": "Zeit-zu-zweit", "page": 3, "pageCount": 3, "next": 3, "text": "Laleleu."}
+		    {"id": "t1", "title": "1. Strategie", "subTitle": "Zeit-zu-zweit", "items": ["<p>Versuchen Sie ca. 15 Minuten pro Tag Ihre ungeteilte Aufmerksamkeit ihrem Kind zu schenken.</p><p>Kündigen Sie die Zeit zu Zweit an und lassen Sie das Kind die Beschäftigung aussuchen.</p><p>Zeigen Sie Interesse an der Beschäftigung des Kindes, indem Sie wie ein Sportsmoderator nacherzählen was das Kind tut.<p>", "<p>Ihre Rolle ist es ihrem Kind zuzu- schauen und ihm Aufmerksamkeit zu schenken ohne zu kritisieren, dirigieren oder zu kontrollieren.</p><p>Sehen Sie die Interaktionen als eine Investition. Die positive Aufmerk- samkeit die Sie ihrem Kind schenken erhöht die Qualität eurer Beziehung und, in späteren Folge, auch die Mo- tivation ihres Kindes mit ihnen an einem Strang zu ziehen.</p>"]},
+		    {"id": "t2", "title": "1. Strategie", "subTitle": "Zeit-zu-zweit", "page": 2, "pageCount": 3, "next": 3, "text": "Laleleu."},
+		    {"id": "t3", "title": "1. Strategie", "subTitle": "Zeit-zu-zweit", "page": 3, "pageCount": 3, "next": 3, "text": "Laleleu."}
 
 		]
 		));

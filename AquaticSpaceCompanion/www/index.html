@@ -63,7 +63,16 @@
 
                 </div>
                 <div class="topcoat-list" role="main" class="ui-content">
-                    <h2 class="topcoat-list__header center">{{subTitle}}</h2>
+                     <h2 class="topcoat-list__header center">{{subTitle}}</h2>
+                     <div id="sub-content">
+                     <div>
+                </div>
+            </div>
+        </div>
+        </script>
+        
+        <script id="sub-content-tpl" type="text/x-handlebars-template">
+       
                     <ul class="topcoat-list__container">
                         <li class="topcoat-list__item">{{{text}}}</li>
                         <li class="topcoat-list__item center">
@@ -73,18 +82,14 @@
                             </a>
                             {{/ifCond}}
                             {{#ifCond page "<" pageCount}}
-                            <a href="#{{next}}">
-                                <button class="topcoat-button--cta button-width">Weiter</button>
-                            </a>
+                                <button id="next-page" class="topcoat-button--cta button-width">Weiter</button>
                             {{else}}
                                 <button id="training-end" class="topcoat-button--cta button-width">Gelesen</button>
                             {{/ifCond}}
                         </li>
                     </ul>
-                </div>
-            </div>
-        </div>
         </script>
+                    
         <script id="training-tpl" type="text/x-handlebars-template">
             <div id="training">
             <div class="item-list" data-role="header">
