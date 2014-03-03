@@ -70,7 +70,7 @@ var TrainingView = function(adapter, template, listTemplate, item)
 	{
 	    console.log("Server responded");
 
-	    var imgId = '#imgDone';
+	    var imgId = '#imgDone_';
 	    var total = 0;
 	    var completed = 0;
 
@@ -85,7 +85,7 @@ var TrainingView = function(adapter, template, listTemplate, item)
 		}
 	    });
 
-	    $("#progressbar").progressbar('value', completed * 100 / total);
+	    $("#progressbar").progressbar('value', Math.round(completed * 100 / total));
 	    $.mobile.loading("hide");
 
 
