@@ -40,28 +40,28 @@
 
     </head>
     <body>
-
-        <!-- Add your site or application content here -->
-        <script id="content-tpl" type="text/x-handlebars-template">
+        
+        <!-- Training Content Page -->
         <div data-role="page" id="training-content">
+        </div>
+        
+        <script id="training-content-tpl" type="text/x-handlebars-template">
+        
                 <div data-role="header" data-position="fixed">
                     <a href="#training"><img src="img/home.svg">
                     </a>
                     <h1>{{title}}</h1>
                 </div>
                 <h2>{{subTitle}}</h2>
-
-               
                     
-                <div id="sub-content"></div>
-                
+                <div id="training-sub-content"></div>  
         </div>    
         </script>
         
-        <script id="sub-content-tpl" type="text/x-handlebars-template">
+        <script id="training-sub-content-tpl" type="text/x-handlebars-template">
             </div>
                 <div data-role="main" class="ui-content">
-                    <div>{{text}}"</div>
+                    <div>{{{text}}}"</div>
                 </div>
                 <div data-role="footer" data-position="fixed">
                     <div class="ui-grid-a">
@@ -81,9 +81,6 @@
                 </div>
         </script>
         
-        
-    
-        <script id="training-tpl" type="text/x-handlebars-template">
             <div data-role="page" id="training">
                 <div data-role="header" data-position="fixed">
                     <a href="#training"><img src="img/home.svg">
@@ -98,17 +95,17 @@
                     <ul data-role="listview" data-inset="true" id="training-list"></ul>
                 </div>
             </div>
-        </script>
+     
 
         <script id="training-li-tpl" type="text/x-handlebars-template">
             {{#each items}}
             <li>
-                <a href="#t{{inc @index}}">
+                <a href="#training-content?chapter=t{{inc @index}}">
                     <img id="imgDone_t{{inc @index}}" class="ui-li-icon" src="img/checkbox_notDone.png">{{inc @index}}. Strategie: <span>{{name}}<span>
                 </a>
             </li>
             {{/each}}
-            </script>
+        </script>
 
         <script src="js/helper.js"></script>
         <script src="cordova.js"></script>
@@ -131,6 +128,7 @@
         <script src="js/adapters/localstorage-adapter.js"></script>
         <script src="js/ContentView.js"></script>
         <script src="js/TrainingView.js"></script>
+        <script src="js/vendor/jquery-handlebars.js"></script>
         <script src="js/app.js"></script>
     </body>
 </html>

@@ -2,7 +2,7 @@
 (function()
 {
     window.username = "Johnny";
-    
+
     Handlebars.registerHelper("inc", function(value, options)
     {
 	return parseInt(value) + 1;
@@ -32,13 +32,8 @@
 	}
     });
 
-    //Content Templates
-    var contentTpl = Handlebars.compile($("#content-tpl").html());
-    var subContentTpl = Handlebars.compile($("#sub-content-tpl").html());
 
-    //Training Templates
-    var trainingTpl = Handlebars.compile($("#training-tpl").html());
-    var trainingListTpl = Handlebars.compile($("#training-li-tpl").html());
+
 
     /* ---------------------------------- Local Variables ---------------------------------- */
     var slider = new PageSlider($('body'));
@@ -46,8 +41,8 @@
     var adapter = new LocalStorageAdapter();
     adapter.initialize().done(function() {
 	console.log("Data adapter initialized");
-	route();
-	
+	//route();
+
     });
 
     /* --------------------------------- Event Registration -------------------------------- */
@@ -69,47 +64,92 @@
 
     }, false);
 
-    $(window).on('hashchange', route);
+    $(document).ready(function()
+    {
+	console.log("Changing Hash to Training");
+	document.location.hash = "#training";
+    });
 
-    /* ---------------------------------- Local Functions ---------------------------------- */
-    function route() {
-	
-	var hash = window.location.hash;
-	console.log("Location Hash: " + hash);
-	if (!hash || hash == "#" || hash == "#training")
-	{
-	    hash = "training";
-	    console.log("Redirecting to training");
-	    adapter.findById(hash).done(function(item)
+    $(document).bind("pagebeforechange", function(e, data)
+    {
+	console.log("Intercepting pagebeforechange");
+	if (typeof data.toPage === "string") {
+
+	    // We are being asked to load a page by URL, but we only
+	    // want to handle URLs that request the data for a specific
+	    // category.
+	    console.log("Checking if training is navigated");
+	    var u = $.mobile.path.parseUrl(data.toPage);
+
+
+	    if (u.hash.search(/^#training-content/) !== -1)
 	    {
-		console.log("Training Items found: " + item);
-		var trainingView = new TrainingView(adapter, trainingTpl, trainingListTpl, item);
-		slider.slidePage(trainingView.render().el);
-		trainingView.configure();
-		trainingView.loadContent();
-		
-	    });
+		console.log("We'd like to navigate to training content");
+		showTrainingContent(u, data.options);
+		e.preventDefault();
+	    }
+	    else if (u.hash.search(/^#training$/) !== -1)
+	    {
+		console.log("We'd like to navigate to training");
+		showTrainingOverview();
+	    }
 
 	}
-	else
+
+    });
+
+    function showTrainingOverview()
+    {
+	//Training Templates
+	var trainingListTpl = Handlebars.compile($("#training-li-tpl").html());
+
+	hash = "training";
+	console.log("Redirecting to training");
+	adapter.findById(hash).done(function(item)
 	{
-	    console.log("Not in Home View");
-	    if (hash.charAt(0) === '#')
-		hash = hash.substr(1);
-	    console.log("Hash: " + hash);
-	    adapter.findById(hash).done(function(item) {
-		console.log("Loading Chapter: " + item.id);
-		slider.slidePage(new ContentView(adapter, contentTpl, subContentTpl, item).render().el);
-		
-		
-	    });
-	    return;
-	}
+	    console.log("Training Items found: " + item);
+	    var trainingView = new TrainingView(adapter, trainingListTpl, item);
 
 
-
+	});
     }
-    
+    ;
+
+    function showTrainingContent(urlObj, options)
+    {
+	//Content Templates
+	var contentTpl = Handlebars.compile($("#training-content-tpl").html());
+	var subContentTpl = Handlebars.compile($("#training-sub-content-tpl").html());
+
+	var chapter = urlObj.hash.replace(/.*chapter=/, "")
+	var pageSelector = urlObj.hash.replace(/\?.*$/, "");
+	var $page = $(pageSelector);
+
+	console.log("Loading training chapter: " + chapter);
+	adapter.findById(chapter).done(function(item) {
+	    console.log("Loading Chapter: " + item.id);
+	    var trainingContentView = new ContentView(adapter, contentTpl, subContentTpl, item);
+	    trainingContentView.loadContent();
+
+	    // Pages are lazily enhanced. We call page() on the page
+	    // element to make sure it is always enhanced before we
+	    // attempt to enhance the listview markup we just injected.
+	    // Subsequent calls to page() are ignored since a page/widget
+	    // can only be enhanced once.
+	    $page.page();
+	    // We don't want the data-url of the page we just modified
+	    // to be the url that shows up in the browser's location field,
+	    // so set the dataUrl option to the URL for the category
+	    // we just loaded.
+	    //options.dataUrl = urlObj.href;
+
+	    // Now call changePage() and tell it to switch to
+	    // the page we just modified.
+	    $.mobile.changePage($page, options);
+	});
+    }
+    ;
+
     //function saveToServer()
 
 
