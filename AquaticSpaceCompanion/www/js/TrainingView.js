@@ -9,7 +9,7 @@ var TrainingView = function(adapter, template, listTemplate, item)
     this.render = function()
     {
 	this.el.html(template());
-	$(this.el).ready(this.loadTrainingProgress);
+	
 	return this;
     };
 
@@ -52,11 +52,13 @@ var TrainingView = function(adapter, template, listTemplate, item)
 	console.log("Filling Training-Menu");
 	console.log("Item: " + item);
 	$('.training-list').html(listTemplate(item));
-
+	$(this.el).ready(this.loadTrainingProgress);
     };
 
     this.loadTrainingProgress = function(event)
     {
+	console.log("this.loadTrainingProgress");
+	
 	$.mobile.loading('show', {
 	    text: 'Lade Fortschritt'
 	});
@@ -84,8 +86,11 @@ var TrainingView = function(adapter, template, listTemplate, item)
 		    $(imgId + key).attr("src", "img/checkbox_done.png");
 		}
 	    });
-
-	    $("#progressbar").progressbar('value', Math.round(completed * 100 / total));
+	    console.log("Total: " + total);
+	    console.log("Progressbar : " + $("#progressbar").progressbar("value"));
+	    
+	    if (completed > 0 && total > 0)
+		$("#progressbar").progressbar('value', Math.round(completed * 100 / total));
 	    $.mobile.loading("hide");
 
 

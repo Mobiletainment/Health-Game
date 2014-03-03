@@ -41,7 +41,6 @@
 
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
-        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
 
@@ -71,19 +70,52 @@
         </div>
         </script>
         
+        
+        
         <script id="sub-content-tpl" type="text/x-handlebars-template">
-       
+                    
                     <ul class="topcoat-list__container">
-                        <li class="topcoat-list__item">{{{text}}}</li>
+                 <li class="topcoat-list__item">   
+                        <div class="topcoat-list__item" data-role="collapsibleset" data-theme="a" data-content-theme="a">
+    <div data-role="collapsible">
+        <h3>Im Spiel</h3>
+        <div><button data-push="salad" class="inGameReward ui-btn">Salatblatt Energieschub</button></div>
+        <p>    <button data-push="snail" class="inGameReward topcoat-button--cta button-width">Schnecke<br>Kurzzeitige Verlangsamung</button>
+            <button data-push="glass" class="inGameReward topcoat-button--cta button-width">Brille<br>Kurzfristige freie Sicht</button>
+            <button data-push="salad" class="inGameReward topcoat-button--cta button-width">+1 Leben<br>Ein extra Leben</button>
+        </p>
+    </div>
+    <div data-role="collapsible">
+        <h3>Nähe/Zuneigung</h3>
+    <p>I'm the collapsible content for section 2</p>
+    </div>
+    <div data-role="collapsible">
+        <h3>Immateriell, nicht greifbar</h3>
+    <p>I'm the collapsible content for section 3</p>
+    </div>
+     <div data-role="collapsible">
+        <h3>Materiell, greifbar</h3>
+    <p>I'm the collapsible content for section 3</p>
+    </div>
+</div>
+</li>
+                    
+                        <li class="topcoat-list__item">{{text}}"</li>
                         <li class="topcoat-list__item center">
+                            <div class="ui-grid-a">
+                            <div class="ui-block-a">
                             {{#ifCond page ">" 1}}
                                 <button id="prev-page" class="topcoat-button--cta button-width">Zur&uuml;ck</button>
                             {{/ifCond}}
+                            </div>
+                            <div class="ui-block-b">
                             {{#ifCond page "<" pageCount}}
                                 <button id="next-page" class="topcoat-button--cta button-width">Weiter</button>
                             {{else}}
                                 <button id="training-end" class="topcoat-button--cta button-width">Gelesen</button>
                             {{/ifCond}}
+                            </div>
+                            </div>
                         </li>
                     </ul>
         </script>
@@ -93,7 +125,7 @@
             <div class="item-list" data-role="header">
                 <div class="topcoat-navigation-bar">
                     <div class="topcoat-navigation-bar__item left quarter">
-                        <a href="#">
+                        <a href="#training">
                             <button class="topcoat-icon-button">
                                 <img src="img/home.svg">
                             </button>

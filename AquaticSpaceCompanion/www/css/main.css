@@ -22,6 +22,7 @@ body {
     font-size: 1em;
     line-height: 1.4;
     min-width: 156px;
+    background-color: #e5e9e8;
 }
 
 a {
@@ -120,11 +121,11 @@ textarea {
     width: 100%;
 }
 
+
 .button-width
 {
     width: 100px;
 }
-
 
 
 

@@ -1,12 +1,7 @@
 // We use an "Immediate Function" to initialize the application to avoid leaving anything behind in the global scope
 (function()
 {
-    $(document).bind("mobileinit", function () {
-    $.mobile.ajaxEnabled = false;
-    $.mobile.linkBindingEnabled = false;
-    $.mobile.hashListeningEnabled = false;
-    $.mobile.pushStateEnabled = false;
-});
+    window.username = "Johnny";
     
     Handlebars.registerHelper("inc", function(value, options)
     {
@@ -37,7 +32,11 @@
 	}
     });
 
-    var homeTpl = Handlebars.compile($("#home-tpl").html());
+    //Content Templates
+    var contentTpl = Handlebars.compile($("#content-tpl").html());
+    var subContentTpl = Handlebars.compile($("#sub-content-tpl").html());
+
+    //Training Templates
     var trainingTpl = Handlebars.compile($("#training-tpl").html());
     var trainingListTpl = Handlebars.compile($("#training-li-tpl").html());
 
@@ -48,13 +47,11 @@
     adapter.initialize().done(function() {
 	console.log("Data adapter initialized");
 	route();
+	
     });
-
-    var detailsURL = /^#items\/(\d{1,})/;
 
     /* --------------------------------- Event Registration -------------------------------- */
     document.addEventListener('deviceready', function() {
-
 	FastClick.attach(document.body);
 
 	if (navigator.notification)
@@ -70,16 +67,16 @@
 	    };
 	}
 
-
     }, false);
 
     $(window).on('hashchange', route);
 
     /* ---------------------------------- Local Functions ---------------------------------- */
     function route() {
+	
 	var hash = window.location.hash;
 	console.log("Location Hash: " + hash);
-	if (!hash || hash == "#training")
+	if (!hash || hash == "#" || hash == "#training")
 	{
 	    hash = "training";
 	    console.log("Redirecting to training");
@@ -91,7 +88,6 @@
 		trainingView.configure();
 		trainingView.loadContent();
 		
-		
 	    });
 
 	}
@@ -101,10 +97,9 @@
 		hash = hash.substr(1);
 	    console.log("Hash: " + hash);
 	    adapter.findById(hash).done(function(item) {
-		console.log("item found: " + item.id);
-		slider.slidePage(new HomeView(adapter, homeTpl, item).render().el);
+		console.log("Loading Chapter: " + item.id);
+		slider.slidePage(new ContentView(adapter, contentTpl, subContentTpl, item).render().el);
 		
-		console.log("Submitting progress to server");
 		
 	    });
 	    return;

@@ -93,6 +93,7 @@
 	}
 	else
 	{
+	    console.log("Not in Home View");
 	    if (hash.charAt(0) === '#')
 		hash = hash.substr(1);
 	    console.log("Hash: " + hash);
