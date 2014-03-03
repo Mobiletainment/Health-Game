@@ -15,12 +15,11 @@
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/touch/apple-touch-icon-72x72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="img/touch/apple-touch-icon-57x57-precomposed.png">
         <link rel="shortcut icon" href="img/touch/apple-touch-icon.png">
-        <link href="css/redmond/jquery-ui-1.10.4.custom.min.css" rel="stylesheet">
-        <link href="css/topcoat-mobile-light.css" rel="stylesheet">
+        <link href="css/jquery-ui/jquery.ui.all.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/jquery.mobile/jquery.mobile-1.3.1.css">
+        
         <link href="css/styles.css" rel="stylesheet">
         <link href="css/pageslider.css" rel="stylesheet">
-        <link href="css/jquery-ui/jquery.ui.all.css" rel="stylesheet">
-        <link rel="stylesheet" href="css/jquery.mobile/jquery.mobile-1.4.2.min.css">
         
         <!-- Tile icon for Win8 (144x144 + tile color) -->
         <meta name="msapplication-TileImage" content="img/touch/apple-touch-icon-144x144-precomposed.png">
@@ -39,131 +38,76 @@
         <script>(function(a,b,c){if(c in b&&b[c]){var d,e=a.location,f=/^(a|html)$/i;a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)}})(document,window.navigator,"standalone")</script>
         -->
 
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/main.css">
     </head>
     <body>
 
         <!-- Add your site or application content here -->
         <script id="content-tpl" type="text/x-handlebars-template">
-        <div id="content">
-            <div class="item-list" data-role="header">
-                <div class="topcoat-navigation-bar">
-                    <div class="topcoat-navigation-bar__item left quarter">
-                        <a href="#training">
-                            <button class="topcoat-icon-button">
-                                <img src="img/home.svg">
-                            </button>
-                        </a>
-                    </div>
-                    <div class="topcoat-navigation-bar__item center half">
-                        <h1 class="topcoat-navigation-bar__title">{{title}}</h1>
-                    </div>
+        <div data-role="page" id="training-content">
+                <div data-role="header" data-position="fixed">
+                    <a href="#training"><img src="img/home.svg">
+                    </a>
+                    <h1>{{title}}</h1>
+                </div>
+                <h2>{{subTitle}}</h2>
 
-                </div>
-                <div class="topcoat-list" role="main" class="ui-content">
-                     <h2 class="topcoat-list__header center">{{subTitle}}</h2>
-                     <div id="sub-content">
-                     <div>
-                </div>
-            </div>
-        </div>
+               
+                    
+                <div id="sub-content"></div>
+                
+        </div>    
         </script>
-        
-        
         
         <script id="sub-content-tpl" type="text/x-handlebars-template">
-                    
-                    <ul class="topcoat-list__container">
-                 <li class="topcoat-list__item">   
-                        <div class="topcoat-list__item" data-role="collapsibleset" data-theme="a" data-content-theme="a">
-    <div data-role="collapsible">
-        <h3>Im Spiel</h3>
-        <div><button data-push="salad" class="inGameReward ui-btn">Salatblatt Energieschub</button></div>
-        <p>    <button data-push="snail" class="inGameReward topcoat-button--cta button-width">Schnecke<br>Kurzzeitige Verlangsamung</button>
-            <button data-push="glass" class="inGameReward topcoat-button--cta button-width">Brille<br>Kurzfristige freie Sicht</button>
-            <button data-push="salad" class="inGameReward topcoat-button--cta button-width">+1 Leben<br>Ein extra Leben</button>
-        </p>
-    </div>
-    <div data-role="collapsible">
-        <h3>Nähe/Zuneigung</h3>
-    <p>I'm the collapsible content for section 2</p>
-    </div>
-    <div data-role="collapsible">
-        <h3>Immateriell, nicht greifbar</h3>
-    <p>I'm the collapsible content for section 3</p>
-    </div>
-     <div data-role="collapsible">
-        <h3>Materiell, greifbar</h3>
-    <p>I'm the collapsible content for section 3</p>
-    </div>
-</div>
-</li>
-                    
-                        <li class="topcoat-list__item">{{text}}"</li>
-                        <li class="topcoat-list__item center">
-                            <div class="ui-grid-a">
-                            <div class="ui-block-a">
-                            {{#ifCond page ">" 1}}
-                                <button id="prev-page" class="topcoat-button--cta button-width">Zur&uuml;ck</button>
-                            {{/ifCond}}
-                            </div>
-                            <div class="ui-block-b">
-                            {{#ifCond page "<" pageCount}}
-                                <button id="next-page" class="topcoat-button--cta button-width">Weiter</button>
-                            {{else}}
-                                <button id="training-end" class="topcoat-button--cta button-width">Gelesen</button>
-                            {{/ifCond}}
-                            </div>
-                            </div>
-                        </li>
-                    </ul>
-        </script>
-                    
-        <script id="training-tpl" type="text/x-handlebars-template">
-            <div id="training">
-            <div class="item-list" data-role="header">
-                <div class="topcoat-navigation-bar">
-                    <div class="topcoat-navigation-bar__item left quarter">
-                        <a href="#training">
-                            <button class="topcoat-icon-button">
-                                <img src="img/home.svg">
-                            </button>
-                        </a>
-                    </div>
-                    <div class="topcoat-navigation-bar__item center half">
-                        <h1 class="topcoat-navigation-bar__title">Training</h1>
-                    </div>
-                </div>
-
-                <div class="topcoat-list" role="main" class="ui-content">
-                    <div class="topcoat-list__header center">
-                        <div id="progressbar"><span class="progress-label center">Fortschritt</span></div>
-                    </div>
-
-                    <ul class="topcoat-list__container training-list">
-                    </ul>
-                </div>
             </div>
+                <div data-role="main" class="ui-content">
+                    <div>{{text}}"</div>
+                </div>
+                <div data-role="footer" data-position="fixed">
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a">
+                            {{#ifCond page ">" 1}}
+                                <button id="prev-page">Zur&uuml;ck</button>
+                            {{/ifCond}}
+                        </div>
+                        <div class="ui-block-b">
+                            {{#ifCond page "<" pageCount}}
+                                <button id="next-page">Weiter</button>
+                            {{else}}
+                                <button id="training-end">Gelesen</button>
+                            {{/ifCond}}
+                        </div>
+                     </div>
+                </div>
+        </script>
+        
+        
+    
+        <script id="training-tpl" type="text/x-handlebars-template">
+            <div data-role="page" id="training">
+                <div data-role="header" data-position="fixed">
+                    <a href="#training"><img src="img/home.svg">
+                    </a>
+                    <h1>Training</h1>
+                </div>
+        
+
+                <div data-role="main" class="ui-content">
+                    <div id="progressbar"><span class="progress-label center">Fortschritt</span></div>
+            
+                    <ul data-role="listview" data-inset="true" id="training-list"></ul>
+                </div>
             </div>
         </script>
 
         <script id="training-li-tpl" type="text/x-handlebars-template">
             {{#each items}}
-        <li class="topcoat-list__item list_item_T3">
-            <a href="#t{{inc @index}}">
-                <div id="header"></div>
-                <div class="containerT3">
-                    <div class="centerT3 column">{{inc @index}}. Strategie: <span>{{name}}<span></div>
-                                <div class="leftT3 column">
-                                    <img id="imgDone_t{{inc @index}}" src="img/checkbox_notDone.png">
-                                </div>
-                                <div class="rightT3 column"><img src="img/topcoat/next_blue.svg" width="28px"></div>
-                                </div>
-                                <div id="footer"></div>
-                                </a>
-                                </li>
-                                {{/each}}
+            <li>
+                <a href="#t{{inc @index}}">
+                    <img id="imgDone_t{{inc @index}}" class="ui-li-icon" src="img/checkbox_notDone.png">{{inc @index}}. Strategie: <span>{{name}}<span>
+                </a>
+            </li>
+            {{/each}}
             </script>
 
         <script src="js/helper.js"></script>
@@ -181,7 +125,7 @@
         <script src="js/vendor/jquery-ui/jquery.ui.progressbar.js"></script>
 
 
-        <script src="js/vendor/jquery.mobile-1.4.2.min.js"></script>
+        <script src="js/vendor/jquery.mobile.js"></script>
 
         <script src="js/vendor/pageslider.js"></script>
         <script src="js/adapters/localstorage-adapter.js"></script>
