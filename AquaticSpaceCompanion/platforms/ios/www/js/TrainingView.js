@@ -1,20 +1,11 @@
-var TrainingView = function(adapter, template, listTemplate, item)
+var TrainingView = function(adapter, listTemplate, item)
 {
     this.initialize = function() {
-	this.el = $('<div/>');
-    };
+	console.log("Filling Training-Menu");
+	console.log("Item: " + item);
+	
+	$('#training-list').html(listTemplate(item)); //inflate template
 
-    this.initialize();
-
-    this.render = function()
-    {
-	this.el.html(template());
-	$(this.el).ready(this.loadTrainingProgress);
-	return this;
-    };
-
-    this.configure = function()
-    {
 	var progressLabel = $(".progress-label");
 	var progressbar = $("#progressbar");
 
@@ -45,53 +36,61 @@ var TrainingView = function(adapter, template, listTemplate, item)
 
 	progressbar.progressbar("value", 0);
 
+
+	$(document).ready(function() //Load Training progress
+	{
+	    
+	    console.log("this.loadTrainingProgress");
+
+	    $.mobile.loading('show', {
+		text: 'Lade Fortschritt'
+	    });
+
+	    $.getJSON("http://tnix.eu/~aspace/TrainingProgress.php",
+		    {
+			username: window.username,
+			action: "GetProgress"
+		    },
+	    function(data)
+	    {
+		console.log("Server responded");
+
+		var imgId = '#imgDone_';
+		var total = 0;
+		var completed = 0;
+
+		$.each(data.returnData, function(key, val)
+		{
+		    ++total;
+
+		    if (val === true)
+		    {
+			++completed;
+			$(imgId + key).attr("src", "img/checkbox_done.png");
+		    }
+		});
+		console.log("Total: " + total);
+		console.log("Progressbar : " + $("#progressbar").progressbar("value"));
+
+		if (completed > 0 && total > 0)
+		    $("#progressbar").progressbar('value', Math.round(completed * 100 / total));
+		$.mobile.loading("hide");
+
+
+
+	    });
+	}
+	);
+
     };
 
-    this.loadContent = function()
-    {
-	console.log("Filling Training-Menu");
-	console.log("Item: " + item);
-	$('.training-list').html(listTemplate(item));
+    this.initialize();
 
-    };
+
 
     this.loadTrainingProgress = function(event)
     {
-	$.mobile.loading('show', {
-	    text: 'Lade Fortschritt'
-	});
 
-	$.getJSON("http://tnix.eu/~aspace/TrainingProgress.php",
-		{
-		    username: window.username,
-		    action: "GetProgress"
-		},
-	function(data)
-	{
-	    console.log("Server responded");
-
-	    var imgId = '#imgDone_';
-	    var total = 0;
-	    var completed = 0;
-
-	    $.each(data.returnData, function(key, val)
-	    {
-		++total;
-
-		if (val === true)
-		{
-		    ++completed;
-		    $(imgId + key).attr("src", "img/checkbox_done.png");
-		}
-	    });
-
-	    $("#progressbar").progressbar('value', Math.round(completed * 100 / total));
-	    $.mobile.loading("hide");
-
-
-
-	}
-	);
     };
 
 };

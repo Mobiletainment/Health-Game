@@ -34,9 +34,7 @@
 
 
 
-
     /* ---------------------------------- Local Variables ---------------------------------- */
-    var slider = new PageSlider($('body'));
 
     var adapter = new LocalStorageAdapter();
     adapter.initialize().done(function() {
@@ -82,34 +80,71 @@
 	    var u = $.mobile.path.parseUrl(data.toPage);
 
 
-	    if (u.hash.search(/^#training-content/) !== -1)
+	    if (u.hash.search(/^#train-content/) !== -1)
 	    {
 		console.log("We'd like to navigate to training content");
 		showTrainingContent(u, data.options);
+
 		e.preventDefault();
 	    }
 	    else if (u.hash.search(/^#training$/) !== -1)
 	    {
 		console.log("We'd like to navigate to training");
 		showTrainingOverview();
+
 	    }
 
 	}
 
     });
 
+    //Super important: enhancing the layout that got dynamically added. Only way I found working
+    $(document).on("pagebeforeshow", "#training", function(event)
+    {
+	$("#training").find(":jqmData(role=listview)").listview().listview("refresh");
+    });
+    
+    $(document).on("pagebeforeshow", "#train-content", function(event)
+    {
+	//$("#train-content").trigger("create");
+    });
+    
+    /*
+     $( "#training" ).on( "pagecontainerbeforeshow", function( event, ui )
+     {
+     console.log("pagecontainerbeforeshow: Training");
+     $('#training-list').listview().listview('refresh');
+     });*/
+    /*
+     $('#training').on('pagebeforeshow', function(event)
+     {
+     console.log("PagebeforeShow: Training");
+     console.log($('#training-list').listview());
+     $('#training-list').listview().listview('refresh');
+     //$("#uniqueButtonId").hide();
+     });
+     */
+/*
+    $(document).bind("pagebeforeshow", function(e, data)
+    {
+	console.log("pagebeforeshow: e= " + e + "; data.ToPage = " + data.toPage);
+	//$("#training-list").trigger("refresh");
+	//$('#training-list').listview('refresh');
+	
+    });
+*/
+
     function showTrainingOverview()
     {
 	//Training Templates
-	var trainingListTpl = Handlebars.compile($("#training-li-tpl").html());
+
 
 	hash = "training";
 	console.log("Redirecting to training");
 	adapter.findById(hash).done(function(item)
 	{
 	    console.log("Training Items found: " + item);
-	    var trainingView = new TrainingView(adapter, trainingListTpl, item);
-
+	    var trainingView = new TrainingView(adapter, item);
 
 	});
     }
@@ -118,8 +153,6 @@
     function showTrainingContent(urlObj, options)
     {
 	//Content Templates
-	var contentTpl = Handlebars.compile($("#training-content-tpl").html());
-	var subContentTpl = Handlebars.compile($("#training-sub-content-tpl").html());
 
 	var chapter = urlObj.hash.replace(/.*chapter=/, "")
 	var pageSelector = urlObj.hash.replace(/\?.*$/, "");
@@ -128,8 +161,8 @@
 	console.log("Loading training chapter: " + chapter);
 	adapter.findById(chapter).done(function(item) {
 	    console.log("Loading Chapter: " + item.id);
-	    var trainingContentView = new ContentView(adapter, contentTpl, subContentTpl, item);
-	    trainingContentView.loadContent();
+	    var trainingContentView = new ContentView(adapter, item);
+	    trainingContentView.loadContent("showTrainingContent");
 
 	    // Pages are lazily enhanced. We call page() on the page
 	    // element to make sure it is always enhanced before we
@@ -137,11 +170,17 @@
 	    // Subsequent calls to page() are ignored since a page/widget
 	    // can only be enhanced once.
 	    $page.page();
+
+	    //$page.trigger("refresh");
+	    $page.find( ":jqmData(role=listview)" ).listview();
+	    $page.find( ":jqmData(role=footer)" ).trigger("create");
+	    $page.trigger('pagecreate');
+	    
 	    // We don't want the data-url of the page we just modified
 	    // to be the url that shows up in the browser's location field,
 	    // so set the dataUrl option to the URL for the category
 	    // we just loaded.
-	    //options.dataUrl = urlObj.href;
+	    options.dataUrl = urlObj.href;
 
 	    // Now call changePage() and tell it to switch to
 	    // the page we just modified.

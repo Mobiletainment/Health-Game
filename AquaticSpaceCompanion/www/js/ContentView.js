@@ -1,13 +1,19 @@
-var ContentView = function(adapter, template, subContent, chapter)
+var trainingContentPageTpl = Handlebars.compile($("#training-content-page-tpl").html());
+var trainingContentMainTpl = Handlebars.compile($("#training-content-main-tpl").html());
+var trainingContentFooterTpl = Handlebars.compile($("#training-content-footer-tpl").html());
+
+
+var ContentView = function(adapter, chapter)
 {
     var currentPage = 0;
     var pages = chapter.items;
     var pageCount = pages.length;
-
+    this.el = $('<div />');
 
     this.initialize = function()
     {
-	$("#training-content").html(template(chapter));
+	
+	$("#train-content").html(trainingContentPageTpl(chapter));
 	
 	return this;
     };
@@ -19,22 +25,24 @@ var ContentView = function(adapter, template, subContent, chapter)
     {
 	console.log("Loading Content for " + key);
 	var page = {"page": currentPage + 1, "pageCount": pageCount, "text": pages[currentPage]};
-	$('#training-sub-content').html(subContent(page));
+	
+	$('#training-content-main').html(trainingContentMainTpl(page));
+	$('#training-content-footer').html(trainingContentFooterTpl(page));
 
-	$('#training-sub-content').find("#next-page").click($.proxy(function() {
+	$('#training-content-footer').find("#next-page").button().click($.proxy(function() {
 	    //use original 'this'
 	    console.log(currentPage);
 	    currentPage++;
 	    this.loadContent("next");
 	}, this));
 
-	$('#training-sub-content').find("#prev-page").click($.proxy(function() {
+	$('#training-content-footer').find("#prev-page").button().click($.proxy(function() {
 	    //use original 'this'
 	    currentPage--;
 	    this.loadContent("prev");
 	}, this));
 
-	$('#training-sub-content').find("#training-end").click($.proxy(function() {
+	$('#training-content-footer').find("#training-end").button().click($.proxy(function() {
 	    //use original 'this'
 	    this.saveTrainingProgress("1");
 	}, this));

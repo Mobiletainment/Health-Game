@@ -17,7 +17,7 @@ var LocalStorageAdapter = function() {
 ]},
 {"id": "t2", "title": "2. Strategie", "subTitle": "Lob", "items":
 [
- "<p>Kinder mir Verhaltensproblemen bekommen Aufmerksamkeit meist erst dann, wenn sie sich unpassend benehmen. Sie lernen schnell, dass diese Art des Verhaltens ihnen elter- liche Aufmerksamkeit bringt.</p><p>Um den Teufelskreis zu brechen und wünschenswerte Verhaltensweisen zu verstärken, versuchen Sie ihr Kind bei gutem Verhalten zu ‚erwischen‘.</p>",
+ "<p>Kinder mit Verhaltensproblemen bekommen Aufmerksamkeit meist erst dann, wenn sie sich unpassend benehmen. Sie lernen schnell, dass diese Art des Verhaltens ihnen elter- liche Aufmerksamkeit bringt.</p><p>Um den Teufelskreis zu brechen und wünschenswerte Verhaltensweisen zu verstärken, versuchen Sie ihr Kind bei gutem Verhalten zu ‚erwischen‘.</p>",
  "<p>Loben Sie ihr Kind <b>sofort</b> und versu- chen Sie das Verhalten dabei zu <b>benennen</b>, damit es ihrem Kind klar wird, wie es sich die Anerkennung verdient hat.</p><p>Loben Sie ihr Kind nicht nur wenn es ihre Anforderungen und Bitten nachkommt, sondern auch wenn wünschenswertes Verhalten <b>von al- leine</b> kommt.</p><p>Sprechen Sie ihr Lob und Anerken- nung im Rahmen des Spiels sowie im wirklichen Leben aus!</p>",
  "<p><b>Beispiele für ein richtig ausgesprochenes Lob:</b>\n\
 <ul>\n\
@@ -27,6 +27,13 @@ var LocalStorageAdapter = function() {
 <li>Danke, dass du ...</li>\n\
 <li>Schau, wie schön (schnell, ordentlich, usw.) du ...</li>\n\
 <li>Gut gemacht!</li>\n\</ul></p>"
+]},
+{"id": "t3", "title": "3. Strategie", "subTitle": "Belohnung", "items":
+[
+ "<p>Eine Belohnung, die Sie ihrem Kind geben, wenn es ein gewünschtes Verhalten zeigt, steigert die Chance, dass ihr Kind das Verhalten auch in der Zukunft zeigen wird.</p>",
+ "<p>Bestimmen Sie gemeinsam mit ihrem Kind, welche Belohnungen in Frage kommen. Sie sollten für das Kind ei- nen hohen Stellenwert haben um dessen Motivation zu fördern und gleichzeitig nicht zu groß sein und wenig oder überhaupt nichts kosten.</p><p>Konsistenz, Häufigkeit und Unmit- telbarkeit der Belohnung sind viel wichtiger als der materielle Wert!</p>",
+ "<p><b>Nachfolgend sind Beispiele für motivierende Belohnungen angeführt. Wählen Sie nun eines aus:<div data-role='collapsible' data-collapsed-icon='carat-d' data-expanded-icon='carat-u'><h4>Heading</h4>\n\
+<ul data-role='listview' data-inset='false'>\n\<li>Read-only list item 1</li></ul></div></p>"
 ]}
 		]));
 	deferred.resolve();

@@ -7,41 +7,34 @@ var ContentView = function(adapter, template, subContent, chapter)
 
     this.initialize = function()
     {
-	// Define a div wrapper for the view. The div wrapper is used to attach events.
-	this.el = $('<div/>');
+	$("#training-content").html(template(chapter));
+	
+	return this;
     };
 
     this.initialize();
 
-    this.render = function()
-    {
-	this.el.html(template(chapter));
-	//$(this.el).find('#sub-content').html(subContent());
-	this.loadContent("init");
-
-	return this;
-    };
 
     this.loadContent = function(key)
     {
 	console.log("Loading Content for " + key);
 	var page = {"page": currentPage + 1, "pageCount": pageCount, "text": pages[currentPage]};
-	$(this.el).find('#sub-content').html(subContent(page));
+	$('#training-sub-content').html(subContent(page));
 
-	$(this.el).find("#next-page").click($.proxy(function() {
+	$('#training-sub-content').find("#next-page").click($.proxy(function() {
 	    //use original 'this'
 	    console.log(currentPage);
 	    currentPage++;
 	    this.loadContent("next");
 	}, this));
 
-	$(this.el).find("#prev-page").click($.proxy(function() {
+	$('#training-sub-content').find("#prev-page").click($.proxy(function() {
 	    //use original 'this'
 	    currentPage--;
 	    this.loadContent("prev");
 	}, this));
 
-	$(this.el).find("#training-end").click($.proxy(function() {
+	$('#training-sub-content').find("#training-end").click($.proxy(function() {
 	    //use original 'this'
 	    this.saveTrainingProgress("1");
 	}, this));
