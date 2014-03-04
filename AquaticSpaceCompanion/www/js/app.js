@@ -172,7 +172,12 @@
 	    $page.page();
 
 	    //$page.trigger("refresh");
-	    $page.find( ":jqmData(role=listview)" ).listview();
+	    $page.find( ":jqmData(role=main)" ).trigger("create");
+	   
+	    
+	    $page.find(":jqmData(role=listview)").listview().listview("refresh");
+	     $page.find(":jqmData(role=listview)").trigger("create")	;
+	    //$("#training-content-main").trigger("create");
 	    $page.find( ":jqmData(role=footer)" ).trigger("create");
 	    $page.trigger('pagecreate');
 	    

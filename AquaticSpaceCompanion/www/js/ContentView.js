@@ -8,6 +8,7 @@ var ContentView = function(adapter, chapter)
     var currentPage = 0;
     var pages = chapter.items;
     var pageCount = pages.length;
+    var firstLoad = true;
     this.el = $('<div />');
 
     this.initialize = function()
@@ -28,6 +29,10 @@ var ContentView = function(adapter, chapter)
 	
 	$('#training-content-main').html(trainingContentMainTpl(page));
 	$('#training-content-footer').html(trainingContentFooterTpl(page));
+
+	if (firstLoad === false)
+	$('#training-content-listview').listview("refresh");
+	    
 
 	$('#training-content-footer').find("#next-page").button().click($.proxy(function() {
 	    //use original 'this'
@@ -53,16 +58,7 @@ var ContentView = function(adapter, chapter)
 	//this.el.on('click', '#next-page', this.loadContent(currentPage));
 
 
-
-	/*
-	 
-	 console.log("Loading Content with key " + key);
-	 adapter.findById(key).done(function(items) {
-	 console.log(items.subTitle);
-	 $('.item-list').html(template(items));
-	 
-	 });
-	 */
+	firstLoad = false;
     };
 
     this.saveTrainingProgress = function(event)
