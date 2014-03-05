@@ -1,6 +1,7 @@
 (function()
 {
     $(document).bind("mobileinit", function () {
+    $.mobile.allowCrossDomainPages = true;
     
     $.mobile.loader.prototype.options.text = "Lade";
 	$.mobile.loader.prototype.options.textVisible = true;

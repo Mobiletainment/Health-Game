@@ -31,8 +31,11 @@ var ContentView = function(adapter, chapter)
 	$('#training-content-footer').html(trainingContentFooterTpl(page));
 
 	if (firstLoad === false)
-	$('#training-content-listview').listview("refresh");
+	    $('#training-content-listview').listview("refresh");
 	    
+	$("#training-content-main").find(":jqmData(role=collapsible)").collapsible();
+	$("#training-content-main").find(":jqmData(role=button)").button();
+	$("#training-content-main").find(":jqmData(role=listview)").listview().listview("refresh");
 
 	$('#training-content-footer').find("#next-page").button().click($.proxy(function() {
 	    //use original 'this'

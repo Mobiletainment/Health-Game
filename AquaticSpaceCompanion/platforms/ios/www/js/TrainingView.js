@@ -1,11 +1,17 @@
-var TrainingView = function(adapter, listTemplate, item)
+ var trainingListTpl = Handlebars.compile($("#training-li-tpl").html());
+
+var TrainingView = function(adapter, item)
 {
     this.initialize = function() {
 	console.log("Filling Training-Menu");
 	console.log("Item: " + item);
 	
-	$('#training-list').html(listTemplate(item)); //inflate template
-
+	//$('#training-list').listview();
+	
+	$('#training-listview').html(trainingListTpl(item)); //inflate template
+	// Enhance the listview we just injected.
+	//$('#training-list').find( ":jqmData(role=listview)" ).listview();
+	
 	var progressLabel = $(".progress-label");
 	var progressbar = $("#progressbar");
 
@@ -36,10 +42,9 @@ var TrainingView = function(adapter, listTemplate, item)
 
 	progressbar.progressbar("value", 0);
 
-
+	
 	$(document).ready(function() //Load Training progress
 	{
-	    
 	    console.log("this.loadTrainingProgress");
 
 	    $.mobile.loading('show', {
@@ -81,16 +86,9 @@ var TrainingView = function(adapter, listTemplate, item)
 	    });
 	}
 	);
-
+	
     };
 
     this.initialize();
-
-
-
-    this.loadTrainingProgress = function(event)
-    {
-
-    };
 
 };

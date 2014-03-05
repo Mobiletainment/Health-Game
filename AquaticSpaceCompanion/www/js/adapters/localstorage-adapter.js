@@ -30,10 +30,15 @@ var LocalStorageAdapter = function() {
 ]},
 {"id": "t3", "title": "3. Strategie", "subTitle": "Belohnung", "items":
 [
+"<p>Nachfolgend sind Beispiele für motivierende Belohnungen angeführt. <b>Wählen Sie zuerst eine Kategorie aus und entscheiden Sie sich dann für eine Belohnung:</b><div>Wichtig: Belohnen Sie ihr Kind ausschließlich <b>nachdem</b> das gewünschte Verhalten gezeigt wurde.</div><div data-role='collapsible' data-content-theme='d' data-collapsed='true' data-collapsed-icon='carat-d' data-expanded-icon='carat-u'><h4>Im Spiel</h4>\n\
+<a href='#rewardingame?reward=salad' data-role='button' data-theme='b'>Salatblatt<br>Energieschub</a><button class='btnInGameReward' data-role='button' data-theme='b'>Schnecke<br>Kurzfristige Verlangsamung</button><button class='btnInGameReward' data-role='button' data-theme='b'>Brille<br>Kurzfristige freie Sicht</button><button class='btnInGameReward' data-role='button' data-theme='b'>+1 Leben<br>Ein extra Leben</button></div>\n\
+<div data-role='collapsible' data-content-theme='d' data-collapsed='true' data-collapsed-icon='carat-d' data-expanded-icon='carat-u'><h4>Nähe / Zuneigung</h4><h5>Beispiele:</h5><ul><li>In den Arm nehmen</li><li>Über den Kopf oder die Schulter streichen</li><li>Liebevoll durchs Haar wuscheln</li><li>Den Arm um das Kind legen</li><li>Zuzwinkern / lächeln</li><li>Ein 'High Five' geben</li></ul></div>\n\
+<div data-role='collapsible' data-content-theme='d' data-collapsed='true' data-collapsed-icon='carat-d' data-expanded-icon='carat-u'><h4>Immaterielle Belohnung</h4><h5>Beispiele:</h5><ul><li>Zeit-zu-Zweit-Verlängerung</li><li>Länger fernsehen</li><li>Länger wach bleiben</li><li>Länger schlafen</li><li>In den Park gehen</li><li>Desser oder Essen auswählen</li><li>Einen Film schauen</li><li>Freunde einladen</li><li>Gemeinsam kochen</li><li>Gemeinsam ein Spiel oder Videospiel spielen</li></ul></div>\n\
+<div data-role='collapsible' data-content-theme='d' data-collapsed='true' data-collapsed-icon='carat-d' data-expanded-icon='carat-u'><h4>Materielle Belohnung</h4><h5>Beispiele:</h5><ul><li>Kaugummi / Süßigkeiten</li><li>Ins Kino gehen</li><li>Gemeinsam Sport betreiben</li><li>Kostengünstige Geschenke (Spielzeug, Buch, Aufkleber)</li><li>Eis essen gehen</li></ul></div>\n\
+</p>",
  "<p>Eine Belohnung, die Sie ihrem Kind geben, wenn es ein gewünschtes Verhalten zeigt, steigert die Chance, dass ihr Kind das Verhalten auch in der Zukunft zeigen wird.</p>",
- "<p>Bestimmen Sie gemeinsam mit ihrem Kind, welche Belohnungen in Frage kommen. Sie sollten für das Kind ei- nen hohen Stellenwert haben um dessen Motivation zu fördern und gleichzeitig nicht zu groß sein und wenig oder überhaupt nichts kosten.</p><p>Konsistenz, Häufigkeit und Unmit- telbarkeit der Belohnung sind viel wichtiger als der materielle Wert!</p>",
- "<p><b>Nachfolgend sind Beispiele für motivierende Belohnungen angeführt. Wählen Sie nun eines aus:<div data-role='collapsible' data-collapsed-icon='carat-d' data-expanded-icon='carat-u'><h4>Heading</h4>\n\
-<ul data-role='listview' data-inset='false'>\n\<li>Read-only list item 1</li></ul></div></p>"
+ "<p>Bestimmen Sie gemeinsam mit ihrem Kind, welche Belohnungen in Frage kommen. Sie sollten für das Kind ei- nen hohen Stellenwert haben um dessen Motivation zu fördern und gleichzeitig nicht zu groß sein und wenig oder überhaupt nichts kosten.</p><p>Konsistenz, Häufigkeit und Unmit- telbarkeit der Belohnung sind viel wichtiger als der materielle Wert!</p>"
+ 
 ]}
 		]));
 	deferred.resolve();

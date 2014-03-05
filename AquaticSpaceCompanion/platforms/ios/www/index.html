@@ -42,29 +42,37 @@
     <body>
         
         <!-- Training Content Page -->
-        <div data-role="page" id="training-content">
+        <div data-role="page" id="train-content">
         </div>
         
-        <script id="training-content-tpl" type="text/x-handlebars-template">
+        <script id="training-content-page-tpl" type="text/x-handlebars-template">
         
                 <div data-role="header" data-position="fixed">
                     <a href="#training"><img src="img/home.svg">
                     </a>
                     <h1>{{title}}</h1>
-                </div>
-                <h2>{{subTitle}}</h2>
                     
-                <div id="training-sub-content"></div>  
+                </div>
+                
+                
+                <div data-role="main" class="ui-content">
+                    <h2>{{subTitle}}</h2>
+                    <ul data-role="listview" data-inset="true">
+                        <li>
+                            
+                            <div id="training-content-main"></div>
+                        </li>
+                    </ul>
+                <div data-role="footer" data-position="fixed" id="training-content-footer"></div>
         </div>    
         </script>
         
-        <script id="training-sub-content-tpl" type="text/x-handlebars-template">
-            </div>
-                <div data-role="main" class="ui-content">
-                    <div>{{{text}}}"</div>
-                </div>
-                <div data-role="footer" data-position="fixed">
-                    <div class="ui-grid-a">
+        <script id="training-content-main-tpl" type="text/x-handlebars-template">
+            {{{text}}}
+        </script>
+        
+        <script id="training-content-footer-tpl" type="text/x-handlebars-template">
+                <div class="ui-grid-a">
                         <div class="ui-block-a">
                             {{#ifCond page ">" 1}}
                                 <button id="prev-page">Zur&uuml;ck</button>
@@ -72,13 +80,12 @@
                         </div>
                         <div class="ui-block-b">
                             {{#ifCond page "<" pageCount}}
-                                <button id="next-page">Weiter</button>
+                                <div id="next-page">Weiter</div>
                             {{else}}
                                 <button id="training-end">Gelesen</button>
                             {{/ifCond}}
                         </div>
                      </div>
-                </div>
         </script>
         
             <div data-role="page" id="training">
@@ -91,8 +98,9 @@
 
                 <div data-role="main" class="ui-content">
                     <div id="progressbar"><span class="progress-label center">Fortschritt</span></div>
-            
-                    <ul data-role="listview" data-inset="true" id="training-list"></ul>
+                    <div id="training-list"> 
+                    <ul data-role="listview" data-inset="true" id="training-listview"></ul>
+                    </div>
                 </div>
             </div>
      
@@ -100,7 +108,7 @@
         <script id="training-li-tpl" type="text/x-handlebars-template">
             {{#each items}}
             <li>
-                <a href="#training-content?chapter=t{{inc @index}}">
+                <a href="#train-content?chapter=t{{inc @index}}">
                     <img id="imgDone_t{{inc @index}}" class="ui-li-icon" src="img/checkbox_notDone.png">{{inc @index}}. Strategie: <span>{{name}}<span>
                 </a>
             </li>

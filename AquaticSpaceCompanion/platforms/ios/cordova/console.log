@@ -1,0 +1,77 @@
+2014-03-04 21:10:36.227 AquaticSpaceCompanion[6765:80b] Multi-tasking -> Device: YES, App: YES
+2014-03-04 21:10:36.264 AquaticSpaceCompanion[6765:80b] Unlimited access to network resources
+2014-03-04 21:10:36.793 AquaticSpaceCompanion[6765:80b] [CDVTimer][splashscreen] 287.816048ms
+2014-03-04 21:10:36.794 AquaticSpaceCompanion[6765:80b] [CDVTimer][TotalPluginStartup] 288.457990ms
+2014-03-04 21:10:36.997 AquaticSpaceCompanion[6765:80b] Resetting plugins due to page load.
+2014-03-04 21:10:37.593 AquaticSpaceCompanion[6765:80b] Finished load of: file:///Users/dp/Library/Application%20Support/iPhone%20Simulator/7.0.3/Applications/7030F786-3260-4F63-9678-7579CBB05B39/AquaticSpaceCompanion.app/www/index.html#training
+2014-03-04 21:10:37.651 AquaticSpaceCompanion[6765:80b] Intercepting pagebeforechange
+2014-03-04 21:10:37.652 AquaticSpaceCompanion[6765:80b] Checking if training is navigated
+2014-03-04 21:10:37.652 AquaticSpaceCompanion[6765:80b] We'd like to navigate to training
+2014-03-04 21:10:37.653 AquaticSpaceCompanion[6765:80b] Redirecting to training
+2014-03-04 21:10:37.653 AquaticSpaceCompanion[6765:80b] Training Items found: [object Object]
+2014-03-04 21:10:37.654 AquaticSpaceCompanion[6765:80b] Filling Training-Menu
+2014-03-04 21:10:37.655 AquaticSpaceCompanion[6765:80b] Item: [object Object]
+2014-03-04 21:10:37.671 AquaticSpaceCompanion[6765:80b] this.loadTrainingProgress
+2014-03-04 21:10:37.694 AquaticSpaceCompanion[6765:80b] Intercepting pagebeforechange
+2014-03-04 21:10:38.836 AquaticSpaceCompanion[6765:80b] Server responded
+2014-03-04 21:10:38.839 AquaticSpaceCompanion[6765:80b] Total: 6
+2014-03-04 21:10:38.839 AquaticSpaceCompanion[6765:80b] Progressbar : 0
+2014-03-04 21:10:44.247 AquaticSpaceCompanion[6765:80b] Intercepting pagebeforechange
+2014-03-04 21:10:44.248 AquaticSpaceCompanion[6765:80b] Checking if training is navigated
+2014-03-04 21:10:44.248 AquaticSpaceCompanion[6765:80b] We'd like to navigate to training content
+2014-03-04 21:10:44.248 AquaticSpaceCompanion[6765:80b] Loading training chapter: t1
+2014-03-04 21:10:44.248 AquaticSpaceCompanion[6765:80b] Loading Chapter: t1
+2014-03-04 21:10:44.249 AquaticSpaceCompanion[6765:80b] Loading Content for showTrainingContent
+2014-03-04 21:10:44.249 AquaticSpaceCompanion[6765:80b] Intercepting pagebeforechange
+2014-03-04 21:10:46.684 AquaticSpaceCompanion[6765:80b] 0
+2014-03-04 21:10:46.684 AquaticSpaceCompanion[6765:80b] Loading Content for next
+2014-03-04 21:10:47.882 AquaticSpaceCompanion[6765:80b] Loading Content for prev
+2014-03-04 21:10:48.526 AquaticSpaceCompanion[6765:80b] 0
+2014-03-04 21:10:48.527 AquaticSpaceCompanion[6765:80b] Loading Content for next
+2014-03-04 21:10:53.920 AquaticSpaceCompanion[6765:80b] Intercepting pagebeforechange
+2014-03-04 21:10:53.920 AquaticSpaceCompanion[6765:80b] Checking if training is navigated
+2014-03-04 21:10:53.920 AquaticSpaceCompanion[6765:80b] We'd like to navigate to training
+2014-03-04 21:10:53.920 AquaticSpaceCompanion[6765:80b] Redirecting to training
+2014-03-04 21:10:53.921 AquaticSpaceCompanion[6765:80b] Training Items found: [object Object]
+2014-03-04 21:10:53.921 AquaticSpaceCompanion[6765:80b] Filling Training-Menu
+2014-03-04 21:10:53.921 AquaticSpaceCompanion[6765:80b] Item: [object Object]
+2014-03-04 21:10:53.921 AquaticSpaceCompanion[6765:80b] this.loadTrainingProgress
+2014-03-04 21:10:53.922 AquaticSpaceCompanion[6765:80b] Intercepting pagebeforechange
+2014-03-04 21:10:54.179 AquaticSpaceCompanion[6765:80b] Server responded
+2014-03-04 21:10:54.180 AquaticSpaceCompanion[6765:80b] Total: 6
+2014-03-04 21:10:54.180 AquaticSpaceCompanion[6765:80b] Progressbar : 0
+2014-03-04 21:10:55.359 AquaticSpaceCompanion[6765:80b] Intercepting pagebeforechange
+2014-03-04 21:10:55.360 AquaticSpaceCompanion[6765:80b] Checking if training is navigated
+2014-03-04 21:10:55.360 AquaticSpaceCompanion[6765:80b] We'd like to navigate to training content
+2014-03-04 21:10:55.360 AquaticSpaceCompanion[6765:80b] Loading training chapter: t2
+2014-03-04 21:10:55.360 AquaticSpaceCompanion[6765:80b] Loading Chapter: t2
+2014-03-04 21:10:55.361 AquaticSpaceCompanion[6765:80b] Loading Content for showTrainingContent
+2014-03-04 21:10:55.361 AquaticSpaceCompanion[6765:80b] Intercepting pagebeforechange
+2014-03-04 21:10:57.741 AquaticSpaceCompanion[6765:80b] 0
+2014-03-04 21:10:57.741 AquaticSpaceCompanion[6765:80b] Loading Content for next
+2014-03-04 21:11:00.504 AquaticSpaceCompanion[6765:80b] Loading Content for prev
+2014-03-04 21:11:01.514 AquaticSpaceCompanion[6765:80b] 0
+2014-03-04 21:11:01.515 AquaticSpaceCompanion[6765:80b] Loading Content for next
+2014-03-04 21:11:01.978 AquaticSpaceCompanion[6765:80b] 1
+2014-03-04 21:11:01.978 AquaticSpaceCompanion[6765:80b] Loading Content for next
+2014-03-04 21:11:10.403 AquaticSpaceCompanion[6765:80b] Intercepting pagebeforechange
+2014-03-04 21:11:10.403 AquaticSpaceCompanion[6765:80b] Checking if training is navigated
+2014-03-04 21:11:10.403 AquaticSpaceCompanion[6765:80b] We'd like to navigate to training
+2014-03-04 21:11:10.403 AquaticSpaceCompanion[6765:80b] Redirecting to training
+2014-03-04 21:11:10.404 AquaticSpaceCompanion[6765:80b] Training Items found: [object Object]
+2014-03-04 21:11:10.404 AquaticSpaceCompanion[6765:80b] Filling Training-Menu
+2014-03-04 21:11:10.404 AquaticSpaceCompanion[6765:80b] Item: [object Object]
+2014-03-04 21:11:10.404 AquaticSpaceCompanion[6765:80b] this.loadTrainingProgress
+2014-03-04 21:11:10.405 AquaticSpaceCompanion[6765:80b] Intercepting pagebeforechange
+2014-03-04 21:11:10.446 AquaticSpaceCompanion[6765:80b] Server responded
+2014-03-04 21:11:10.446 AquaticSpaceCompanion[6765:80b] Total: 6
+2014-03-04 21:11:10.447 AquaticSpaceCompanion[6765:80b] Progressbar : 0
+2014-03-04 21:11:11.861 AquaticSpaceCompanion[6765:80b] Intercepting pagebeforechange
+2014-03-04 21:11:11.862 AquaticSpaceCompanion[6765:80b] Checking if training is navigated
+2014-03-04 21:11:11.862 AquaticSpaceCompanion[6765:80b] We'd like to navigate to training content
+2014-03-04 21:11:11.862 AquaticSpaceCompanion[6765:80b] Loading training chapter: t1
+2014-03-04 21:11:11.862 AquaticSpaceCompanion[6765:80b] Loading Chapter: t1
+2014-03-04 21:11:11.862 AquaticSpaceCompanion[6765:80b] Loading Content for showTrainingContent
+2014-03-04 21:11:11.863 AquaticSpaceCompanion[6765:80b] Intercepting pagebeforechange
+2014-03-04 21:11:13.560 AquaticSpaceCompanion[6765:80b] 0
+2014-03-04 21:11:13.560 AquaticSpaceCompanion[6765:80b] Loading Content for next

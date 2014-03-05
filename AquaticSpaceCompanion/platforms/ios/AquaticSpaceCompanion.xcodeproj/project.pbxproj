@@ -68,6 +68,7 @@
 		877264D097054E8ABADA9E12 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82E8B7C1DF6A4B56914F5171 /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		694078BB16B44FB1B6C7F6D1 /* CDVSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 586212610560493F87F9F8E9 /* CDVSplashScreen.m */; };
 		2B38AED119734C53BE95145A /* CDVVibration.m in Sources */ = {isa = PBXBuildFile; fileRef = 458775A1D9D1421292074593 /* CDVVibration.m */; };
+		6809E9D8F44E45D5A4018D6F /* CDVSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 7969F16A2B10446CBA6DCECE /* CDVSound.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -180,6 +181,8 @@
 		809569A5726148FE84831344 /* CDVSplashScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVSplashScreen.h"; path = "org.apache.cordova.splashscreen/CDVSplashScreen.h"; sourceTree = "<group>"; fileEncoding = 4; };
 		458775A1D9D1421292074593 /* CDVVibration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVVibration.m"; path = "org.apache.cordova.vibration/CDVVibration.m"; sourceTree = "<group>"; fileEncoding = 4; };
 		F5B98AEA533B45CAB4ED5F9E /* CDVVibration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVVibration.h"; path = "org.apache.cordova.vibration/CDVVibration.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		7969F16A2B10446CBA6DCECE /* CDVSound.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVSound.m"; path = "org.apache.cordova.media/CDVSound.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		11C2CD2199E7499293E001B7 /* CDVSound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVSound.h"; path = "org.apache.cordova.media/CDVSound.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -355,6 +358,8 @@
 				809569A5726148FE84831344 /* CDVSplashScreen.h */,
 				458775A1D9D1421292074593 /* CDVVibration.m */,
 				F5B98AEA533B45CAB4ED5F9E /* CDVVibration.h */,
+				7969F16A2B10446CBA6DCECE /* CDVSound.m */,
+				11C2CD2199E7499293E001B7 /* CDVSound.h */,
 			);
 			name = Plugins;
 			path = "AquaticSpaceCompanion/Plugins";
@@ -563,6 +568,7 @@
 				35ECB755B76545C281B95F58 /* CDVReachability.m in Sources */,
 				694078BB16B44FB1B6C7F6D1 /* CDVSplashScreen.m in Sources */,
 				2B38AED119734C53BE95145A /* CDVVibration.m in Sources */,
+				6809E9D8F44E45D5A4018D6F /* CDVSound.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

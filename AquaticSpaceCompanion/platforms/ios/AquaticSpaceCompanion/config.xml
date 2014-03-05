@@ -1,10 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="net.pertiller.aquaspacecompanion" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.coolappz.AquaticSpaceCompanion" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Hello Cordova</name>
-    <description>
-        A sample Apache Cordova application that responds to the deviceready event.
-    </description>
-    <content src="index.html" />
     <preference name="AllowInlineMediaPlayback" value="false" />
     <preference name="BackupWebStorage" value="cloud" />
     <preference name="DisallowOverscroll" value="false" />
@@ -56,6 +52,9 @@
     <feature name="Globalization">
         <param name="ios-package" value="CDVGlobalization" />
     </feature>
+    <feature name="Media">
+        <param name="ios-package" value="CDVSound" />
+    </feature>
     <feature name="Capture">
         <param name="ios-package" value="CDVCapture" />
     </feature>
@@ -70,12 +69,12 @@
         <param name="ios-package" value="CDVVibration" />
     </feature>
     <name>AquaticSpaceCompanion</name>
-    <description>The Companion App to the Aquatic Space Health Game</description>
-    <author email="david.pertiller@gmail.com" href="http://www.pertiller.net">David Pertiller</author>
+    <description>
+        A sample Apache Cordova application that responds to the deviceready event.
+    </description>
+    <author email="dev@cordova.apache.org" href="http://cordova.io">
+        Apache Cordova Team
+    </author>
+    <content src="index.html" />
     <access origin="*" />
-    <preference name="fullscreen" value="true" />
-    <preference name="StatusBarOverlaysWebView" value="false" />
-    <preference name="disallowOverscroll" value="true" />
-    <preference name="DisallowOverscroll" value="true" />
-    <preference name="webviewbounce" value="false" />
 </widget>

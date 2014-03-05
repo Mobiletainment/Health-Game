@@ -3338,3 +3338,7 @@ div.ui-slider-switch.ui-mini {
 		display: none;
 	}	
 }
+
+.ui-icon-mail {
+	background-image: url("images/icons-png/mail-white.png");
+}

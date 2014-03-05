@@ -1,6 +1,7 @@
 // We use an "Immediate Function" to initialize the application to avoid leaving anything behind in the global scope
 (function()
 {
+    
     window.username = "Johnny";
 
     Handlebars.registerHelper("inc", function(value, options)
@@ -176,7 +177,6 @@
 	   
 	    
 	    $page.find(":jqmData(role=listview)").listview().listview("refresh");
-	     $page.find(":jqmData(role=listview)").trigger("create")	;
 	    //$("#training-content-main").trigger("create");
 	    $page.find( ":jqmData(role=footer)" ).trigger("create");
 	    $page.trigger('pagecreate');
