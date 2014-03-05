@@ -47,46 +47,23 @@
         <!-- In-Game Reward Page -->
         <div data-role="page" id="rewardingame" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed">
-                <a href="#training"><img src="img/home.svg">
-                </a>
+                <a href="#" id="rewardBackNavigation" onclick="window.history.back();" data-direction="reverse" data-icon="arrow-l">Zurück</a>
                 <h1>Belohnung im Spiel</h1>
             </div>
-            <div data-role="main" class="ui-content">
+            <div data-role="main" class="ui-content" id="rewardInGameContent">
                 <div>
                     <p>Sie haben eine Belohnung im Spiel ausgewählt.</p>
+                    <img id="rewardImage">
                     <p>Schreiben sie ihrem Kind, wie es sich die Belohnung verdient hat:</p>
-                    <form id="sendInGameForm" name="sendInGameForm" action="" method="GET">
-                        <fieldset>
+                    <form id="sendInGameForm" name="sendInGameForm" >
+                        <fieldset data-role="fieldcontain">
                             <label for="rewardMessage">Ich schenke dir die Belohnung, weil</label>
-                            <input name="rewardMessage" id="rewardMessage" data-theme="d" value="" placeholder="Eingabe erforderlich" type="text"/>
+                            <input name="rewardMessage" id="rewardMessage" type="text" data-theme="d" value="" placeholder="Eingabe erforderlich" type="text"/>
                         </fieldset>
-                        <input data-role="submit" type="submit" id="sendReward" value="Belohnung senden" />
+                        <input data-role="submit" data-theme="b" type="submit" id="sendReward" value="Belohnung senden" />
                     </form>
                 </div>
             </div>        
-            <script>
-            // validate form on keyup and submit
-            $( "#sendInGameForm" ).submit(function( event ) {
-alert( "Handler for .submit() called." );
-event.preventDefault();
-});
-
-            $("#sendInGameForm").validate({
-		rules: {
-			rewardMessage: {
-				required: true,
-				minlength: 2
-			}
-		},
-		messages: {
-			rewardMessage: "Bitte geben Sie eine Belohnungs-Nachricht ein"			
-		}
-            });
-            
-            
-   
-                
-            </script>
         </div>
 
 
@@ -177,8 +154,8 @@ event.preventDefault();
 
         <script src="js/vendor/jquery.mobile.js"></script>
         <script src="js/vendor/jquery.validate.min.js"></script>
-
-        <script src="js/vendor/pageslider.js"></script>
+        <script src="js/vendor/jquery.dpToast.js"></script>
+        
         <script src="js/adapters/localstorage-adapter.js"></script>
         <script src="js/ContentView.js"></script>
         <script src="js/TrainingView.js"></script>

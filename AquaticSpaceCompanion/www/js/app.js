@@ -1,8 +1,9 @@
 // We use an "Immediate Function" to initialize the application to avoid leaving anything behind in the global scope
 (function()
 {
-    
+
     window.username = "Johnny";
+    window.customData = { data: "", referral: ""};
 
     Handlebars.registerHelper("inc", function(value, options)
     {
@@ -79,8 +80,8 @@
 	    // category.
 	    console.log("Checking if training is navigated");
 	    var u = $.mobile.path.parseUrl(data.toPage);
-
-
+	    document.location.hash = u.hash;
+	  
 	    if (u.hash.search(/^#train-content/) !== -1)
 	    {
 		console.log("We'd like to navigate to training content");
@@ -104,12 +105,60 @@
     {
 	$("#training").find(":jqmData(role=listview)").listview().listview("refresh");
     });
-    
-    $(document).on("pagebeforeshow", "#train-content", function(event)
+
+    $(document).on("pagebeforeshow", "#rewardingame", function(e, data)
     {
-	//$("#train-content").trigger("create");
+	//var parameters = data("url").split("?")[1];;
+   // parameter = parameters.replace("parameter=","");  
+   	  //  document.location.hash = u.hash;
+	
+	$("#rewardImage").attr("src", "img/reward/" + customData.data + ".png");
+	$("#rewardBackNavigation").attr("href", "index.html" + customData.referral);
+	$("#sendInGameForm").validate({
+	    rules: {
+		rewardMessage: {
+		    required: true,
+		    minlength: 2
+		}
+	    },
+	    messages: {
+		rewardMessage: "Bitte geben Sie eine Belohnungs-Nachricht ein"
+	    },
+	    
+	    submitHandler: sendReward
+	});
+
+	function sendReward() {
+	    //  event.preventDefault();
+	    //$( "#rewardingame").find('[data-role="main"]').trigger("create");
+	    alert("Submit");
+	    console.log("sending reward");
+
+	    $.mobile.loading('show', {
+		text: 'Sende Belohnung<br>Bitte warten...'
+	    });
+
+	    $.getJSON("http://tnix.eu/~aspace/TrainingProgress.php",
+		    {
+			username: window.username,
+			action: "life"
+		    },
+	    function(data)
+	    {
+		console.log("Server responded");
+
+		
+		$.mobile.loading("hide");
+		$.fn.dpToast('Belohnung gesendet', 4000);
+		
+document.location.hash = "#training";
+
+	    });
+
+	    return false; //prevent event propagation
+	};
+
     });
-    
     /*
      $( "#training" ).on( "pagecontainerbeforeshow", function( event, ui )
      {
@@ -125,15 +174,15 @@
      //$("#uniqueButtonId").hide();
      });
      */
-/*
-    $(document).bind("pagebeforeshow", function(e, data)
-    {
-	console.log("pagebeforeshow: e= " + e + "; data.ToPage = " + data.toPage);
-	//$("#training-list").trigger("refresh");
-	//$('#training-list').listview('refresh');
-	
-    });
-*/
+    /*
+     $(document).bind("pagebeforeshow", function(e, data)
+     {
+     console.log("pagebeforeshow: e= " + e + "; data.ToPage = " + data.toPage);
+     //$("#training-list").trigger("refresh");
+     //$('#training-list').listview('refresh');
+     
+     });
+     */
 
     function showTrainingOverview()
     {
@@ -173,19 +222,21 @@
 	    $page.page();
 
 	    //$page.trigger("refresh");
-	    $page.find( ":jqmData(role=main)" ).trigger("create");
-	   
-	    
+	    $page.find(":jqmData(role=main)").trigger("create");
+
+
 	    $page.find(":jqmData(role=listview)").listview().listview("refresh");
 	    //$("#training-content-main").trigger("create");
-	    $page.find( ":jqmData(role=footer)" ).trigger("create");
+	    $page.find(":jqmData(role=footer)").trigger("create");
 	    $page.trigger('pagecreate');
-	    
+
 	    // We don't want the data-url of the page we just modified
 	    // to be the url that shows up in the browser's location field,
 	    // so set the dataUrl option to the URL for the category
 	    // we just loaded.
+	    console.log("UrlObjHref = " + urlObj.href + ", hash = " + urlObj.hash);
 	    options.dataUrl = urlObj.href;
+	    //document.location.hash = urlObj.hash;
 
 	    // Now call changePage() and tell it to switch to
 	    // the page we just modified.
