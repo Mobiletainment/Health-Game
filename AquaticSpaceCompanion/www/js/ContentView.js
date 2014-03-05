@@ -82,7 +82,7 @@ var ContentView = function(adapter, chapter)
 	{
 
 	    console.log("Server responded");
-	    alert(data.returnData);
+	    //alert(data.returnData);
 	    $.mobile.loading("hide");
 	    var currentPage = window.location.href.split('#')[0];
 	    window.location.href = currentPage + "#training";

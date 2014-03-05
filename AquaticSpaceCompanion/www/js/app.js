@@ -1,8 +1,26 @@
 // We use an "Immediate Function" to initialize the application to avoid leaving anything behind in the global scope
 (function()
 {
+    function s4() {
+  return Math.floor((1 + Math.random()) * 0x10000)
+             .toString(16)
+             .substring(1);
+};
 
-    window.username = "Johnny";
+function guid() {
+  return s4() + s4() + s4() + s4();
+}
+    
+    if (!$.cookie("username"))
+    {
+	var username = "test0.1_" + guid();
+	$.cookie("username", username);
+		
+    }
+    
+    window.username = $.cookie("username");
+    
+
     window.customData = { data: "", referral: ""};
 
     Handlebars.registerHelper("inc", function(value, options)
@@ -80,20 +98,20 @@
 	    // category.
 	    console.log("Checking if training is navigated");
 	    var u = $.mobile.path.parseUrl(data.toPage);
-	    document.location.hash = u.hash;
+	    //document.location.hash = u.hash;
 	  
 	    if (u.hash.search(/^#train-content/) !== -1)
 	    {
 		console.log("We'd like to navigate to training content");
 		showTrainingContent(u, data.options);
 
-		e.preventDefault();
+		//e.preventDefault();
 	    }
 	    else if (u.hash.search(/^#training$/) !== -1)
 	    {
 		console.log("We'd like to navigate to training");
 		showTrainingOverview();
-
+		
 	    }
 
 	}
@@ -131,7 +149,7 @@
 	function sendReward() {
 	    //  event.preventDefault();
 	    //$( "#rewardingame").find('[data-role="main"]').trigger("create");
-	    alert("Submit");
+	    //alert("Submit");
 	    console.log("sending reward");
 
 	    $.mobile.loading('show', {
@@ -236,7 +254,7 @@ document.location.hash = "#training";
 	    // we just loaded.
 	    console.log("UrlObjHref = " + urlObj.href + ", hash = " + urlObj.hash);
 	    options.dataUrl = urlObj.href;
-	    //document.location.hash = urlObj.hash;
+	    document.location.hash = urlObj.hash;
 
 	    // Now call changePage() and tell it to switch to
 	    // the page we just modified.
