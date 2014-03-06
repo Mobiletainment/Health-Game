@@ -1,7 +1,30 @@
 // We use an "Immediate Function" to initialize the application to avoid leaving anything behind in the global scope
 (function()
 {
-    window.username = "Johnny";
+    function s4() {
+	return Math.floor((1 + Math.random()) * 0x10000)
+		.toString(16)
+		.substring(1);
+    }
+    ;
+
+    function guid() {
+	return s4() + s4() + s4() + s4();
+    }
+
+    if (!$.cookie("username"))
+    {
+	var username = "test0.1_" + guid();
+	console.log("No User found, setting username to: " + username);
+	$.cookie("username", username, {expires: 20 * 365, path: '/'});
+
+    }
+
+
+    window.username = $.cookie("username");
+
+
+    window.customData = {data: "", referral: ""};
 
     Handlebars.registerHelper("inc", function(value, options)
     {
@@ -49,16 +72,29 @@
 
 	if (navigator.notification)
 	{ // OverÏride default HTML alert with native dialog
-	    window.alert = function(message)
+	    window.alert = function(message, callback)
 	    {
 		navigator.notification.alert(
 			message, // message
-			null, // callback
-			"Workshop", // title
+			callback, // callback
+			"Fehler", // title
 			'OK'        // buttonName
 			);
 	    };
 	}
+	
+	successFunction = function()
+	{
+	    console.log("Testflight started successfully");
+	}
+	
+	failedFunction = function()
+	{
+	    console.log("Testflight failed to start");
+	}
+	
+	var tf = new TestFlight();
+	tf.takeOff(successFunction, failedFunction, "029ece91-ccbf-4e5e-8ed0-3b012f5fb854");
 
     }, false);
 
@@ -78,14 +114,14 @@
 	    // category.
 	    console.log("Checking if training is navigated");
 	    var u = $.mobile.path.parseUrl(data.toPage);
-
+	    //document.location.hash = u.hash;
 
 	    if (u.hash.search(/^#train-content/) !== -1)
 	    {
 		console.log("We'd like to navigate to training content");
 		showTrainingContent(u, data.options);
 
-		e.preventDefault();
+		//e.preventDefault();
 	    }
 	    else if (u.hash.search(/^#training$/) !== -1)
 	    {
@@ -98,41 +134,145 @@
 
     });
 
+    $(document).on("pagebeforeshow", "#timeout", function(e, data)
+    {
+	$("#sendTimeOut").parent().hide();
+	$.mobile.loading('show', {
+	    text: 'Auszeit-Ort wird geladen...'
+	});
+	$.getJSON("http://tnix.eu/~aspace/Timeout.php",
+		{
+		    username: window.username,
+		    action: "LoadTimeout",
+		},
+		function(data)
+		{
+		    console.log("Data for Timeout received: " + data.returnData);
+		    if (data.returnCode == 200)
+			$("#timeOutLocation").val(data.returnData);
+
+		    $.mobile.loading("hide");
+		});
+
+	$("#sendTimeOutForm").validate({
+	    rules: {
+		timeOutLocation: {
+		    required: true,
+		    minlength: 2
+		}
+	    },
+	    messages: {
+		timeOutLocation: "Geben Sie einen Auszeit-Ort an"
+	    },
+	    submitHandler: sendTimeOut
+	});
+
+	$("#timeOutSaveAndEnd").click(function()
+	{
+	    $("#sendTimeOut").trigger("click");
+	    return false;
+	});
+
+	function sendTimeOut() {
+	    var func = this;
+	    console.log("sending timeout");
+
+	    $.mobile.loading('show', {
+		text: 'Auszeit-Ort wird gespeichert...'
+	    });
+
+	    $.getJSON("http://tnix.eu/~aspace/Timeout.php",
+		    {
+			username: window.username,
+			action: "SaveTimeout",
+			data: $("#timeOutLocation").val()
+		    },
+	    function(data)
+	    {
+		console.log("Server responded");
+
+		saveTrainingProgress("t6");
+	    }).fail(function()
+	    {
+		alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", func);
+	    }).always(function() {
+		$.mobile.loading("hide");
+	    });
+	    ;
+
+	    return false; //prevent event propagation
+	}
+	;
+
+    });
+
+
     //Super important: enhancing the layout that got dynamically added. Only way I found working
     $(document).on("pagebeforeshow", "#training", function(event)
     {
 	$("#training").find(":jqmData(role=listview)").listview().listview("refresh");
     });
-    
-    $(document).on("pagebeforeshow", "#train-content", function(event)
+
+    $(document).on("pagebeforeshow", "#rewardingame", function(e, data)
     {
-	//$("#train-content").trigger("create");
+	//var parameters = data("url").split("?")[1];;
+	// parameter = parameters.replace("parameter=","");  
+	//  document.location.hash = u.hash;
+
+	$("#rewardImage").attr("src", "img/reward/" + customData.data + ".png");
+	$("#rewardBackNavigation").attr("href", "index.html" + customData.referral);
+	$("#sendInGameForm").validate({
+	    rules: {
+		rewardMessage: {
+		    required: true,
+		    minlength: 2
+		}
+	    },
+	    messages: {
+		rewardMessage: "Sie haben keine Belohnungs-Nachricht eingegeben"
+	    },
+	    submitHandler: sendReward
+	});
+
+	function sendReward() {
+	    //  event.preventDefault();
+	    //$( "#rewardingame").find('[data-role="main"]').trigger("create");
+	    //alert("Submit");
+	    console.log("sending reward");
+	    var that = sendReward;
+
+	    $.mobile.loading('show', {
+		text: 'Belohnung wird gesendet...'
+	    });
+
+	    $.getJSON("http://tnix.eu/~aspace/TrainingProgress.php",
+		    {
+			username: window.username,
+			action: "life"
+		    },
+	    function(data)
+	    {
+		console.log("Server responded");
+
+		//$.mobile.loading("hide");
+		$.fn.dpToast('Belohnung gesendet', 4000);
+
+		document.location.hash = "#training";
+
+	    }).fail(function()
+	    {
+		alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", that);
+	    }).always(function() {
+		$.mobile.loading("hide");
+	    });
+	    ;
+
+	    return false; //prevent event propagation
+	}
+	;
+
     });
-    
-    /*
-     $( "#training" ).on( "pagecontainerbeforeshow", function( event, ui )
-     {
-     console.log("pagecontainerbeforeshow: Training");
-     $('#training-list').listview().listview('refresh');
-     });*/
-    /*
-     $('#training').on('pagebeforeshow', function(event)
-     {
-     console.log("PagebeforeShow: Training");
-     console.log($('#training-list').listview());
-     $('#training-list').listview().listview('refresh');
-     //$("#uniqueButtonId").hide();
-     });
-     */
-/*
-    $(document).bind("pagebeforeshow", function(e, data)
-    {
-	console.log("pagebeforeshow: e= " + e + "; data.ToPage = " + data.toPage);
-	//$("#training-list").trigger("refresh");
-	//$('#training-list').listview('refresh');
-	
-    });
-*/
+
 
     function showTrainingOverview()
     {
@@ -161,7 +301,7 @@
 	console.log("Loading training chapter: " + chapter);
 	adapter.findById(chapter).done(function(item) {
 	    console.log("Loading Chapter: " + item.id);
-	    var trainingContentView = new ContentView(adapter, item);
+	    var trainingContentView = new TrainingContentView(adapter, item);
 	    trainingContentView.loadContent("showTrainingContent");
 
 	    // Pages are lazily enhanced. We call page() on the page
@@ -172,15 +312,21 @@
 	    $page.page();
 
 	    //$page.trigger("refresh");
-	    $page.find( ":jqmData(role=listview)" ).listview();
-	    $page.find( ":jqmData(role=footer)" ).trigger("create");
+	    $page.find(":jqmData(role=main)").trigger("create");
+
+
+	    //$page.find(":jqmData(role=listview)").listview().listview("refresh");
+	    //$("#training-content-main").trigger("create");
+	    $page.find(":jqmData(role=footer)").trigger("create");
 	    $page.trigger('pagecreate');
-	    
+
 	    // We don't want the data-url of the page we just modified
 	    // to be the url that shows up in the browser's location field,
 	    // so set the dataUrl option to the URL for the category
 	    // we just loaded.
+	    console.log("UrlObjHref = " + urlObj.href + ", hash = " + urlObj.hash);
 	    options.dataUrl = urlObj.href;
+	    document.location.hash = urlObj.hash;
 
 	    // Now call changePage() and tell it to switch to
 	    // the page we just modified.
@@ -189,8 +335,38 @@
     }
     ;
 
-    //function saveToServer()
+    saveTrainingProgress = function(chapterId)
+    {
+	var func = this;
+	$.mobile.loading('show', {
+	    text: 'Speichere Fortschritt'
+	});
 
+	console.log("Saving progress for chapter: " + chapterId);
+
+	$.getJSON("http://tnix.eu/~aspace/TrainingProgress.php",
+		{
+		    username: window.username,
+		    action: "SaveProgress",
+		    chapter: chapterId
+		},
+	function(data)
+	{
+
+	    console.log("Server responded");
+	    //alert(data.returnData);
+	    //$.mobile.loading("hide");
+	    var currentPage = window.location.href.split('#')[0];
+	    window.location.href = currentPage + "#training";
+	}
+	).fail(function()
+	{
+	    alert("Die Internetverbindung ist unterbrochen. Fortschritt kann nicht gespeichert werden. Erneut versuchen?", func);
+	}).always(function() {
+	    $.mobile.loading("hide");
+	});
+	
+    };
 
 
 }());

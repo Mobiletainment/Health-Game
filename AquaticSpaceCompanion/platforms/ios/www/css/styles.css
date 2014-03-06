@@ -1,3 +1,13 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 6, 2014, 1:38:37 PM
+    Author     : dp
+*/
+
 .back-button {
     position: absolute;
     top: 10px;
@@ -5,19 +15,19 @@
 
 
 .ui-progressbar {
-position: relative;
+    position: relative;
 }
 
 .progress-label {
-position: absolute;
-width: 100%;
-text-align: center;
-top: 4px;
-font-weight: bold;
-text-shadow: 1px 1px 0 #fff;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 4px;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 #fff;
 }
 
-.ui-page .ui-content .ui-listview .ui-li-desc
-{
+.ui-page .ui-content .ui-listview .ui-li-desc, ul {
     white-space: normal;
+    font-size: 18px;
 }​

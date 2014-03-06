@@ -20,6 +20,7 @@
 
     }
 
+
     window.username = $.cookie("username");
 
 
@@ -81,6 +82,19 @@
 			);
 	    };
 	}
+	
+	successFunction = function()
+	{
+	    console.log("Testflight started successfully");
+	}
+	
+	failedFunction = function()
+	{
+	    console.log("Testflight failed to start");
+	}
+	
+	var tf = new TestFlight();
+	tf.takeOff(successFunction, failedFunction, "029ece91-ccbf-4e5e-8ed0-3b012f5fb854");
 
     }, false);
 
