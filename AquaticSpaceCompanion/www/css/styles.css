@@ -17,6 +17,7 @@
     text-shadow: 1px 1px 0 #fff;
 }
 
-.ui-page .ui-content .ui-listview .ui-li-desc{
+.ui-page .ui-content .ui-listview .ui-li-desc, ul{
     white-space: normal;
+    font-size: 18px;
 }​

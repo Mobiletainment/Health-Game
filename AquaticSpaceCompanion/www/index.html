@@ -17,6 +17,7 @@
         <link rel="shortcut icon" href="img/touch/apple-touch-icon.png">
         <link href="css/jquery-ui/jquery.ui.all.css" rel="stylesheet">
         <link rel="stylesheet" href="css/jquery.mobile/jquery.mobile-1.3.1.css">
+        <link rel="stylesheet" href="css/jquery.mobile/jquery.mobile.iscrollview.css">
 
         <link href="css/styles.css" rel="stylesheet">
 
@@ -48,7 +49,7 @@
         <div data-role="page" id="rewardingame" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed">
                 <a href="#" id="rewardBackNavigation" onclick="window.history.back();" data-direction="reverse" data-icon="arrow-l">Zurück</a>
-                <h1>Belohnung im Spiel</h1>
+                <h1 style="text-overflow: string;">Belohnung im Spiel</h1>
             </div>
             <div data-role="main" class="ui-content" id="rewardInGameContent">
                 <div>
@@ -70,7 +71,7 @@
 
         <script id="training-content-page-tpl" type="text/x-handlebars-template">
 
-            <div data-role="header" data-position="fixed">
+            <div data-role="header" data-tap-toggle="false" data-position="fixed">
             <a href="#training"><img src="img/home.svg">
             </a>
             <h1>{{title}}</h1>
@@ -80,12 +81,12 @@
             <div data-role="main" class="ui-content">
             <h2>{{subTitle}}</h2>
             <ul data-role="listview" id="training-content-listview" data-inset="true">
-            <li id="training-content-main">
-
+            <li>
+                <div id="training-content-main"></div>
             </li>
             </ul>
             </div>
-            <div data-role="footer" data-position="fixed" id="training-content-footer"></div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" id="training-content-footer"></div>
 
         </script>
 
@@ -112,8 +113,8 @@
 
         <div data-role="page" id="training"  data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed">
-                <a href="#training"><img src="img/home.svg">
-                </a>
+               <a href="#training"><img src="img/home.svg">
+               </a>
                 <h1>Training</h1>
             </div>
 
@@ -156,6 +157,8 @@
         <script src="js/vendor/jquery.validate.min.js"></script>
         <script src="js/vendor/jquery.dpToast.js"></script>
         <script src="js/vendor/jquery.cookie.js"></script>
+        <script src="js/vendor/iscroll.js"></script>
+        <script src="js/vendor/jquery.mobile.iscrollview.js"></script>
         
         <script src="js/adapters/localstorage-adapter.js"></script>
         <script src="js/ContentView.js"></script>

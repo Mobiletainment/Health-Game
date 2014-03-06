@@ -140,7 +140,7 @@ function guid() {
 		}
 	    },
 	    messages: {
-		rewardMessage: "Bitte geben Sie eine Belohnungs-Nachricht ein"
+		rewardMessage: "Sie haben keine Belohnungs-Nachricht eingegeben"
 	    },
 	    
 	    submitHandler: sendReward
@@ -153,7 +153,7 @@ function guid() {
 	    console.log("sending reward");
 
 	    $.mobile.loading('show', {
-		text: 'Sende Belohnung<br>Bitte warten...'
+		text: 'Belohnung wird gesendet...'
 	    });
 
 	    $.getJSON("http://tnix.eu/~aspace/TrainingProgress.php",
@@ -169,7 +169,7 @@ function guid() {
 		$.mobile.loading("hide");
 		$.fn.dpToast('Belohnung gesendet', 4000);
 		
-document.location.hash = "#training";
+		document.location.hash = "#training";
 
 	    });
 
@@ -243,7 +243,7 @@ document.location.hash = "#training";
 	    $page.find(":jqmData(role=main)").trigger("create");
 
 
-	    $page.find(":jqmData(role=listview)").listview().listview("refresh");
+	    //$page.find(":jqmData(role=listview)").listview().listview("refresh");
 	    //$("#training-content-main").trigger("create");
 	    $page.find(":jqmData(role=footer)").trigger("create");
 	    $page.trigger('pagecreate');

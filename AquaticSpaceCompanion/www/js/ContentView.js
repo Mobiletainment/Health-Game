@@ -37,6 +37,10 @@ var ContentView = function(adapter, chapter)
 	$("#training-content-main").find(":jqmData(role=button)").button();
 	$("#training-content-main").find(":jqmData(role=listview)").listview().listview("refresh");
 
+	// var the_height = ($(window).height() - $("#train-content").find('[data-role="header"]').height() - $("#train-content").find('[data-role="footer"]').height());
+	//$("#train-content").find('[data-role="main"]').height(the_height);
+
+
 	$('#training-content-footer').find("#next-page").button().click($.proxy(function() {
 	    //use original 'this'
 	    console.log(currentPage);
