@@ -3,7 +3,7 @@ var trainingContentMainTpl = Handlebars.compile($("#training-content-main-tpl").
 var trainingContentFooterTpl = Handlebars.compile($("#training-content-footer-tpl").html());
 
 
-var ContentView = function(adapter, chapter)
+var TrainingContentView = function(adapter, chapter)
 {
     var currentPage = 0;
     var pages = chapter.items;

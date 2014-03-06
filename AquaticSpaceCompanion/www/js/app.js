@@ -2,26 +2,28 @@
 (function()
 {
     function s4() {
-  return Math.floor((1 + Math.random()) * 0x10000)
-             .toString(16)
-             .substring(1);
-};
+	return Math.floor((1 + Math.random()) * 0x10000)
+		.toString(16)
+		.substring(1);
+    }
+    ;
 
-function guid() {
-  return s4() + s4() + s4() + s4();
-}
-    
+    function guid() {
+	return s4() + s4() + s4() + s4();
+    }
+
     if (!$.cookie("username"))
     {
 	var username = "test0.1_" + guid();
-	$.cookie("username", username);
-		
-    }
-    
-    window.username = $.cookie("username");
-    
+	console.log("No User found, setting username to: " + username);
+	$.cookie("username", username, {expires: 20 * 365, path: '/'});
 
-    window.customData = { data: "", referral: ""};
+    }
+
+    window.username = $.cookie("username");
+
+
+    window.customData = {data: "", referral: ""};
 
     Handlebars.registerHelper("inc", function(value, options)
     {
@@ -69,12 +71,12 @@ function guid() {
 
 	if (navigator.notification)
 	{ // OverÏride default HTML alert with native dialog
-	    window.alert = function(message)
+	    window.alert = function(message, callback)
 	    {
 		navigator.notification.alert(
 			message, // message
-			null, // callback
-			"Workshop", // title
+			callback, // callback
+			"Fehler", // title
 			'OK'        // buttonName
 			);
 	    };
@@ -99,7 +101,7 @@ function guid() {
 	    console.log("Checking if training is navigated");
 	    var u = $.mobile.path.parseUrl(data.toPage);
 	    //document.location.hash = u.hash;
-	  
+
 	    if (u.hash.search(/^#train-content/) !== -1)
 	    {
 		console.log("We'd like to navigate to training content");
@@ -111,27 +113,33 @@ function guid() {
 	    {
 		console.log("We'd like to navigate to training");
 		showTrainingOverview();
-		
+
 	    }
 
 	}
 
     });
-    
+
     $(document).on("pagebeforeshow", "#timeout", function(e, data)
     {
 	$("#sendTimeOut").parent().hide();
+	$.mobile.loading('show', {
+	    text: 'Auszeit-Ort wird geladen...'
+	});
 	$.getJSON("http://tnix.eu/~aspace/Timeout.php",
-		    {
-			username: window.username,
-			action: "LoadTimeout",
-		    },
-	    function(data)
-	    {
-		if (data.returnCode == 200)
-		    $("#timeOutLocation").val(data.returnData);
-	    });
-	
+		{
+		    username: window.username,
+		    action: "LoadTimeout",
+		},
+		function(data)
+		{
+		    console.log("Data for Timeout received: " + data.returnData);
+		    if (data.returnCode == 200)
+			$("#timeOutLocation").val(data.returnData);
+
+		    $.mobile.loading("hide");
+		});
+
 	$("#sendTimeOutForm").validate({
 	    rules: {
 		timeOutLocation: {
@@ -142,10 +150,9 @@ function guid() {
 	    messages: {
 		timeOutLocation: "Geben Sie einen Auszeit-Ort an"
 	    },
-	    
 	    submitHandler: sendTimeOut
 	});
-	
+
 	$("#timeOutSaveAndEnd").click(function()
 	{
 	    $("#sendTimeOut").trigger("click");
@@ -153,7 +160,7 @@ function guid() {
 	});
 
 	function sendTimeOut() {
-	    
+	    var func = this;
 	    console.log("sending timeout");
 
 	    $.mobile.loading('show', {
@@ -169,13 +176,19 @@ function guid() {
 	    function(data)
 	    {
 		console.log("Server responded");
-		
-		$.mobile.loading("hide");
+
 		saveTrainingProgress("t6");
+	    }).fail(function()
+	    {
+		alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", func);
+	    }).always(function() {
+		$.mobile.loading("hide");
 	    });
+	    ;
 
 	    return false; //prevent event propagation
-	};
+	}
+	;
 
     });
 
@@ -189,9 +202,9 @@ function guid() {
     $(document).on("pagebeforeshow", "#rewardingame", function(e, data)
     {
 	//var parameters = data("url").split("?")[1];;
-   // parameter = parameters.replace("parameter=","");  
-   	  //  document.location.hash = u.hash;
-	
+	// parameter = parameters.replace("parameter=","");  
+	//  document.location.hash = u.hash;
+
 	$("#rewardImage").attr("src", "img/reward/" + customData.data + ".png");
 	$("#rewardBackNavigation").attr("href", "index.html" + customData.referral);
 	$("#sendInGameForm").validate({
@@ -204,7 +217,6 @@ function guid() {
 	    messages: {
 		rewardMessage: "Sie haben keine Belohnungs-Nachricht eingegeben"
 	    },
-	    
 	    submitHandler: sendReward
 	});
 
@@ -213,6 +225,7 @@ function guid() {
 	    //$( "#rewardingame").find('[data-role="main"]').trigger("create");
 	    //alert("Submit");
 	    console.log("sending reward");
+	    var that = sendReward;
 
 	    $.mobile.loading('show', {
 		text: 'Belohnung wird gesendet...'
@@ -227,16 +240,22 @@ function guid() {
 	    {
 		console.log("Server responded");
 
-		
-		$.mobile.loading("hide");
+		//$.mobile.loading("hide");
 		$.fn.dpToast('Belohnung gesendet', 4000);
-		
+
 		document.location.hash = "#training";
 
+	    }).fail(function()
+	    {
+		alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", that);
+	    }).always(function() {
+		$.mobile.loading("hide");
 	    });
+	    ;
 
 	    return false; //prevent event propagation
-	};
+	}
+	;
 
     });
 
@@ -268,7 +287,7 @@ function guid() {
 	console.log("Loading training chapter: " + chapter);
 	adapter.findById(chapter).done(function(item) {
 	    console.log("Loading Chapter: " + item.id);
-	    var trainingContentView = new ContentView(adapter, item);
+	    var trainingContentView = new TrainingContentView(adapter, item);
 	    trainingContentView.loadContent("showTrainingContent");
 
 	    // Pages are lazily enhanced. We call page() on the page
@@ -304,6 +323,7 @@ function guid() {
 
     saveTrainingProgress = function(chapterId)
     {
+	var func = this;
 	$.mobile.loading('show', {
 	    text: 'Speichere Fortschritt'
 	});
@@ -321,11 +341,17 @@ function guid() {
 
 	    console.log("Server responded");
 	    //alert(data.returnData);
-	    $.mobile.loading("hide");
+	    //$.mobile.loading("hide");
 	    var currentPage = window.location.href.split('#')[0];
 	    window.location.href = currentPage + "#training";
 	}
-	);
+	).fail(function()
+	{
+	    alert("Die Internetverbindung ist unterbrochen. Fortschritt kann nicht gespeichert werden. Erneut versuchen?", func);
+	}).always(function() {
+	    $.mobile.loading("hide");
+	});
+	
     };
 
 
