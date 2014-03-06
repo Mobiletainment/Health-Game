@@ -38,10 +38,11 @@ var LocalStorageAdapter = function() {
 [
  "<p>Kinder mit Verhaltensproblemen be- kommen meistens mehr Anweisun- gen als andere Kinder. Viel mehr. Sie sind mit den vielen Anweisungen überfordert und können sich nicht an sie halten.</p><p>Was kann ich dagegen tun?</p>",
  "<p>Es ist wichtig Anweisungen <b>sparsam</b> und nur für wichtige Aufgaben zu verwenden.</p><p>Die gegebenen Anweisungen sollten durchgesetzt und bis zu dessen Voll- endung beaufsichtigt werden.</p>",
- "<p>Auch die richtige Kommunikation von Aufgaben und Erwartungen soll- te beachtet werden.</p><p>Wenn Sie Anweisungen geben,</p><ul><li>nehmen Sie Augenkontakt mit Ihrem Kind auf,</li><li>reduzieren Sie die Ablenkungen (machen Sie z.B. das Radio aus) und</li><li>sprechen Sie die Anweisung in einem ruhigen Tonfall aus.</li></ul></div>",
- "<div data-role='collapsible' data-content-theme='d' data-collapsed='true' data-collapsed-icon='carat-d' data-expanded-icon='carat-u'><h4>Immaterielle Belohnung</h4><h5>Beispiele:</h5><ul><li>Zeit-zu-Zweit-Verlängerung</li><li>Länger fernsehen</li><li>Länger wach bleiben</li><li>Länger schlafen</li><li>In den Park gehen</li><li>Desser oder Essen auswählen</li><li>Einen Film schauen</li><li>Freunde einladen</li><li>Gemeinsam kochen</li><li>Gemeinsam ein Spiel oder Videospiel spielen</li></ul></div>\n\
-<div data-role='collapsible' data-content-theme='d' data-collapsed='true' data-collapsed-icon='carat-d' data-expanded-icon='carat-u'><h4>Materielle Belohnung</h4><h5>Beispiele:</h5><ul><li>Kaugummi / Süßigkeiten</li><li>Ins Kino gehen</li><li>Gemeinsam Sport betreiben</li><li>Kostengünstige Geschenke (Spielzeug, Buch, Aufkleber)</li><li>Eis essen gehen</li></ul></div>\n\
-</p>"
+ "<p>Auch die richtige Kommunikation von Aufgaben und Erwartungen soll- te beachtet werden.</p><p>Wenn Sie Anweisungen geben,</p><ul><li>nehmen Sie Augenkontakt mit Ihrem Kind auf,</li><li>reduzieren Sie die Ablenkungen (machen Sie z.B. das Radio aus) und</li><li>sprechen Sie die Anweisung in einem ruhigen Tonfall aus.</li></ul>",
+ "<p>Für effektive Anweisungen verwenden Sie:</p><div><div class='dislike'>Keine Fragen</div><ul><li>Könntest du den Tisch abräumen?</li></ul></div><div><div class='like'>Besser</div><ul><li>Räume jetzt bitte den Tisch ab.</li></ul></div>",
+ "<p>Für effektive Anweisungen verwenden Sie:</p><div><div class='dislike'>Keine \"Wir\" oder \"Lass uns\" Anweisungen</div><ul><li>Lass uns dein Zimmer aufräumen.</li></ul></div><div><div class='like'>Besser</div><ul><li>Räume bitte dein Zimmer auf.</li></ul></div>",
+ "<p>Für effektive Anweisungen verwenden Sie:</p><div><div class='dislike'>Keine Liste von Aufgaben</div><ul><li>Hol die Zeitung, trag den Müll raus, räum den Tisch ab...</li></ul></div><div><div class='like'>Besser</div><ul><li>Hol mir bitte die Zeitung. [Erst nach Erfüllen der Aufgabe nächste Anweisung geben]</li></ul></div>"
+
 ]}
 
 		]));
