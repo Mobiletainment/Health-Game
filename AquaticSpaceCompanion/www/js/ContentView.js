@@ -25,6 +25,22 @@ var ContentView = function(adapter, chapter)
     this.loadContent = function(key)
     {
 	console.log("Loading Content for " + key);
+	
+	var item = pages[currentPage];
+	
+	if (typeof(item) == "object")
+	{
+	    var link = item.href;
+	    console.log("Link: " + link);
+	    if (link)
+	    {
+		document.location.hash = link;
+		return;
+	    }
+	}
+	
+	console.log("Item = " + typeof(item) + ", " + item);
+	
 	var page = {"page": currentPage + 1, "pageCount": pageCount, "text": pages[currentPage]};
 	
 	$('#training-content-main').html(trainingContentMainTpl(page));
@@ -56,7 +72,7 @@ var ContentView = function(adapter, chapter)
 
 	$('#training-content-footer').find("#training-end").button().click($.proxy(function() {
 	    //use original 'this'
-	    this.saveTrainingProgress("1");
+	    saveTrainingProgress(chapter.id);
 	}, this));
 
 	//) on('click', '#next-page', this.loadContent);
@@ -66,31 +82,5 @@ var ContentView = function(adapter, chapter)
 
 
 	firstLoad = false;
-    };
-
-    this.saveTrainingProgress = function(event)
-    {
-	$.mobile.loading('show', {
-	    text: 'Speichere Fortschritt'
-	});
-
-	console.log("Saving progress for chapter: " + chapter.id);
-
-	$.getJSON("http://tnix.eu/~aspace/TrainingProgress.php",
-		{
-		    username: window.username,
-		    action: "SaveProgress",
-		    chapter: chapter.id
-		},
-	function(data)
-	{
-
-	    console.log("Server responded");
-	    //alert(data.returnData);
-	    $.mobile.loading("hide");
-	    var currentPage = window.location.href.split('#')[0];
-	    window.location.href = currentPage + "#training";
-	}
-	);
     };
 }

@@ -36,13 +36,27 @@ var LocalStorageAdapter = function() {
 
 {"id": "t4", "title": "4. Strategie", "subTitle": "Effektive Anweisungen", "items":
 [
- "<p>Kinder mit Verhaltensproblemen be- kommen meistens mehr Anweisun- gen als andere Kinder. Viel mehr. Sie sind mit den vielen Anweisungen überfordert und können sich nicht an sie halten.</p><p>Was kann ich dagegen tun?</p>",
- "<p>Es ist wichtig Anweisungen <b>sparsam</b> und nur für wichtige Aufgaben zu verwenden.</p><p>Die gegebenen Anweisungen sollten durchgesetzt und bis zu dessen Voll- endung beaufsichtigt werden.</p>",
- "<p>Auch die richtige Kommunikation von Aufgaben und Erwartungen soll- te beachtet werden.</p><p>Wenn Sie Anweisungen geben,</p><ul><li>nehmen Sie Augenkontakt mit Ihrem Kind auf,</li><li>reduzieren Sie die Ablenkungen (machen Sie z.B. das Radio aus) und</li><li>sprechen Sie die Anweisung in einem ruhigen Tonfall aus.</li></ul>",
+ "<p>Kinder mit Verhaltensproblemen bekommen meistens mehr Anweisungen als andere Kinder. Viel mehr. Sie sind mit den vielen Anweisungen überfordert und können sich nicht an sie halten.</p><p>Was kann ich dagegen tun?</p>",
+ "<p>Es ist wichtig Anweisungen <b>sparsam</b> und nur für wichtige Aufgaben zu verwenden.</p><p>Die gegebenen Anweisungen sollten durchgesetzt und bis zu dessen Vollendung beaufsichtigt werden.</p>",
+ "<p>Auch die richtige Kommunikation von Aufgaben und Erwartungen sollte beachtet werden.</p><p>Wenn Sie Anweisungen geben,</p><ul><li>nehmen Sie Augenkontakt mit Ihrem Kind auf,</li><li>reduzieren Sie die Ablenkungen (machen Sie z.B. das Radio aus) und</li><li>sprechen Sie die Anweisung in einem ruhigen Tonfall aus.</li></ul>",
  "<p>Für effektive Anweisungen verwenden Sie:</p><div><div class='dislike'>Keine Fragen</div><ul><li>Könntest du den Tisch abräumen?</li></ul></div><div><div class='like'>Besser</div><ul><li>Räume jetzt bitte den Tisch ab.</li></ul></div>",
  "<p>Für effektive Anweisungen verwenden Sie:</p><div><div class='dislike'>Keine \"Wir\" oder \"Lass uns\" Anweisungen</div><ul><li>Lass uns dein Zimmer aufräumen.</li></ul></div><div><div class='like'>Besser</div><ul><li>Räume bitte dein Zimmer auf.</li></ul></div>",
  "<p>Für effektive Anweisungen verwenden Sie:</p><div><div class='dislike'>Keine Liste von Aufgaben</div><ul><li>Hol die Zeitung, trag den Müll raus, räum den Tisch ab...</li></ul></div><div><div class='like'>Besser</div><ul><li>Hol mir bitte die Zeitung. [Erst nach Erfüllen der Aufgabe nächste Anweisung geben]</li></ul></div>"
+]},
 
+{"id": "t5", "title": "5. Strategie", "subTitle": "Aktives Ignorieren", "items":
+[
+ "<p>Manchmal können Eltern unabsichtlich das ungewollte Verhalten ihrer Kinder verstärken in dem sie darauf reagieren und dadurch mit Aufmerksamkeit belohnen.</p><p>Um leicht unangebrachtes Verhalten zu reduzieren, reagieren Sie darauf <b>nicht</b>, sondern entziehen Sie ihre Aufmerksamkeit.</p>",
+ "<p>Versuchen Sie sich in eine andere Aktivität zu vertiefen.</p><p>Beachten Sie dabei, dass Sie in:</p><ul><li>keine Diskussionen oder Reden geraten und nicht schimpfen sollen,</li><li>kein Interesse oder Ärger zeigen und</li><li>kein Augenkontakt mit Ihrem Kind halten.</li></ul>",
+ "<p>Aktives ignorieren ist für folgendes <b>mildes Fehlverhalten</b> geeignet:</p><ul><li>Umständlichkeit</li><li>jammern</li><li>schmollen</li><li>mürrisch sein</li><li>Widerrede</li><li>Geräusche machen</li><li>leichtes argumentieren</li><li>die selbe Frage immer wieder stellen</li><li>Sätze wiederholen</li><li>Bestätigung suchen</li></ul>",
+]},
+
+{"id": "t6", "title": "6. Strategie", "subTitle": "Auszeit", "items":
+[
+ "<p>Bei <b>schwerwiegenderem Fehlverhalten</b>, wie schlagen oder verletzen Anderer, schicken Sie ihr Kind in eine \"Auszeit\", um das Verhalten zu stoppen.</p><p>Für das Kind, bedeutet eine Auszeit, eine kurze Unterbrechung der Aktivitäten, in dem es schnell aus der Situation herausgezogen wird, in der das Fehlverhalten auftritt und an einem ruhigen, langweiligen Ort platziert wird.</p>",
+ "<p>Geben Sie ihrem Kind nur <b>eine</b> Verwarnung bevor Sie es in die Auszeit schicken.</p><p>Messen Sie die Zeit ab (5 Minuten sind meistens genug) und starten Sie die Zeit neu, falls das Kind mit ihnen nicht kooperiert.</p><p>Es ist wichtig, dass Sie die Auszeit <b>durchziehen</b>, denn sonst wird die Strategie nicht effektiv sein.</p>",
+ "<p>Eine Auszeit ist für die folgenden Verhaltensweisen geeignet:</p><ul><li>Schlagen oder Kneifen</li><li>Dinge werfen oder beschädigen</li><li>gemein zu Menschen oder Tieren sein</li><li>Anweisungen und/oder Hausregeln missachten</li><li>Fluchen und Schimpfworte benutzen</li><li>gefährliche Dinge tun</li><li>anderen drohen</li><li>aggressives Streiten</li><li>Eigentum beschädigen</li></ul>",
+ { href: "#timeout" }
 ]}
 
 		]));

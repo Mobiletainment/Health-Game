@@ -10,10 +10,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="cleartype" content="on">
 
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/touch/apple-touch-icon-144x144-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/touch/apple-touch-icon-114x114-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/touch/apple-touch-icon-72x72-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" href="img/touch/apple-touch-icon-57x57-precomposed.png">
         <link rel="shortcut icon" href="img/touch/apple-touch-icon.png">
         <link href="css/jquery-ui/jquery.ui.all.css" rel="stylesheet">
         <link rel="stylesheet" href="css/jquery.mobile/jquery.mobile-1.3.1.css">
@@ -59,7 +55,7 @@
                     <form id="sendInGameForm" name="sendInGameForm" >
                         <fieldset data-role="fieldcontain">
                             <label for="rewardMessage">Ich schenke dir die Belohnung, weil</label>
-                            <input name="rewardMessage" id="rewardMessage" type="text" data-theme="d" value="" placeholder="Eingabe erforderlich" type="text"/>
+                            <input name="rewardMessage" id="rewardMessage" type="text" data-theme="d" value="" placeholder="Eingabe erforderlich" />
                         </fieldset>
                         <input data-role="submit" data-theme="b" type="submit" id="sendReward" value="Belohnung senden" />
                     </form>
@@ -68,6 +64,35 @@
         </div>
 
 
+        <!-- Time-Out Page -->
+        <div data-role="page" id="timeout" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed">
+                <a href="#training"><img src="img/home.svg"></a>
+                <h1 style="text-overflow: string;">4. Strategie</h1>
+            </div>
+            <div data-role="main" class="ui-content" id="rewardInGameContent">
+                <h2>Auszeit</h2>
+                <div>
+                    <p>Für die Auszeit wählen Sie einen Ort der langweilig, zentral, nicht furchterregend und nicht im Weg ist.</p>
+                    <form id="sendTimeOutForm" name="sendTimeOutForm" >
+                            <label for="timeOutLocation">Bestimmen Sie jetzt den Auszeit-Ort:</label>
+                            <input name="timeOutLocation" id="timeOutLocation" type="text" data-theme="d" value="" placeholder="Eingabe erforderlich"/>
+                        <input data-role="submit" style="display: none;" data-theme="b" type="submit" id="sendTimeOut" value="Ort speichern" />
+                    </form>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" id="training-content-footer">
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a href="#train-content?chapter=t6" data-role="button" data-theme="b" id="timeOutBackNavigation" onclick="window.history.back();" data-direction="reverse">Zurück</a>                
+                    </div>
+                <div class="ui-block-b">
+                    <button data-theme="b" id="timeOutSaveAndEnd">Gelesen</button>
+                </div>
+                </div>
+                
+            </div>
+        </div>
 
         <script id="training-content-page-tpl" type="text/x-handlebars-template">
 
@@ -112,7 +137,7 @@
         </script>
 
         <div data-role="page" id="training"  data-theme="c" data-content-theme="c">
-            <div data-role="header" data-position="fixed">
+            <div data-role="header" data-position="fixed" data-tap-toggle="false">
                <a href="#training"><img src="img/home.svg">
                </a>
                 <h1>Training</h1>

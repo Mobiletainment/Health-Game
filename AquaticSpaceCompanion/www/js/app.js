@@ -117,6 +117,68 @@ function guid() {
 	}
 
     });
+    
+    $(document).on("pagebeforeshow", "#timeout", function(e, data)
+    {
+	$("#sendTimeOut").parent().hide();
+	$.getJSON("http://tnix.eu/~aspace/Timeout.php",
+		    {
+			username: window.username,
+			action: "LoadTimeout",
+		    },
+	    function(data)
+	    {
+		if (data.returnCode == 200)
+		    $("#timeOutLocation").val(data.returnData);
+	    });
+	
+	$("#sendTimeOutForm").validate({
+	    rules: {
+		timeOutLocation: {
+		    required: true,
+		    minlength: 2
+		}
+	    },
+	    messages: {
+		timeOutLocation: "Geben Sie einen Auszeit-Ort an"
+	    },
+	    
+	    submitHandler: sendTimeOut
+	});
+	
+	$("#timeOutSaveAndEnd").click(function()
+	{
+	    $("#sendTimeOut").trigger("click");
+	    return false;
+	});
+
+	function sendTimeOut() {
+	    
+	    console.log("sending timeout");
+
+	    $.mobile.loading('show', {
+		text: 'Auszeit-Ort wird gespeichert...'
+	    });
+
+	    $.getJSON("http://tnix.eu/~aspace/Timeout.php",
+		    {
+			username: window.username,
+			action: "SaveTimeout",
+			data: $("#timeOutLocation").val()
+		    },
+	    function(data)
+	    {
+		console.log("Server responded");
+		
+		$.mobile.loading("hide");
+		saveTrainingProgress("t6");
+	    });
+
+	    return false; //prevent event propagation
+	};
+
+    });
+
 
     //Super important: enhancing the layout that got dynamically added. Only way I found working
     $(document).on("pagebeforeshow", "#training", function(event)
@@ -177,30 +239,7 @@ function guid() {
 	};
 
     });
-    /*
-     $( "#training" ).on( "pagecontainerbeforeshow", function( event, ui )
-     {
-     console.log("pagecontainerbeforeshow: Training");
-     $('#training-list').listview().listview('refresh');
-     });*/
-    /*
-     $('#training').on('pagebeforeshow', function(event)
-     {
-     console.log("PagebeforeShow: Training");
-     console.log($('#training-list').listview());
-     $('#training-list').listview().listview('refresh');
-     //$("#uniqueButtonId").hide();
-     });
-     */
-    /*
-     $(document).bind("pagebeforeshow", function(e, data)
-     {
-     console.log("pagebeforeshow: e= " + e + "; data.ToPage = " + data.toPage);
-     //$("#training-list").trigger("refresh");
-     //$('#training-list').listview('refresh');
-     
-     });
-     */
+
 
     function showTrainingOverview()
     {
@@ -263,8 +302,31 @@ function guid() {
     }
     ;
 
-    //function saveToServer()
+    saveTrainingProgress = function(chapterId)
+    {
+	$.mobile.loading('show', {
+	    text: 'Speichere Fortschritt'
+	});
 
+	console.log("Saving progress for chapter: " + chapterId);
+
+	$.getJSON("http://tnix.eu/~aspace/TrainingProgress.php",
+		{
+		    username: window.username,
+		    action: "SaveProgress",
+		    chapter: chapterId
+		},
+	function(data)
+	{
+
+	    console.log("Server responded");
+	    //alert(data.returnData);
+	    $.mobile.loading("hide");
+	    var currentPage = window.location.href.split('#')[0];
+	    window.location.href = currentPage + "#training";
+	}
+	);
+    };
 
 
 }());
