@@ -41,6 +41,24 @@
     text-align: left;
 }
 
+
+.download
+{
+    vertical-align: middle;
+//    background-size: 32px 32px;
+    background-size: contain;
+    background-repeat:no-repeat;
+    padding-left: 25px;
+}
+
+.android {
+    background-image:url(../../img/store/download_android.png);
+}
+
+.ios {
+    background-image:url(../../img/store/download_ios.png);
+}
+
 label.error {
     color: red;
     font-size: 16px;

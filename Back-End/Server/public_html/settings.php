@@ -16,6 +16,11 @@ $database		= "aspace";
  */
 define("GOOGLE_API_KEY", "AIzaSyC8zLJhriExUCvJL1jZRfaCfHfB-4UAA4Q"); // Place your Google API Key
 
+
+header("Access-Control-Allow-Origin: *");
+header('Access-Control-Allow-Methods: GET, POST');
+header('Content-Type: application/json');
+
 function get_parent_name($username)
 {
 	return $username;

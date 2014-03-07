@@ -6,6 +6,7 @@ header('Content-Type: application/json');
 $user = $_GET['username'];
 $action = $_GET['action'];
 $returnCode = 200;
+$debugInfo = "";
 
 include ("settings.php");
 
@@ -19,54 +20,48 @@ mysql_query('SET collation_connection=utf8_general_ci');
 
 @mysql_select_db($database) or die( "9");
 
-if ($action == "GetProgress")
+if ($action == "LoadTimeout")
 {
-	$query="SELECT t1, t2, t3, t4, t5, t6 FROM Training WHERE username = '$user'";
+	$query="SELECT timeout FROM Training WHERE username = '$user'";
+	$debugInfo = $query;
 	$result=mysql_query($query);
 
 	if(mysql_numrows($result) != 1)
 	{
 		$returnCode = 404;
-		$returnData = "No User named " . $user . " found in DB. User created.";
-		$query="INSERT INTO Training(username) VALUES('$user')";
-		$result=mysql_query($query);
+		$returnData = "User " . $user . " does not exist";
 	}
 	else
 	{
 		$row = mysql_fetch_array($result);
-		$returnData = array(
-			"t1" => getBoolFromField($row['t1']),
-			"t2" => getBoolFromField($row['t2']),
-			"t3" => getBoolFromField($row['t3']),
-			"t4" => getBoolFromField($row['t4']),
-			"t5" => getBoolFromField($row['t5']),
-			"t6" => getBoolFromField($row['t6'])
-			);
+		
+		if (is_null($row['timeout']))
+		{
+			$returnCode = 404;
+			$returnData = "No Timeout for " . $user . " specified";
+		} 
+		else
+		{
+			$returnData = $row['timeout'];
+		}
 	}
 }
-else if ($action == "SaveProgress")
+else if ($action == "SaveTimeout")
 {
-	$chapter = $_GET['chapter'];
+	$data = $_GET['data'];
 
-	$query="SELECT * FROM Training WHERE username = '$user'";
+	$query = "UPDATE Training SET timeout = '$data' WHERE username = '$user'";
+	$debugInfo = $query;
 	$result=mysql_query($query);
 
-	if(mysql_numrows($result) == 0)
-	{
-		$query="INSERT INTO Training(username) VALUES('$user')";
-		$result=mysql_query($query);
-	}
-
-	$query = "UPDATE Training SET $chapter=true WHERE username = '$user'";
-	$result=mysql_query($query);
-
-	$returnData = "Chapter " . $chapter . " saved";
+	$returnData = "Timeout " . $data . " for User " . $user . " saved";
 }
 
 $data = array(
 		'returnCode' => $returnCode,
 		'returnMessage' => "Successful: " . $action,
-		'returnData' => $returnData
+		'returnData' => $returnData,
+		'debugInfo' => $debugInfo
 		);
 
 echo json_encode($data);

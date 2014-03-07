@@ -1,28 +1,11 @@
 // We use an "Immediate Function" to initialize the application to avoid leaving anything behind in the global scope
 (function()
 {
-    function s4() {
-	return Math.floor((1 + Math.random()) * 0x10000)
-		.toString(16)
-		.substring(1);
-    }
-    ;
 
-    function guid() {
-	return s4() + s4() + s4() + s4();
-    }
-
-    if (!$.cookie("username"))
-    {
-	var username = "test0.1_" + guid();
-	console.log("No User found, setting username to: " + username);
-	$.cookie("username", username, {expires: 20 * 365, path: '/'});
-
-    }
 
 
     window.username = $.cookie("username");
-
+    
 
     window.customData = {data: "", referral: ""};
 
@@ -82,26 +65,28 @@
 			);
 	    };
 	}
-	
+
 	successFunction = function()
 	{
 	    console.log("Testflight started successfully");
 	}
-	
+
 	failedFunction = function()
 	{
 	    console.log("Testflight failed to start");
 	}
-	
+
 	var tf = new TestFlight();
 	tf.takeOff(successFunction, failedFunction, "029ece91-ccbf-4e5e-8ed0-3b012f5fb854");
+
+	
 
     }, false);
 
     $(document).ready(function()
     {
 	console.log("Changing Hash to Training");
-	document.location.hash = "#training";
+	//document.location.hash = "#welcome";
     });
 
     $(document).bind("pagebeforechange", function(e, data)
@@ -205,7 +190,6 @@
 	;
 
     });
-
 
     //Super important: enhancing the layout that got dynamically added. Only way I found working
     $(document).on("pagebeforeshow", "#training", function(event)
@@ -365,7 +349,7 @@
 	}).always(function() {
 	    $.mobile.loading("hide");
 	});
-	
+
     };
 
 

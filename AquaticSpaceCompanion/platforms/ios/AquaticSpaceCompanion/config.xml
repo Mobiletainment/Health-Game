@@ -66,6 +66,9 @@
     <feature name="Vibration">
         <param name="ios-package" value="CDVVibration" />
     </feature>
+    <feature name="PushPlugin">
+        <param name="ios-package" value="PushPlugin" />
+    </feature>
     <feature name="TestFlightSDK">
         <param name="ios-package" value="CDVTestFlight" />
     </feature>

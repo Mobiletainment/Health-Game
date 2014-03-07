@@ -41,3 +41,12 @@ and open the template in the editor.
     text-align:center;
     
 }
+
+.gratulation
+{
+    background-image: url(../img/mixed/gratulation.png);
+    background-size: contain;
+    background-repeat:no-repeat;
+    vertical-align: middle;
+    background-position: center center;
+}

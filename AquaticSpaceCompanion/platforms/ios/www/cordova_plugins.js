@@ -261,6 +261,13 @@ module.exports = [
         ]
     },
     {
+        "file": "plugins/com.phonegap.plugins.PushPlugin/www/PushNotification.js",
+        "id": "com.phonegap.plugins.PushPlugin.PushNotification",
+        "clobbers": [
+            "PushNotification"
+        ]
+    },
+    {
         "file": "plugins/org.apache.cordova.file/www/DirectoryEntry.js",
         "id": "org.apache.cordova.file.DirectoryEntry",
         "clobbers": [
@@ -415,6 +422,7 @@ module.exports.metadata =
     "org.apache.cordova.splashscreen": "0.2.7",
     "org.apache.cordova.vibration": "0.3.7",
     "com.testflightapp.cordova-plugin": "3.0.0",
+    "com.phonegap.plugins.PushPlugin": "2.1.1",
     "org.apache.cordova.file": "1.0.1"
 }
 // BOTTOM OF METADATA

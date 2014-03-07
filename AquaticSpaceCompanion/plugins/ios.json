@@ -20,7 +20,8 @@
                 "<feature name=\"Globalization\"><param name=\"ios-package\" value=\"CDVGlobalization\" /></feature>": 1,
                 "<feature name=\"NetworkStatus\"><param name=\"ios-package\" value=\"CDVConnection\" /></feature>": 1,
                 "<feature name=\"SplashScreen\"><param name=\"ios-package\" value=\"CDVSplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>": 1,
-                "<feature name=\"Vibration\"><param name=\"ios-package\" value=\"CDVVibration\" /></feature>": 1
+                "<feature name=\"Vibration\"><param name=\"ios-package\" value=\"CDVVibration\" /></feature>": 1,
+                "<feature name=\"PushPlugin\"><param name=\"ios-package\" value=\"PushPlugin\" /></feature>": 1
             },
             "/widget": {
                 "<feature name=\"TestFlightSDK\"><param name=\"ios-package\" value=\"CDVTestFlight\" /></feature>": 1
@@ -106,6 +107,9 @@
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         },
         "com.testflightapp.cordova-plugin": {
+            "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
+        },
+        "com.phonegap.plugins.PushPlugin": {
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         }
     },

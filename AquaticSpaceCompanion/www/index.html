@@ -60,7 +60,7 @@
                     <p>Die gute Nachricht für Sie: Mit Hilfe dieser App lernen Sie, wie Sie ihr Kind in gutem Verhalten trainieren können. Dieser Ansatz hat sich als besonders effektiv herausgestellt.</p>
                 </div>
             </div>
-            <div data-role="footer" data-position="fixed" data-tap-toggle="false" id="training-content-footer">
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false">
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
                         <a data-role="button" data-theme="b" onclick="window.history.back();" data-direction="reverse">Zurück</a>                
@@ -85,7 +85,7 @@
                     
                 </div>
             </div>
-            <div data-role="footer" data-position="fixed" data-tap-toggle="false" id="training-content-footer">
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
                         <a data-role="button" data-theme="b" onclick="window.history.back();" data-direction="reverse">Zurück</a>                
@@ -111,17 +111,85 @@
                     <p><a href="http://www.apple.com" target="_blank" class="download ios">Aquatic Space für Apple iOS</a></p>
                 </div>
             </div>
-            <div data-role="footer" data-position="fixed" data-tap-toggle="false" id="training-content-footer">
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
                         <a data-role="button" data-theme="b" onclick="window.history.back();" data-direction="reverse">Zurück</a>                
                     </div>
                     <div class="ui-block-b">
-                        <a href="#welcome-3" data-role="button" data-theme="b">Weiter</a>    
+                        <a href="#welcome-4" data-role="button" data-theme="b">Weiter</a>    
                     </div>
                 </div>
 
             </div>
+        </div>
+        
+        <!-- Welcome 4 Page -->
+        <div data-role="page" id="welcome-4" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed">
+                <h1 style="text-overflow: string;">Einleitung</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h2>Aquatic Space Registrierung</h2>
+                <div>
+                    <p>Sobald Ihr Kind das Spiel gestartet und einen Benutzernamen gewählt hat, erhält es ein geheimes Team-Passwort.</p>
+                    <p>Sie benötigen das Team-Passwort, um am Spiel-Geschehen Ihres Kindes teilnehmen zu können. Dieses wird nun im nächsten Schritt abgefragt.</p>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a data-role="button" data-theme="b" onclick="window.history.back();" data-direction="reverse">Zurück</a>                
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#login" data-role="button" data-theme="b">Weiter</a>    
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+        <!-- Login Page -->
+        <div data-role="page" id="login" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed">
+                <h1 style="text-overflow: string;">Einleitung</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h2>Team-Passwort</h2>
+                <div>
+                    <p>Sobald Sie das Team-Passwort eingegeben haben, können wir die Kommunikation zu Ihrem Kind herstellen. Um auch das Senden von Lob und Belohnungen zu ermöglichen, wählen Sie nach der Überprüfung des Passwortes bitte <b>Push-Benachrichtigungen erlauben, sobald</b></p>
+
+                    <form id="loginForm" name="validateLogin" >
+                        <fieldset data-role="fieldcontain">
+                            <label for="loginPassword">Geben Sie jetzt das geheime Team-Passwort, das Sie von Ihrem Kind erhalten, ein:</label>
+                            <input name="loginPassword" id="loginPassword" type="text" data-theme="d" value="" placeholder="Eingabe erforderlich" />
+                        </fieldset>
+                        <input data-role="submit" data-theme="b" type="submit" id="submitLogin" value="Passwort überprüfen" />
+                    </form>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a data-role="button" data-theme="b" onclick="window.history.back();" data-direction="reverse">Zurück</a>                
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#login-success" id="loginButton" data-role="button" data-theme="b">Weiter</a>   
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Success Page -->
+        <div data-role="page" id="login-success" data-theme="c" data-content-theme="c">
+            <div data-role="main" data-iscroll="" class="ui-content ui-bar-a full-height-wrapper-content gratulation">
+                <h1>Gratulation</h1>
+                <h3>Sie sind nun angemeldet</h3>
+                
+                    <div>
+                        <a href="#welcome-1" data-role="button" data-theme="b" id="timeOutSaveAndEnd">Weiter</a>
+                    </div>
+              </div>
         </div>
 
         <!-- Training Content Page -->
@@ -168,7 +236,7 @@
                     </form>
                 </div>
             </div>
-            <div data-role="footer" data-position="fixed" data-tap-toggle="false" id="training-content-footer">
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false">
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
                         <a href="#train-content?chapter=t6" data-role="button" data-theme="b" id="timeOutBackNavigation" onclick="window.history.back();" data-direction="reverse">Zurück</a>                
@@ -272,10 +340,12 @@
         <script src="js/vendor/iscroll.js"></script>
         <script src="js/vendor/jquery.mobile.iscrollview.js"></script>
         <script src="js/vendor/testflight.js"></script>
+        <script src="js/vendor/PushNotification.js"></script>
         <script src="js/adapters/localstorage-adapter.js"></script>
         <script src="js/TrainingContentView.js"></script>
         <script src="js/TrainingView.js"></script>
         <script src="js/vendor/jquery-handlebars.js"></script>
         <script src="js/app.js"></script>
+        <script src="js/PushPlugin.js"></script>
     </body>
 </html>
