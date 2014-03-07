@@ -3,22 +3,45 @@
 {
     var pushNotification;
 
-    function s4() {
-	return Math.floor((1 + Math.random()) * 0x10000)
-		.toString(16)
-		.substring(1);
-    }
-    ;
-
-    function guid() {
-	return s4() + s4() + s4() + s4();
-    }
-
-
     window.deviceToken = $.cookie("deviceToken");
+
+    document.addEventListener('deviceready', function() {
+	registerPushNotifications();
+    }, false);
+
+    function registerPushNotifications()
+    {
+	try
+	{
+	    pushNotification = window.plugins.pushNotification;
+	    if (device.platform == 'android' || device.platform == 'Android')
+	    {
+		alert("Registering Android Push");
+		pushNotification.register(successHandler, errorHandler, {"senderID": "661780372179", "ecb": "onNotificationGCM"});		// required!
+	    }
+	    else
+	    {
+		alert("Registering iOS Push");
+		pushNotification.register(tokenHandler, errorHandler, {"badge": "true", "sound": "true", "alert": "true", "ecb": "onNotificationAPN"});	// required!
+	    }
+	}
+	catch (err)
+	{
+	    txt = "There was an error on this page.\n\n";
+	    txt += "Error description: " + err.message + "\n\n";
+	    alert(txt);
+	    $.mobile.loading("hide");
+
+	    if (typeof device === "undefined" || typeof device.platform === "undefined")
+	    {
+		tokenHandler("browser-test");
+	    }
+	}
+    }
 
     function setDeviceToken(token)
     {
+	alert("Got device token: " + token);
 	$.cookie("deviceToken", token, {expires: 20 * 365, path: '/'});
 	window.deviceToken = $.cookie("deviceToken");
     }
@@ -43,36 +66,7 @@
 	function validateLogin() {
 	    console.log("validating Login");
 
-	    $.mobile.loading('show', {
-		text: 'Team-Passwort wird überprüft...'
-	    });
-
-	    try
-	    {
-		pushNotification = window.plugins.pushNotification;
-		if (device.platform == 'android' || device.platform == 'Android')
-		{
-		    $("#app-status-ul").append('<li>registering android</li>');
-		    pushNotification.register(successHandler, errorHandler, {"senderID": "661780372179", "ecb": "onNotificationGCM"});		// required!
-		}
-		else
-		{
-		    $("#app-status-ul").append('<li>registering iOS</li>');
-		    pushNotification.register(tokenHandler, errorHandler, {"badge": "true", "sound": "true", "alert": "true", "ecb": "onNotificationAPN"});	// required!
-		}
-	    }
-	    catch (err)
-	    {
-		txt = "There was an error on this page.\n\n";
-		txt += "Error description: " + err.message + "\n\n";
-		alert(txt);
-		$.mobile.loading("hide");
-
-		//if ($("#loginPassword").val().toLowerCase() == "test")
-		{
-		    tokenHandler("browser-test");
-		}
-	    }
+	    registerDevice();
 
 	    return false; //prevent event propagation
 	}
@@ -108,7 +102,7 @@
 		if (e.regid.length > 0)
 		{
 		    setDeviceToken(e.regid);
-		    storeDeviceToken();
+		    registerDevice();
 		    //$("#app-status-ul").append('<li>REGISTERED -> REGID:' + e.regid + "</li>");
 		    // Your GCM push server needs to know the regID before it can push to this device
 		    // here is where you might want to send it the regID for later use.
@@ -155,16 +149,27 @@
 	setDeviceToken(result);
 	// Your iOS push server needs to know the token before it can push to this device
 	// here is where you might want to send it the token for later use
-	storeDeviceToken();
+	registerDevice();
 
     }
 
-    function storeDeviceToken()
+    function registerDevice()
     {
-	console.log("Storing Device Token");
-	
+	console.log("Registering Device");
+	$.mobile.loading('show', {
+		text: 'Team-Passwort wird überprüft...'
+	    });
+
+	if (!window.deviceToken)
+	{
+	    $.mobile.loading("hide");
+	    alert("Um fortfahren zu können, müssen Push-Benachrichtigungen aktiviert sein. Erlauben Sie bitte Push-Benachrichtigungen und versuchen Sie es erneut.")
+	    registerPushNotifications();
+	    return;
+	}
+
 	var os;
-	
+
 	if (typeof device === "undefined" || typeof device.platform === "undefined")
 	{
 	    os = "browser";
@@ -173,7 +178,7 @@
 	{
 	    os = (device.platform == 'android' || device.platform == 'Android') ? "android" : "ios";
 	}
-	
+
 	$.getJSON("http://tnix.eu/~aspace/RegisterDevice.php",
 		{
 		    user: $("#loginPassword").val(),
@@ -182,7 +187,7 @@
 		}, function(data)
 	{
 	    console.log("Server responded to RegisterDevice");
-	    
+
 
 	    if (data.returnCode === 200)
 	    {
@@ -203,7 +208,7 @@
 	}
 	).fail(function()
 	{
-	    alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", storeDeviceToken());
+	    alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", registerDevice);
 	}
 	).always(function() {
 	    $.mobile.loading("hide");

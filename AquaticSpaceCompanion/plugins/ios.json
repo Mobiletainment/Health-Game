@@ -21,7 +21,8 @@
                 "<feature name=\"NetworkStatus\"><param name=\"ios-package\" value=\"CDVConnection\" /></feature>": 1,
                 "<feature name=\"SplashScreen\"><param name=\"ios-package\" value=\"CDVSplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>": 1,
                 "<feature name=\"Vibration\"><param name=\"ios-package\" value=\"CDVVibration\" /></feature>": 1,
-                "<feature name=\"PushPlugin\"><param name=\"ios-package\" value=\"PushPlugin\" /></feature>": 1
+                "<feature name=\"PushPlugin\"><param name=\"ios-package\" value=\"PushPlugin\" /></feature>": 1,
+                "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>": 1
             },
             "/widget": {
                 "<feature name=\"TestFlightSDK\"><param name=\"ios-package\" value=\"CDVTestFlight\" /></feature>": 1
@@ -35,7 +36,7 @@
                 "false": 1
             },
             "CoreGraphics.framework": {
-                "false": 3
+                "false": 4
             },
             "AssetsLibrary.framework": {
                 "false": 3
@@ -110,6 +111,9 @@
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         },
         "com.phonegap.plugins.PushPlugin": {
+            "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
+        },
+        "org.apache.cordova.inappbrowser": {
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         }
     },
