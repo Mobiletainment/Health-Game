@@ -101,7 +101,7 @@
     $(document).ready(function()
     {
 	console.log("Changing Hash to Training");
-	document.location.hash = "#training";
+	//document.location.hash = "#welcome";
     });
 
     $(document).bind("pagebeforechange", function(e, data)
