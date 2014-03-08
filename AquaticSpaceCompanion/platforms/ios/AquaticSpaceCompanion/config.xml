@@ -69,6 +69,9 @@
     <feature name="PushPlugin">
         <param name="ios-package" value="PushPlugin" />
     </feature>
+    <feature name="InAppBrowser">
+        <param name="ios-package" value="CDVInAppBrowser" />
+    </feature>
     <feature name="TestFlightSDK">
         <param name="ios-package" value="CDVTestFlight" />
     </feature>

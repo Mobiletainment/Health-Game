@@ -70,6 +70,7 @@
 		D3BE6E4C78D847DD80D43172 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3235989A274D423AA68AF159 /* libz.dylib */; };
 		252F5369873E4849AEDA499F /* AppDelegate+notification.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB7AACEE81049ABAE552B3F /* AppDelegate+notification.m */; };
 		E9680D58430C41CCA2BE8768 /* PushPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = F0D8DF1567B6497388883478 /* PushPlugin.m */; };
+		A74C848FB6AC43A7BE7C4CED /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = DDFA2A2B4DC8402FB11C615D /* CDVInAppBrowser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -193,6 +194,8 @@
 		F0D8DF1567B6497388883478 /* PushPlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "PushPlugin.m"; path = "com.phonegap.plugins.PushPlugin/PushPlugin.m"; sourceTree = "<group>"; fileEncoding = 4; };
 		B5EF540DC18D47F8B14D1629 /* AppDelegate+notification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AppDelegate+notification.h"; path = "com.phonegap.plugins.PushPlugin/AppDelegate+notification.h"; sourceTree = "<group>"; fileEncoding = 4; };
 		56046E06D2854A4CA260592E /* PushPlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "PushPlugin.h"; path = "com.phonegap.plugins.PushPlugin/PushPlugin.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		DDFA2A2B4DC8402FB11C615D /* CDVInAppBrowser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVInAppBrowser.m"; path = "org.apache.cordova.inappbrowser/CDVInAppBrowser.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		BAC3A964B61C4807A3764C4C /* CDVInAppBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVInAppBrowser.h"; path = "org.apache.cordova.inappbrowser/CDVInAppBrowser.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -380,6 +383,8 @@
 				F0D8DF1567B6497388883478 /* PushPlugin.m */,
 				B5EF540DC18D47F8B14D1629 /* AppDelegate+notification.h */,
 				56046E06D2854A4CA260592E /* PushPlugin.h */,
+				DDFA2A2B4DC8402FB11C615D /* CDVInAppBrowser.m */,
+				BAC3A964B61C4807A3764C4C /* CDVInAppBrowser.h */,
 			);
 			name = Plugins;
 			path = AquaticSpaceCompanion/Plugins;
@@ -598,6 +603,7 @@
 				14D1BB83C3774D898F920597 /* CDVTestFlight.m in Sources */,
 				252F5369873E4849AEDA499F /* AppDelegate+notification.m in Sources */,
 				E9680D58430C41CCA2BE8768 /* PushPlugin.m in Sources */,
+				A74C848FB6AC43A7BE7C4CED /* CDVInAppBrowser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -268,6 +268,13 @@ module.exports = [
         ]
     },
     {
+        "file": "plugins/org.apache.cordova.inappbrowser/www/inappbrowser.js",
+        "id": "org.apache.cordova.inappbrowser.inappbrowser",
+        "clobbers": [
+            "window.open"
+        ]
+    },
+    {
         "file": "plugins/org.apache.cordova.file/www/DirectoryEntry.js",
         "id": "org.apache.cordova.file.DirectoryEntry",
         "clobbers": [
@@ -423,6 +430,7 @@ module.exports.metadata =
     "org.apache.cordova.vibration": "0.3.7",
     "com.testflightapp.cordova-plugin": "3.0.0",
     "com.phonegap.plugins.PushPlugin": "2.1.1",
+    "org.apache.cordova.inappbrowser": "0.3.3",
     "org.apache.cordova.file": "1.0.1"
 }
 // BOTTOM OF METADATA
