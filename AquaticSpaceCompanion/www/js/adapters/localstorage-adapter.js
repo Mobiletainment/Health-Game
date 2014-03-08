@@ -6,7 +6,10 @@ var LocalStorageAdapter = function() {
 
 	window.localStorage.setItem("items", JSON.stringify(
 		[
-		    {"id": "training", "items": [{"name": "Zeit-Zu-Zweit"}, {"name": "Lob"}, {"name": "Belohnung"}, {"name": "Anweisungen"}, {"name": "Aktives Ignorieren"}, {"name": "Auszeit"}, ]},
+		    {"id": "training", "items": [{"name": "Zeit-Zu-Zweit"}, {"name": "Lob"}, {"name": "Belohnung"}, {"name": "Anweisungen"}, {"name": "Aktives Ignorieren"}, {"name": "Auszeit"} ]},
+		    {"id": "data-input-behavior", "items": [{"name": "Schlägt andere Kinder"}, {"name": "Zerstört mutwillig Dinge"}, {"name": "Hat aggressionsgeladene Wutausbrüche, flucht oder schimpft"}, {"name": "Ahmt Sie nach oder wiederholt was Sie sagen"}, {"name": "Missachtet Anweisungen"}, {"name": "Droht Ihnen oder anderen"} ]},
+		    
+		    
 		    
 	    
 {"id": "t1", "title": "1. Strategie", "subTitle": "Zeit-zu-zweit", "items":

@@ -17,7 +17,7 @@
 
         <link href="css/styles.css" rel="stylesheet">
 
- 
+
 
         <!-- For iOS web apps. Delete if not needed. https://github.com/h5bp/mobile-boilerplate/issues/94 -->
         <!--
@@ -37,17 +37,17 @@
         <!-- Welcome Page -->
         <div data-role="page" id="welcome" data-theme="c" data-content-theme="a">
             <div data-role="main" data-iscroll="" class="ui-content ui-bar-a full-height-wrapper-content">
-                    <h3>Herzlich willkommen zur</h3>
-                    <h1>Parental Training App</h1>
-                    <h3>von</h3>
-                    <h1>Aquatic Space!</h1>
-                    <p><b>Diese App hilft Ihnen, unerwünschte Verhaltensweisen Ihres Kindes zu verstehen und einen besseren Umgang mit Ihrem Kind zu erreichen.</b></p>
-                    <div>
-                        <a href="#welcome-1" data-role="button" data-theme="b" id="timeOutSaveAndEnd">Parental Training beginnen</a>
-                    </div>
-              </div>
+                <h3>Herzlich willkommen zur</h3>
+                <h1>Parental Training App</h1>
+                <h3>von</h3>
+                <h1>Aquatic Space!</h1>
+                <p><b>Diese App hilft Ihnen, unerwünschte Verhaltensweisen Ihres Kindes zu verstehen und einen besseren Umgang mit Ihrem Kind zu erreichen.</b></p>
+                <div>
+                    <a href="#welcome-1" data-role="button" data-theme="b" id="timeOutSaveAndEnd">Parental Training beginnen</a>
+                </div>
+            </div>
         </div>
-        
+
         <!-- Welcome 1 Page -->
         <div data-role="page" id="welcome-1" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed">
@@ -72,8 +72,8 @@
 
             </div>
         </div>
-        
-         <!-- Welcome 2 Page -->
+
+        <!-- Welcome 2 Page -->
         <div data-role="page" id="welcome-2" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed">
                 <h1 style="text-overflow: string;">Einleitung</h1>
@@ -82,7 +82,7 @@
                 <h2>Aquatic Space</h2>
                 <div>
                     <p>Um Ihr Kind aktiv in das Training zu integrieren, haben wir das Spiel <b>Aquatic Space</b> entwickelt. Sie werden Ihr Kind bei seinen Abenteuern begleiten und die Rolle des Helfers und Unterstützers einnehmen.</p>
-                    
+
                 </div>
             </div>
             <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
@@ -97,7 +97,7 @@
 
             </div>
         </div>
-         
+
         <!-- Welcome 3 Page -->
         <div data-role="page" id="welcome-3" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed">
@@ -123,7 +123,7 @@
 
             </div>
         </div>
-        
+
         <!-- Welcome 4 Page -->
         <div data-role="page" id="welcome-4" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed">
@@ -148,7 +148,7 @@
 
             </div>
         </div>
-        
+
         <!-- Login Page -->
         <div data-role="page" id="login" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed">
@@ -179,18 +179,140 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Success Page -->
         <div data-role="page" id="login-success" data-theme="c" data-content-theme="c">
             <div data-role="main" data-iscroll="" class="ui-content ui-bar-a full-height-wrapper-content gratulation">
                 <h1>Gratulation</h1>
                 <h3>Sie sind nun angemeldet</h3>
-                
-                    <div>
-                        <a href="#welcome-1" data-role="button" data-theme="b" id="timeOutSaveAndEnd">Weiter</a>
-                    </div>
-              </div>
+
+                <div>
+                    <a href="#data-input-person" data-role="button" data-theme="b" >Weiter</a>
+                </div>
+            </div>
         </div>
+
+        <!-- Data Input Person Page -->
+        <div data-role="page" id="data-input-person" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed">
+                <h1 style="text-overflow: string;">Eingaben</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h2>Person</h2>
+                <div>
+                    <p>Füllen Sie bitte die folgenden Eingaben aus:</p>
+
+                    <form id="personForm" name="personForm" >
+                        <div class="ui-field-contain">
+                            <fieldset data-role="controlgroup" data-type="horizontal" name="gender" id="gender">
+                                <legend>Ihr Geschlecht:</legend>
+                                <input name="radioGender" id="radio-gender-female" value="female" type="radio">
+                                <label for="radio-gender-female">weiblich</label>
+                                <input name="radioGender" id="radio-gender-male" value="male" type="radio">
+                                <label for="radio-gender-male">männlich</label>
+                            </fieldset>
+                        </div>
+                        <fieldset data-role="fieldcontain">
+                            <label for="personMail">Ihre E-Mail Adresse:</label>
+                            <input name="personMail" id="personMail" type="email" data-theme="d" value="" placeholder="Eingabe erforderlich" />
+                        </fieldset>
+                        <fieldset data-role="fieldcontain">
+                            <label for="personBirthDateChild">Geburtsdatum des Kindes:</label>
+                            <input name="personBirthDateChild" id="personBirthDateChild" type="date" data-theme="d" value="" />
+                        </fieldset>
+                        <input data-role="submit" data-theme="b" type="submit" id="submitPerson" value="Weiter" />
+                    </form>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a data-role="button" data-theme="b" onclick="window.history.back();" data-direction="reverse">Zurück</a>                
+                    </div>
+                    <div class="ui-block-b">
+                        <button id="sendPersonDataButton" data-role="button" data-theme="b">Weiter</button>   
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Input Behavior Intro -->
+        <div data-role="page" id="data-input-behavior-intro" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed">
+                <h1 style="text-overflow: string;">Einleitung</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h2>Unerwünschte Verhaltensweisen</h2>
+                <div>
+                    <p>Wählen Sie als nächstes die Verhaltensweisen ihres Kindes aus, welche das Familienleben schwierig gestalten.</p>
+                    <p>Sie können dabei vorgefertigte Auswahlmöglichkeiten anhaken oder eigene eingeben.</p>
+                    <p>Konzentrieren Sie sich zunächst auf die wichtigsten 3.</p>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#data-input-behavior" data-role="button" data-theme="b">Weiter</a>    
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Data Input Behavior Page -->
+        <div data-role="page" id="data-input-behavior" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed">
+                <h1 style="text-overflow: string;">Eingaben</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h2>Unerwünschte Verhaltensweisen</h2>
+                <div>
+                    <p>Hier können Sie unerwünschte Verhaltensweisen auswählen oder selbst welche eingeben.</p>
+                    <fieldset data-role="controlgroup" >
+                        
+                        <!-- TODO: invoke template -->
+
+                    </fieldset>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a data-role="button" data-theme="b" onclick="window.history.back();" data-direction="reverse">Zurück</a>                
+                    </div>
+                    <div class="ui-block-b">
+                        <button id="sendPersonDataButton" data-role="button" data-theme="b">Weiter</button>   
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script id="checkbox-tpl" type="text/x-handlebars-template">
+            {{#each items}}
+            <div>
+                <input type="checkbox" name="checkbox{{inc @index}}" id="checkbox{{inc @index}}" class="customListSeparator" />
+                <label for="checkbox{{inc @index}}">{{name}}</label>
+            </div>
+            {{/each}}
+            
+            <div>
+                <input type="checkbox" name="checkboxCustom1" id="checkboxCustom1" class="customListSeparator" onchange="(this.checked) ? $('#checkboxCustom1Text').removeClass('ui-body-c').addClass('ui-body-d') : $('#checkboxCustom1Text').removeClass('ui-body-d').addClass('ui-body-c');" />
+                <label for="checkboxCustom1"><textarea  id="checkboxCustom1Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
+            </div>
+
+            <div>
+                <input type="checkbox" name="checkboxCustom2" id="checkboxCustom2" class="customListSeparator" onchange="(this.checked) ? $('#checkboxCustom2Text').removeClass('ui-body-c').addClass('ui-body-d') : $('#checkboxCustom2Text').removeClass('ui-body-d').addClass('ui-body-c');" />
+                <label for="checkboxCustom2"><textarea  id="checkboxCustom2Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
+            </div>
+
+            <div>
+                <input type="checkbox" name="checkboxCustom3" id="checkboxCustom3" class="customListSeparator" onchange="(this.checked) ? $('#checkboxCustom3Text').removeClass('ui-body-c').addClass('ui-body-d') : $('#checkboxCustom3Text').removeClass('ui-body-d').addClass('ui-body-c');" />
+                <label for="checkboxCustom3"><textarea  id="checkboxCustom3Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
+            </div>
+        </script>
 
         <!-- Training Content Page -->
         <div data-role="page" id="train-content" data-theme="c" data-content-theme="c">

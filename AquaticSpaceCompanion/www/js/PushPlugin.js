@@ -21,7 +21,7 @@
 	    }
 	    else
 	    {
-		alert("Registering iOS Push");
+		//alert("Registering iOS Push");
 		pushNotification.register(tokenHandler, errorHandler, {"badge": "true", "sound": "true", "alert": "true", "ecb": "onNotificationAPN"});	// required!
 	    }
 	}

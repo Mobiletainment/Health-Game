@@ -1,12 +1,8 @@
 // We use an "Immediate Function" to initialize the application to avoid leaving anything behind in the global scope
 (function()
 {
-
-
-
     window.username = $.cookie("username");
     
-
     window.customData = {data: "", referral: ""};
 
     Handlebars.registerHelper("inc", function(value, options)
@@ -183,13 +179,80 @@
 	    }).always(function() {
 		$.mobile.loading("hide");
 	    });
-	    ;
+	    
 
 	    return false; //prevent event propagation
-	}
-	;
+	};
+    });
+
+$(document).on("pagebeforeshow", "#data-input-person", function(e, data)
+    {
+	$("#submitPerson").parent().hide();
+
+	$("#personForm").validate({
+	    rules: {
+		radioGender: {
+		    required: true
+		},
+		personMail: {
+		    required: true
+		},
+		
+		personBirthDateChild: {
+		    required: true
+		}
+	    },
+	    messages: {
+		personMail: "Geben Sie eine gültige E-Mail Adresse an",
+		personBirthDateChild: "Geben Sie das Geburtsdatum an",
+		radioGender: ""
+	    },
+	    submitHandler: sendPersonData
+	});
+
+	$("#sendPersonDataButton").click(function()
+	{
+	    console.log("Person submit");
+	    $("#submitPerson").trigger("click");
+	    return false;
+	});
+
+	function sendPersonData() {
+	    console.log("sending person data");
+
+	    var func = this;
+	    
+	    $.mobile.loading('show', {
+		text: 'Daten werden gespeichert...'
+	    });
+
+
+	    $.getJSON("http://tnix.eu/~aspace/SaveData.php",
+		    {
+			username: window.username,
+			action: "SavePersonData",
+			data: { gender: $("#gender :radio:checked").val(), mail: $("#personMail").val(), date: $("#personBirthDateChild").val()}
+		    },
+	    function(data)
+	    {
+		console.log("Server responded");
+		var currentPage = window.location.href.split('#')[0];
+		window.location.href = currentPage + "#data-input-behavior-intro";
+		
+	    }).fail(function()
+	    {
+		alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", func);
+	    }).always(function() {
+		$.mobile.loading("hide");
+	    });
+	    
+
+	    return false; //prevent event propagation
+	};
 
     });
+
+
 
     //Super important: enhancing the layout that got dynamically added. Only way I found working
     $(document).on("pagebeforeshow", "#training", function(event)
