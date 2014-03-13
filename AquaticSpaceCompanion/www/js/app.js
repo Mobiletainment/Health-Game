@@ -4,6 +4,8 @@
     window.username = $.cookie("username");
 
     window.customData = {data: "", referral: ""};
+    
+    var currentView;
 
     Handlebars.registerHelper("inc", function(value, options)
     {
@@ -112,22 +114,50 @@
             else if (u.hash.search(/^#data-input-behavior-rating/) !== -1)
             {
                 console.log("We'd like to navigate to behavior input rating");
-                showBehaviorInputRatingView();
-            }
-            else if (u.hash.search(/^#data-input-behavior/) !== -1)
-            {
-                console.log("We'd like to navigate to behavior input");
-                showBehaviorInputView();
+                //showBehaviorInputRatingView();
             }
             else if (u.hash.search(/^#daily-tasks-input/) !== -1)
             {
-                showDailyTasksInputView();
+                
             }
 
 
 
         }
 
+    });
+    
+    // Start: Daily Tasks Input
+    $( "#data-input-behavior-rating" ).on( "pagebeforecreate", function( event )
+    {
+       showDailyTasksInputView();
+    });
+    
+    $( "#data-input-behavior-rating" ).on( "pagebeforeshow", function( event )
+    {
+        currentView.setupContent();
+    });
+    // End: Daily Tasks Input
+    
+    // Start: Data Input Behavior
+    $( "#data-input-behavior-rating" ).on( "pagebeforecreate", function( event )
+    {
+        showBehaviorInputRatingView();
+    });
+    
+    $( "#data-input-behavior-rating" ).on( "pagebeforeshow", function( event )
+    {
+        currentView.setupContent();
+    });
+    // End: Data Input Behavior
+    
+    
+    
+    
+    $( "#data-input-behavior" ).on( "pagebeforecreate", function( event )
+    {
+        alert( "This page was just inserted into the dom!" );
+        showBehaviorInputView();
     });
 
     $(document).on("pagebeforeshow", "#timeout", function(e, data)
@@ -357,7 +387,7 @@
         adapter.findById(hash).done(function(item)
         {
             console.log("Behavior Input Items found: " + item);
-            var behaviorInputView = new BehaviorInputView(adapter, item);
+            var behaviorView = new BehaviorInputView(adapter, item);
             $("#data-input-behavior").find(":jqmData(role=main)").trigger("create");
         });
     };
@@ -369,7 +399,7 @@
         adapter.findById(hash).done(function(item)
         {
             console.log("Behavior Input Items found: " + item);
-            var behaviorRatingView = new BehaviorRatingView(adapter, item);
+            currentView = new BehaviorRatingView(adapter, item);
             //$("#data-input-behavior-rating").find(":jqmData(role=main)").trigger("create");
         });
     };
@@ -381,7 +411,7 @@
         adapter.findById(hash).done(function(item)
         {
             console.log("Daily Tasks Input Items found: " + item);
-            var dailyTasksInputView = new DailyTasksInputView(adapter, item);
+            currentView = new DailyTasksInputView(adapter, item);
             //$("#data-input-behavior-rating").find(":jqmData(role=main)").trigger("create");
         });
     };

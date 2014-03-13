@@ -1,4 +1,4 @@
-var BehaviorRatingView = function(adapter, data)
+var DailyTasksInputView = function(adapter, data)
 {
 
     var page = 0;
@@ -13,11 +13,12 @@ var BehaviorRatingView = function(adapter, data)
         var url = $.url().attr("anchor");
         behaviors = [$.url(url).param("q1"), $.url(url).param("q2"), $.url(url).param("q3")];
 
-
-        $("#behaviorProblem").text(behaviors[page]);
+/*
+        //$("#behaviorProblem").text(behaviors[page]);
         $("#pageIndexBehavior").text(page + 1);
         if (page > 0)
             $("#slider").val(5).slider("refresh");
+            */
     };
 
 
