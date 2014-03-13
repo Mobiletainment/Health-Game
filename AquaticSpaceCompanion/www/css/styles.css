@@ -8,6 +8,17 @@ and open the template in the editor.
     Author     : dp
 */
 
+div.ui-slider-track
+{
+    background-image: -webkit-gradient(linear,left top,right bottom,from(#BA2828),to(#00FF2F)) !important;
+}
+
+div.ui-btn-active
+{
+    background-image: none;
+    background: transparent;
+}
+
 .back-button {
     position: absolute;
     top: 10px;
