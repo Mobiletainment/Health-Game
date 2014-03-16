@@ -4,7 +4,7 @@
     window.username = $.cookie("username");
 
     window.customData = {data: "", referral: ""};
-    
+
     var currentView;
 
     Handlebars.registerHelper("inc", function(value, options)
@@ -113,7 +113,7 @@
             }
             else if (u.hash.search(/^#daily-tasks-input/) !== -1)
             {
-                
+
             }
 
 
@@ -121,11 +121,57 @@
         }
 
     });
-    
-    // Start: Daily Tasks Input
-    $( "#daily-tasks-input" ).on( "pagebeforecreate", function( event )
+
+    // Start: Main Menu
+    $("#main-menu").on("pagebeforecreate", function(event)
     {
-       hash = "daily-tasks-input";
+        var progressLabel = $("#progressLabelMain");
+        var selector = "#progressbarMain";
+        var progressbar = $(selector);
+
+        progressbar.progressbar({
+            value: false,
+            change: function() {
+                var value = progressbar.progressbar("value");
+
+                progressLabel.text("Fortschritt: " + value + "%");
+            }
+        });
+        
+        progressbar.height("20");
+
+
+        $(selector).bind('progressbarchange', function(event, ui) {
+            var subSelector = selector + " > div";
+            var value = this.getAttribute("aria-valuenow");
+            if (value < 10) {
+                $(subSelector).css({'background': 'Red'});
+            } else if (value < 30) {
+                $(subSelector).css({'background': 'Orange'});
+            } else if (value < 50) {
+                $(subSelector).css({'background': 'Yellow'});
+            } else if (value < 80) {
+                $(subSelector).css({'background': 'LightGreen'});
+            } 
+            else {
+                $(subSelector).css({'background': '#33CC00'});
+            }
+        });
+        
+        progressbar.progressbar("value", 80);
+
+    });
+    
+    $("#main-menu").on("pagebeforeshow", function(event)
+    {
+        
+    });
+    // End: Main Menu
+
+    // Start: Daily Tasks Input
+    $("#daily-tasks-input").on("pagebeforecreate", function(event)
+    {
+        hash = "daily-tasks-input";
         console.log("Redirecting to Daily Tasks Input");
         adapter.findById(hash).done(function(item)
         {
@@ -135,23 +181,23 @@
         });
     });
     // End: Daily Tasks Input
-    
+
     // Start: Data Input Behavior
-    $( "#data-input-behavior-rating" ).on( "pagebeforecreate", function( event )
+    $("#data-input-behavior-rating").on("pagebeforecreate", function(event)
     {
         showBehaviorInputRatingView();
     });
-    
-    $( "#data-input-behavior-rating" ).on( "pagebeforeshow", function( event )
+
+    $("#data-input-behavior-rating").on("pagebeforeshow", function(event)
     {
         currentView.setupContent();
     });
     // End: Data Input Behavior
-    
-    
-    
-    
-    $( "#data-input-behavior" ).on( "pagebeforecreate", function( event )
+
+
+
+
+    $("#data-input-behavior").on("pagebeforecreate", function(event)
     {
         //alert( "This page was just inserted into the dom!" );
         showBehaviorInputView();
@@ -387,8 +433,9 @@
             var behaviorView = new BehaviorInputView(adapter, item);
             $("#data-input-behavior").find(":jqmData(role=main)").trigger("create");
         });
-    };
-    
+    }
+    ;
+
     function showBehaviorInputRatingView()
     {
         hash = "data-input-behavior";
@@ -399,7 +446,8 @@
             currentView = new BehaviorRatingView(adapter, item);
             //$("#data-input-behavior-rating").find(":jqmData(role=main)").trigger("create");
         });
-    };
+    }
+    ;
     function showTrainingContent(urlObj, options)
     {
         //Content Templates

@@ -272,7 +272,7 @@
                 <div>
                     <p>Wählen Sie unerwünschte Verhaltensweisen oder geben Sie selbst welche ein:</p>
                     <fieldset data-role="controlgroup" id="checkBoxContent">
-                        
+
                         <!-- TODO: invoke template -->
 
                     </fieldset>
@@ -289,31 +289,31 @@
                 </div>
             </div>
         </div>
-        
+
         <script id="checkbox-tpl" type="text/x-handlebars-template">
             {{#each items}}
             <div>
-                <input type="checkbox" name="checkbox{{inc @index}}" id="checkbox{{inc @index}}" class="customListSeparator" />
-                <label for="checkbox{{inc @index}}">{{name}}</label>
+            <input type="checkbox" name="checkbox{{inc @index}}" id="checkbox{{inc @index}}" class="customListSeparator" />
+            <label for="checkbox{{inc @index}}">{{name}}</label>
             </div>
             {{/each}}
-            
+
             <div>
-                <input type="checkbox" name="checkboxCustom1" id="checkboxCustom1" class="customCheckbox" />
-                <label for="checkboxCustom1"><textarea id="checkboxCustom1Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
+            <input type="checkbox" name="checkboxCustom1" id="checkboxCustom1" class="customCheckbox" />
+            <label for="checkboxCustom1"><textarea id="checkboxCustom1Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
             </div>
 
             <div>
-                <input type="checkbox" name="checkboxCustom2" id="checkboxCustom2" class="customCheckbox" />
-                <label for="checkboxCustom2"><textarea  id="checkboxCustom2Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
+            <input type="checkbox" name="checkboxCustom2" id="checkboxCustom2" class="customCheckbox" />
+            <label for="checkboxCustom2"><textarea  id="checkboxCustom2Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
             </div>
 
             <div>
-                <input type="checkbox" name="checkboxCustom3" id="checkboxCustom3" class="customCheckbox" />
-                <label for="checkboxCustom3"><textarea  id="checkboxCustom3Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
+            <input type="checkbox" name="checkboxCustom3" id="checkboxCustom3" class="customCheckbox" />
+            <label for="checkboxCustom3"><textarea  id="checkboxCustom3Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
             </div>
         </script>
-        
+
         <!-- Data Input Behavior Rating Page -->
         <div data-role="page" id="data-input-behavior-rating" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed">
@@ -325,10 +325,10 @@
                     <p>Bitte bewerten Sie, wie schwerwiegend das Problemverhalten Ihres Kindes diese Woche war:<p>
                     <h3 id="behaviorProblem"></h3>
                     <fieldset data-role="controlgroup">
-                        
+
                         <input name="slider" id="slider" data-theme="d" min="1" max="10" data-highlight="true" value="5" type="range">
                         <label for="slider" class="full-height-wrapper-content"><b>1 bedeutet sehr schlechtes Verhalten, 5 teils teils, 10 viel besser</b></label>
-                        
+
                     </fieldset>
                 </div>
             </div>
@@ -343,7 +343,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Daily Tasks Intro Page -->
         <div data-role="page" id="daily-tasks-input-intro" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed">
@@ -368,7 +368,7 @@
 
             </div>
         </div>
-        
+
         <!-- Daily Tasks Input Page -->
         <div data-role="page" id="daily-tasks-input" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed">
@@ -379,7 +379,7 @@
                 <div>
                     <p>Wählen Sie jetzt, wie sich ihr Kind beteiligt oder beteiligen könnte:</p>
                     <fieldset data-role="controlgroup" id="dailyTasksContent">
-                        
+
                         <!-- TODO: invoke template -->
 
                     </fieldset>
@@ -396,61 +396,36 @@
                 </div>
             </div>
         </div>
-        
+
         <script id="daily-tasks-tpl" type="text/x-handlebars-template">
             {{#each items}}
             <div>
-                <input type="checkbox" name="checkbox{{inc @index}}" id="checkbox{{inc @index}}" class="customListSeparator" />
-                <label for="checkbox{{inc @index}}">{{name}}</label>
+            <input type="checkbox" name="checkbox{{inc @index}}" id="checkbox{{inc @index}}" class="customListSeparator" />
+            <label for="checkbox{{inc @index}}">{{name}}</label>
             </div>
             {{/each}}
-            
+
             <div>
-                <input type="checkbox" name="checkboxCustom1" id="checkboxCustom1" class="customCheckbox" />
-                <label for="checkboxCustom1"><textarea id="checkboxCustom1Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
+            <input type="checkbox" name="checkboxCustom1" id="checkboxCustom1" class="customCheckbox" />
+            <label for="checkboxCustom1"><textarea id="checkboxCustom1Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
             </div>
 
             <div>
-                <input type="checkbox" name="checkboxCustom2" id="checkboxCustom2" class="customCheckbox" />
-                <label for="checkboxCustom2"><textarea  id="checkboxCustom2Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
+            <input type="checkbox" name="checkboxCustom2" id="checkboxCustom2" class="customCheckbox" />
+            <label for="checkboxCustom2"><textarea  id="checkboxCustom2Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
             </div>
 
             <div>
-                <input type="checkbox" name="checkboxCustom3" id="checkboxCustom3" class="customCheckbox" />
-                <label for="checkboxCustom3"><textarea  id="checkboxCustom3Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
+            <input type="checkbox" name="checkboxCustom3" id="checkboxCustom3" class="customCheckbox" />
+            <label for="checkboxCustom3"><textarea  id="checkboxCustom3Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
             </div>
         </script>
-        
-        
+
+
         <!-- First Aid Bag Page -->
         <div data-role="page" id="first-aid-bag" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed">
                 <h1 style="text-overflow: string;">Erste Hilfe Koffer</h1>
-            </div>
-            <div data-role="main" class="ui-content">
-                
-                <div>
-                    <p>Im Laufe des Spiels werden Sie einen “Erste-Hilfe-Koffer“ an Strategien kennenlernen, um das Familienleben harmonischer zu gestalten.</p>
-
-                </div>
-            </div>
-            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
-                <div class="ui-grid-a">
-                    <div class="ui-block-a">
-                                  
-                    </div>
-                    <div class="ui-block-b">
-                        <a href="#main-menu" data-role="button" data-theme="b">Weiter</a>    
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        
-        <!-- Main Menu -->
-        <div data-role="page" id="main-menu" data-theme="c" data-content-theme="c">
-            <div data-role="header" data-position="fixed">
-                <h1 style="text-overflow: string;">Hauptmenü</h1>
             </div>
             <div data-role="main" class="ui-content">
                 <h2>Super!</h2>
@@ -463,16 +438,60 @@
             <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
-                                  
+
                     </div>
                     <div class="ui-block-b">
-                        <a href="#daily-tasks-input" data-role="button" data-theme="b">Weiter</a>    
+                        <a href="#main-menu" data-role="button" data-theme="b">Weiter</a>    
                     </div>
                 </div>
 
             </div>
         </div>
-        
+
+        <!-- Main Menu -->
+        <div data-role="page" id="main-menu" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed">
+                <h1 style="text-overflow: string;">Hauptmenü</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <ul data-role="listview" data-inset="true">
+                    <li data-role="list-divider">Tägliche Eingaben</li>
+                    <li>
+                        <a href="#daily-inputs-intro">
+                            <img src="img/mixed/daily-input.png">
+                            <p><strong>Tägliche Eingaben:</strong></p>
+
+                            <p>Geben Sie die heutigen Fortschritte ein!</p>
+                        </a>
+                    </li>
+                </ul>
+                <ul data-role="listview" data-inset="true">
+                    <li data-role="list-divider">Training</li>
+                    <li>
+                        <a href="#training">
+                            <img src="img/mixed/reading.png">
+                            <p><strong>Ihr Trainingsfortschritt:</strong></p>
+                            <div id="progressbarMain"><span id="progressLabelMain" class="progress-label center">Fortschritt</span></div>
+                            <p></p>
+                            <p>Üben und verbessern Sie sich jetzt!</p>
+                        </a>
+                    </li>
+                </ul>
+                <ul data-role="listview" data-inset="true">
+                    <li data-role="list-divider">Statistiken</li>
+                    <li>
+                        <a href="#training">
+                            <img src="img/mixed/statistics.png">
+                            <p><strong>Ihre Statistiken:</strong></p>
+
+                            <p>Sehen Sie Ihre Verbesserung</p>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>  
+        </div>
+
 
         <!-- Training Content Page -->
         <div data-role="page" id="train-content" data-theme="c" data-content-theme="c">
@@ -575,14 +594,14 @@
 
         <div data-role="page" id="training"  data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed" data-tap-toggle="false">
-                <a href="#training"><img src="img/home.svg">
+                <a href="#main-menu"><img src="img/home.svg">
                 </a>
                 <h1>Training</h1>
             </div>
 
 
             <div data-role="main" class="ui-content">
-                <div id="progressbar"><span class="progress-label center">Fortschritt</span></div>
+                <div id="progressbar"><span id="progressLabel" class="progress-label center">Fortschritt</span></div>
                 <div id="training-list"> 
                     <ul data-role="listview" data-inset="true" id="training-listview"></ul>
                 </div>
@@ -604,7 +623,7 @@
         <script src="cordova.js"></script>
         <script src="js/vendor/fastclick.js"></script>
         <script src="js/vendor/handlebars.js"></script>
-        
+
         <!-- jQuery -->
         <script src="js/vendor/jquery.js"></script>
         <script src="js/jquery.mobile.init.js"></script>
@@ -624,9 +643,9 @@
         <script src="js/vendor/testflight.js"></script>
         <script src="js/vendor/PushNotification.js"></script>
         <script src="js/adapters/localstorage-adapter.js"></script>
-        
+
         <script src="js/vendor/purl.js"></script>
-        
+
         <script src="js/TrainingContentView.js"></script>
         <script src="js/TrainingView.js"></script>
         <script src="js/BehaviorInputView.js"></script>

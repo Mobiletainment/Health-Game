@@ -12,7 +12,7 @@ var TrainingView = function(adapter, item)
 	// Enhance the listview we just injected.
 	//$('#training-list').find( ":jqmData(role=listview)" ).listview();
 
-	var progressLabel = $(".progress-label");
+	var progressLabel = $("#progressLabel");
 	var progressbar = $("#progressbar");
 
 	progressbar.progressbar({
@@ -35,8 +35,11 @@ var TrainingView = function(adapter, item)
 		$(selector).css({'background': 'Orange'});
 	    } else if (value < 50) {
 		$(selector).css({'background': 'Yellow'});
-	    } else {
-		$(selector).css({'background': 'LightGreen'});
+            } else if (value < 80) {
+                $(subSelector).css({'background': 'LightGreen'});
+            } 
+            else {
+                $(subSelector).css({'background': '#33CC00'});
 	    }
 	});
 
@@ -90,7 +93,7 @@ var TrainingView = function(adapter, item)
 		}).always(function() {
 		    $.mobile.loading("hide");
 		});
-	    }
+	    };
 
 	    loadTrainingProgress();
 

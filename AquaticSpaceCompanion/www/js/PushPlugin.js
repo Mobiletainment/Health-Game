@@ -41,7 +41,6 @@
 
     function setDeviceToken(token)
     {
-	alert("Got device token: " + token);
 	$.cookie("deviceToken", token, {expires: 20 * 365, path: '/'});
 	window.deviceToken = $.cookie("deviceToken");
     }
@@ -145,7 +144,6 @@
 
     function tokenHandler(result) //Got iOS Token
     {
-	alert("Got token: " + result);
 	setDeviceToken(result);
 	// Your iOS push server needs to know the token before it can push to this device
 	// here is where you might want to send it the token for later use
@@ -202,6 +200,7 @@
 	    }
 	    else
 	    {
+                console.log("Es ist ein Fehler beim Push-Plugin aufgetreten")
 		alert(data.debugInfo);
 	    }
 

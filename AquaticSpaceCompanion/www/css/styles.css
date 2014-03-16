@@ -24,9 +24,18 @@ div.ui-btn-active
     top: 10px;
 }
 
-
 .ui-progressbar {
     position: relative;
+}
+
+#progressbarMain
+{
+    margin-right: 20px;
+    margin-bottom: 4px;
+}
+
+#progressLabelMain {
+    font-size: 0.6em;
 }
 
 .progress-label {
