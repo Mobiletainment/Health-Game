@@ -1,40 +1,30 @@
+var dailyTasksContentTpl = Handlebars.compile($("#daily-tasks-tpl").html());
+
 var DailyTasksInputView = function(adapter, data)
 {
-
-    var page = 0;
-    var dict = {};
+    var dict;
     var that = this;
-
-    var behaviors = [];
-
-
-    this.setupContent = function()
-    {
-        var url = $.url().attr("anchor");
-        behaviors = [$.url(url).param("q1"), $.url(url).param("q2"), $.url(url).param("q3")];
-
-/*
-        //$("#behaviorProblem").text(behaviors[page]);
-        $("#pageIndexBehavior").text(page + 1);
-        if (page > 0)
-            $("#slider").val(5).slider("refresh");
-            */
-    };
-
-
+    
     this.initialize = function()
     {
+        var container = "#dailyTasksContent";
 
-        $("#behaviorInputBack").click(function()
+        $(container).html(dailyTasksContentTpl(data));
+
+        $(container).find(".customCheckbox").bind("change", function(event, ui)
         {
-            if (page === 0)
-            {
-                window.history.back();
-            }
+            if (this.checked)
+                $(this).next().find("textArea").removeClass('ui-body-c').addClass('ui-body-d');
             else
+                $(this).next().find("textArea").removeClass('ui-body-d').addClass('ui-body-c');
+        });
+
+
+        $(container).find("textarea").blur(function()
+        {
+            if (!$.trim($(this).val()))
             {
-                --page;
-                that.setupContent();
+                $(this).parentsUntil(".ui-checkbox").prev().prop("checked", false).checkboxradio("refresh");
             }
         });
 
@@ -49,15 +39,15 @@ var DailyTasksInputView = function(adapter, data)
             $.getJSON("http://tnix.eu/~aspace/SaveData.php",
                     {
                         username: window.username,
-                        action: "SaveBehaviorData",
+                        action: "SaveDailyTasksData",
                         data: dict
                     },
             function(data)
             {
                 console.log("Server responded");
                 var currentPage = window.location.href.split('#')[0];
-                $.fn.dpToast('Bewertungen gespeichert', 4000);
-                window.location.href = currentPage + "#daily-tasks-input-intro";
+                window.location.href = currentPage + "#first-aid-bag";
+                $.fn.dpToast('Aufgaben gespeichert', 4000);
 
             }).fail(function()
             {
@@ -67,25 +57,57 @@ var DailyTasksInputView = function(adapter, data)
             });
         }
 
-        $("#sendBehaviorRatingInput").click(function()
+        //Click
+        $("#daily-tasks-input").find("#sendDailyTasks").click(function()
         {
-            page++;
-            if (page === 3)
+            dict = new Array();
+            var totalChecks = 0;
+            //TODO: very database-bound structure, declouping needed
+
+            //gather the values of the standard checkboxes
+           
+            //gather the values of the custom checkboxes
+           
+
+            //Custom Check Boxes
+            var index = 1;
+            $(container).find("textarea").each(function()
             {
-                saveData();
+                var textArea = $(this);
+
+                if ($(this).parentsUntil(".ui-checkbox").prev().prop("checked") === true)
+                {
+                    dict.push(textArea.val());
+                    totalChecks++;
+                }
+
+                index++;
+            });
+
+
+            $(container).find('.customListSeparator').each(function()
+            {
+                if (this.checked)
+                {
+                    totalChecks++;
+                    dict.push($(this).next().find(".ui-btn-text").text());
+                }
+
+            });
+
+            if (totalChecks < 1)
+            {
+                alert("Bitte wählen Sie zumindest eine Aufgabe aus");
+            }
+            else if (totalChecks > 10)
+            {
+                alert("Bitte wählen Sie nicht mehr als 10 Aufgaben aus");
             }
             else
             {
-                dict[behaviors[page]] = $("#slider").val();
-                that.setupContent();
+                saveData();
             }
-
-
-            return false;
-
         });
-
-
         return this;
     };
 

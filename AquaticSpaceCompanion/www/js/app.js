@@ -111,11 +111,6 @@
                 console.log("We'd like to navigate to training");
                 showTrainingOverview();
             }
-            else if (u.hash.search(/^#data-input-behavior-rating/) !== -1)
-            {
-                console.log("We'd like to navigate to behavior input rating");
-                //showBehaviorInputRatingView();
-            }
             else if (u.hash.search(/^#daily-tasks-input/) !== -1)
             {
                 
@@ -128,14 +123,16 @@
     });
     
     // Start: Daily Tasks Input
-    $( "#data-input-behavior-rating" ).on( "pagebeforecreate", function( event )
+    $( "#daily-tasks-input" ).on( "pagebeforecreate", function( event )
     {
-       showDailyTasksInputView();
-    });
-    
-    $( "#data-input-behavior-rating" ).on( "pagebeforeshow", function( event )
-    {
-        currentView.setupContent();
+       hash = "daily-tasks-input";
+        console.log("Redirecting to Daily Tasks Input");
+        adapter.findById(hash).done(function(item)
+        {
+            console.log("Daily Tasks Input Items found: " + item);
+            currentView = new DailyTasksInputView(adapter, item);
+            //$("#data-input-behavior-rating").find(":jqmData(role=main)").trigger("create");
+        });
     });
     // End: Daily Tasks Input
     
@@ -156,7 +153,7 @@
     
     $( "#data-input-behavior" ).on( "pagebeforecreate", function( event )
     {
-        alert( "This page was just inserted into the dom!" );
+        //alert( "This page was just inserted into the dom!" );
         showBehaviorInputView();
     });
 
@@ -403,19 +400,6 @@
             //$("#data-input-behavior-rating").find(":jqmData(role=main)").trigger("create");
         });
     };
-    
-    function showDailyTasksInputView()
-    {
-        hash = "daily-tasks-input";
-        console.log("Redirecting to Daily Tasks Input");
-        adapter.findById(hash).done(function(item)
-        {
-            console.log("Daily Tasks Input Items found: " + item);
-            currentView = new DailyTasksInputView(adapter, item);
-            //$("#data-input-behavior-rating").find(":jqmData(role=main)").trigger("create");
-        });
-    };
-
     function showTrainingContent(urlObj, options)
     {
         //Content Templates

@@ -28,10 +28,12 @@ var BehaviorRatingView = function(adapter, data)
         {
             if (page === 0)
             {
+                dict = {};
                 window.history.back();
             }
             else
             {
+                //delete dict[behaviors[page]];
                 --page;
                 that.setupContent();
             }
@@ -55,8 +57,8 @@ var BehaviorRatingView = function(adapter, data)
             {
                 console.log("Server responded");
                 var currentPage = window.location.href.split('#')[0];
-                $.fn.dpToast('Bewertungen gespeichert', 4000);
                 window.location.href = currentPage + "#daily-tasks-input-intro";
+                $.fn.dpToast('Bewertungen gespeichert', 4000);
 
             }).fail(function()
             {
