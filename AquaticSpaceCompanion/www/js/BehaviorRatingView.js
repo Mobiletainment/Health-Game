@@ -2,19 +2,18 @@ var BehaviorRatingView = function(adapter, data)
 {
 
     var page = 0;
-    var dict = {};
     var that = this;
-
-    var behaviors = [];
-
+    var data = {};
 
     this.setupContent = function()
     {
-        var url = $.url().attr("anchor");
-        behaviors = [$.url(url).param("q1"), $.url(url).param("q2"), $.url(url).param("q3")];
+        alert("setting up rating content");
+        alert(window.dict["q1"]);
 
+        var stringPage = page+1;
+        alert("StringÜ:" + stringPage),
 
-        $("#behaviorProblem").text(behaviors[page]);
+        $("#behaviorProblem").text(window.dict["q" + stringPage]);
         $("#pageIndexBehavior").text(page + 1);
         if (page > 0)
             $("#slider").val(5).slider("refresh");
@@ -28,7 +27,7 @@ var BehaviorRatingView = function(adapter, data)
         {
             if (page === 0)
             {
-                dict = {};
+                window.dict = {};
                 window.history.back();
             }
             else
@@ -51,14 +50,15 @@ var BehaviorRatingView = function(adapter, data)
                     {
                         username: window.username,
                         action: "SaveBehaviorData",
-                        data: dict
+                        data: data
                     },
             function(data)
             {
-                console.log("Server responded");
+                console.log("Server responded: "+ data.debugInfo);
                 var currentPage = window.location.href.split('#')[0];
-                window.location.href = currentPage + "#daily-tasks-input-intro";
                 $.fn.dpToast('Bewertungen gespeichert', 4000);
+                window.location.href = currentPage + "#daily-tasks-input-intro";
+                
 
             }).fail(function()
             {
@@ -71,13 +71,14 @@ var BehaviorRatingView = function(adapter, data)
         $("#sendBehaviorRatingInput").click(function()
         {
             page++;
+            data[window.dict["q" + page]] = $("#slider").val();
             if (page === 3)
             {
                 saveData();
             }
             else
             {
-                dict[behaviors[page]] = $("#slider").val();
+                
                 that.setupContent();
             }
 

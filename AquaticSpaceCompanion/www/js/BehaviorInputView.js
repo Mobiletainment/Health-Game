@@ -39,7 +39,8 @@ var BehaviorInputView = function(adapter, data)
 		{
 		    checkboxFeedback += "true,";
 		    totalChecks++;
-		    attributes += "q" + totalChecks + "=" + $(this).next().find(".ui-btn-text").text() + "&";
+		    //attributes += "q" + totalChecks + "=" + $(this).next().find(".ui-btn-text").text() + "&";
+                    window.dict["q" + totalChecks] = $(this).next().find(".ui-btn-text").text();
 		}
 		else
 		{
@@ -68,7 +69,8 @@ var BehaviorInputView = function(adapter, data)
 		    customFeedbackColumns += "customFeedback" + index + ",";
 		    customFeedbackValues += "'" + $(this).val() + "',";
 		    totalChecks++;
-                    attributes += "q" + totalChecks + "=" + textArea.val() + "&";
+                    //attributes += "q" + totalChecks + "=" + textArea.val() + "&";
+                    window.dict["q" + totalChecks] = textArea.val();
 		}
 
 		index++;
@@ -90,8 +92,11 @@ var BehaviorInputView = function(adapter, data)
                     attributes = attributes.substring(0, attributes.length - 1);
 
 		alert("redirecting to rating page");
-		window.location.hash = "#data-input-behavior-rating?p=1&" + attributes;
+		window.location.hash = "#data-input-behavior-rating?p=0";
+                
 	    }
+            
+            return false;
 	});
 	return this;
     };

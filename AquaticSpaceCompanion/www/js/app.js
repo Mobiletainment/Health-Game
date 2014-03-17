@@ -5,7 +5,8 @@
 
     window.customData = {data: "", referral: ""};
 
-    var currentView;
+    window.currentView;
+    window.dict = {};
 
     Handlebars.registerHelper("inc", function(value, options)
     {
@@ -111,10 +112,7 @@
                 console.log("We'd like to navigate to training");
                 showTrainingOverview();
             }
-            else if (u.hash.search(/^#daily-tasks-input/) !== -1)
-            {
-
-            }
+ 
 
 
 
@@ -177,7 +175,6 @@
         {
             console.log("Daily Tasks Input Items found: " + item);
             currentView = new DailyTasksInputView(adapter, item);
-            //$("#data-input-behavior-rating").find(":jqmData(role=main)").trigger("create");
         });
     });
     // End: Daily Tasks Input
@@ -185,12 +182,14 @@
     // Start: Data Input Behavior
     $("#data-input-behavior-rating").on("pagebeforecreate", function(event)
     {
+        alert("Creating Rating page");
         showBehaviorInputRatingView();
     });
 
     $("#data-input-behavior-rating").on("pagebeforeshow", function(event)
     {
-        currentView.setupContent();
+        alert("showing Rating page");
+        window.currentView.setupContent();
     });
     // End: Data Input Behavior
 
@@ -443,7 +442,7 @@
         adapter.findById(hash).done(function(item)
         {
             console.log("Behavior Input Items found: " + item);
-            currentView = new BehaviorRatingView(adapter, item);
+            window.currentView = new BehaviorRatingView(adapter, item);
             //$("#data-input-behavior-rating").find(":jqmData(role=main)").trigger("create");
         });
     }
