@@ -7,12 +7,8 @@ var BehaviorRatingView = function(adapter, data)
 
     this.setupContent = function()
     {
-        alert("setting up rating content");
-        alert(window.dict["q1"]);
-
         var stringPage = page+1;
-        alert("StringÜ:" + stringPage),
-
+        
         $("#behaviorProblem").text(window.dict["q" + stringPage]);
         $("#pageIndexBehavior").text(page + 1);
         if (page > 0)

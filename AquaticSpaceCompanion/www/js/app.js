@@ -112,12 +112,7 @@
                 console.log("We'd like to navigate to training");
                 showTrainingOverview();
             }
- 
-
-
-
         }
-
     });
 
     // Start: Main Menu
@@ -165,6 +160,20 @@
         
     });
     // End: Main Menu
+    
+    // Start: Daily Inputs: Tasks
+    $("#daily-inputs-tasks").on("pagebeforecreate", function(event)
+    {
+        hash = "daily-inputs-tasks";
+        window.currentView = new DailyInputsTasksView();
+    });
+    
+    $("#daily-inputs-tasks").on("pagebeforeshow", function(event)
+    {
+        window.currentView.loadData();
+    });
+    // END: Daily Inputs: Taks
+    
 
     // Start: Daily Tasks Input
     $("#daily-tasks-input").on("pagebeforecreate", function(event)
@@ -174,9 +183,10 @@
         adapter.findById(hash).done(function(item)
         {
             console.log("Daily Tasks Input Items found: " + item);
-            currentView = new DailyTasksInputView(adapter, item);
+            window.currentView = new DailyTasksInputView(adapter, item);
         });
     });
+    
     // End: Daily Tasks Input
 
     // Start: Data Input Behavior

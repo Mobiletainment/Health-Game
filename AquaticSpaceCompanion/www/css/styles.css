@@ -8,6 +8,11 @@ and open the template in the editor.
     Author     : dp
 */
 
+.ui-header .ui-title {
+    margin-right: 10%;
+    margin-left: 10%;
+}
+
 div.ui-slider-track
 {
     background-image: -webkit-gradient(linear,left top,right bottom,from(#BA2828),to(#00FF2F)) !important;

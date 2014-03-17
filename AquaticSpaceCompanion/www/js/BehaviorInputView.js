@@ -25,8 +25,7 @@ var BehaviorInputView = function(adapter, data)
 
 	$("#data-input-behavior").find("#sendBehaviorInput").click(function()
 	{
-            alert("Behavior Input send clicked");
-	    var totalChecks = 0;
+            var totalChecks = 0;
 	    //TODO: very database-bound structure, declouping needed
 
 	    //gather the values of the standard checkboxes
@@ -91,7 +90,6 @@ var BehaviorInputView = function(adapter, data)
                 if (attributes.length > 0)
                     attributes = attributes.substring(0, attributes.length - 1);
 
-		alert("redirecting to rating page");
 		window.location.hash = "#data-input-behavior-rating?p=0";
                 
 	    }

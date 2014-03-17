@@ -450,14 +450,15 @@
                 <h1 style="text-overflow: string;">Hauptmenü</h1>
             </div>
             <div data-role="main" class="ui-content">
+                <h3>Bitte wählen Sie eine Aktion aus:</h3>
                 <ul data-role="listview" data-inset="true">
                     <li data-role="list-divider">Tägliche Eingaben</li>
                     <li>
-                        <a href="#daily-inputs-intro">
+                        <a href="#daily-inputs-menu">
                             <img src="img/mixed/daily-input.png">
                             <p><strong>Tägliche Eingaben:</strong></p>
 
-                            <p>Geben Sie die heutigen Fortschritte ein!</p>
+                            <p>Geben Sie die heutigen Fortschritte ein</p>
                         </a>
                     </li>
                 </ul>
@@ -469,24 +470,107 @@
                             <p><strong>Ihr Trainings-Fortschritt:</strong></p>
                             <div id="progressbarMain"><span id="progressLabelMain" class="progress-label center">Fortschritt</span></div>
                             <p></p>
-                            <p>Üben und verbessern Sie sich jetzt!</p>
+                            <p>Üben und verbessern Sie sich</p>
                         </a>
                     </li>
                 </ul>
                 <ul data-role="listview" data-inset="true">
                     <li data-role="list-divider">Statistiken</li>
                     <li>
-                        <a href="#training">
+                        <a href="#">
                             <img src="img/mixed/statistics.png">
                             <p><strong>Ihre Statistiken:</strong></p>
-
-                            <p>Sehen Sie Ihre Verbesserung</p>
+                            <p>Informieren Sie sich über den Fortschritt</p>
                         </a>
                     </li>
 
                 </ul>
             </div>  
         </div>
+
+        <!-- Daily Inputs -->
+        <div data-role="page" id="daily-inputs-menu" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed">
+                <a href="#main-menu"><img src="img/home.svg"></a>
+                <h1 style="text-overflow: string;">Tägliche Eingaben</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <div>
+                    <p>Um den Fortschritt und die Auswirkungen des Programms nachvollziehen zu können, gibt es kurze tägliche Eingaben, die von Ihnen <strong>jeden Abend ausgefüllt werden sollen</strong>:</p>
+                    <ul data-role="listview" data-inset="true">
+                        <li>
+                            <a href="#daily-inputs-tasks">
+                                <p><strong>Tägliche Aufgaben</strong></p>
+                                <p>Bitte geben Sie an, welche der ausgewählten täglichen Aufgaben ihr Kind erledigt hat.</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul data-role="listview" data-inset="true">
+                        <li>
+                            <a href="#daily-inputs-benchmark">
+                                <p><strong>Verhaltensmaßstab</strong></p>
+                                <p>Bitte bewerten Sie das Verhalten ihres Kindes am heutigen Tag.</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul data-role="listview" data-inset="true">
+                        <li>
+                            <a href="#daily-inputs-selfcontrol">
+                                <p><strong>Selbst-Kontrolle</strong></p>
+                                <p>Bitten geben Sie an, wie oft Sie die Strategien umgesetzt haben</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#main-menu" data-role="button" data-theme="b">Weiter</a>    
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Daily Inputs Tasks Page -->
+        <div data-role="page" id="daily-inputs-tasks" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed">
+                <h1 style="text-overflow: string;">Tägliche Eingaben</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h2>Tägliche Aufgaben</h2>
+                <div>
+                    <p>Bitte wählen Sie jetzt aus, welche der Aufgaben Ihr Kind heute erledigt hat und belohnen Sie es, um das positive Verhalten aufrecht zu erhalten:</p>
+                    <fieldset data-role="controlgroup" id="dailyInputsTasksContent">
+
+                        <!-- TODO: invoke template -->
+
+                    </fieldset>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a data-role="button" data-theme="b" onclick="window.history.back();" data-direction="reverse">Zurück</a>                
+                    </div>
+                    <div class="ui-block-b">
+                        <button id="sendDailyInputsTasks" data-role="button" data-theme="b">Weiter</button>   
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script id="daily-inputs-tasks-tpl" type="text/x-handlebars-template">
+            {{#each .}}
+            <div>
+            <input type="checkbox" name="checkbox{{inc @index}}" id="checkbox{{inc @index}}" class="customListSeparator" />
+            <label for="checkbox{{inc @index}}">{{this}}</label>
+            </div>
+            {{/each}}
+        </script>
 
 
         <!-- Training Content Page -->
@@ -640,13 +724,13 @@
         <script src="js/vendor/PushNotification.js"></script>
         <script src="js/adapters/localstorage-adapter.js"></script>
 
-        <script src="js/vendor/jquery.ba-bbq.min.js"></script>
 
         <script src="js/TrainingContentView.js"></script>
         <script src="js/TrainingView.js"></script>
         <script src="js/BehaviorInputView.js"></script>
         <script src="js/BehaviorRatingView.js"></script>
         <script src="js/DailyTasksInputView.js"></script>
+        <script src="js/DailyInputsTasksView.js"></script>
         <script src="js/vendor/jquery-handlebars.js"></script>
         <script src="js/app.js"></script>
         <script src="js/PushPlugin.js"></script>
