@@ -204,6 +204,44 @@
     // End: Data Input Behavior
 
 
+    // Start: Daily Inputs: Benchmark
+    $("#daily-inputs-benchmark").on("pagebeforecreate", function(event)
+    {
+        function saveData()
+        {
+            var func = this;
+
+            $.mobile.loading('show', {
+                text: 'Bewertung wird gespeichert...'
+            });
+
+            $.getJSON("http://tnix.eu/~aspace/SaveData.php",
+                    {
+                        username: window.username,
+                        action: "SaveInputBenchmarkData",
+                        data: $("#daily-inputs-benchmark").find("#sliderBenchmark").val()
+                    },
+            function(data)
+            {
+                console.log("Server responded: " + data.returnCode + "; " + data.returnMessage);
+                var currentPage = window.location.href.split('#')[0];
+                window.location.href = currentPage + "#daily-inputs-menu";
+                $.fn.dpToast('Erledigte Aufgaben gespeichert', 4000);
+
+            }).fail(function()
+            {
+                alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", func);
+            }).always(function() {
+                $.mobile.loading("hide");
+            });
+        }
+
+        //Click
+        $("#daily-inputs-benchmark").find("#sendDailyInputsBenchmark").click(function()
+        {
+            saveData();
+        });
+    });
 
 
     $("#data-input-behavior").on("pagebeforecreate", function(event)
