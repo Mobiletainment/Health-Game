@@ -46,6 +46,7 @@ public class MoveOnTrack : MonoBehaviour
 	private int _splineIndex = 0;
 	private int _indexPart = 0;
 	private bool _stopMovement = false;
+	private bool _enablePause = false;
 
 	private float _curSpeed = 0.0f;
 
@@ -173,33 +174,37 @@ public class MoveOnTrack : MonoBehaviour
 		// ---- INPUT START ----
 		bool leftInput = false;
 		bool rightInput = false;
-// Input for Editor or Win / Linux / Mac:
-#		if UNITY_EDITOR || UNITY_STANDALONE
-		if(Input.GetKey(KeyCode.A))
-		{
-			leftInput = true;
-		}
-		else if(Input.GetKey(KeyCode.D))
-		{
-			rightInput = true;
-		}
-// Input for mobile devices:
-#		elif MOBILE
-		if(Input.GetMouseButton(0))
-		{
-			float touchPos = Input.mousePosition.x;
 
-			if(touchPos < Screen.width * 0.5f)
+		// No input during pause: (Else, it would move e.g. one right after pressing play again...)
+		if(_enablePause == false)
+		{
+// Input for Editor or Win / Linux / Mac:
+#			if UNITY_EDITOR || UNITY_STANDALONE
+			if(Input.GetKey(KeyCode.A))
 			{
 				leftInput = true;
 			}
-			else
+			else if(Input.GetKey(KeyCode.D))
 			{
 				rightInput = true;
 			}
-		}
-#		endif
+// Input for mobile devices:
+#			elif MOBILE
+			if(Input.GetMouseButton(0))
+			{
+				float touchPos = Input.mousePosition.x;
 
+				if(touchPos < Screen.width * 0.5f)
+				{
+					leftInput = true;
+				}
+				else
+				{
+					rightInput = true;
+				}
+			}
+#			endif
+		}
 
 		if (_switchSpline==_spline)
 		if(leftInput == true)
@@ -224,7 +229,7 @@ public class MoveOnTrack : MonoBehaviour
 		}
 		// ---- INPUT END ----
 
-		if(_stopMovement == false) // Did not yet reach the end of spline...
+		if(_stopMovement == false && _enablePause == false) // Did not yet reach the end of spline and does not want a pause...
 		{
 			if(_curSpeed == 0.0f)
 			{
@@ -280,7 +285,12 @@ public class MoveOnTrack : MonoBehaviour
 				_moveObject.position = _nextPos;
 			}
 		}
-		else
+		else if(_enablePause == true)
+		{
+			// Currently nothing to do here...
+			// TODO: Maybe I have to fade something out, etc. during the pause... And should not forget to fade it back in afterwards :P
+		}
+		else // End of spline was reached.
 		{
 			// Rotate Camera slowly in the Background...
 			_camMover.Rotate(Vector3.up * 10 * Time.deltaTime);
@@ -556,5 +566,10 @@ public class MoveOnTrack : MonoBehaviour
 		_stopMovement = true;
 
 		_finalPointsDisplay.ShowFinalPoints(_levelInfo, _skillManager);
+	}
+
+	public void TriggerPause(bool enable)
+	{
+		_enablePause = enable;
 	}
 }
