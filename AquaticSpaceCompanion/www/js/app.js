@@ -110,7 +110,7 @@
             else if (u.hash.search(/^#training$/) !== -1)
             {
                 console.log("We'd like to navigate to training");
-                showTrainingOverview();
+                //showTrainingOverview();
             }
         }
     });
@@ -118,6 +118,8 @@
     // Start: Main Menu
     $("#main-menu").on("pagebeforecreate", function(event)
     {
+        showTrainingOverview();
+
         var progressLabel = $("#progressLabelMain");
         var selector = "#progressbarMain";
         var progressbar = $(selector);
@@ -130,7 +132,7 @@
                 progressLabel.text("Fortschritt: " + value + "%");
             }
         });
-        
+
         progressbar.height("20");
 
 
@@ -145,35 +147,35 @@
                 $(subSelector).css({'background': 'Yellow'});
             } else if (value < 80) {
                 $(subSelector).css({'background': 'LightGreen'});
-            } 
+            }
             else {
                 $(subSelector).css({'background': '#33CC00'});
             }
         });
-        
+
         progressbar.progressbar("value", 80);
 
     });
-    
+
     $("#main-menu").on("pagebeforeshow", function(event)
     {
-        
+        loadTrainingProgress();
     });
     // End: Main Menu
-    
+
     // Start: Daily Inputs: Tasks
     $("#daily-inputs-tasks").on("pagebeforecreate", function(event)
     {
         hash = "daily-inputs-tasks";
         window.currentView = new DailyInputsTasksView();
     });
-    
+
     $("#daily-inputs-tasks").on("pagebeforeshow", function(event)
     {
         window.currentView.loadData();
     });
     // END: Daily Inputs: Taks
-    
+
 
     // Start: Daily Tasks Input
     $("#daily-tasks-input").on("pagebeforecreate", function(event)
@@ -186,19 +188,17 @@
             window.currentView = new DailyTasksInputView(adapter, item);
         });
     });
-    
+
     // End: Daily Tasks Input
 
     // Start: Data Input Behavior
     $("#data-input-behavior-rating").on("pagebeforecreate", function(event)
     {
-        alert("Creating Rating page");
         showBehaviorInputRatingView();
     });
 
     $("#data-input-behavior-rating").on("pagebeforeshow", function(event)
     {
-        alert("showing Rating page");
         window.currentView.setupContent();
     });
     // End: Data Input Behavior
@@ -225,7 +225,7 @@
                 },
                 function(data)
                 {
-                    console.log("Data for Timeout received: " + data.returnData);
+                    console.log("Data for Timeout received " + data.returnCode + ": " + data.returnData);
                     if (data.returnCode == 200)
                         $("#timeOutLocation").val(data.returnData);
 
@@ -245,7 +245,7 @@
             submitHandler: sendTimeOut
         });
 
-        $("#timeOutSaveAndEnd").click(function()
+        $("#timeout").find("#timeOutSaveAndEnd").click(function()
         {
             $("#sendTimeOut").trigger("click");
             return false;
@@ -519,11 +519,13 @@
                 },
         function(data)
         {
+            updateTrainingProgress(data);
 
             console.log("Server responded");
             //alert(data.returnData);
             //$.mobile.loading("hide");
             var currentPage = window.location.href.split('#')[0];
+
             window.location.href = currentPage + "#training";
         }
         ).fail(function()
@@ -533,6 +535,65 @@
             $.mobile.loading("hide");
         });
 
+    };
+
+    loadTrainingProgress = function()
+    {
+        console.log("this.loadTrainingProgress");
+        $.mobile.loading('show', {
+            text: 'Lade Fortschritt'
+        });
+
+        $.getJSON("http://tnix.eu/~aspace/TrainingProgress.php",
+                {
+                    username: window.username,
+                    action: "GetProgress"
+                },
+        function(data)
+        {
+            updateTrainingProgress(data);
+
+
+
+        }).fail(function()
+        {
+            alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", loadTrainingProgress);
+        }).always(function() {
+            $.mobile.loading("hide");
+        });
+    };
+
+    updateTrainingProgress = function(data)
+    {
+        console.log("Server responded");
+
+        var imgId = '#imgDone_';
+        var total = 0;
+        var completed = 0;
+
+        $.each(data.returnData, function(key, val)
+        {
+            ++total;
+
+            if (val === true)
+            {
+                ++completed;
+                $(imgId + key).attr("src", "img/checkbox_done.png");
+            }
+        });
+        console.log("Total: " + total);
+        console.log("Progressbar : " + $("#progressbar").progressbar("value"));
+
+        if (completed > 0 && total > 0)
+        {
+            $("#progressbar").progressbar('value', Math.round(completed * 100 / total));
+            $("#progressbarMain").progressbar('value', Math.round(completed * 100 / total));
+        }
+        else
+        {
+            $("#progressbar").progressbar('value', 0);
+            $("#progressbarMain").progressbar('value', 0);
+        }
     };
 
 

@@ -36,70 +36,14 @@ var TrainingView = function(adapter, item)
 	    } else if (value < 50) {
 		$(selector).css({'background': 'Yellow'});
             } else if (value < 80) {
-                $(subSelector).css({'background': 'LightGreen'});
+                $(selector).css({'background': 'LightGreen'});
             } 
             else {
-                $(subSelector).css({'background': '#33CC00'});
+                $(selector).css({'background': '#33CC00'});
 	    }
 	});
 
 	progressbar.progressbar("value", 0);
-
-
-	$(document).ready(function() //Load Training progress
-	{
-	    loadTrainingProgress = function()
-	    {
-		console.log("this.loadTrainingProgress");
-		$.mobile.loading('show', {
-		    text: 'Lade Fortschritt'
-		});
-
-		$.getJSON("http://tnix.eu/~aspace/TrainingProgress.php",
-			{
-			    username: window.username,
-			    action: "GetProgress"
-			},
-		function(data)
-		{
-		    console.log("Server responded");
-
-		    var imgId = '#imgDone_';
-		    var total = 0;
-		    var completed = 0;
-
-		    $.each(data.returnData, function(key, val)
-		    {
-			++total;
-
-			if (val === true)
-			{
-			    ++completed;
-			    $(imgId + key).attr("src", "img/checkbox_done.png");
-			}
-		    });
-		    console.log("Total: " + total);
-		    console.log("Progressbar : " + $("#progressbar").progressbar("value"));
-
-		    if (completed > 0 && total > 0)
-			$("#progressbar").progressbar('value', Math.round(completed * 100 / total));
-
-
-
-
-		}).fail(function()
-		{
-		    alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", loadTrainingProgress);
-		}).always(function() {
-		    $.mobile.loading("hide");
-		});
-	    };
-
-	    loadTrainingProgress();
-
-
-	}
-	);
 
     };
 

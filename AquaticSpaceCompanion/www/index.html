@@ -39,7 +39,7 @@
                 <h1>Aquatic Space!</h1>
                 <p><b>Diese App hilft Ihnen, unerwünschte Verhaltensweisen Ihres Kindes zu verstehen und einen besseren Umgang mit Ihrem Kind zu erreichen.</b></p>
                 <div>
-                    <a href="#welcome-1" data-role="button" data-theme="b" id="timeOutSaveAndEnd">Parental Training beginnen</a>
+                    <a href="#welcome-1" data-role="button" data-theme="b">Parental Training beginnen</a>
                 </div>
             </div>
         </div>
@@ -318,13 +318,16 @@
             <div data-role="main" class="ui-content">
                 <h2>Unerwünschte Verhaltensweisen (<span id="pageIndexBehavior"></span> von 3)</h2>
                 <div>
-                    <p>Bitte bewerten Sie, wie schwerwiegend das Problemverhalten Ihres Kindes diese Woche war:<p>
+                    <p>Bitte bewerten Sie, wie schwerwiegend das Problemverhalten Ihres Kindes diese Woche war, auf einer Skala von 1 (sehr schlecht) bis 10 (sehr gut):<p>
                     <h3 id="behaviorProblem"></h3>
                     <fieldset data-role="controlgroup">
 
                         <input name="slider" id="slider" data-theme="d" min="1" max="10" data-highlight="true" value="5" type="range">
-                        <label for="slider" class="full-height-wrapper-content"><b>1 bedeutet sehr schlechtes Verhalten, 5 teils teils, 10 viel besser</b></label>
-
+                        <label for="slider" class="full-height-wrapper-content"><b><div class="ui-grid-b">
+                                    <div class="ui-block-a">schlecht</div>
+                                    <div class="ui-block-b">teils teils</div>
+                                    <div class="ui-block-c">gut</div>
+                                </div></b></label>
                     </fieldset>
                 </div>
             </div>
@@ -571,6 +574,41 @@
             </div>
             {{/each}}
         </script>
+        
+        
+        <!-- Daily Inputs Benchmark Page -->
+        <div data-role="page" id="daily-inputs-benchmark" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed">
+                <h1 style="text-overflow: string;">Tägliche Eingaben</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h2>Verhaltensmaßstab</h2>
+                <div>
+                    <p>Bewerten Sie das Verhalten Ihres Kindes während des gesamten Tages auf einer Skala von 1 (sehr schlecht) bis 10 (sehr gut). Dadurch können Sie die Verbesserungen Ihres Kindes protokollieren und anylsieren.<p>
+                    <h3 id="behaviorProblem"></h3>
+                    <fieldset data-role="controlgroup">
+
+                        <input name="sliderBenchmark" id="sliderBenchmark" data-theme="d" min="1" max="10" data-highlight="true" value="5" type="range">
+                        <label for="sliderBenchmark" class="full-height-wrapper-content"><b><div class="ui-grid-b">
+                                    <div class="ui-block-a">schlecht</div>
+                                    <div class="ui-block-b">teils teils</div>
+                                    <div class="ui-block-c">gut</div>
+                                </div></b></label>
+
+                    </fieldset>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a data-role="button" data-theme="b" id="behaviorInputBack" data-direction="reverse">Zurück</a>                
+                    </div>
+                    <div class="ui-block-b">
+                        <button id="sendBehaviorRatingInput" data-role="button" data-theme="b">Weiter</button>   
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
         <!-- Training Content Page -->
