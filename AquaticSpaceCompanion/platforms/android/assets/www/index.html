@@ -15,6 +15,9 @@
         <link rel="stylesheet" href="css/jquery.mobile/jquery.mobile-1.3.1.css">
         <link rel="stylesheet" href="css/jquery.mobile/jquery.mobile.iscrollview.css">
 
+        <link rel="stylesheet" media="all" href="js/vendor/jquery.pnotify/jquery.pnotify.default.css">
+        <link rel="stylesheet" media="all" href="js/vendor/jquery.pnotify/jquery.pnotify.default.icons.css">
+
         <link href="css/styles.css" rel="stylesheet">
 
 
@@ -26,10 +29,6 @@
         <meta name="apple-mobile-web-app-title" content="">
         -->
 
-        <!-- This script prevents links from opening in Mobile Safari. https://gist.github.com/1042026 -->
-        <!--
-        <script>(function(a,b,c){if(c in b&&b[c]){var d,e=a.location,f=/^(a|html)$/i;a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)}})(document,window.navigator,"standalone")</script>
-        -->
 
     </head>
     <body>
@@ -43,7 +42,7 @@
                 <h1>Aquatic Space!</h1>
                 <p><b>Diese App hilft Ihnen, unerwünschte Verhaltensweisen Ihres Kindes zu verstehen und einen besseren Umgang mit Ihrem Kind zu erreichen.</b></p>
                 <div>
-                    <a href="#welcome-1" data-role="button" data-theme="b" id="timeOutSaveAndEnd">Parental Training beginnen</a>
+                    <a href="#welcome-1" data-role="button" data-theme="b">Parental Training beginnen</a>
                 </div>
             </div>
         </div>
@@ -270,9 +269,9 @@
             <div data-role="main" class="ui-content">
                 <h2>Unerwünschte Verhaltensweisen</h2>
                 <div>
-                    <p>Hier können Sie unerwünschte Verhaltensweisen auswählen oder selbst welche eingeben.</p>
-                    <fieldset data-role="controlgroup" >
-                        
+                    <p>Wählen Sie unerwünschte Verhaltensweisen oder geben Sie selbst welche ein:</p>
+                    <fieldset data-role="controlgroup" id="checkBoxContent">
+
                         <!-- TODO: invoke template -->
 
                     </fieldset>
@@ -284,35 +283,370 @@
                         <a data-role="button" data-theme="b" onclick="window.history.back();" data-direction="reverse">Zurück</a>                
                     </div>
                     <div class="ui-block-b">
-                        <button id="sendPersonDataButton" data-role="button" data-theme="b">Weiter</button>   
+                        <button id="sendBehaviorInput" data-role="button" data-theme="b">Weiter</button>   
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <script id="checkbox-tpl" type="text/x-handlebars-template">
             {{#each items}}
             <div>
-                <input type="checkbox" name="checkbox{{inc @index}}" id="checkbox{{inc @index}}" class="customListSeparator" />
-                <label for="checkbox{{inc @index}}">{{name}}</label>
+            <input type="checkbox" name="checkbox{{inc @index}}" id="checkbox{{inc @index}}" class="customListSeparator" />
+            <label for="checkbox{{inc @index}}">{{name}}</label>
             </div>
             {{/each}}
-            
+
             <div>
-                <input type="checkbox" name="checkboxCustom1" id="checkboxCustom1" class="customListSeparator" onchange="(this.checked) ? $('#checkboxCustom1Text').removeClass('ui-body-c').addClass('ui-body-d') : $('#checkboxCustom1Text').removeClass('ui-body-d').addClass('ui-body-c');" />
-                <label for="checkboxCustom1"><textarea  id="checkboxCustom1Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
+            <input type="checkbox" name="checkboxCustom1" id="checkboxCustom1" class="customCheckbox" />
+            <label for="checkboxCustom1"><textarea id="checkboxCustom1Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
             </div>
 
             <div>
-                <input type="checkbox" name="checkboxCustom2" id="checkboxCustom2" class="customListSeparator" onchange="(this.checked) ? $('#checkboxCustom2Text').removeClass('ui-body-c').addClass('ui-body-d') : $('#checkboxCustom2Text').removeClass('ui-body-d').addClass('ui-body-c');" />
-                <label for="checkboxCustom2"><textarea  id="checkboxCustom2Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
+            <input type="checkbox" name="checkboxCustom2" id="checkboxCustom2" class="customCheckbox" />
+            <label for="checkboxCustom2"><textarea  id="checkboxCustom2Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
             </div>
 
             <div>
-                <input type="checkbox" name="checkboxCustom3" id="checkboxCustom3" class="customListSeparator" onchange="(this.checked) ? $('#checkboxCustom3Text').removeClass('ui-body-c').addClass('ui-body-d') : $('#checkboxCustom3Text').removeClass('ui-body-d').addClass('ui-body-c');" />
-                <label for="checkboxCustom3"><textarea  id="checkboxCustom3Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
+            <input type="checkbox" name="checkboxCustom3" id="checkboxCustom3" class="customCheckbox" />
+            <label for="checkboxCustom3"><textarea  id="checkboxCustom3Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
             </div>
         </script>
+
+        <!-- Data Input Behavior Rating Page -->
+        <div data-role="page" id="data-input-behavior-rating" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed">
+                <h1 style="text-overflow: string;">Problemverhalten</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h2>Unerwünschte Verhaltensweisen (<span id="pageIndexBehavior"></span> von 3)</h2>
+                <div>
+                    <p>Bitte bewerten Sie, wie schwerwiegend das Problemverhalten Ihres Kindes diese Woche war, auf einer Skala von 1 (sehr schlecht) bis 10 (sehr gut):<p>
+                    <h3 id="behaviorProblem"></h3>
+                    <fieldset data-role="controlgroup">
+
+                        <input name="slider" id="slider" data-theme="d" min="1" max="10" data-highlight="true" value="5" type="range">
+                        <label for="slider" class="full-height-wrapper-content"><div class="ui-grid-b">
+                                <div class="ui-block-a"><b>schlecht</b></div>
+                                <div class="ui-block-b"><b>teils teils</b></div>
+                                <div class="ui-block-c"><b>gut</b></div>
+                            </div></label>
+                    </fieldset>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a data-role="button" data-theme="b" id="behaviorInputBack" data-direction="reverse">Zurück</a>                
+                    </div>
+                    <div class="ui-block-b">
+                        <button id="sendBehaviorRatingInput" data-role="button" data-theme="b">Weiter</button>   
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Daily Tasks Intro Page -->
+        <div data-role="page" id="daily-tasks-input-intro" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed">
+                <h1 style="text-overflow: string;">Tägliche Eingaben</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h2>Tägliche Aufgaben</h2>
+                <div>
+                    <p>Kinder sollten lernen kleine <b>tägliche Aufgaben</b> in der Familie zu übernehmen!</p>
+                    <p>Die täglichen Aufgaben sind eine gute Grundlage um die Strategien zu üben, die Sie im Laufe des Spiels kennen lernen werden.</p>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a data-role="button" data-theme="b" onclick="window.history.back();" data-direction="reverse">Zurück</a>                
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#daily-tasks-input" data-role="button" data-theme="b">Weiter</a>    
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Daily Tasks Input Page -->
+        <div data-role="page" id="daily-tasks-input" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed">
+                <h1 style="text-overflow: string;">Tägliche Eingaben</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h2>Tägliche Aufgaben</h2>
+                <div>
+                    <p>Wählen Sie jetzt, wie sich ihr Kind beteiligt oder beteiligen könnte:</p>
+                    <fieldset data-role="controlgroup" id="dailyTasksContent">
+
+                        <!-- TODO: invoke template -->
+
+                    </fieldset>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a data-role="button" data-theme="b" onclick="window.history.back();" data-direction="reverse">Zurück</a>                
+                    </div>
+                    <div class="ui-block-b">
+                        <button id="sendDailyTasks" data-role="button" data-theme="b">Weiter</button>   
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script id="daily-tasks-tpl" type="text/x-handlebars-template">
+            {{#each items}}
+            <div>
+            <input type="checkbox" name="checkbox{{inc @index}}" id="checkbox{{inc @index}}" class="customListSeparator" />
+            <label for="checkbox{{inc @index}}">{{name}}</label>
+            </div>
+            {{/each}}
+
+            <div>
+            <input type="checkbox" name="checkboxCustom1" id="checkboxCustom1" class="customCheckbox" />
+            <label for="checkboxCustom1"><textarea id="checkboxCustom1Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
+            </div>
+
+            <div>
+            <input type="checkbox" name="checkboxCustom2" id="checkboxCustom2" class="customCheckbox" />
+            <label for="checkboxCustom2"><textarea  id="checkboxCustom2Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
+            </div>
+
+            <div>
+            <input type="checkbox" name="checkboxCustom3" id="checkboxCustom3" class="customCheckbox" />
+            <label for="checkboxCustom3"><textarea  id="checkboxCustom3Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
+            </div>
+        </script>
+
+
+        <!-- First Aid Bag Page -->
+        <div data-role="page" id="first-aid-bag" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed">
+                <h1 style="text-overflow: string;">Erste Hilfe Koffer</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h2>Super!</h2>
+                <div>
+                    <p>Im Laufe des Spiels werden Sie einen “Erste-Hilfe-Koffer“ an Strategien kennenlernen, um das Familienleben harmonischer zu gestalten.</p>
+                    <p>Je mehr Sie die Strategien üben, desto erfolgreicher werden Sie.</p>
+                    <h3>Das Training kann nun beginnen!</h3>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#main-menu" data-role="button" data-theme="b">Weiter</a>    
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Main Menu -->
+        <div data-role="page" id="main-menu" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed">
+                <h1 style="text-overflow: string;">Hauptmenü</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h3>Bitte wählen Sie eine Aktion aus:</h3>
+                <ul data-role="listview" data-inset="true">
+                    <li data-role="list-divider">Tägliche Eingaben</li>
+                    <li>
+                        <a href="#daily-inputs-menu">
+                            <img src="img/mixed/daily-input.png">
+                            <p><strong>Tägliche Eingaben:</strong></p>
+
+                            <p>Geben Sie die heutigen Fortschritte ein</p>
+                        </a>
+                    </li>
+                </ul>
+                <ul data-role="listview" data-inset="true">
+                    <li data-role="list-divider">Training</li>
+                    <li>
+                        <a href="#training">
+                            <img src="img/mixed/reading.png">
+                            <p><strong>Ihr Trainings-Fortschritt:</strong></p>
+                            <div id="progressbarMain"><span id="progressLabelMain" class="progress-label center">Fortschritt</span></div>
+                            <p></p>
+                            <p>Üben und verbessern Sie sich</p>
+                        </a>
+                    </li>
+                </ul>
+                <ul data-role="listview" data-inset="true">
+                    <li data-role="list-divider">Statistiken</li>
+                    <li>
+                        <a href="#">
+                            <img src="img/mixed/statistics.png">
+                            <p><strong>Ihre Statistiken:</strong></p>
+                            <p>Informieren Sie sich über den Fortschritt</p>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>  
+        </div>
+
+        <!-- Daily Inputs -->
+        <div data-role="page" id="daily-inputs-menu" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed">
+                <a href="#main-menu"><img src="img/home.svg"></a>
+                <h1 style="text-overflow: string;">Tägliche Eingaben</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <div>
+                    <p>Um den Fortschritt und die Auswirkungen des Programms nachvollziehen zu können, gibt es kurze tägliche Eingaben, die von Ihnen <strong>jeden Abend ausgefüllt werden sollen</strong>:</p>
+                    <ul data-role="listview" data-inset="true">
+                        <li>
+                            <a href="#daily-inputs-tasks">
+                                <p><strong>Tägliche Aufgaben</strong></p>
+                                <p>Bitte geben Sie an, welche der ausgewählten täglichen Aufgaben ihr Kind erledigt hat.</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul data-role="listview" data-inset="true">
+                        <li>
+                            <a href="#daily-inputs-benchmark">
+                                <p><strong>Verhaltensmaßstab</strong></p>
+                                <p>Bitte bewerten Sie das Verhalten ihres Kindes am heutigen Tag.</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul data-role="listview" data-inset="true">
+                        <li>
+                            <a href="#daily-inputs-selfcontrol">
+                                <p><strong>Selbst-Kontrolle</strong></p>
+                                <p>Bitten geben Sie an, wie oft Sie die Strategien umgesetzt haben</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#main-menu" data-role="button" data-theme="b">Weiter</a>    
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Daily Inputs Tasks Page -->
+        <div data-role="page" id="daily-inputs-tasks" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed">
+                <h1 style="text-overflow: string;">Tägliche Eingaben</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h2>Tägliche Aufgaben</h2>
+                <div>
+                    <p>Bitte wählen Sie jetzt aus, welche der Aufgaben Ihr Kind heute erledigt hat und belohnen Sie es, um das positive Verhalten aufrecht zu erhalten:</p>
+                    <fieldset data-role="controlgroup" id="dailyInputsTasksContent">
+
+                        <!-- TODO: invoke template -->
+
+                    </fieldset>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a data-role="button" data-theme="b" onclick="window.history.back();" data-direction="reverse">Zurück</a>                
+                    </div>
+                    <div class="ui-block-b">
+                        <button id="sendDailyInputsTasks" data-role="button" data-theme="b">Weiter</button>   
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script id="daily-inputs-tasks-tpl" type="text/x-handlebars-template">
+            {{#each .}}
+            <div>
+            <input type="checkbox" name="checkbox{{inc @index}}" id="checkbox{{inc @index}}" class="customListSeparator" />
+            <label for="checkbox{{inc @index}}">{{this}}</label>
+            </div>
+            {{/each}}
+        </script>
+
+
+        <!-- Daily Inputs Benchmark Page -->
+        <div data-role="page" id="daily-inputs-benchmark" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed">
+                <h1 style="text-overflow: string;">Tägliche Eingaben</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h2>Verhaltensmaßstab</h2>
+                <div>
+                    <p>Bewerten Sie das Verhalten Ihres Kindes während des gesamten Tages auf einer Skala von 1 (sehr schlecht) bis 10 (sehr gut). Dadurch können Sie die Verbesserungen Ihres Kindes protokollieren und anylsieren.<p>
+                    <fieldset data-role="controlgroup">
+
+                        <input name="sliderBenchmark" id="sliderBenchmark" data-theme="d" min="1" max="10" data-highlight="true" value="5" type="range">
+                        <label for="sliderBenchmark" class="full-height-wrapper-content"><div class="ui-grid-b">
+                                <div class="ui-block-a"><b>schlecht</b></div>
+                                <div class="ui-block-b"><b>teils teils</b></div>
+                                <div class="ui-block-c"><b>gut</b></div>
+                            </div></label>
+
+                    </fieldset>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a data-role="button" data-theme="b" onclick="window.history.back();" data-direction="reverse">Zurück</a>                   
+                    </div>
+                    <div class="ui-block-b">
+                        <button id="sendDailyInputsBenchmark" data-role="button" data-theme="b">Weiter</button>   
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Daily Inputs Self-Control Page -->
+        <div data-role="page" id="daily-inputs-selfcontrol" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed">
+                <h1 style="text-overflow: string;">Tägliche Eingaben</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h2>Selbst-Kontrolle</h2>
+                <div>
+                    <p>Geben Sie an, wie oft Sie die Strategien umgesetzt haben:<p>
+                    <fieldset data-role="controlgroup" data-type="horizontal">
+                        <legend>Nähe (z.B. Umarmen, abklatschen):</legend>
+                        <input name="radio-choice-nearness" id="radio-choice-nearness0" value="0" checked="checked" type="radio">
+                        <label for="radio-choice-nearness0">0</label>
+                        <input name="radio-choice-nearness" id="radio-choice-nearness1" value="1-2" type="radio">
+                        <label for="radio-choice-nearness1">1-2</label>
+                        <input name="radio-choice-nearness" id="radio-choice-nearness2" value="3-4" type="radio">
+                        <label for="radio-choice-nearness2">3-4</label>
+                        <input name="radio-choice-nearness" id="radio-choice-nearness3" value="5+" type="radio">
+                        <label for="radio-choice-nearness3">5+</label>
+                    </fieldset>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a data-role="button" data-theme="b" onclick="window.history.back();" data-direction="reverse">Zurück</a>                  
+                    </div>
+                    <div class="ui-block-b">
+                        <button id="sendSelfcontrolData" data-role="button" data-theme="b">Weiter</button>   
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <!-- Training Content Page -->
         <div data-role="page" id="train-content" data-theme="c" data-content-theme="c">
@@ -321,7 +655,7 @@
         <!-- In-Game Reward Page -->
         <div data-role="page" id="rewardingame" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed">
-                <a href="#" id="rewardBackNavigation" onclick="window.history.back();" data-direction="reverse" data-icon="arrow-l">Zurück</a>
+                <a href="#" id="rewardBackNavigation" onclick="window.history.back();" data-direction="reverse" data-icon="arrow-l"></a>
                 <h1 style="text-overflow: string;">Belohnung im Spiel</h1>
             </div>
             <div data-role="main" class="ui-content" id="rewardInGameContent">
@@ -415,14 +749,14 @@
 
         <div data-role="page" id="training"  data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed" data-tap-toggle="false">
-                <a href="#training"><img src="img/home.svg">
+                <a href="#main-menu"><img src="img/home.svg">
                 </a>
                 <h1>Training</h1>
             </div>
 
 
             <div data-role="main" class="ui-content">
-                <div id="progressbar"><span class="progress-label center">Fortschritt</span></div>
+                <div id="progressbar"><span id="progressLabel" class="progress-label center">Fortschritt</span></div>
                 <div id="training-list"> 
                     <ul data-role="listview" data-inset="true" id="training-listview"></ul>
                 </div>
@@ -457,15 +791,21 @@
 
         <script src="js/vendor/jquery.mobile.js"></script>
         <script src="js/vendor/jquery.validate.min.js"></script>
-        <script src="js/vendor/jquery.dpToast.js"></script>
+        <script src="js/vendor/jquery.pnotify/jquery.pnotify.js"></script>
         <script src="js/vendor/jquery.cookie.js"></script>
         <script src="js/vendor/iscroll.js"></script>
         <script src="js/vendor/jquery.mobile.iscrollview.js"></script>
         <script src="js/vendor/testflight.js"></script>
         <script src="js/vendor/PushNotification.js"></script>
         <script src="js/adapters/localstorage-adapter.js"></script>
+
+
         <script src="js/TrainingContentView.js"></script>
         <script src="js/TrainingView.js"></script>
+        <script src="js/BehaviorInputView.js"></script>
+        <script src="js/BehaviorRatingView.js"></script>
+        <script src="js/DailyTasksInputView.js"></script>
+        <script src="js/DailyInputsTasksView.js"></script>
         <script src="js/vendor/jquery-handlebars.js"></script>
         <script src="js/app.js"></script>
         <script src="js/PushPlugin.js"></script>

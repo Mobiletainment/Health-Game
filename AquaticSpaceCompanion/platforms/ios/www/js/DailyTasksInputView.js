@@ -46,8 +46,9 @@ var DailyTasksInputView = function(adapter, data)
             {
                 console.log("Server responded");
                 var currentPage = window.location.href.split('#')[0];
+                showToast('Aufgaben gespeichert');
                 window.location.href = currentPage + "#first-aid-bag";
-                $.fn.dpToast('Aufgaben gespeichert', 4000);
+                
 
             }).fail(function()
             {

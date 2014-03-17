@@ -12,7 +12,7 @@ var TrainingView = function(adapter, item)
 	// Enhance the listview we just injected.
 	//$('#training-list').find( ":jqmData(role=listview)" ).listview();
 
-	var progressLabel = $(".progress-label");
+	var progressLabel = $("#progressLabel");
 	var progressbar = $("#progressbar");
 
 	progressbar.progressbar({
@@ -35,68 +35,15 @@ var TrainingView = function(adapter, item)
 		$(selector).css({'background': 'Orange'});
 	    } else if (value < 50) {
 		$(selector).css({'background': 'Yellow'});
-	    } else {
-		$(selector).css({'background': 'LightGreen'});
+            } else if (value < 80) {
+                $(selector).css({'background': 'LightGreen'});
+            } 
+            else {
+                $(selector).css({'background': '#33CC00'});
 	    }
 	});
 
 	progressbar.progressbar("value", 0);
-
-
-	$(document).ready(function() //Load Training progress
-	{
-	    loadTrainingProgress = function()
-	    {
-		console.log("this.loadTrainingProgress");
-		$.mobile.loading('show', {
-		    text: 'Lade Fortschritt'
-		});
-
-		$.getJSON("http://tnix.eu/~aspace/TrainingProgress.php",
-			{
-			    username: window.username,
-			    action: "GetProgress"
-			},
-		function(data)
-		{
-		    console.log("Server responded");
-
-		    var imgId = '#imgDone_';
-		    var total = 0;
-		    var completed = 0;
-
-		    $.each(data.returnData, function(key, val)
-		    {
-			++total;
-
-			if (val === true)
-			{
-			    ++completed;
-			    $(imgId + key).attr("src", "img/checkbox_done.png");
-			}
-		    });
-		    console.log("Total: " + total);
-		    console.log("Progressbar : " + $("#progressbar").progressbar("value"));
-
-		    if (completed > 0 && total > 0)
-			$("#progressbar").progressbar('value', Math.round(completed * 100 / total));
-
-
-
-
-		}).fail(function()
-		{
-		    alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", loadTrainingProgress);
-		}).always(function() {
-		    $.mobile.loading("hide");
-		});
-	    }
-
-	    loadTrainingProgress();
-
-
-	}
-	);
 
     };
 

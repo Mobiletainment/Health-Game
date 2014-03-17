@@ -37,7 +37,7 @@
         }
     });
 
-
+    var toastStack =  {"dir1": "right", "dir2": "up", "push": "top"};
 
     /* ---------------------------------- Local Variables ---------------------------------- */
 
@@ -84,8 +84,11 @@
 
     $(document).ready(function()
     {
-        console.log("Changing Hash to Training");
+        console.log("Document ready");
+        $.pnotify.defaults.styling = "jqueryui";
+        $.pnotify.defaults.history = false;
         //document.location.hash = "#welcome";
+
     });
 
     $(document).bind("pagebeforechange", function(e, data)
@@ -153,13 +156,13 @@
             }
         });
 
-        progressbar.progressbar("value", 80);
-
+        progressbar.progressbar("value", 0);
+        loadTrainingProgress();
     });
 
     $("#main-menu").on("pagebeforeshow", function(event)
     {
-        loadTrainingProgress();
+       
     });
     // End: Main Menu
 
@@ -226,7 +229,7 @@
                 console.log("Server responded: " + data.returnCode + "; " + data.returnMessage);
                 var currentPage = window.location.href.split('#')[0];
                 window.location.href = currentPage + "#daily-inputs-menu";
-                $.fn.dpToast('Erledigte Aufgaben gespeichert', 4000);
+                showToast('Verhaltensmaßstab gespeichert');
 
             }).fail(function()
             {
@@ -240,6 +243,15 @@
         $("#daily-inputs-benchmark").find("#sendDailyInputsBenchmark").click(function()
         {
             saveData();
+        });
+    });
+    
+    // Start: Data Input Behavior
+    $("#daily-inputs-selfcontrol").on("pagebeforecreate", function(event)
+    {
+        $("#daily-inputs-selfcontrol").find("#sendSelfcontrolData").click(function()
+        {
+            alert("Noch nicht implementiert");
         });
     });
 
@@ -306,7 +318,7 @@
             function(data)
             {
                 console.log("Server responded");
-
+                showToast("Auszeit-Ort gespeichert");
                 saveTrainingProgress("t6");
             }).fail(function()
             {
@@ -372,6 +384,7 @@
             {
                 console.log("Server responded");
                 var currentPage = window.location.href.split('#')[0];
+                showToast("Daten wurden gespeichert");
                 window.location.href = currentPage + "#data-input-behavior-intro";
 
             }).fail(function()
@@ -438,7 +451,7 @@
                 console.log("Server responded");
 
                 //$.mobile.loading("hide");
-                $.fn.dpToast('Belohnung gesendet', 4000);
+                showToast('Belohnung gesendet');
 
                 document.location.hash = "#training";
 
@@ -599,6 +612,8 @@
         }).always(function() {
             $.mobile.loading("hide");
         });
+        
+        
     };
 
     updateTrainingProgress = function(data)
@@ -632,7 +647,21 @@
             $("#progressbar").progressbar('value', 0);
             $("#progressbarMain").progressbar('value', 0);
         }
+        
+        showToast("Trainingsfortschritt aktualisiert");
     };
 
-
+    showToast = function(message)
+    {
+        var opts = {
+            title: message,
+          //  text: message,
+            type: "success",
+            stack: toastStack,
+            addclass: "stack-bottomleft ui-icon-alt"
+        };
+        
+        $.pnotify(opts);
+           
+    };
 }());

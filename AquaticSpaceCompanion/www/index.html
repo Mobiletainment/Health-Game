@@ -15,6 +15,9 @@
         <link rel="stylesheet" href="css/jquery.mobile/jquery.mobile-1.3.1.css">
         <link rel="stylesheet" href="css/jquery.mobile/jquery.mobile.iscrollview.css">
 
+        <link rel="stylesheet" media="all" href="js/vendor/jquery.pnotify/jquery.pnotify.default.css">
+        <link rel="stylesheet" media="all" href="js/vendor/jquery.pnotify/jquery.pnotify.default.icons.css">
+
         <link href="css/styles.css" rel="stylesheet">
 
 
@@ -324,10 +327,10 @@
 
                         <input name="slider" id="slider" data-theme="d" min="1" max="10" data-highlight="true" value="5" type="range">
                         <label for="slider" class="full-height-wrapper-content"><div class="ui-grid-b">
-                                    <div class="ui-block-a"><b>schlecht</b></div>
-                                    <div class="ui-block-b"><b>teils teils</b></div>
-                                    <div class="ui-block-c"><b>gut</b></div>
-                                </div></label>
+                                <div class="ui-block-a"><b>schlecht</b></div>
+                                <div class="ui-block-b"><b>teils teils</b></div>
+                                <div class="ui-block-c"><b>gut</b></div>
+                            </div></label>
                     </fieldset>
                 </div>
             </div>
@@ -574,8 +577,8 @@
             </div>
             {{/each}}
         </script>
-        
-        
+
+
         <!-- Daily Inputs Benchmark Page -->
         <div data-role="page" id="daily-inputs-benchmark" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed">
@@ -585,15 +588,14 @@
                 <h2>Verhaltensmaßstab</h2>
                 <div>
                     <p>Bewerten Sie das Verhalten Ihres Kindes während des gesamten Tages auf einer Skala von 1 (sehr schlecht) bis 10 (sehr gut). Dadurch können Sie die Verbesserungen Ihres Kindes protokollieren und anylsieren.<p>
-                    <h3 id="behaviorProblem"></h3>
                     <fieldset data-role="controlgroup">
 
                         <input name="sliderBenchmark" id="sliderBenchmark" data-theme="d" min="1" max="10" data-highlight="true" value="5" type="range">
                         <label for="sliderBenchmark" class="full-height-wrapper-content"><div class="ui-grid-b">
-                                    <div class="ui-block-a"><b>schlecht</b></div>
-                                    <div class="ui-block-b"><b>teils teils</b></div>
-                                    <div class="ui-block-c"><b>gut</b></div>
-                                </div></label>
+                                <div class="ui-block-a"><b>schlecht</b></div>
+                                <div class="ui-block-b"><b>teils teils</b></div>
+                                <div class="ui-block-c"><b>gut</b></div>
+                            </div></label>
 
                     </fieldset>
                 </div>
@@ -601,10 +603,45 @@
             <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
-                        <a data-role="button" data-theme="b" data-direction="reverse">Zurück</a>                
+                        <a data-role="button" data-theme="b" onclick="window.history.back();" data-direction="reverse">Zurück</a>                   
                     </div>
                     <div class="ui-block-b">
                         <button id="sendDailyInputsBenchmark" data-role="button" data-theme="b">Weiter</button>   
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Daily Inputs Self-Control Page -->
+        <div data-role="page" id="daily-inputs-selfcontrol" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed">
+                <h1 style="text-overflow: string;">Tägliche Eingaben</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h2>Selbst-Kontrolle</h2>
+                <div>
+                    <p>Geben Sie an, wie oft Sie die Strategien umgesetzt haben:<p>
+                    <fieldset data-role="controlgroup" data-type="horizontal">
+                        <legend>Nähe (z.B. Umarmen, abklatschen):</legend>
+                        <input name="radio-choice-nearness" id="radio-choice-nearness0" value="0" checked="checked" type="radio">
+                        <label for="radio-choice-nearness0">0</label>
+                        <input name="radio-choice-nearness" id="radio-choice-nearness1" value="1-2" type="radio">
+                        <label for="radio-choice-nearness1">1-2</label>
+                        <input name="radio-choice-nearness" id="radio-choice-nearness2" value="3-4" type="radio">
+                        <label for="radio-choice-nearness2">3-4</label>
+                        <input name="radio-choice-nearness" id="radio-choice-nearness3" value="5+" type="radio">
+                        <label for="radio-choice-nearness3">5+</label>
+                    </fieldset>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a data-role="button" data-theme="b" onclick="window.history.back();" data-direction="reverse">Zurück</a>                  
+                    </div>
+                    <div class="ui-block-b">
+                        <button id="sendSelfcontrolData" data-role="button" data-theme="b">Weiter</button>   
                     </div>
                 </div>
             </div>
@@ -618,7 +655,7 @@
         <!-- In-Game Reward Page -->
         <div data-role="page" id="rewardingame" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed">
-                <a href="#" id="rewardBackNavigation" onclick="window.history.back();" data-direction="reverse" data-icon="arrow-l">Zurück</a>
+                <a href="#" id="rewardBackNavigation" onclick="window.history.back();" data-direction="reverse" data-icon="arrow-l"></a>
                 <h1 style="text-overflow: string;">Belohnung im Spiel</h1>
             </div>
             <div data-role="main" class="ui-content" id="rewardInGameContent">
@@ -754,7 +791,7 @@
 
         <script src="js/vendor/jquery.mobile.js"></script>
         <script src="js/vendor/jquery.validate.min.js"></script>
-        <script src="js/vendor/jquery.dpToast.js"></script>
+        <script src="js/vendor/jquery.pnotify/jquery.pnotify.js"></script>
         <script src="js/vendor/jquery.cookie.js"></script>
         <script src="js/vendor/iscroll.js"></script>
         <script src="js/vendor/jquery.mobile.iscrollview.js"></script>

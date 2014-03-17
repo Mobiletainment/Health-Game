@@ -1,4 +1,8 @@
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes.dex : \
+/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/com/plugin/gcm/CordovaGCMBroadcastReceiver.class \
+/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/com/plugin/gcm/GCMIntentService.class \
+/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/com/plugin/gcm/PushHandlerActivity.class \
+/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/com/plugin/gcm/PushPlugin.class \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/jp/wizcorp/phonegap/plugin/testflight/TestFlightPlugin$1.class \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/jp/wizcorp/phonegap/plugin/testflight/TestFlightPlugin$2.class \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/jp/wizcorp/phonegap/plugin/testflight/TestFlightPlugin$3.class \
@@ -7,6 +11,8 @@
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/jp/wizcorp/phonegap/plugin/testflight/TestFlightPlugin.class \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/net/pertiller/aquaspacecompanion/AquaticSpaceCompanion.class \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/net/pertiller/aquaspacecompanion/BuildConfig.class \
+/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/net/pertiller/aquaspacecompanion/Manifest$permission.class \
+/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/net/pertiller/aquaspacecompanion/Manifest.class \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/net/pertiller/aquaspacecompanion/R$attr.class \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/net/pertiller/aquaspacecompanion/R$drawable.class \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/net/pertiller/aquaspacecompanion/R$string.class \
@@ -108,9 +114,25 @@
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/org/apache/cordova/globalization/Globalization$1.class \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/org/apache/cordova/globalization/Globalization.class \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/org/apache/cordova/globalization/GlobalizationError.class \
+/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/org/apache/cordova/inappbrowser/InAppBrowser$1.class \
+/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/org/apache/cordova/inappbrowser/InAppBrowser$2.class \
+/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/org/apache/cordova/inappbrowser/InAppBrowser$3.class \
+/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/org/apache/cordova/inappbrowser/InAppBrowser$4$1.class \
+/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/org/apache/cordova/inappbrowser/InAppBrowser$4.class \
+/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/org/apache/cordova/inappbrowser/InAppBrowser$5$1.class \
+/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/org/apache/cordova/inappbrowser/InAppBrowser$5$2.class \
+/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/org/apache/cordova/inappbrowser/InAppBrowser$5$3.class \
+/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/org/apache/cordova/inappbrowser/InAppBrowser$5$4.class \
+/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/org/apache/cordova/inappbrowser/InAppBrowser$5.class \
+/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/org/apache/cordova/inappbrowser/InAppBrowser$InAppBrowserClient.class \
+/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/org/apache/cordova/inappbrowser/InAppBrowser.class \
+/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/org/apache/cordova/inappbrowser/InAppBrowserDialog.class \
+/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/org/apache/cordova/inappbrowser/InAppChromeClient.class \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/org/apache/cordova/networkinformation/NetworkManager$1.class \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/org/apache/cordova/networkinformation/NetworkManager.class \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/org/apache/cordova/splashscreen/SplashScreen.class \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/org/apache/cordova/vibration/Vibration.class \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/dexedLibs/classes-51751f503c0f30986997a1ccffb01160.jar \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/dexedLibs/TestFlightLib-c3ac094f47b48da5d4ef411237a6d0eb.jar \
+/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/dexedLibs/gcm-94c64985e77bac3c33eb0f5f93709bb9.jar \
+/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/dexedLibs/android-support-v13-aa842105a6f3ee67b7f2f22ff03be67c.jar \

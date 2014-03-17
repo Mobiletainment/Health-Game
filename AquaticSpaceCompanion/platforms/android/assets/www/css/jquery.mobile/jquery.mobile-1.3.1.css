@@ -933,6 +933,8 @@ only screen and (min-resolution: 200dpi) {
     .ui-icon-alt .ui-icon {
         background-image: url(images/icons-36-black.png);
     }
+    
+
     .ui-icon-plus {
         background-position: 	0 50%;
     }

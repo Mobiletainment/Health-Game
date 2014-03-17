@@ -8,14 +8,44 @@ and open the template in the editor.
     Author     : dp
 */
 
+.ui-pnotify-container {
+background: #DFF0D8;
+margin-bottom: 40px;
+}
+
+.ui-header .ui-title {
+    margin-right: 10%;
+    margin-left: 10%;
+}
+
+div.ui-slider-track
+{
+    background-image: -webkit-gradient(linear,left top,right bottom,from(#BA2828),to(#00FF2F)) !important;
+}
+
+div.ui-btn-active
+{
+    background-image: none;
+    background: transparent;
+}
+
 .back-button {
     position: absolute;
     top: 10px;
 }
 
-
 .ui-progressbar {
     position: relative;
+}
+
+#progressbarMain
+{
+    margin-right: 20px;
+    margin-bottom: 4px;
+}
+
+#progressLabelMain {
+    font-size: 0.6em;
 }
 
 .progress-label {

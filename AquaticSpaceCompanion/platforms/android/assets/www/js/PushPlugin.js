@@ -41,7 +41,6 @@
 
     function setDeviceToken(token)
     {
-	alert("Got device token: " + token);
 	$.cookie("deviceToken", token, {expires: 20 * 365, path: '/'});
 	window.deviceToken = $.cookie("deviceToken");
     }
@@ -145,7 +144,6 @@
 
     function tokenHandler(result) //Got iOS Token
     {
-	alert("Got token: " + result);
 	setDeviceToken(result);
 	// Your iOS push server needs to know the token before it can push to this device
 	// here is where you might want to send it the token for later use
@@ -157,7 +155,7 @@
     {
 	console.log("Registering Device");
 	$.mobile.loading('show', {
-		text: 'Team-Passwort wird überprüft...'
+		text: 'Lade...'
 	    });
 
 	if (!window.deviceToken)
@@ -193,7 +191,7 @@
 	    {
 		$.cookie("username", $("#loginPassword").val(), {expires: 20 * 365, path: '/'});
 		window.username = $("#loginPassword").val();
-		$.fn.dpToast('Überprüfung erfolgreich', 4000);
+		showToast('Überprüfung erfolgreich');
 		$("#loginButton").trigger("click");
 	    }
 	    else if (data.returnCode === 401)
@@ -202,7 +200,9 @@
 	    }
 	    else
 	    {
-		alert(data.debugInfo);
+                console.log("Es ist ein Fehler beim Push-Plugin aufgetreten")
+		//TODO : Fehler ansehen
+                    //alert(data.debugInfo);
 	    }
 
 	}

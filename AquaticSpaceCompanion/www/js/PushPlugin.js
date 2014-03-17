@@ -155,7 +155,7 @@
     {
 	console.log("Registering Device");
 	$.mobile.loading('show', {
-		text: 'Team-Passwort wird überprüft...'
+		text: 'Lade...'
 	    });
 
 	if (!window.deviceToken)
@@ -191,7 +191,7 @@
 	    {
 		$.cookie("username", $("#loginPassword").val(), {expires: 20 * 365, path: '/'});
 		window.username = $("#loginPassword").val();
-		$.fn.dpToast('Überprüfung erfolgreich', 4000);
+		showToast('Überprüfung erfolgreich');
 		$("#loginButton").trigger("click");
 	    }
 	    else if (data.returnCode === 401)
@@ -201,7 +201,8 @@
 	    else
 	    {
                 console.log("Es ist ein Fehler beim Push-Plugin aufgetreten")
-		alert(data.debugInfo);
+		//TODO : Fehler ansehen
+                    //alert(data.debugInfo);
 	    }
 
 	}

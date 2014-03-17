@@ -4,38 +4,9 @@
         "uninstalled": []
     },
     "config_munge": {
-        "config.xml": {
-            "/widget": {
-                "<feature name=\"TestFlightSDK\"><param name=\"android-package\" value=\"jp.wizcorp.phonegap.plugin.testflight.TestFlightPlugin\" /></feature>": 1
-            }
-        },
-        "AndroidManifest.xml": {
-            "/manifest": {
-                "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />": 2,
-                "<uses-permission android:name=\"android.permission.VIBRATE\" />": 2,
-                "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />": 1,
-                "<uses-permission android:name=\"android.permission.WAKE_LOCK\" />": 1,
-                "<uses-permission android:name=\"com.google.android.c2dm.permission.RECEIVE\" />": 1,
-                "<permission android:name=\"net.pertiller.aquaspacecompanion.permission.C2D_MESSAGE\" android:protectionLevel=\"signature\" />": 1,
-                "<uses-permission android:name=\"net.pertiller.aquaspacecompanion.permission.C2D_MESSAGE\" />": 1
-            },
-            "/*": {
-                "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />": 3,
-                "<uses-permission android:name=\"android.permission.READ_CONTACTS\" />": 1,
-                "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\" />": 1,
-                "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />": 1,
-                "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />": 2,
-                "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />": 2,
-                "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />": 1
-            },
-            "/manifest/application": {
-                "<activity android:name=\"com.plugin.gcm.PushHandlerActivity\" />": 1,
-                "<receiver android:name=\"com.plugin.gcm.CordovaGCMBroadcastReceiver\" android:permission=\"com.google.android.c2dm.permission.SEND\"><intent-filter><action android:name=\"com.google.android.c2dm.intent.RECEIVE\" /><action android:name=\"com.google.android.c2dm.intent.REGISTRATION\" /><category android:name=\"net.pertiller.aquaspacecompanion\" /></intent-filter></receiver>": 1,
-                "<service android:name=\"com.plugin.gcm.GCMIntentService\" />": 1
-            }
-        },
         "res/xml/config.xml": {
             "/*": {
+                "<feature name=\"PushPlugin\"><param name=\"android-package\" value=\"com.plugin.gcm.PushPlugin\" /></feature>": 1,
                 "<feature name=\"Battery\"><param name=\"android-package\" value=\"org.apache.cordova.batterystatus.BatteryListener\" /></feature>": 1,
                 "<feature name=\"Camera\"><param name=\"android-package\" value=\"org.apache.cordova.camera.CameraLauncher\" /></feature>": 1,
                 "<feature name=\"Contacts\"><param name=\"android-package\" value=\"org.apache.cordova.contacts.ContactManager\" /></feature>": 1,
@@ -47,15 +18,47 @@
                 "<feature name=\"FileTransfer\"><param name=\"android-package\" value=\"org.apache.cordova.filetransfer.FileTransfer\" /></feature>": 1,
                 "<feature name=\"Geolocation\"><param name=\"android-package\" value=\"org.apache.cordova.geolocation.GeoBroker\" /></feature>": 1,
                 "<feature name=\"Globalization\"><param name=\"android-package\" value=\"org.apache.cordova.globalization.Globalization\" /></feature>": 1,
+                "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>": 1,
                 "<feature name=\"NetworkStatus\"><param name=\"android-package\" value=\"org.apache.cordova.networkinformation.NetworkManager\" /></feature>": 1,
                 "<feature name=\"SplashScreen\"><param name=\"android-package\" value=\"org.apache.cordova.splashscreen.SplashScreen\" /></feature>": 1,
-                "<feature name=\"Vibration\"><param name=\"android-package\" value=\"org.apache.cordova.vibration.Vibration\" /></feature>": 1,
-                "<feature name=\"PushPlugin\"><param name=\"android-package\" value=\"com.plugin.gcm.PushPlugin\" /></feature>": 1,
-                "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>": 1
+                "<feature name=\"Vibration\"><param name=\"android-package\" value=\"org.apache.cordova.vibration.Vibration\" /></feature>": 1
+            }
+        },
+        "AndroidManifest.xml": {
+            "/manifest": {
+                "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />": 2,
+                "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />": 1,
+                "<uses-permission android:name=\"android.permission.WAKE_LOCK\" />": 1,
+                "<uses-permission android:name=\"android.permission.VIBRATE\" />": 2,
+                "<uses-permission android:name=\"com.google.android.c2dm.permission.RECEIVE\" />": 1,
+                "<permission android:name=\"net.pertiller.aquaspacecompanion.permission.C2D_MESSAGE\" android:protectionLevel=\"signature\" />": 1,
+                "<uses-permission android:name=\"net.pertiller.aquaspacecompanion.permission.C2D_MESSAGE\" />": 1
+            },
+            "/manifest/application": {
+                "<activity android:name=\"com.plugin.gcm.PushHandlerActivity\" />": 1,
+                "<receiver android:name=\"com.plugin.gcm.CordovaGCMBroadcastReceiver\" android:permission=\"com.google.android.c2dm.permission.SEND\"><intent-filter><action android:name=\"com.google.android.c2dm.intent.RECEIVE\" /><action android:name=\"com.google.android.c2dm.intent.REGISTRATION\" /><category android:name=\"net.pertiller.aquaspacecompanion\" /></intent-filter></receiver>": 1,
+                "<service android:name=\"com.plugin.gcm.GCMIntentService\" />": 1
+            },
+            "/*": {
+                "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />": 3,
+                "<uses-permission android:name=\"android.permission.READ_CONTACTS\" />": 1,
+                "<uses-permission android:name=\"android.permission.WRITE_CONTACTS\" />": 1,
+                "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />": 1,
+                "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />": 2,
+                "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />": 2,
+                "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />": 1
+            }
+        },
+        "config.xml": {
+            "/widget": {
+                "<feature name=\"TestFlightSDK\"><param name=\"android-package\" value=\"jp.wizcorp.phonegap.plugin.testflight.TestFlightPlugin\" /></feature>": 1
             }
         }
     },
     "installed_plugins": {
+        "com.phonegap.plugins.PushPlugin": {
+            "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
+        },
         "com.testflightapp.cordova-plugin": {
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         },
@@ -95,6 +98,9 @@
         "org.apache.cordova.globalization": {
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         },
+        "org.apache.cordova.inappbrowser": {
+            "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
+        },
         "org.apache.cordova.network-information": {
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         },
@@ -102,12 +108,6 @@
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         },
         "org.apache.cordova.vibration": {
-            "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
-        },
-        "com.phonegap.plugins.PushPlugin": {
-            "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
-        },
-        "org.apache.cordova.inappbrowser": {
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         }
     },

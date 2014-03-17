@@ -1,6 +1,13 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
+        "file": "plugins/com.phonegap.plugins.PushPlugin/www/PushNotification.js",
+        "id": "com.phonegap.plugins.PushPlugin.PushNotification",
+        "clobbers": [
+            "PushNotification"
+        ]
+    },
+    {
         "file": "plugins/com.testflightapp.cordova-plugin/www/testflight.js",
         "id": "com.testflightapp.cordova-plugin.TestFlight",
         "clobbers": [
@@ -340,6 +347,13 @@ module.exports = [
         ]
     },
     {
+        "file": "plugins/org.apache.cordova.inappbrowser/www/inappbrowser.js",
+        "id": "org.apache.cordova.inappbrowser.inappbrowser",
+        "clobbers": [
+            "window.open"
+        ]
+    },
+    {
         "file": "plugins/org.apache.cordova.network-information/www/network.js",
         "id": "org.apache.cordova.network-information.network",
         "clobbers": [
@@ -367,25 +381,12 @@ module.exports = [
         "merges": [
             "navigator.notification"
         ]
-    },
-    {
-        "file": "plugins/com.phonegap.plugins.PushPlugin/www/PushNotification.js",
-        "id": "com.phonegap.plugins.PushPlugin.PushNotification",
-        "clobbers": [
-            "PushNotification"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.inappbrowser/www/inappbrowser.js",
-        "id": "org.apache.cordova.inappbrowser.inappbrowser",
-        "clobbers": [
-            "window.open"
-        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
+    "com.phonegap.plugins.PushPlugin": "2.1.1",
     "com.testflightapp.cordova-plugin": "3.0.0",
     "org.apache.cordova.battery-status": "0.2.7",
     "org.apache.cordova.camera": "0.2.7",
@@ -399,11 +400,10 @@ module.exports.metadata =
     "org.apache.cordova.file-transfer": "0.4.1",
     "org.apache.cordova.geolocation": "0.3.6",
     "org.apache.cordova.globalization": "0.2.6",
+    "org.apache.cordova.inappbrowser": "0.3.3",
     "org.apache.cordova.network-information": "0.2.7",
     "org.apache.cordova.splashscreen": "0.2.7",
-    "org.apache.cordova.vibration": "0.3.7",
-    "com.phonegap.plugins.PushPlugin": "2.1.1",
-    "org.apache.cordova.inappbrowser": "0.3.3"
+    "org.apache.cordova.vibration": "0.3.7"
 }
 // BOTTOM OF METADATA
 });
