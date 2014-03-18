@@ -8,6 +8,29 @@ and open the template in the editor.
     Author     : dp
 */
 
+.ui-content
+{
+    padding-top: 0px;
+}
+
+.ui-slider-input {
+    display : none !important;
+}
+
+.ui-slider-track{
+    margin-left: 15px;
+}
+
+.align-left
+{
+    text-align: left;
+}
+
+.align-right
+{
+    text-align: right;
+}
+
 .ui-pnotify-container {
 background: #DFF0D8;
 margin-bottom: 40px;
