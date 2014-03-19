@@ -8,6 +8,11 @@ and open the template in the editor.
     Author     : dp
 */
 
+.margintop15
+{
+    margin-top: 15px;
+}
+
 .ui-content
 {
     padding-top: 0px;

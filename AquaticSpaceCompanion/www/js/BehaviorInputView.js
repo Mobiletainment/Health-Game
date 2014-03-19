@@ -75,10 +75,14 @@ var BehaviorInputView = function(adapter, data)
 		index++;
 	    });
 
-	    if (totalChecks !== 3)
+	    if (totalChecks < 1)
 	    {
-		alert("Bitte wählen Sie 3 unerwünschte Verhaltensweisen aus.");
+		alert("Bitte wählen Sie zumindest 1 unerwünschte Verhaltensweise aus.");
 	    }
+            else if (totalChecks > 3)
+            {
+                alert("Bitte wählen Sie nicht mehr als 3 unerwünschte Verhaltensweisen aus.");
+            }
 	    else
 	    {
 		if (customFeedbackColumns.length > 0)
