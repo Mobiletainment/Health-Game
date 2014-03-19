@@ -87,7 +87,7 @@
         console.log("Document ready");
         $.pnotify.defaults.styling = "jqueryui";
         $.pnotify.defaults.history = false;
-        //document.location.hash = "#welcome";
+        document.location.hash = "#main-menu";
 
     });
 
@@ -623,7 +623,8 @@
         var imgId = '#imgDone_';
         var total = 0;
         var completed = 0;
-
+        var lockStatus = 0; //0=available, 1=gets unlocked tomorrow, 2=not unlocked
+        
         $.each(data.returnData, function(key, val)
         {
             ++total;
@@ -632,6 +633,23 @@
             {
                 ++completed;
                 $(imgId + key).attr("src", "img/checkbox_done.png");
+            }
+            else
+            {
+                if (lockStatus === 0) //here begins the content that gets unlocked tomorrow
+                {
+                    lockStatus++;
+                    //insert list divider
+                    $(imgId + key).parentsUntil("li").parent().before('<li data-role="list-divider" id="listDiverTomorrow">Ab morgen verfügbar<a href="index.html" id="listDividerTomorrowInfo" data-iconpos="right" data-icon="delete"></a></li>');
+                    //$("#listDiverTomorrow").enhanceWithin();
+                    //<li data-role="list-divider">Noch nicht freigeschaltet</li>
+                }
+                else if(lockStatus === 1)
+                {
+                    lockStatus++;
+                    $(imgId + key).parentsUntil("li").parent().before('<li data-role="list-divider" id="listDiverLocked">Noch nicht freigeschaltet<a href="index.html" id="listDividerTomorrowInfo" data-iconpos="right" data-icon="delete"></a></li>');
+                    
+                }
             }
         });
         console.log("Total: " + total);

@@ -458,6 +458,7 @@
             </div>
             <div data-role="main" class="ui-content">
                 <h3>Bitte wählen Sie eine Aktion aus:</h3>
+                
                 <ul data-role="listview" data-inset="true">
                     <li data-role="list-divider">Tägliche Eingaben</li>
                     <li>
@@ -492,6 +493,7 @@
                     </li>
 
                 </ul>
+                
             </div>  
         </div>
 
@@ -766,8 +768,10 @@
 
 
         <script id="training-li-tpl" type="text/x-handlebars-template">
+            <li data-role="list-divider">Freigeschaltete Strategien</li>
+            
             {{#each items}}
-            <li>
+            <li id="listItemTrainingStrategie" data-icon="clock">
             <a href="#train-content?chapter=t{{inc @index}}">
             <img id="imgDone_t{{inc @index}}" class="ui-li-icon" src="img/checkbox_notDone.png">{{inc @index}}. Strategie: <span>{{name}}<span>
             </a>
