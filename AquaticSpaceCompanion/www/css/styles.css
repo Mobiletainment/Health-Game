@@ -8,6 +8,14 @@ and open the template in the editor.
     Author     : dp
 */
 
+.ui-icon-clock
+{
+    background-image:url("jquery.mobile/images/icons-png/clock-white.png");
+    background-position: 3px 3px;
+    background-size: 70% auto;
+    
+}
+
 .margintop15
 {
     margin-top: 15px;
