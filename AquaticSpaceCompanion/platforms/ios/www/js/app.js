@@ -54,12 +54,19 @@
 
         if (navigator.notification)
         { // OverÏride default HTML alert with native dialog
-            window.alert = function(message, callback)
+            window.alert = function(message, callback, title)
             {
+                var thisTitle = "Fehler";
+                
+                if (arguments.length === 3)
+                {
+                    thisTitle = title;
+                }
+                
                 navigator.notification.alert(
                         message, // message
                         callback, // callback
-                        "Fehler", // title
+                        thisTitle, // title
                         'OK'        // buttonName
                         );
             };
@@ -87,7 +94,11 @@
         console.log("Document ready");
         $.pnotify.defaults.styling = "jqueryui";
         $.pnotify.defaults.history = false;
-        //document.location.hash = "#welcome";
+        
+        //TODO: INIT
+        $.cookie("username", "test", {expires: 20 * 365, path: '/'});
+		window.username = "test";
+       // document.location.hash = "#main-menu";
 
     });
 
@@ -620,18 +631,59 @@
     {
         console.log("Server responded");
 
+        var container = "#listItemTrainingStrategie";
+        var tomorrowItem = "#listDividerTomorrow";
+        
         var imgId = '#imgDone_';
         var total = 0;
         var completed = 0;
-
+        var lockStatus = 0; //0=available, 1=gets unlocked tomorrow, 2=not unlocked
+        
         $.each(data.returnData, function(key, val)
         {
             ++total;
-
+            $(container + total).off("click");
+            
             if (val === true)
             {
                 ++completed;
+                $(container + total).data("icon", "arrow-r");
                 $(imgId + key).attr("src", "img/checkbox_done.png");
+            }
+            else
+            {
+                if (lockStatus === 0) //here begins the content that gets unlocked tomorrow
+                {
+                    lockStatus++;
+                    //insert list divider
+                    $(tomorrowItem).insertBefore($(container + total));
+                    //$("#listDiverTomorrow").enhanceWithin();
+                    //<li data-role="list-divider">Noch nicht freigeschaltet</li>
+                    $(container + total).data("icon", "info").on('click', function(e)
+                    {
+                        alert('Diese Strategie können Sie ab morgen trainieren. Konzentrieren Sie sich bitte zuerst darauf, die bereits gelernten zu üben.', undefined, "Hinweis");
+                        return false;
+                    });
+                }
+                else if(lockStatus === 1)
+                {
+                    lockStatus++;
+                    $("#listDividerLocked").insertBefore($(container + total));
+                    
+                    //
+                    //.before('<li data-role="list-divider" id="listDiverLocked">Noch nicht freigeschaltet<a href="index.html" id="listDividerTomorrowInfo" data-iconpos="right" data-icon="delete"></a></li>');
+                    //.attr("class", "ui-disabled");
+                }
+                
+                if (lockStatus >= 2)
+                {
+                    $(container + total).data("icon", "info").on('click', function(e)
+                    {
+                       alert('Diese Strategie ist noch nicht verfügbar. Konzentrieren Sie sich bitte zuerst darauf, die bereits gelernten zu üben.', undefined, "Hinweis");
+                       return false;
+                    });
+                }
+                
             }
         });
         console.log("Total: " + total);

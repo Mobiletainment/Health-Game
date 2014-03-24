@@ -13,5 +13,6 @@
             cache: false
         });
 
+        $.mobile.activeBtnClass = '.ui-btn-up-b';
     });
 }());

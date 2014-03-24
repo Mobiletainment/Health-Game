@@ -6,7 +6,7 @@ var LocalStorageAdapter = function() {
 
 	window.localStorage.setItem("items", JSON.stringify(
 		[
-		    {"id": "training", "items": [{"name": "Zeit-Zu-Zweit"}, {"name": "Lob"}, {"name": "Belohnung"}, {"name": "Anweisungen"}, {"name": "Aktives Ignorieren"}, {"name": "Auszeit"} ]},
+		    {"id": "training", "items": [{"name": "Zeit zu Zweit"}, {"name": "Lob"}, {"name": "Belohnung"}, {"name": "Effektive Anweisungen"}, {"name": "Aktives Ignorieren"}, {"name": "Auszeit"} ]},
 		    {"id": "data-input-behavior", "items": [{"name": "Schlägt andere Kinder"}, {"name": "Zerstört mutwillig Dinge"}, {"name": "Hat aggressionsgeladene Wutausbrüche, flucht oder schimpft"}, {"name": "Ahmt Sie nach oder wiederholt was Sie sagen"}, {"name": "Missachtet Anweisungen"}, {"name": "Droht Ihnen oder anderen"} ]},
 		    {"id": "daily-tasks-input", "items": [{"name": "Bett machen"}, {"name": "Geschirr abräumen"}, {"name": "Geschirr abwaschen"}, {"name": "Tisch decken"}, {"name": "Zimmer aufräumen"}, {"name": "Schultasche packen"}, {"name": "Hausaufgaben machen"}, {"name": "Müll rausbringen"}, {"name": "Schmutzwäsche in den Wäschekorb geben"}, {"name": "Zähne putzen"}, {"name": "Kleider zusammenlegen"}, {"name": "Rechtzeitig schlafen gehen"} ]},
 		    

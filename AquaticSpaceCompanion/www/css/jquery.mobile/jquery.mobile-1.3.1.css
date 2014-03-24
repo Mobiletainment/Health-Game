@@ -290,7 +290,7 @@ label.error {
 }
 .ui-btn-up-b {
     border: 1px solid 		#044062 /*{b-bup-border}*/;
-    background: 			#396b9e /*{b-bup-background-color}*/;
+    background: #396b9e /*{b-bup-background-color}*/;
     font-weight: bold;
     color: 					#fff /*{b-bup-color}*/;
     background-image: -webkit-gradient(linear, left top, left bottom, from( #5f9cc5 /*{b-bup-background-start}*/), to( #396b9e /*{b-bup-background-end}*/)); /* Saf4+, Chrome */
@@ -422,7 +422,7 @@ label.error {
 }
 .ui-btn-up-c {
     border: 1px solid 		#ccc /*{c-bup-border}*/;
-    background: 			#eee /*{c-bup-background-color}*/;
+    background:    #eee /*{c-bup-background-color}*/;
     font-weight: bold;
     color: 					#222 /*{c-bup-color}*/;
     background-image: -webkit-gradient(linear, left top, left bottom, from( #fff /*{c-bup-background-start}*/), to( #fff /*{c-bup-background-end}*/)); /* Saf4+, Chrome */
@@ -805,7 +805,7 @@ a.ui-link-inherit {
 .ui-icon,
 .ui-icon-searchfield:after {
     background-color: 						#666 /*{global-icon-color}*/;
-    background-color: 						rgba(0,0,0,.4) /*{global-icon-disc}*/;
+    background-color: rgba(0,0,0,.4) /*{global-icon-disc}*/;
     background-image: url(images/icons-18-white.png) /*{global-icon-set}*/;
     background-repeat: no-repeat;
     -webkit-border-radius: 				9px;

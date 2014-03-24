@@ -98,7 +98,7 @@
         //TODO: INIT
         $.cookie("username", "test", {expires: 20 * 365, path: '/'});
 		window.username = "test";
-        document.location.hash = "#main-menu";
+       // document.location.hash = "#main-menu";
 
     });
 
@@ -659,9 +659,10 @@
                     $(tomorrowItem).insertBefore($(container + total));
                     //$("#listDiverTomorrow").enhanceWithin();
                     //<li data-role="list-divider">Noch nicht freigeschaltet</li>
-                    $(container + total).data("icon", "info").on('click', function(e)
+                    //$(container + total).data("icon", "info").on('click', function(e)
+                    $(container + total).data("icon", "alert").on('click', function(e)
                     {
-                        alert('Diese Strategie können Sie ab morgen trainieren. Trainieren Sie bis dahin die bereits gelernten Strategien weiter und versuchen Sie, diese zu verinnerlichen.', undefined, "Hinweis");
+                        alert('Diese Strategie können Sie ab morgen trainieren. Konzentrieren Sie sich bitte zuerst darauf, die bereits gelernten zu üben.', undefined, "Hinweis");
                         return false;
                     });
                 }
@@ -679,9 +680,9 @@
                 {
                     $(container + total).data("icon", "info").on('click', function(e)
                     {
-                       alert('Schließen Sie zuerst die geplante Strategie ab, um weitere freizuschalten.', undefined, "Hinweis");
+                       alert('Diese Strategie ist noch nicht verfügbar. Konzentrieren Sie sich bitte zuerst darauf, die bereits gelernten zu üben.', undefined, "Hinweis");
                        return false;
-                    });
+                    }).trigger("create");
                 }
                 
             }

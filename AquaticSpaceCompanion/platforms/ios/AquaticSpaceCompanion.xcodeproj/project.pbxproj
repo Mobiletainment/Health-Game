@@ -66,6 +66,7 @@
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
 		DA1890B689CB4A21ABE2461C /* CDVNotification.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 032A1C1E83DE42508DDAEE9C /* CDVNotification.bundle */; };
 		DD259A2039E54B3FB4F82EFA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E73608598FA5474CB532B0AF /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		E29C581518DC76DD0019D313 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E29C581418DC76DD0019D313 /* Crashlytics.framework */; };
 		E75698EBAE7C43A2892CA231 /* CDVSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = DA55CA46C5A444FF94B048B9 /* CDVSplashScreen.m */; };
 		E91C10E6ACDE4496AAB11342 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40B1A2281C8B4BBFACEA3A40 /* CoreMotion.framework */; };
 		E9680D58430C41CCA2BE8768 /* PushPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = F0D8DF1567B6497388883478 /* PushPlugin.m */; };
@@ -185,6 +186,7 @@
 		DA55CA46C5A444FF94B048B9 /* CDVSplashScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVSplashScreen.m; path = org.apache.cordova.splashscreen/CDVSplashScreen.m; sourceTree = "<group>"; };
 		DDFA2A2B4DC8402FB11C615D /* CDVInAppBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVInAppBrowser.m; path = org.apache.cordova.inappbrowser/CDVInAppBrowser.m; sourceTree = "<group>"; };
 		E17BC8CE4E784BF6984096D6 /* CDVAccelerometer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVAccelerometer.m; path = "org.apache.cordova.device-motion/CDVAccelerometer.m"; sourceTree = "<group>"; };
+		E29C581418DC76DD0019D313 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		E73608598FA5474CB532B0AF /* SystemConfiguration.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EB87FDF21871DA7A0020F90C /* merges */ = {isa = PBXFileReference; lastKnownFileType = folder; name = merges; path = ../../merges; sourceTree = "<group>"; };
 		EB87FDF31871DA8E0020F90C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../www; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 				305D5FD1115AB8F900A74A75 /* MobileCoreServices.framework in Frameworks */,
 				5AEE5B35173C68D80009041E /* CoreLocation.framework in Frameworks */,
 				70EFBB97E5954895A6262A68 /* ImageIO.framework in Frameworks */,
+				E29C581518DC76DD0019D313 /* Crashlytics.framework in Frameworks */,
 				40D4EEC5252844DCB0B3ABC4 /* AddressBook.framework in Frameworks */,
 				439018F25AC7464FB78241A6 /* AddressBookUI.framework in Frameworks */,
 				E91C10E6ACDE4496AAB11342 /* CoreMotion.framework in Frameworks */,
@@ -306,6 +309,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E29C581418DC76DD0019D313 /* Crashlytics.framework */,
 				5AEE5B34173C68D80009041E /* CoreLocation.framework */,
 				5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
@@ -461,6 +465,7 @@
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+				E29C581318DC768B0019D313 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -567,8 +572,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cordova/lib/copy-www-build-step.sh";
+			shellScript = "./Crashlytics.framework/run d23bfda1251428fc2955fb7771fc4c0a24fbb26a ee546e36edd135e5940e31f3c1c903dfb1086e4053c5a209fd72ff890483b0d2";
 			showEnvVarsInLog = 0;
+		};
+		E29C581318DC768B0019D313 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -659,6 +677,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -696,6 +718,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AquaticSpaceCompanion/AquaticSpaceCompanion-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;

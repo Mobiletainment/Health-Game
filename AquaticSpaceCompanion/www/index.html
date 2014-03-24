@@ -771,14 +771,14 @@
             <li data-role="list-divider">Freigeschaltete Strategien</li>
             
             {{#each items}}
-            <li id="listItemTrainingStrategie{{inc @index}}" data-icon="arrow-r">
+            <li id="listItemTrainingStrategie{{inc @index}}" class="bluebackground">
             <a href="#train-content?chapter=t{{inc @index}}">
-            <img id="imgDone_t{{inc @index}}" class="ui-li-icon" src="img/checkbox_notDone.png">{{inc @index}}. <span>{{name}}<span>
+            <img id="imgDone_t{{inc @index}}" class="ui-li-icon" src="img/checkbox_notDone.png">{{inc @index}}. <span>{{name}}</span>
             </a>            
             </li>
             {{/each}}
             
-            <li data-role="list-divider" data-theme="e" id="listDividerTomorrow">Ab morgen verfügbar<a href="#" id="listDividerTomorrowInfo" data-iconpos="right" data-icon="info"></a></li>
+            <li data-role="list-divider" data-theme="c" id="listDividerTomorrow">Ab morgen verfügbar</li>
             <li data-role="list-divider" data-theme="c" id="listDividerLocked">Noch nicht freigeschaltet<a href="#" id="listDividerLockedInfo" data-iconpos="right" data-icon="info"></a></li>
 
         </script>

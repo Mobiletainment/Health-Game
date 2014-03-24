@@ -29,6 +29,7 @@
 #import "MainViewController.h"
 
 #import <Cordova/CDVPlugin.h>
+#import <Crashlytics/Crashlytics.h>
 
 @implementation AppDelegate
 
@@ -63,6 +64,8 @@
  */
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions
 {
+    [Crashlytics startWithAPIKey:@"d23bfda1251428fc2955fb7771fc4c0a24fbb26a"];
+    
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
 
 #if __has_feature(objc_arc)
@@ -95,6 +98,8 @@
 // only valid if AquaticSpaceCompanion-Info.plist specifies a protocol to handle
 - (BOOL)application:(UIApplication*)application handleOpenURL:(NSURL*)url
 {
+    [[Crashlytics sharedInstance] crash];
+    
     if (!url) {
         return NO;
     }
