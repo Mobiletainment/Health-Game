@@ -8,7 +8,7 @@ and open the template in the editor.
     Author     : dp
 */
 
-.bluebackground > div > span
+li > div > span.ui-icon
 {    
    background-color: #33608e; /*#396b9e; /* rgba(45, 78, 105, 0.8); /* #2d4e69;  */
 }

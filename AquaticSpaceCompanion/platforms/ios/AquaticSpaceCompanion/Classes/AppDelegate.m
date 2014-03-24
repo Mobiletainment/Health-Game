@@ -52,7 +52,6 @@
         NSURLCache* sharedCache = [[[NSURLCache alloc] initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"] autorelease];
 #endif
     [NSURLCache setSharedURLCache:sharedCache];
-
     self = [super init];
     return self;
 }
@@ -91,6 +90,7 @@
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
 
+    
     return YES;
 }
 

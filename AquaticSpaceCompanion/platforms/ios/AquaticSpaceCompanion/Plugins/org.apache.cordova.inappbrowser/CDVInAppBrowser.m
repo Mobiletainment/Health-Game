@@ -48,6 +48,7 @@
     if (self != nil) {
         _previousStatusBarStyle = -1;
         _callbackIdPattern = nil;
+        [[NSURLCache sharedURLCache] removeAllCachedResponses];
     }
 
     return self;

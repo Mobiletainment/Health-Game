@@ -659,7 +659,8 @@
                     $(tomorrowItem).insertBefore($(container + total));
                     //$("#listDiverTomorrow").enhanceWithin();
                     //<li data-role="list-divider">Noch nicht freigeschaltet</li>
-                    $(container + total).data("icon", "info").on('click', function(e)
+                    //$(container + total).data("icon", "info").on('click', function(e)
+                    $(container + total).data("icon", "alert").on('click', function(e)
                     {
                         alert('Diese Strategie können Sie ab morgen trainieren. Konzentrieren Sie sich bitte zuerst darauf, die bereits gelernten zu üben.', undefined, "Hinweis");
                         return false;
@@ -681,7 +682,7 @@
                     {
                        alert('Diese Strategie ist noch nicht verfügbar. Konzentrieren Sie sich bitte zuerst darauf, die bereits gelernten zu üben.', undefined, "Hinweis");
                        return false;
-                    });
+                    }).trigger("create");
                 }
                 
             }
