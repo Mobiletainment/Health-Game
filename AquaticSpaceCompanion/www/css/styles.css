@@ -8,10 +8,17 @@ and open the template in the editor.
     Author     : dp
 */
 
-li > div > span.ui-icon
-{    
-   background-color: #33608e; /*#396b9e; /* rgba(45, 78, 105, 0.8); /* #2d4e69;  */
+.smaller
+{
+    font-size: 0.7em;
+    font-weight: lighter;
 }
+
+
+//li > div > span.ui-icon
+//{    
+//   background-color: #33608e; /*#396b9e; /* rgba(45, 78, 105, 0.8); /* #2d4e69;  */
+//}
 
 .ui-icon-clock
 {
@@ -24,6 +31,7 @@ li > div > span.ui-icon
 .margintop15
 {
     margin-top: 15px;
+    margin-bottom: -5px;
 }
 
 .ui-content
@@ -88,6 +96,7 @@ div.ui-btn-active
 #progressLabelMain {
     font-size: 0.6em;
 }
+
 
 .progress-label {
     position: absolute;

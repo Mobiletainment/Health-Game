@@ -1,4 +1,5 @@
 var trainingListTpl = Handlebars.compile($("#training-li-tpl").html());
+var trainingListTplNA = Handlebars.compile($("#training-li-tplNA").html());
 
 var TrainingView = function(adapter, item)
 {
@@ -9,6 +10,8 @@ var TrainingView = function(adapter, item)
 	//$('#training-list').listview();
 
 	$('#training-listview').html(trainingListTpl(item)); //inflate template
+        $('#training-listviewNA').html(trainingListTplNA(item)); //inflate template
+        
 	// Enhance the listview we just injected.
 	//$('#training-list').find( ":jqmData(role=listview)" ).listview();
 
@@ -20,7 +23,7 @@ var TrainingView = function(adapter, item)
 	    change: function() {
 		var value = progressbar.progressbar("value");
 
-		progressLabel.text("Fortschritt: " + value + "%");
+		progressLabel.text("Gesamtfortschritt: " + value + "%");
 
 	    }
 	});
@@ -44,7 +47,8 @@ var TrainingView = function(adapter, item)
 	});
 
 	progressbar.progressbar("value", 0);
-
+      //  progressbar.removeClass('ui-corner-all');
+        progressbar.height("30");
     };
 
     this.initialize();

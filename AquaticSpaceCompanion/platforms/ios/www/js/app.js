@@ -37,7 +37,7 @@
         }
     });
 
-    var toastStack =  {"dir1": "right", "dir2": "up", "push": "top"};
+    var toastStack = {"dir1": "right", "dir2": "up", "push": "top"};
 
     /* ---------------------------------- Local Variables ---------------------------------- */
 
@@ -57,12 +57,12 @@
             window.alert = function(message, callback, title)
             {
                 var thisTitle = "Fehler";
-                
+
                 if (arguments.length === 3)
                 {
                     thisTitle = title;
                 }
-                
+
                 navigator.notification.alert(
                         message, // message
                         callback, // callback
@@ -94,11 +94,13 @@
         console.log("Document ready");
         $.pnotify.defaults.styling = "jqueryui";
         $.pnotify.defaults.history = false;
-        
+
         //TODO: INIT
         $.cookie("username", "test", {expires: 20 * 365, path: '/'});
-		window.username = "test";
-       // document.location.hash = "#main-menu";
+        window.username = "test";
+
+
+        document.location.hash = "#main-menu";
 
     });
 
@@ -173,7 +175,7 @@
 
     $("#main-menu").on("pagebeforeshow", function(event)
     {
-       
+
     });
     // End: Main Menu
 
@@ -256,7 +258,7 @@
             saveData();
         });
     });
-    
+
     // Start: Data Input Behavior
     $("#daily-inputs-selfcontrol").on("pagebeforecreate", function(event)
     {
@@ -623,8 +625,8 @@
         }).always(function() {
             $.mobile.loading("hide");
         });
-        
-        
+
+
     };
 
     updateTrainingProgress = function(data)
@@ -632,59 +634,95 @@
         console.log("Server responded");
 
         var container = "#listItemTrainingStrategie";
+        var containerNA = "#listItemTrainingStrategieNA";
         var tomorrowItem = "#listDividerTomorrow";
-        
+
+        var textAvailableTime = "Freischaltung in 4 Stunden 30 Minuten";
+        var textAvailable = 'Schließen Sie zuerst die ';
+        var text = textAvailable;
+
         var imgId = '#imgDone_';
         var total = 0;
         var completed = 0;
         var lockStatus = 0; //0=available, 1=gets unlocked tomorrow, 2=not unlocked
-        
+        var completedToday = 0;
+        var lastCompleted = true;
+
         $.each(data.returnData, function(key, val)
         {
             ++total;
             $(container + total).off("click");
-            
+
             if (val === true)
             {
                 ++completed;
-                $(container + total).data("icon", "arrow-r");
+                $(container + total).data("icon", "arrow-r").show();
                 $(imgId + key).attr("src", "img/checkbox_done.png");
+                $(containerNA + total).hide();
             }
             else
             {
-                if (lockStatus === 0) //here begins the content that gets unlocked tomorrow
+                if (lastCompleted === true) //an uncompleted item
                 {
-                    lockStatus++;
-                    //insert list divider
-                    $(tomorrowItem).insertBefore($(container + total));
-                    //$("#listDiverTomorrow").enhanceWithin();
-                    //<li data-role="list-divider">Noch nicht freigeschaltet</li>
-                    //$(container + total).data("icon", "info").on('click', function(e)
-                    $(container + total).data("icon", "alert").on('click', function(e)
+                    lastCompleted = false;
+                    $(container + total).data("icon", "arrow-r").show();
+                    $(imgId + key).attr("src", "img/checkbox_notDone.png");
+                    $(containerNA + total).hide();
+
+                    //Set text
+                    $(tomorrowItem).text(textAvailable + total + ". Strategie ab");
+                }
+                else
+                {
+
+                    if (lockStatus === 0) //here begins the content that gets unlocked tomorrow
                     {
-                        alert('Diese Strategie können Sie ab morgen trainieren. Konzentrieren Sie sich bitte zuerst darauf, die bereits gelernten zu üben.', undefined, "Hinweis");
-                        return false;
-                    });
-                }
-                else if(lockStatus === 1)
-                {
-                    lockStatus++;
-                    $("#listDividerLocked").insertBefore($(container + total));
-                    
-                    //
-                    //.before('<li data-role="list-divider" id="listDiverLocked">Noch nicht freigeschaltet<a href="index.html" id="listDividerTomorrowInfo" data-iconpos="right" data-icon="delete"></a></li>');
-                    //.attr("class", "ui-disabled");
-                }
-                
-                if (lockStatus >= 2)
-                {
-                    $(container + total).data("icon", "info").on('click', function(e)
+                        lockStatus++;
+                        //insert list divider
+                        $(tomorrowItem).insertBefore($(container + total));
+                        
+                        if (lastCompleted === true)
+                        {
+                            $(tomorrowItem).text(textAvailableTime);
+                        }
+
+//$("#listDiverTomorrow").enhanceWithin();
+                        //<li data-role="list-divider">Noch nicht freigeschaltet</li>
+                        //$(container + total).data("icon", "info").on('click', function(e)
+                        $(containerNA + total).data("icon", "alert").on('click', function(e)
+                        {
+                            alert('Diese Strategie können Sie ab morgen trainieren. Konzentrieren Sie sich bitte zuerst darauf, die bereits gelernten zu üben.', undefined, "Hinweis");
+                            return false;
+                        }).show();
+
+                        $(container + total).hide();
+
+                        $("#listDividerTomorrow").insertAfter($("#trainingNameSpan" + total));
+
+                    }
+
+                    else if (lockStatus === 1)
                     {
-                       alert('Diese Strategie ist noch nicht verfügbar. Konzentrieren Sie sich bitte zuerst darauf, die bereits gelernten zu üben.', undefined, "Hinweis");
-                       return false;
-                    }).trigger("create");
+                        lockStatus++;
+
+                        //
+                        //.before('<li data-role="list-divider" id="listDiverLocked">Noch nicht freigeschaltet<a href="index.html" id="listDividerTomorrowInfo" data-iconpos="right" data-icon="delete"></a></li>');
+                        //.attr("class", "ui-disabled");
+                    }
+
+
+                    if (lockStatus >= 2)
+                    {
+                        $(containerNA + total).data("icon", "info").on('click', function(e)
+                        {
+                            alert('Diese Strategie ist noch nicht verfügbar. Konzentrieren Sie sich bitte zuerst darauf, die bereits gelernten zu üben.', undefined, "Hinweis");
+                            return false;
+                        }).trigger("create").show();
+
+
+                        $(container + total).hide();
+                    }
                 }
-                
             }
         });
         console.log("Total: " + total);
@@ -700,7 +738,7 @@
             $("#progressbar").progressbar('value', 0);
             $("#progressbarMain").progressbar('value', 0);
         }
-        
+
         showToast("Trainingsfortschritt aktualisiert");
     };
 
@@ -708,13 +746,13 @@
     {
         var opts = {
             title: message,
-          //  text: message,
+            //  text: message,
             type: "success",
             stack: toastStack,
             addclass: "stack-bottomleft ui-icon-alt"
         };
-        
+
         $.pnotify(opts);
-           
+
     };
 }());

@@ -5,6 +5,7 @@
     <author email="david.pertiller@gmail.com" href="http://www.pertiller.net">David Pertiller</author>
     <access origin="*"/>
     <preference name="fullscreen" value="true"/>
+    <preference name="Fullscreen" value="true"/>
     <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="disallowOverscroll" value="true" />
     <preference name="DisallowOverscroll" value="true" />

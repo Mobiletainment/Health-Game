@@ -6,6 +6,7 @@
     "config_munge": {
         "config.xml": {
             "/*": {
+                "<feature name=\"PushPlugin\"><param name=\"ios-package\" value=\"PushPlugin\" /></feature>": 1,
                 "<feature name=\"Battery\"><param name=\"ios-package\" value=\"CDVBattery\" /></feature>": 1,
                 "<feature name=\"Camera\"><param name=\"ios-package\" value=\"CDVCamera\" /></feature>": 1,
                 "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>": 1,
@@ -18,17 +19,19 @@
                 "<feature name=\"FileTransfer\"><param name=\"ios-package\" value=\"CDVFileTransfer\" /></feature>": 1,
                 "<feature name=\"Geolocation\"><param name=\"ios-package\" value=\"CDVLocation\" /></feature>": 1,
                 "<feature name=\"Globalization\"><param name=\"ios-package\" value=\"CDVGlobalization\" /></feature>": 1,
+                "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>": 1,
                 "<feature name=\"NetworkStatus\"><param name=\"ios-package\" value=\"CDVConnection\" /></feature>": 1,
                 "<feature name=\"SplashScreen\"><param name=\"ios-package\" value=\"CDVSplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>": 1,
-                "<feature name=\"Vibration\"><param name=\"ios-package\" value=\"CDVVibration\" /></feature>": 1,
-                "<feature name=\"PushPlugin\"><param name=\"ios-package\" value=\"PushPlugin\" /></feature>": 1,
-                "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>": 1
+                "<feature name=\"Vibration\"><param name=\"ios-package\" value=\"CDVVibration\" /></feature>": 1
             },
             "/widget": {
                 "<feature name=\"TestFlightSDK\"><param name=\"ios-package\" value=\"CDVTestFlight\" /></feature>": 1
             }
         },
         "framework": {
+            "libz.dylib": {
+                "false": 1
+            },
             "ImageIO.framework": {
                 "true": 1
             },
@@ -58,13 +61,16 @@
             },
             "SystemConfiguration.framework": {
                 "true": 1
-            },
-            "libz.dylib": {
-                "false": 1
             }
         }
     },
     "installed_plugins": {
+        "com.phonegap.plugins.PushPlugin": {
+            "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
+        },
+        "com.testflightapp.cordova-plugin": {
+            "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
+        },
         "org.apache.cordova.battery-status": {
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         },
@@ -89,6 +95,9 @@
         "org.apache.cordova.dialogs": {
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         },
+        "org.apache.cordova.file": {
+            "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
+        },
         "org.apache.cordova.file-transfer": {
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         },
@@ -96,6 +105,9 @@
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         },
         "org.apache.cordova.globalization": {
+            "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
+        },
+        "org.apache.cordova.inappbrowser": {
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         },
         "org.apache.cordova.network-information": {
@@ -106,20 +118,7 @@
         },
         "org.apache.cordova.vibration": {
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
-        },
-        "com.testflightapp.cordova-plugin": {
-            "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
-        },
-        "com.phonegap.plugins.PushPlugin": {
-            "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
-        },
-        "org.apache.cordova.inappbrowser": {
-            "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         }
     },
-    "dependent_plugins": {
-        "org.apache.cordova.file": {
-            "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
-        }
-    }
+    "dependent_plugins": {}
 }
