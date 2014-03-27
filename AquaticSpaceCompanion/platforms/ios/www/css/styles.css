@@ -8,6 +8,39 @@ and open the template in the editor.
     Author     : dp
 */
 
+#progressbarPages
+{
+    margin-top: -15px;
+}
+
+#progressbarPages > div
+{
+    background: #78e578; /*#73d8e5; /* #48a8b5;  #0ba1b5; */
+}
+
+#progressLabelPages
+{
+    margin-top: -4px;
+    font-size: 0.2em;
+    text-shadow: none;
+}
+
+#training-content-main p:last-child
+{
+    margin-bottom: -9px;
+}
+
+#training-content-main p:not(:first-child)
+{
+    margin-top: 0.75em;
+}
+
+#training-content-listview
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .smaller
 {
     font-size: 0.7em;

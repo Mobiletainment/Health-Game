@@ -317,10 +317,10 @@
         <div data-role="page" id="data-input-behavior-rating" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed" data-tap-toggle="false">
                 <h1 style="text-overflow: string;">Problemverhalten</h1>
-                <a href="index.html" class="ui-btn-right" data-icon="info" data-iconpos="notext" data-inline="true" data-theme="a"></a>
+                <a href="#" onclick="alert('TODO: Hab den Informationstext noch nicht gekriegt');" class="ui-btn-right" data-icon="info" data-iconpos="notext" data-inline="true" data-theme="a"></a>
             </div>
             <div data-role="main" class="ui-content">
-                <h2>Unerwünschte Verhaltensweisen (<span id="pageIndexBehavior"></span> von 3)</h2>
+                <h2>Unerwünschte Verhaltensweisen (<span id="pageIndexBehavior"></span> von <span id="pageIndexBehaviorEnd">3</span>)</h2>
                 <div>
                     <p>Bitte bewerten Sie, wie schwerwiegend das Problemverhalten Ihres Kindes diese Woche war, auf einer Skala von 1 (sehr schlecht) bis 10 (sehr gut):<p>
                     <h3 id="behaviorProblem"></h3>
@@ -362,7 +362,6 @@
             <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
-                        <a data-role="button" data-theme="b" onclick="window.history.back();" data-rel="back">Zurück</a>                
                     </div>
                     <div class="ui-block-b">
                         <a href="#daily-tasks-input" data-role="button" data-theme="b">Weiter</a>    
@@ -719,10 +718,12 @@
 
             <div data-role="main" class="ui-content">
             <h2>{{subTitle}}</h2>
+            <div id="progressbarPages" ><span id="progressLabelPages" class="progress-label center">Seite 1 von 9</span></div>
             <ul data-role="listview" id="training-content-listview" data-inset="true">
-            <li>
-            <div id="training-content-main"></div>
-            </li>
+                <li>
+                    <div id="training-content-main">
+                    </div>
+                </li>
             </ul>
             </div>
             <div data-role="footer" data-position="fixed" data-tap-toggle="false" id="training-content-footer"></div>
@@ -736,9 +737,7 @@
         <script id="training-content-footer-tpl" type="text/x-handlebars-template">
             <div class="ui-grid-a">
             <div class="ui-block-a">
-            {{#ifCond page ">" 1}}
             <button data-theme="b" id="prev-page">Zur&uuml;ck</button>
-            {{/ifCond}}
             </div>
             <div class="ui-block-b">
             {{#ifCond page "<" pageCount}}

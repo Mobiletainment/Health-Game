@@ -158,34 +158,36 @@
             text: 'Lade...'
         });
 
-        if (!window.deviceToken && device.name)
-        {
-            $.mobile.loading("hide");
-            alert("Um fortfahren zu können, müssen Push-Benachrichtigungen aktiviert sein. Erlauben Sie bitte Push-Benachrichtigungen und versuchen Sie es erneut.")
-
-            //TODO:
-            if (device.name === "iPhone Simulator")
-            {
-
-            }
-            else
-            {
-                registerPushNotifications();
-                return;
-            }
-        }
-
-        var os;
-
         if (typeof device === "undefined" || typeof device.platform === "undefined")
         {
+            console.log("Using Browser");
             os = "browser";
+            window.deviceToken = "browser";
         }
         else
         {
-            os = (device.platform == 'android' || device.platform == 'Android') ? "android" : "ios";
-        }
 
+            if (!window.deviceToken && device.name)
+            {
+                console.log("No DeviceToken for Device: " + device.name);
+                $.mobile.loading("hide");
+                alert("Um fortfahren zu können, müssen Push-Benachrichtigungen aktiviert sein. Erlauben Sie bitte Push-Benachrichtigungen und versuchen Sie es erneut.")
+
+                //TODO:
+                if (device.name === "iPhone Simulator")
+                {
+
+                }
+                else
+                {
+                    registerPushNotifications();
+                    return;
+                }
+            }
+
+            var os = (device.platform == 'android' || device.platform == 'Android') ? "android" : "ios";
+        }
+        
         $.getJSON("http://tnix.eu/~aspace/RegisterDevice.php",
                 {
                     user: $("#loginPassword").val(),

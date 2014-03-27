@@ -4,14 +4,17 @@ var BehaviorRatingView = function(adapter, data)
     var page = 0;
     var that = this;
     var data = {};
+    var numberOfPages = 1;
 
     this.setupContent = function()
     {
         var stringPage = page+1;
-        
+        numberOfPages = Object.keys(window.dict).length;
         $("#behaviorProblem").text(window.dict["q" + stringPage]);
         $("#pageIndexBehavior").text(page + 1);
-        if (page > 0)
+        $("#pageIndexBehaviorEnd").text(numberOfPages);
+        
+        if (page >= 0)
             $("#slider").val(5).slider("refresh");
     };
 
@@ -53,6 +56,7 @@ var BehaviorRatingView = function(adapter, data)
                 console.log("Server responded: "+ data.debugInfo);
                 var currentPage = window.location.href.split('#')[0];
                 showToast('Verhaltensweisen gespeichert');
+                window.dict = {};
                 window.location.href = currentPage + "#daily-tasks-input-intro";
                 
 
@@ -68,7 +72,7 @@ var BehaviorRatingView = function(adapter, data)
         {
             page++;
             data[window.dict["q" + page]] = $("#slider").val();
-            if (page === 3)
+            if (page === numberOfPages)
             {
                 saveData();
             }

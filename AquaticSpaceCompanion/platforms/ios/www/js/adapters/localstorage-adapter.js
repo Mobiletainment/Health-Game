@@ -13,11 +13,14 @@ var LocalStorageAdapter = function() {
 		    
 		    
 	    
-{"id": "t1", "title": "1. Strategie", "subTitle": "Zeit-zu-zweit", "items":
+{"id": "t1", "title": "1. Strategie", "subTitle": "Zeit zu Zweit", "items":
 ["<p>Die Qualität der Beziehung zu ihrem Kind kann durch wertvolle, positive und regelmäßige Zeiten der Interaktion, <b>„Zeit zu Zweit“</b> genannt, verbessert werden.</p>",
- "<p>Versuchen Sie ca. 15 Minuten pro Tag Ihre ungeteilte Aufmerksamkeit ihrem Kind zu schenken.</p><p>Kündigen Sie die Zeit zu Zweit an und lassen Sie das Kind die Beschäftigung aussuchen.</p><p>Zeigen Sie Interesse an der Beschäftigung des Kindes, indem Sie wie ein Sportsmoderator nacherzählen was das Kind tut.<p>",
- "<p>Ihre Rolle ist es ihrem Kind zuzuschauen und ihm Aufmerksamkeit zu schenken ohne zu kritisieren, dirigieren oder zu kontrollieren.</p><p>Sehen Sie die Interaktionen als eine Investition. Die positive Aufmerksamkeit die Sie ihrem Kind schenken erhöht die Qualität eurer Beziehung und, in späteren Folge, auch die Motivation ihres Kindes mit ihnen an einem Strang zu ziehen.</p>",
- "<p>Die Zeit-zu-zweit wird auch im Rahmen dieses Spiels trainiert: Sie spielen gemeinsam mit ihrem Kind, loben es und kommentieren die Erfolge und Aktionen ihres Kindes!</p>"
+ "<p>Versuchen Sie ca. 15 Minuten pro Tag ihrem Kind Ihre ungeteilte Aufmerksamkeit zu schenken.</p><p>Kündigen Sie die Zeit zu Zweit an und lassen Sie das Kind die Beschäftigung aussuchen.</p><p>Zeigen Sie Interesse an der Beschäftigung des Kindes, indem Sie wie ein Sportmoderator nacherzählen, was Ihr Kind tut.</p>",
+ "<p>Ihre Rolle ist es, ihrem Kind zuzuschauen und ihm Aufmerksamkeit zu schenken ohne zu kritisieren, dirigieren oder zu kontrollieren.</p><p>Sehen Sie die Interaktionen als eine Investition. Die positive Aufmerksamkeit die Sie ihrem Kind schenken, erhöht die Qualität eurer Beziehung und in späterer Folge auch die Motivation ihres Kindes mit Ihnen an einem Strang zu ziehen.</p>",
+ "<p>Die Zeit zu Zweit wird auch im Rahmen dieses Spiels trainiert: Sie spielen gemeinsam mit ihrem Kind, loben es und kommentieren die Erfolge und Aktionen ihres Kindes!</p>",
+ "<p>Die Zeit zu Zweit können Sie gemeinsam mit ihrem Kind planen oder eine passende Zeit spontan finden, indem Sie auf ihr Kind zugehen wenn es alleine spielt.</p><p>Fast jede Tätigkeit ist in Ordnung, außer Fernsehen oder Computer spielen.</p><p>Andere Kinder sollte nicht in die Zeit zu Zweit eingebunden sein.</p>",
+ "<p>Wenn Sie das Gefühl haben, dem Kind nicht genügend Aufmerksamkeit schenken zu können, nervös oder irritiert sind, machen Sie die Zeit zu Zweit zu einer anderen Zeit.</p><p>Falls Ihr Kind sich schlecht verhält, drehen Sie sich kurz weg oder beenden Sie die Zeit zu Zweit, mit der Ankündigung, dass Sie weiterspielen werden, wenn das Kind sich nett verhalten kann.</p>",
+ "<p><b>Was soll ich tun?</b><br>Sagen Sie zu ihrem Kind: \"Das ist unsere Zeit zu Zweit. Was würdest du gerne gemeinsam machen?\".</p><p>Setzen Sie sich zu ihrem Kind, beobachten Sie es beim Spielen und erzählen Sie was Sie sehen, z.B.:</p><p>\"Du baust einen Turm. Super! Und du nimmst dafür blaue, rote und grüne Steine, das sieht toll aus! Ich mag es wie du den Turm gestaltest!\".</p>" 
 ]},
 {"id": "t2", "title": "2. Strategie", "subTitle": "Lob", "items":
 [
@@ -42,7 +45,7 @@ var LocalStorageAdapter = function() {
 [
  "<p>Kinder mit Verhaltensproblemen bekommen meistens mehr Anweisungen als andere Kinder. Viel mehr. Sie sind mit den vielen Anweisungen überfordert und können sich nicht an sie halten.</p><p>Was kann ich dagegen tun?</p>",
  "<p>Es ist wichtig Anweisungen <b>sparsam</b> und nur für wichtige Aufgaben zu verwenden.</p><p>Die gegebenen Anweisungen sollten durchgesetzt und bis zu dessen Vollendung beaufsichtigt werden.</p>",
- "<p>Auch die richtige Kommunikation von Aufgaben und Erwartungen sollte beachtet werden.</p><p>Wenn Sie Anweisungen geben,</p><ul><li>nehmen Sie Augenkontakt mit Ihrem Kind auf,</li><li>reduzieren Sie die Ablenkungen (machen Sie z.B. das Radio aus) und</li><li>sprechen Sie die Anweisung in einem ruhigen Tonfall aus.</li></ul>",
+ "<p>Auch die richtige Kommunikation von Aufgaben und Erwartungen sollte beachtet werden.</p><p>Wenn Sie Anweisungen geben,</p><ul><li>nehmen Sie Augenkontakt mit ihrem Kind auf,</li><li>reduzieren Sie die Ablenkungen (machen Sie z.B. das Radio aus) und</li><li>sprechen Sie die Anweisung in einem ruhigen Tonfall aus.</li></ul>",
  "<p>Für effektive Anweisungen verwenden Sie:</p><div><div class='dislike'>Keine Fragen</div><ul><li>Könntest du den Tisch abräumen?</li></ul></div><div><div class='like'>Besser</div><ul><li>Räume jetzt bitte den Tisch ab.</li></ul></div>",
  "<p>Für effektive Anweisungen verwenden Sie:</p><div><div class='dislike'>Keine \"Wir\" oder \"Lass uns\" Anweisungen</div><ul><li>Lass uns dein Zimmer aufräumen.</li></ul></div><div><div class='like'>Besser</div><ul><li>Räume bitte dein Zimmer auf.</li></ul></div>",
  "<p>Für effektive Anweisungen verwenden Sie:</p><div><div class='dislike'>Keine Liste von Aufgaben</div><ul><li>Hol die Zeitung, trag den Müll raus, räum den Tisch ab...</li></ul></div><div><div class='like'>Besser</div><ul><li>Hol mir bitte die Zeitung. [Erst nach Erfüllen der Aufgabe nächste Anweisung geben]</li></ul></div>"
@@ -51,7 +54,7 @@ var LocalStorageAdapter = function() {
 {"id": "t5", "title": "5. Strategie", "subTitle": "Aktives Ignorieren", "items":
 [
  "<p>Manchmal können Eltern unabsichtlich das ungewollte Verhalten ihrer Kinder verstärken in dem sie darauf reagieren und dadurch mit Aufmerksamkeit belohnen.</p><p>Um leicht unangebrachtes Verhalten zu reduzieren, reagieren Sie darauf <b>nicht</b>, sondern entziehen Sie ihre Aufmerksamkeit.</p>",
- "<p>Versuchen Sie sich in eine andere Aktivität zu vertiefen.</p><p>Beachten Sie dabei, dass Sie in:</p><ul><li>keine Diskussionen oder Reden geraten und nicht schimpfen sollen,</li><li>kein Interesse oder Ärger zeigen und</li><li>kein Augenkontakt mit Ihrem Kind halten.</li></ul>",
+ "<p>Versuchen Sie sich in eine andere Aktivität zu vertiefen.</p><p>Beachten Sie dabei, dass Sie in:</p><ul><li>keine Diskussionen oder Reden geraten und nicht schimpfen sollen,</li><li>kein Interesse oder Ärger zeigen und</li><li>kein Augenkontakt mit ihrem Kind halten.</li></ul>",
  "<p>Aktives ignorieren ist für folgendes <b>mildes Fehlverhalten</b> geeignet:</p><ul><li>Umständlichkeit</li><li>jammern</li><li>schmollen</li><li>mürrisch sein</li><li>Widerrede</li><li>Geräusche machen</li><li>leichtes argumentieren</li><li>die selbe Frage immer wieder stellen</li><li>Sätze wiederholen</li><li>Bestätigung suchen</li></ul>",
 ]},
 

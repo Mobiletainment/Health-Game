@@ -80,7 +80,7 @@
     <key>UIStatusBarHidden</key>
     <true/>
     <key>CFBundleShortVersionString</key>
-    <string>0.49</string>
+    <string>0.55</string>
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <false/>
   </dict>

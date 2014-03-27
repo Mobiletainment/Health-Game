@@ -95,12 +95,17 @@
         $.pnotify.defaults.styling = "jqueryui";
         $.pnotify.defaults.history = false;
 
+        var userExists = $.cookie("username");
+        if (userExists && userExists.length > 1)
+        {
+            document.location.hash = "#main-menu";
+        }
         //TODO: INIT
-        $.cookie("username", "test", {expires: 20 * 365, path: '/'});
-        window.username = "test";
+        //$.cookie("username", "test", {expires: 20 * 365, path: '/'});
+        //window.username = "test";
 
 
-        document.location.hash = "#main-menu";
+        
 
     });
 

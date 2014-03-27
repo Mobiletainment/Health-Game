@@ -13,6 +13,15 @@
             cache: false
         });
 
-        $.mobile.activeBtnClass = '.ui-btn-up-b';
+        //$.mobile.activeBtnClass = '.ui-btn-up-b';
+        //$.mobile.activeBtnClass = 'unused';
+
+        $('.btn').on('touchend click', function() {
+            var self = this;
+            setTimeout(function() {
+                $(self).removeClass("ui-btn-active");
+            },
+                    500);
+        });
     });
 }());

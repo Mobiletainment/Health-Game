@@ -13,8 +13,21 @@ var TrainingContentView = function(adapter, chapter)
 
     this.initialize = function()
     {
-	
 	$("#train-content").html(trainingContentPageTpl(chapter));
+        
+        var progressLabel = $("#progressLabelPages");
+        var progressbar = $("#progressbarPages");
+        
+        progressbar.progressbar({
+	    value: false,
+	    change: function() {
+		progressLabel.text("Seite " + (currentPage+1) + " von " + pageCount);
+
+	    }
+	});
+        
+        //progressbar.progressbar("value", 1);
+        progressbar.height("10");
 	
 	return this;
     };
@@ -26,8 +39,10 @@ var TrainingContentView = function(adapter, chapter)
     {
 	console.log("Loading Content for " + key);
 	
+        
 	var item = pages[currentPage];
-	
+	$("#progressbarPages").progressbar("value", (currentPage+1) * 100 / pageCount);
+        
 	if (typeof(item) == "object")
 	{
 	    var link = item.href;
@@ -66,8 +81,16 @@ var TrainingContentView = function(adapter, chapter)
 
 	$('#training-content-footer').find("#prev-page").button().click($.proxy(function() {
 	    //use original 'this'
-	    currentPage--;
-	    this.loadContent("prev");
+	    
+            if (currentPage === 0)
+            {
+                window.location.href = "#training";
+            }
+            else 
+            {
+                currentPage--;
+                this.loadContent("prev");
+            }
 	}, this));
 
 	$('#training-content-footer').find("#training-end").button().click($.proxy(function() {
