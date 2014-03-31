@@ -1,0 +1,190 @@
+/* 
+  Our list items should not have the regular dots
+*/
+
+div#centered {
+    width:100px;
+    margin:0 auto;
+    height:100px;           /*Required only for Vertical alingment*/
+    position:static;        /*only static and relativ works. If static just leave it out since it is the default.*/
+    
+}
+
+div#helper {                /*Required only for Vertical alingment*/
+    height:50%;
+    width:100%;
+    margin-bottom:-50px;
+}
+
+.icon-title
+{
+    color: #000;
+    
+    font-size: 22px;
+    display: inline-block;
+   
+    width: 100%;
+  color: #fff;
+  text-align: center;
+   text-shadow: 0 0 12px black;
+  
+}
+  
+ 
+
+.icon
+{
+    position: relative;
+    background-size: contain;
+    background-repeat:no-repeat;
+    vertical-align: middle;
+    background-position: center center;
+    border-bottom: 0 none;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.46);
+}
+
+.daily-input
+{
+    background-image: url(../img/mixed/daily-input.png), -webkit-gradient(linear, left top, left bottom, from(#4096ee), to( #ebf1f6)); /* Saf4+, Chrome */
+    background-image: url(../img/mixed/daily-input.png), -webkit-linear-gradient(top, #4096ee,  #ebf1f6); /* Chrome 10+, Saf5.1+ */
+    background-image: url(../img/mixed/daily-input.png),    -moz-linear-gradient(top, #4096ee,  #ebf1f6); /* FF3.6+ */
+    background-image: url(../img/mixed/daily-input.png),     -ms-linear-gradient(top, #4096ee,  #ebf1f6); /* IE10 */
+    background-image: url(../img/mixed/daily-input.png),      -o-linear-gradient(top, #4096ee,  #ebf1f6); /* Opera 11.10+ */
+    background-image: url(../img/mixed/daily-input.png),         linear-gradient(to bottom, #4096ee,  #ebf1f6); /* W3C */
+
+}
+
+
+.aquatic-space
+{
+    background-image: url(../img/mixed/aquatic-space.png), -webkit-gradient(linear, left top, left bottom, from(rgba(197,222,234,1)), to(rgba(6,109,171,1))); /* Saf4+, Chrome */
+    background-image: url(../img/mixed/aquatic-space.png), -webkit-linear-gradient(top, rgba(197,222,234,1), rgba(6,109,171,1)); /* Chrome 10+, Saf5.1+ */
+    background-image: url(../img/mixed/aquatic-space.png),    -moz-linear-gradient(top, rgba(197,222,234,1), rgba(6,109,171,1)); /* FF3.6+ */
+    background-image: url(../img/mixed/aquatic-space.png),     -ms-linear-gradient(top, rgba(197,222,234,1), rgba(6,109,171,1)); /* IE10 */
+    background-image: url(../img/mixed/aquatic-space.png),      -o-linear-gradient(top, rgba(197,222,234,1), rgba(6,109,171,1)); /* Opera 11.10+ */
+    background-image: url(../img/mixed/aquatic-space.png),         linear-gradient(to bottom, rgba(197,222,234,1), rgba(6,109,171,1)); /* W3C */
+}
+
+.icon-training
+{
+    background: rgb(179,220,237);
+    background: url(../img/mixed/training.png), -moz-linear-gradient(top,  rgba(179,220,237,1) 0%, rgba(41,184,229,1) 50%, rgba(188,224,238,1) 100%);
+    background: url(../img/mixed/training.png), -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(179,220,237,1)), color-stop(50%,rgba(41,184,229,1)), color-stop(100%,rgba(188,224,238,1)));
+    background: url(../img/mixed/training.png), -webkit-linear-gradient(top,  rgba(179,220,237,1) 0%,rgba(41,184,229,1) 50%,rgba(188,224,238,1) 100%);
+    background: url(../img/mixed/training.png), -o-linear-gradient(top,  rgba(179,220,237,1) 0%,rgba(41,184,229,1) 50%,rgba(188,224,238,1) 100%);
+    background: url(../img/mixed/training.png), -ms-linear-gradient(top,  rgba(179,220,237,1) 0%,rgba(41,184,229,1) 50%,rgba(188,224,238,1) 100%);
+    background: url(../img/mixed/training.png), linear-gradient(to bottom,  rgba(179,220,237,1) 0%,rgba(41,184,229,1) 50%,rgba(188,224,238,1) 100%);
+    background-repeat:no-repeat;
+}
+
+
+
+.statistics
+{
+    background-image: url(../img/mixed/statistics.png), -webkit-gradient(linear, left top, left bottom, from( rgba(30,87,153,1)), to(rgba(41,137,216,1))); /* Saf4+, Chrome */
+    background-image: url(../img/mixed/statistics.png), -webkit-linear-gradient(top,  rgba(30,87,153,1), rgba(41,137,216,1)); /* Chrome 10+, Saf5.1+ */
+    background-image: url(../img/mixed/statistics.png),    -moz-linear-gradient(top,  rgba(30,87,153,1), rgba(41,137,216,1)); /* FF3.6+ */
+    background-image: url(../img/mixed/statistics.png),     -ms-linear-gradient(top,  rgba(30,87,153,1), rgba(41,137,216,1)); /* IE10 */
+    background-image: url(../img/mixed/statistics.png),      -o-linear-gradient(top,  rgba(30,87,153,1), rgba(41,137,216,1)); /* Opera 11.10+ */
+    background-image: url(../img/mixed/statistics.png),         linear-gradient(to bottom,  rgba(30,87,153,1), rgba(41,137,216,1)); /* W3C */
+}
+
+.gridster ul {
+    list-style: none;
+}
+/* 
+  Set out layout to be 960px wide
+*/
+
+.imgBackground
+{
+    background-position: center center;
+}
+
+.gridster {
+    width: auto;
+    margin: 0 auto;
+    color: white;
+    text-align: center;
+}
+
+/* 
+  Give the layout a boxy look with shadows, and 
+  change the cursor over the elements so it's 
+  easier to know where to drag
+*/
+.gridster .gs_w {
+    background: #FFF;
+    cursor: pointer;
+    -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
+/* Align the images to center and middle */
+.gridster img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+/* Define our colours */
+/* purple */
+.gridster li.purple{
+    background:#A200FF;
+}
+
+
+/*  magenta */
+.gridster li.magenta{
+    background: #FF0097;
+}
+
+/*  teal */
+.gridster li.teal{
+    background: #00ABA9;
+}
+
+/*  lime */
+.gridster .lime{
+    background: #8CBF26;
+}
+
+/*  brown */
+.gridster li.brown{
+    background: #A05000;
+}
+
+/* pink */
+.gridster li.pink{
+    background: #E671B8;
+}
+
+/*  orange */
+.gridster li.orange{
+    background: #F09609;
+}
+
+/*  blue */
+.gridster li.blue{
+    background: #1BA1E2;
+}
+
+/*  red */
+.gridster li.red{
+    background: #E51400;
+}
+
+/*  green */
+.gridster li.green{
+    background: #339933;
+}
+
+
+
+
+
+
+
+
+
+

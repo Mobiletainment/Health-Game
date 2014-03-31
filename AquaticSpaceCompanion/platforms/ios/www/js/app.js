@@ -105,7 +105,7 @@
         //window.username = "test";
 
 
-        
+
 
     });
 
@@ -139,6 +139,7 @@
     // Start: Main Menu
     $("#main-menu").on("pagebeforecreate", function(event)
     {
+
         showTrainingOverview();
 
         var progressLabel = $("#progressLabelMain");
@@ -176,6 +177,12 @@
 
         progressbar.progressbar("value", 0);
         loadTrainingProgress();
+
+        $(".gridster ul").gridster({
+            widget_margins: [10, 10],
+            widget_base_dimensions: [140, 140]
+        });
+
     });
 
     $("#main-menu").on("pagebeforeshow", function(event)
@@ -437,19 +444,19 @@
 
         $("#rewardImage").attr("src", "img/reward/" + reward + ".png");
         $("#rewardBackNavigation").attr("href", "index.html" + customData.referral);
-        
+
         $("#selectedRewardText").text(function()
         {
-           if (reward === "salad")
-               return "Ein Salatblatt";
-           else if (reward === "snail")
-               return "Eine Schnecke";
-           else if (reward === "sight")
-               return "Eine Brille";
-           else if (reward === "life")
-               return "Ein extra Leben";           
+            if (reward === "salad")
+                return "Ein Salatblatt";
+            else if (reward === "snail")
+                return "Eine Schnecke";
+            else if (reward === "sight")
+                return "Eine Brille";
+            else if (reward === "life")
+                return "Ein extra Leben";
         });
-        
+
         $("#sendInGameForm").validate({
             rules: {
                 rewardMessage: {
@@ -700,7 +707,7 @@
                         lockStatus++;
                         //insert list divider
                         $(tomorrowItem).insertBefore($(container + total));
-                        
+
                         if (lastCompleted === true)
                         {
                             $(tomorrowItem).text(textAvailableTime);

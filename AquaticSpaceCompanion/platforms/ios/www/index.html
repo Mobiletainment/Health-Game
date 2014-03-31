@@ -19,7 +19,8 @@
         <link rel="stylesheet" media="all" href="js/vendor/jquery.pnotify/jquery.pnotify.default.css">
         <link rel="stylesheet" media="all" href="js/vendor/jquery.pnotify/jquery.pnotify.default.icons.css">
         <link href="css/styles.css" rel="stylesheet">
-
+        <link rel="stylesheet" media="all" href="css/jquery.gridster.min.css">
+        <link rel="stylesheet" media="all" href="css/dashboard.css">
 
 
         <!-- For iOS web apps. Delete if not needed. https://github.com/h5bp/mobile-boilerplate/issues/94 -->
@@ -451,47 +452,50 @@
         </div>
 
         <!-- Main Menu -->
-        <div data-role="page" id="main-menu" data-theme="c" data-content-theme="c">
+        <div data-role="page" id="main-menu" data-theme="c" data-content-theme="c" class="main-menu">
             <div data-role="header" data-position="fixed" data-tap-toggle="false">
                 <h1 style="text-overflow: string;">Hauptmenü</h1>
             </div>
             <div data-role="main" class="ui-content">
                 <h3>Bitte wählen Sie eine Aktion aus:</h3>
 
-                <ul data-role="listview" data-inset="true">
-                    <li data-role="list-divider">Tägliche Eingaben</li>
-                    <li>
-                        <a href="#daily-inputs-menu">
-                            <img src="img/mixed/daily-input.png">
-                            <p><strong>Tägliche Eingaben:</strong></p>
+                <div class="gridster">
+                    <ul>
+                        <li data-row="1" data-col="1" data-sizex="1" data-sizey="1" class="icon daily-input">
+                            <a href="#daily-inputs-menu">
+                                <div id="helper"></div>
+                                <div id="centered"><p class="icon-title">Tägliche Eingaben</p></div>
 
-                            <p>Geben Sie die heutigen Fortschritte ein</p>
-                        </a>
-                    </li>
-                </ul>
-                <ul data-role="listview" data-inset="true">
-                    <li data-role="list-divider">Training</li>
-                    <li>
-                        <a href="#training">
-                            <img src="img/mixed/reading.png">
-                            <p><strong>Ihr Trainings-Fortschritt:</strong></p>
-                            <div id="progressbarMain"><span id="progressLabelMain" class="progress-label center">Fortschritt</span></div>
-                            <p></p>
-                            <p>Üben und verbessern Sie sich</p>
-                        </a>
-                    </li>
-                </ul>
-                <ul data-role="listview" data-inset="true">
-                    <li data-role="list-divider">Statistiken</li>
-                    <li>
-                        <a href="#">
-                            <img src="img/mixed/statistics.png">
-                            <p><strong>Ihre Statistiken:</strong></p>
-                            <p>Informieren Sie sich über den Fortschritt</p>
-                        </a>
-                    </li>
 
-                </ul>
+                            </a>
+                        </li>
+                        <li data-row="1" data-col="2" data-sizex="1" data-sizey="1" class="icon icon-training">
+                            <a href="#training">
+                                <div id="helper"></div>
+                                <div id="centered">
+                                    <p class="icon-title">Training</p>
+                                    <span id="progressLabelMain" class="icon-title">Fortschritt</span>
+                                    <div id="progressbarMain">
+                                    </div>
+                                </div>
+
+                            </a>
+                        </li>
+                        <li data-row="2" data-col="1" data-sizex="1" data-sizey="1" class="icon aquatic-space">
+                            <a href="#actions">
+                                <div id="helper"></div>
+                                <div id="centered"><p class="icon-title">Kind & Spiel</p></div>
+                            </a>
+                        </li>
+                        <li data-row="2" data-col="2" data-sizex="1" data-sizey="1" class="icon statistics">
+                            <a href="#">
+                                <div id="helper"></div>
+                                <div id="centered"><p class="icon-title">Statistiken</p></div>
+                                <h2></h2>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
 
             </div>  
         </div>
@@ -660,7 +664,7 @@
                 <div>
                     <p>Sie haben folgende Belohnung im Spiel ausgewählt:
                     <div class="centerDiv align-center"><img id="rewardImage"><br><div id="selectedRewardText" class="align-center"></div> </div>
-                    
+
                     <p>Schreiben sie ihrem Kind, wie es sich die Belohnung verdient hat:</p>
                     <form id="sendInGameForm" name="sendInGameForm" >
                         <fieldset data-role="fieldcontain">
@@ -721,10 +725,10 @@
             <h2>{{subTitle}}</h2>
             <div id="progressbarPages" ><span id="progressLabelPages" class="progress-label center">Seite 1 von 9</span></div>
             <ul data-role="listview" id="training-content-listview" data-inset="true">
-                <li>
-                    <div id="training-content-main">
-                    </div>
-                </li>
+            <li>
+            <div id="training-content-main">
+            </div>
+            </li>
             </ul>
             </div>
             <div data-role="footer" data-position="fixed" data-tap-toggle="false" id="training-content-footer"></div>
@@ -767,15 +771,15 @@
             </div>
 
             <div data-role="footer" data-position="fixed" data-tap-toggle="false" id="training-footer">
-                  <div style="margin-right: 15px; margin-left: 15px; margin-top: 5px; margin-bottom: 5px;">
+                <div style="margin-right: 15px; margin-left: 15px; margin-top: 5px; margin-bottom: 5px;">
                     <div id="progressbar" ><span id="progressLabel" class="progress-label center">Fortschritt</span></div>
-                
 
-                
+
+
                 </div>
-                
+
             </div>
-            
+
         </div>
 
 
@@ -825,7 +829,7 @@
         <script src="js/vendor/testflight.js"></script>
         <script src="js/vendor/PushNotification.js"></script>
         <script src="js/adapters/localstorage-adapter.js"></script>
-
+        <script src="js/vendor/jquery.gridster.min.js"></script>
 
         <script src="js/TrainingContentView.js"></script>
         <script src="js/TrainingView.js"></script>

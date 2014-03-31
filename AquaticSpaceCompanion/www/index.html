@@ -19,7 +19,8 @@
         <link rel="stylesheet" media="all" href="js/vendor/jquery.pnotify/jquery.pnotify.default.css">
         <link rel="stylesheet" media="all" href="js/vendor/jquery.pnotify/jquery.pnotify.default.icons.css">
         <link href="css/styles.css" rel="stylesheet">
-
+        <link rel="stylesheet" media="all" href="css/jquery.gridster.min.css">
+        <link rel="stylesheet" media="all" href="css/dashboard.css">
 
 
         <!-- For iOS web apps. Delete if not needed. https://github.com/h5bp/mobile-boilerplate/issues/94 -->
@@ -458,34 +459,42 @@
             <div data-role="main" class="ui-content">
                 <h3>Bitte wählen Sie eine Aktion aus:</h3>
 
-                <div class="ui-grid-a">
-                    <div class="ui-block-a">
-                        <a href="#daily-inputs-menu">
-                            <img src="img/mixed/daily-input.png">
-                            <h2>Tägliche Eingaben</h2>
-                        </a>
-                    </div>
-                    <div class="ui-block-b">
-                        <a href="#training">
-                            <img src="img/mixed/reading.png">
-                            <h2>Training</h2>
-                            <div id="progressbarMain">
-                                <span id="progressLabelMain" class="progress-label center">Fortschritt</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="ui-block-a">
-                        <a href="#actions">
-                            <img src="img/mixed/aquatic-space.png">
-                            <h2>Spiel-Aktionen</h2>
-                        </a>
-                    </div>
-                    <div class="ui-block-b">
-                        <a href="#">
-                            <img src="img/mixed/statistics.png">
-                            <h2>Statistiken</h2>
-                        </a>
-                    </div>
+                <div class="gridster">
+                    <ul>
+                        <li data-row="1" data-col="1" data-sizex="1" data-sizey="1" class="icon daily-input">
+                            <a href="#daily-inputs-menu">
+                                <div id="helper"></div>
+                                <div id="centered"><p class="icon-title">Tägliche Eingaben</p></div>
+
+
+                            </a>
+                        </li>
+                        <li data-row="1" data-col="2" data-sizex="1" data-sizey="1" class="icon icon-training">
+                            <a href="#training">
+                                <div id="helper"></div>
+                                <div id="centered">
+                                    <p class="icon-title">Training</p>
+                                    <span id="progressLabelMain" class="icon-title">Fortschritt</span>
+                                    <div id="progressbarMain">
+                                    </div>
+                                </div>
+
+                            </a>
+                        </li>
+                        <li data-row="2" data-col="1" data-sizex="1" data-sizey="1" class="icon aquatic-space">
+                            <a href="#actions">
+                                <div id="helper"></div>
+                                <div id="centered"><p class="icon-title">Kind & Spiel</p></div>
+                            </a>
+                        </li>
+                        <li data-row="2" data-col="2" data-sizex="1" data-sizey="1" class="icon statistics">
+                            <a href="#">
+                                <div id="helper"></div>
+                                <div id="centered"><p class="icon-title">Statistiken</p></div>
+                                <h2></h2>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
 
             </div>  
@@ -820,7 +829,7 @@
         <script src="js/vendor/testflight.js"></script>
         <script src="js/vendor/PushNotification.js"></script>
         <script src="js/adapters/localstorage-adapter.js"></script>
-
+        <script src="js/vendor/jquery.gridster.min.js"></script>
 
         <script src="js/TrainingContentView.js"></script>
         <script src="js/TrainingView.js"></script>

@@ -110,7 +110,7 @@ and open the template in the editor.
 
 .ui-pnotify-container {
 background: #DFF0D8;
-margin-bottom: 10px;
+margin-bottom: 20px;
 }
 
 .ui-header .ui-title {
@@ -140,12 +140,11 @@ div.ui-btn-active
 
 #progressbarMain
 {
-    margin-right: 20px;
-    margin-bottom: 4px;
 }
 
 #progressLabelMain {
-    font-size: 0.6em;
+    font-size: 0.7em;
+    
 }
 
 
