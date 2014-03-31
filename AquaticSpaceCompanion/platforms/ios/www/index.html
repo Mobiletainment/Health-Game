@@ -653,13 +653,14 @@
         <!-- In-Game Reward Page -->
         <div data-role="page" id="rewardingame" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed" data-tap-toggle="false">
-                <a href="#" data-theme="b" data-icon-pos="notext" data-inline="true" class="ui-btn-left" id="rewardBackNavigation" onclick="window.history.back();" data-rel="back" data-icon="arrow-l" /></a>
+                <a href="#" data-theme="b" data-role="button" id="rewardBackNavigation" onclick="window.history.back();" data-rel="back" data-icon="arrow-l" />Zurück</a>
                 <h1 style="text-overflow: string;">Belohnung im Spiel</h1>
             </div>
             <div data-role="main" class="ui-content" id="rewardInGameContent">
                 <div>
-                    <p>Sie haben eine Belohnung im Spiel ausgewählt.</p>
-                    <img id="rewardImage">
+                    <p>Sie haben folgende Belohnung im Spiel ausgewählt:
+                    <div class="centerDiv align-center"><img id="rewardImage"><br><div id="selectedRewardText" class="align-center"></div> </div>
+                    
                     <p>Schreiben sie ihrem Kind, wie es sich die Belohnung verdient hat:</p>
                     <form id="sendInGameForm" name="sendInGameForm" >
                         <fieldset data-role="fieldcontain">

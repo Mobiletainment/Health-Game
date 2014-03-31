@@ -451,47 +451,42 @@
         </div>
 
         <!-- Main Menu -->
-        <div data-role="page" id="main-menu" data-theme="c" data-content-theme="c">
+        <div data-role="page" id="main-menu" data-theme="c" data-content-theme="c" class="main-menu">
             <div data-role="header" data-position="fixed" data-tap-toggle="false">
                 <h1 style="text-overflow: string;">Hauptmenü</h1>
             </div>
             <div data-role="main" class="ui-content">
                 <h3>Bitte wählen Sie eine Aktion aus:</h3>
 
-                <ul data-role="listview" data-inset="true">
-                    <li data-role="list-divider">Tägliche Eingaben</li>
-                    <li>
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
                         <a href="#daily-inputs-menu">
                             <img src="img/mixed/daily-input.png">
-                            <p><strong>Tägliche Eingaben:</strong></p>
-
-                            <p>Geben Sie die heutigen Fortschritte ein</p>
+                            <h2>Tägliche Eingaben</h2>
                         </a>
-                    </li>
-                </ul>
-                <ul data-role="listview" data-inset="true">
-                    <li data-role="list-divider">Training</li>
-                    <li>
+                    </div>
+                    <div class="ui-block-b">
                         <a href="#training">
                             <img src="img/mixed/reading.png">
-                            <p><strong>Ihr Trainings-Fortschritt:</strong></p>
-                            <div id="progressbarMain"><span id="progressLabelMain" class="progress-label center">Fortschritt</span></div>
-                            <p></p>
-                            <p>Üben und verbessern Sie sich</p>
+                            <h2>Training</h2>
+                            <div id="progressbarMain">
+                                <span id="progressLabelMain" class="progress-label center">Fortschritt</span>
+                            </div>
                         </a>
-                    </li>
-                </ul>
-                <ul data-role="listview" data-inset="true">
-                    <li data-role="list-divider">Statistiken</li>
-                    <li>
+                    </div>
+                    <div class="ui-block-a">
+                        <a href="#actions">
+                            <img src="img/mixed/aquatic-space.png">
+                            <h2>Spiel-Aktionen</h2>
+                        </a>
+                    </div>
+                    <div class="ui-block-b">
                         <a href="#">
                             <img src="img/mixed/statistics.png">
-                            <p><strong>Ihre Statistiken:</strong></p>
-                            <p>Informieren Sie sich über den Fortschritt</p>
+                            <h2>Statistiken</h2>
                         </a>
-                    </li>
-
-                </ul>
+                    </div>
+                </div>
 
             </div>  
         </div>
@@ -653,13 +648,14 @@
         <!-- In-Game Reward Page -->
         <div data-role="page" id="rewardingame" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed" data-tap-toggle="false">
-                <a href="#" data-theme="b" data-icon-pos="notext" data-inline="true" class="ui-btn-left" id="rewardBackNavigation" onclick="window.history.back();" data-rel="back" data-icon="arrow-l" /></a>
+                <a href="#" data-theme="b" data-role="button" id="rewardBackNavigation" onclick="window.history.back();" data-rel="back" data-icon="arrow-l" />Zurück</a>
                 <h1 style="text-overflow: string;">Belohnung im Spiel</h1>
             </div>
             <div data-role="main" class="ui-content" id="rewardInGameContent">
                 <div>
-                    <p>Sie haben eine Belohnung im Spiel ausgewählt.</p>
-                    <img id="rewardImage">
+                    <p>Sie haben folgende Belohnung im Spiel ausgewählt:
+                    <div class="centerDiv align-center"><img id="rewardImage"><br><div id="selectedRewardText" class="align-center"></div> </div>
+
                     <p>Schreiben sie ihrem Kind, wie es sich die Belohnung verdient hat:</p>
                     <form id="sendInGameForm" name="sendInGameForm" >
                         <fieldset data-role="fieldcontain">
@@ -720,10 +716,10 @@
             <h2>{{subTitle}}</h2>
             <div id="progressbarPages" ><span id="progressLabelPages" class="progress-label center">Seite 1 von 9</span></div>
             <ul data-role="listview" id="training-content-listview" data-inset="true">
-                <li>
-                    <div id="training-content-main">
-                    </div>
-                </li>
+            <li>
+            <div id="training-content-main">
+            </div>
+            </li>
             </ul>
             </div>
             <div data-role="footer" data-position="fixed" data-tap-toggle="false" id="training-content-footer"></div>
@@ -766,15 +762,15 @@
             </div>
 
             <div data-role="footer" data-position="fixed" data-tap-toggle="false" id="training-footer">
-                  <div style="margin-right: 15px; margin-left: 15px; margin-top: 5px; margin-bottom: 5px;">
+                <div style="margin-right: 15px; margin-left: 15px; margin-top: 5px; margin-bottom: 5px;">
                     <div id="progressbar" ><span id="progressLabel" class="progress-label center">Fortschritt</span></div>
-                
 
-                
+
+
                 </div>
-                
+
             </div>
-            
+
         </div>
 
 

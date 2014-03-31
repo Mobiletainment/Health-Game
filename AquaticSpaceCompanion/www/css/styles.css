@@ -8,6 +8,18 @@ and open the template in the editor.
     Author     : dp
 */
 
+.citationList
+{
+    margin-top: -10px;
+    padding-left: 20px;
+}
+
+.centerDiv
+{
+    width: 50%;
+    margin: 0 auto;
+}
+
 #progressbarPages
 {
     margin-top: -15px;
@@ -90,9 +102,15 @@ and open the template in the editor.
     text-align: right;
 }
 
+.align-center
+{
+    text-align: center;
+}
+
+
 .ui-pnotify-container {
 background: #DFF0D8;
-margin-bottom: 40px;
+margin-bottom: 20px;
 }
 
 .ui-header .ui-title {

@@ -433,8 +433,23 @@
         // parameter = parameters.replace("parameter=","");  
         //  document.location.hash = u.hash;
 
-        $("#rewardImage").attr("src", "img/reward/" + customData.data + ".png");
+        var reward = customData.data;
+
+        $("#rewardImage").attr("src", "img/reward/" + reward + ".png");
         $("#rewardBackNavigation").attr("href", "index.html" + customData.referral);
+        
+        $("#selectedRewardText").text(function()
+        {
+           if (reward === "salad")
+               return "Ein Salatblatt";
+           else if (reward === "snail")
+               return "Eine Schnecke";
+           else if (reward === "sight")
+               return "Eine Brille";
+           else if (reward === "life")
+               return "Ein extra Leben";           
+        });
+        
         $("#sendInGameForm").validate({
             rules: {
                 rewardMessage: {
@@ -575,7 +590,7 @@
     {
         var func = this;
         $.mobile.loading('show', {
-            text: 'Speichere Fortschritt'
+            text: 'Aktualisiere Trainingsfortschritt'
         });
 
         console.log("Saving progress for chapter: " + chapterId);
