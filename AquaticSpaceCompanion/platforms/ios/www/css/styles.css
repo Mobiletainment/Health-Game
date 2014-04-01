@@ -8,6 +8,9 @@ and open the template in the editor.
     Author     : dp
 */
 
+div .ui-radio .ui-radio-on {
+    background: #396b9e !important;
+}
 .citationList
 {
     margin-top: -10px;

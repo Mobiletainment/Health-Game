@@ -47,6 +47,8 @@
         //route();
 
     });
+    
+    
 
     /* --------------------------------- Event Registration -------------------------------- */
     document.addEventListener('deviceready', function() {
@@ -96,9 +98,9 @@
         $.pnotify.defaults.history = false;
 
         var userExists = $.cookie("username");
-        if (userExists && userExists.length > 1)
+        if (userExists && userExists.length > 1 && document.location.hash == '')
         {
-            document.location.hash = "#main-menu";
+         //   document.location.hash = "#main-menu";
         }
         //TODO: INIT
         //$.cookie("username", "test", {expires: 20 * 365, path: '/'});

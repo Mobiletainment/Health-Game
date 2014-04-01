@@ -8,11 +8,23 @@ var BehaviorInputView = function(adapter, data)
 
 	$("#checkBoxContent").find(".customCheckbox").bind("change", function(event, ui)
 	{
+            var textArea = $(this).next().find("textArea");
 	    if (this.checked)
-		$(this).next().find("textArea").removeClass('ui-body-c').addClass('ui-body-d');
+            {
+		textArea.removeClass('ui-body-c').addClass('ui-body-d');
+                textArea.focus();
+            }
+            else if (this.checked === true && !$.trim(textArea.val()))
+            {
+                this.checked = false;
+            }
 	    else
-		$(this).next().find("textArea").removeClass('ui-body-d').addClass('ui-body-c');
+            {
+		textArea.removeClass('ui-body-d').addClass('ui-body-c');
+            }
 	});
+        
+       
 
 
 	$("#checkBoxContent").find("textarea").blur(function()

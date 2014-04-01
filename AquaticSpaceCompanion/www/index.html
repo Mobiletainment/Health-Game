@@ -263,11 +263,11 @@
         </div>
 
         <!-- Data Input Behavior Page -->
-        <div data-role="page" id="data-input-behavior" data-theme="c" data-content-theme="c">
+        <div data-role="page" id="data-input-behavior" data-theme="c" data-content-theme="c" data-tap-toggle="false">
             <div data-role="header" data-position="fixed" data-tap-toggle="false">
                 <h1 style="text-overflow: string;">Eingaben</h1>
             </div>
-            <div data-role="main" class="ui-content">
+            <div data-role="main" class="ui-content" data-tap-toggle="false">
                 <h2>Unerwünschte Verhaltensweisen</h2>
                 <div>
                     <p>Wählen Sie unerwünschte Verhaltensweisen oder geben Sie selbst welche ein:</p>
@@ -278,7 +278,7 @@
                     </fieldset>
                 </div>
             </div>
-            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false">
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
                         <a data-role="button" data-theme="b" onclick="window.history.back();" data-rel="back">Zurück</a>                
@@ -512,24 +512,18 @@
                     <ul data-role="listview" data-inset="true">
                         <li>
                             <a href="#daily-inputs-tasks">
-                                <p><strong>Tägliche Aufgaben</strong></p>
-                                <p>Bitte geben Sie an, welche der ausgewählten täglichen Aufgaben ihr Kind erledigt hat.</p>
-                            </a>
+                                <img id="imgDone_daily1" class="ui-li-icon" src="img/checkbox_notDone.png">Tägliche Aufgaben
+                            </a>            
                         </li>
-                    </ul>
-                    <ul data-role="listview" data-inset="true">
                         <li>
                             <a href="#daily-inputs-benchmark">
-                                <p><strong>Verhaltensmaßstab</strong></p>
-                                <p>Bitte bewerten Sie das Verhalten ihres Kindes am heutigen Tag.</p>
-                            </a>
+                                <img id="imgDone_daily2" class="ui-li-icon" src="img/checkbox_notDone.png">Verhaltensmaßstab
+                            </a>            
                         </li>
-                    </ul>
-                    <ul data-role="listview" data-inset="true">
+
                         <li>
                             <a href="#daily-inputs-selfcontrol">
-                                <p><strong>Selbst-Kontrolle</strong></p>
-                                <p>Bitten geben Sie an, wie oft Sie die Strategien umgesetzt haben</p>
+                                <img id="imgDone_daily3" class="ui-li-icon" src="img/checkbox_notDone.png">Selbst-Kontrolle
                             </a>
                         </li>
                     </ul>
@@ -628,17 +622,75 @@
                 <h2>Selbst-Kontrolle</h2>
                 <div>
                     <p>Geben Sie an, wie oft Sie die Strategien umgesetzt haben:<p>
-                    <fieldset data-role="controlgroup" data-type="horizontal">
-                        <legend>Nähe (z.B. Umarmen, abklatschen):</legend>
-                        <input name="radio-choice-nearness" id="radio-choice-nearness0" value="0" checked="checked" type="radio">
-                        <label for="radio-choice-nearness0">0</label>
-                        <input name="radio-choice-nearness" id="radio-choice-nearness1" value="1-2" type="radio">
-                        <label for="radio-choice-nearness1">1-2</label>
-                        <input name="radio-choice-nearness" id="radio-choice-nearness2" value="3-4" type="radio">
-                        <label for="radio-choice-nearness2">3-4</label>
-                        <input name="radio-choice-nearness" id="radio-choice-nearness3" value="5+" type="radio">
-                        <label for="radio-choice-nearness3">5+</label>
-                    </fieldset>
+                    <ul data-role='listview' data-inset="true">
+                        <li data-role="list-divider" data-theme="a">Belohnungen</li>
+                        <li data-theme="d">
+                            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" data-theme="d" class="custom-fieldset">
+                                <legend>Nähe (z.B. Umarmen, Kopf streicheln):</legend>
+                                <input name="radio-choice-nearness" id="radio-choice-nearness0" value="0" checked="checked" type="radio" data-theme="d">
+                                <label for="radio-choice-nearness0">0</label>
+                                <input name="radio-choice-nearness" id="radio-choice-nearness1" value="1" type="radio" data-theme="d">
+                                <label for="radio-choice-nearness1">1</label>
+                                <input name="radio-choice-nearness" id="radio-choice-nearness2" value="2" type="radio" data-theme="d">
+                                <label for="radio-choice-nearness2">2</label>
+                                <input name="radio-choice-nearness" id="radio-choice-nearness3" value="3+" type="radio" data-theme="d">
+                                <label for="radio-choice-nearness3">3+</label>
+                            </fieldset>
+                        </li>
+                        <li data-theme="d">
+                            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" data-theme="d">
+                                <legend>Immateriell (z.B. in den Park gehen, länger aufbleiben dürfen):</legend>
+                                <input name="radio-choice-immaterial" id="radio-choice-immaterial0" value="0" checked="checked" type="radio" data-theme="d">
+                                <label for="radio-choice-immaterial0">0</label>
+                                <input name="radio-choice-immaterial" id="radio-choice-immaterial1" value="1" type="radio" data-theme="d">
+                                <label for="radio-choice-immaterial1">1</label>
+                                <input name="radio-choice-immaterial" id="radio-choice-immaterial2" value="2" type="radio" data-theme="d">
+                                <label for="radio-choice-immaterial2">2</label>
+                                <input name="radio-choice-immaterial" id="radio-choice-immaterial3" value="3+" type="radio" data-theme="d">
+                                <label for="radio-choice-immaterial3">3+</label>
+                            </fieldset>
+                        </li>
+                        <li data-theme="d">
+                            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                                <legend>Immateriell (z.B. in den Park gehen, länger aufbleiben dürfen):</legend>
+                                <input name="radio-choice-material" id="radio-choice-material0" value="0" checked="checked" type="radio" data-theme="d">
+                                <label for="radio-choice-material0">0</label>
+                                <input name="radio-choice-material" id="radio-choice-material1" value="1" type="radio" data-theme="d">
+                                <label for="radio-choice-material1">1</label>
+                                <input name="radio-choice-material" id="radio-choice-material2" value="2" type="radio" data-theme="d">
+                                <label for="radio-choice-material2">2</label>
+                                <input name="radio-choice-material" id="radio-choice-material3" value="3+" type="radio" data-theme="d">
+                                <label for="radio-choice-material3">3+</label>
+                            </fieldset>
+                        </li>
+                        <li data-role="list-divider" data-theme="a">Notfal-Strategien</li>
+                        <li data-theme="d">
+                            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="custom-fieldset">
+                                <legend>Aktives Ignorieren:</legend>
+                                <input name="radio-choice-ignore" id="radio-choice-ignore0" value="0" checked="checked" type="radio" data-theme="d">
+                                <label for="radio-choice-ignore0">0</label>
+                                <input name="radio-choice-ignore" id="radio-choice-ignore1" value="1" type="radio" data-theme="d">
+                                <label for="radio-choice-ignore1">1</label>
+                                <input name="radio-choice-ignore" id="radio-choice-ignore2" value="2" type="radio" data-theme="d">
+                                <label for="radio-choice-ignore2">2</label>
+                                <input name="radio-choice-ignore" id="radio-choice-ignore3" value="3+" type="radio" data-theme="d">
+                                <label for="radio-choice-ignore3">3+</label>
+                            </fieldset>
+                        </li>
+                        <li data-theme="d">
+                            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                                <legend>Auszeit:</legend>
+                                <input name="radio-choice-timeout" id="radio-choice-timeout0" value="0" checked="checked" type="radio" data-theme="d">
+                                <label for="radio-choice-timeout0">0</label>
+                                <input name="radio-choice-timeout" id="radio-choice-timeout1" value="1" type="radio" data-theme="d">
+                                <label for="radio-choice-timeout1">1</label>
+                                <input name="radio-choice-timeout" id="radio-choice-timeout2" value="2" type="radio" data-theme="d">
+                                <label for="radio-choice-timeout2">2</label>
+                                <input name="radio-choice-timeout" id="radio-choice-timeout3" value="3+" type="radio" data-theme="d">
+                                <label for="radio-choice-timeout3">3+</label>
+                            </fieldset>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
