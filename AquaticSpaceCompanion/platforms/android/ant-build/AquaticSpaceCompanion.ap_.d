@@ -477,6 +477,7 @@
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/assets/www/plugins/org.apache.cordova.network-information \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/assets/www/plugins/org.apache.cordova.splashscreen \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/assets/www/plugins/org.apache.cordova.vibration \
+/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/assets/www/plugins/uk.co.whiteoctober.cordova.AppVersion \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/assets/www/plugins/com.phonegap.plugins.PushPlugin/www \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/assets/www/plugins/com.phonegap.plugins.PushPlugin/www/PushNotification.js \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/assets/www/plugins/com.testflightapp.cordova-plugin/www \
@@ -550,4 +551,6 @@
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/assets/www/plugins/org.apache.cordova.splashscreen/www/splashscreen.js \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/assets/www/plugins/org.apache.cordova.vibration/www \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/assets/www/plugins/org.apache.cordova.vibration/www/vibration.js \
+/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/assets/www/plugins/uk.co.whiteoctober.cordova.AppVersion/www \
+/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/assets/www/plugins/uk.co.whiteoctober.cordova.AppVersion/www/AppVersionPlugin.js \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/AndroidManifest.xml \

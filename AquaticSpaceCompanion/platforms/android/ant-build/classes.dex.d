@@ -132,6 +132,7 @@
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/org/apache/cordova/networkinformation/NetworkManager.class \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/org/apache/cordova/splashscreen/SplashScreen.class \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/org/apache/cordova/vibration/Vibration.class \
+/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/classes/uk/co/whiteoctober/cordova/AppVersion.class \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/dexedLibs/classes-51751f503c0f30986997a1ccffb01160.jar \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/dexedLibs/TestFlightLib-c3ac094f47b48da5d4ef411237a6d0eb.jar \
 /Users/dp/Documents/Health-Game/AquaticSpaceCompanion/platforms/android/ant-build/dexedLibs/gcm-94c64985e77bac3c33eb0f5f93709bb9.jar \
