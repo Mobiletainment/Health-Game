@@ -409,6 +409,13 @@ module.exports = [
         "merges": [
             "navigator.notification"
         ]
+    },
+    {
+        "file": "plugins/uk.co.whiteoctober.cordova.AppVersion/www/AppVersionPlugin.js",
+        "id": "uk.co.whiteoctober.cordova.AppVersion.AppVersionPlugin",
+        "clobbers": [
+            "cordova.getAppVersion"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -431,7 +438,8 @@ module.exports.metadata =
     "org.apache.cordova.inappbrowser": "0.3.3",
     "org.apache.cordova.network-information": "0.2.7",
     "org.apache.cordova.splashscreen": "0.2.7",
-    "org.apache.cordova.vibration": "0.3.7"
+    "org.apache.cordova.vibration": "0.3.7",
+    "uk.co.whiteoctober.cordova.AppVersion": "0.1.3"
 }
 // BOTTOM OF METADATA
 });

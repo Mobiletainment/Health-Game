@@ -71,6 +71,7 @@
 		F61D28ADDEBD474FB7089459 /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C9F164893849439EA7B7A5 /* CDVInAppBrowser.m */; };
 		FA05F165E75143C6A9D4B76A /* CDVBattery.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0BBF1919AF4FB0976CA906 /* CDVBattery.m */; };
 		FBB7F6E5A2D24E4CA9A00A22 /* PushPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 303939476F3B4C31BF5995C7 /* PushPlugin.m */; };
+		9B297497905143DAA8D31A83 /* AppVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 5840C7D25D334FC6A1B39FA6 /* AppVersion.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -196,6 +197,8 @@
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = AquaticSpaceCompanion/config.xml; sourceTree = "<group>"; };
 		F8C2F7927C7B4133A875B28D /* CDVSplashScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVSplashScreen.h; path = org.apache.cordova.splashscreen/CDVSplashScreen.h; sourceTree = "<group>"; };
 		FEE655B1020B414A9B72F3D6 /* CDVAssetLibraryFilesystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVAssetLibraryFilesystem.h; path = org.apache.cordova.file/CDVAssetLibraryFilesystem.h; sourceTree = "<group>"; };
+		5840C7D25D334FC6A1B39FA6 /* AppVersion.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "AppVersion.m"; path = "uk.co.whiteoctober.cordova.AppVersion/AppVersion.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		81090D52F39D4937BF1D87B3 /* AppVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AppVersion.h"; path = "uk.co.whiteoctober.cordova.AppVersion/AppVersion.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -385,6 +388,8 @@
 				F8C2F7927C7B4133A875B28D /* CDVSplashScreen.h */,
 				57B7222E7A4E459F99952CC4 /* CDVVibration.m */,
 				C8D0D5DD7954423FB5D08C03 /* CDVVibration.h */,
+				5840C7D25D334FC6A1B39FA6 /* AppVersion.m */,
+				81090D52F39D4937BF1D87B3 /* AppVersion.h */,
 			);
 			name = Plugins;
 			path = AquaticSpaceCompanion/Plugins;
@@ -604,6 +609,7 @@
 				84F336CA1EFC4D0F83803E18 /* CDVReachability.m in Sources */,
 				7C69E5E68C2D4A97B58E0A95 /* CDVSplashScreen.m in Sources */,
 				C7F47EF4D55E477E867ED90A /* CDVVibration.m in Sources */,
+				9B297497905143DAA8D31A83 /* AppVersion.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

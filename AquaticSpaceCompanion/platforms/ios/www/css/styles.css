@@ -38,12 +38,17 @@ and open the template in the editor.
 }
 
 div .ui-radio .ui-radio-on {
-    background: #396b9e !important;
+  /*  background: #396b9e !important; */
 }
 .citationList
 {
     margin-top: -10px;
     padding-left: 20px;
+}
+
+.smallerList
+{
+    font-size: 16px;
 }
 
 .centerDiv
@@ -175,7 +180,7 @@ div.ui-btn-active
     margin-bottom: 0px;
 }
 
-#progressLabelMain, #progressLabelInputs {
+#progressLabelMain, #progressLabelInputsMain {
     font-size: 0.7em;
     margin-bottom: 0px;
 }
@@ -186,7 +191,7 @@ div.ui-btn-active
     margin-bottom: 0px;
 }
 
-#progressLabelInputs
+#progressLabelInputsMain
 {
     padding-top: 0px;
     margin-top: -25px;

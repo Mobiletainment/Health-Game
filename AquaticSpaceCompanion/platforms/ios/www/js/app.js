@@ -1,9 +1,9 @@
 // We use an "Immediate Function" to initialize the application to avoid leaving anything behind in the global scope
 (function()
 {
-    window.username = $.cookie("username");
-
+   
     window.customData = {data: "", referral: ""};
+
 
     window.currentView;
     window.dict = {};
@@ -55,12 +55,12 @@
         FastClick.attach(document.body);
 
         if (navigator.notification)
-        { // OverÏride default HTML alert with native dialog
+        { // Override default HTML alert with native dialog
             window.alert = function(message, callback, title)
             {
                 var thisTitle = "Fehler";
 
-                if (arguments.length === 3)
+                if (arguments.length ===3)
                 {
                     thisTitle = title;
                 }
@@ -97,10 +97,30 @@
         $.pnotify.defaults.styling = "jqueryui";
         $.pnotify.defaults.history = false;
 
-        var userExists = $.cookie("username");
-        if (userExists && userExists.length > 1 && document.location.hash == '')
+        //Load cookie information
+        window.username = $.cookie("username");
+        window.versionInfo = $.cookie("versionInfo");
+        
+        var currentVersion = 0.57;
+
+        if (!window.versionInfo || window.versionInfo < currentVersion) //just for test purposes: delete cookies on each new version
         {
-            document.location.hash = "#main-menu";
+            alert("Update successful (Danke fürs Installieren ;))");
+            $.cookie("username", null, { path: '/' });
+            window.username = null;
+            $.cookie("versionInfo", currentVersion, {expires: 20 * 365, path: '/'});
+        }
+
+
+        var userExists = window.username;
+        if (userExists && userExists.length > 1)
+        {
+            if (document.location.hash == '')
+                document.location.hash = "#main-menu";
+        }
+        else
+        {
+             document.location.hash = "#welcome";
         }
         //TODO: INIT
         //$.cookie("username", "test", {expires: 20 * 365, path: '/'});
@@ -191,6 +211,7 @@
         //Daily Inputs Progressbar
         function initializeDailyInputsProgress()
         {
+
             var progressLabel = $("#progressLabelInputs");
             var progressbar = $("#progressbarDailyInputs");
 
@@ -226,7 +247,7 @@
             //  progressbar.removeClass('ui-corner-all');
             progressbar.height("30");
         }
-        
+
         initializeDailyInputsProgress();
     });
 
@@ -281,7 +302,22 @@
     //Start Daily Inputs Menu
     $("#daily-inputs-menu").on("pagebeforecreate", function(event)
     {
+        var progressLabel = $("#progressLabelInputs");
+        var progressbar = $("#progressbarDailyInputs");
 
+        progressbar.progressbar({
+            value: false,
+            change: function() {
+                var value = progressbar.progressbar("value");
+
+                progressLabel.text("Erledigt: " + value + "/3");
+
+            }
+        });
+
+        progressbar.progressbar("value", 0);
+        //  progressbar.removeClass('ui-corner-all');
+        progressbar.height("30");
     });
     //End Daily Inputs Menu
 
@@ -340,6 +376,75 @@
     {
         //alert( "This page was just inserted into the dom!" );
         showBehaviorInputView();
+    });
+
+    $(document).on("pagebeforeshow", "#communication-compliment", function(event)
+    {
+        $("input[name=radioCompliment]").prop("checked", false).checkboxradio("refresh");
+    });
+
+    $(document).on("pagebeforecreate", "#communication-compliment", function(event)
+    {
+        $("#communicationComplimentForm").validate({
+            rules: {
+                radioCompliment: {
+                    required: true
+                }
+            },
+            messages: {
+                radioCompliment: ""
+            },
+            submitHandler: sendCompliment
+        });
+
+        function sendCompliment() {
+            //  event.preventDefault();
+            //$( "#rewardingame").find('[data-role="main"]').trigger("create");
+            //alert("Submit");
+            console.log("sending compliment");
+            var that = this;
+
+            $.mobile.loading('show', {
+                text: 'Lob wird gesendet...'
+            });
+
+            /*
+             $.getJSON("http://tnix.eu/~aspace/TODO.php",
+             {
+             username: window.username,
+             action: "life"
+             },
+             function(data)
+             {
+             console.log("Server responded");
+             
+             //$.mobile.loading("hide");
+             showToast('Belohnung gesendet');
+             
+             document.location.hash = "#training";
+             
+             }).fail(function()
+             {
+             alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", that);
+             }).always(function() {
+             $.mobile.loading("hide");
+             });
+             */
+
+            alert("TODO: not yet implemented");
+            $.mobile.loading("hide");
+
+            return false; //prevent event propagation
+        }
+        ;
+
+        $("#sendComplimentContainer").hide();
+
+        $("#sendComplimentFooter").click(function()
+        {
+            $("#sendCompliment").trigger("click");
+            return false;
+        });
     });
 
     $(document).on("pagebeforeshow", "#timeout", function(e, data)
@@ -481,6 +586,76 @@
 
     });
 
+    $(document).on("pagebeforecreate", "#communication-reward-reallife", function(event)
+    {
+        $("#sendRewardReallifeContainer").hide();
+        $("#rewardReallifeForm").validate({
+            rules: {
+                rewardRealLifeMessage: {
+                    required: true,
+                    minlength: 2
+                }
+            },
+            messages: {
+                rewardRealLifeMessage: "Sie haben keine Belohnungs-Nachricht eingegeben"
+            },
+            submitHandler: sendRealLifeReward
+        });
+
+
+        function sendRealLifeReward() {
+            //  event.preventDefault();
+            //$( "#rewardingame").find('[data-role="main"]').trigger("create");
+            //alert("Submit");
+            console.log("sending reallife reward");
+            var that = this;
+
+            $.mobile.loading('show', {
+                text: 'Belohnungsnachricht wird gesendet...'
+            });
+
+            alert("TODO: not yet implemented!");
+            $.mobile.loading("hide");
+            return false;
+
+            $.getJSON("http://tnix.eu/~aspace/TrainingProgress.php",
+                    {
+                        username: window.username,
+                        action: "life"
+                    },
+            function(data)
+            {
+                console.log("Server responded");
+
+                //$.mobile.loading("hide");
+                showToast('Belohnung gesendet');
+
+                if (customData.referral === "#communication-reward-ingame")
+                    document.location.hash = "#main-menu";
+                else
+                    document.location.hash = "#training";
+
+            }).fail(function()
+            {
+                alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", that);
+            }).always(function() {
+                $.mobile.loading("hide");
+            });
+
+
+            return false; //prevent event propagation
+        }
+        ;
+
+        $("#sendRewardContainer").hide();
+
+        $("#sendRewardReallifeFooter").click(function()
+        {
+            $("#sendRewardReallife").trigger("click");
+            return false;
+        });
+
+    });
 
 
     //Super important: enhancing the layout that got dynamically added. Only way I found working
@@ -528,7 +703,10 @@
                 //$.mobile.loading("hide");
                 showToast('Belohnung gesendet');
 
-                document.location.hash = "#training";
+                if (customData.referral === "#communication-reward-ingame")
+                    document.location.hash = "#main-menu";
+                else
+                    document.location.hash = "#training";
 
             }).fail(function()
             {
@@ -556,6 +734,7 @@
         //var parameters = data("url").split("?")[1];;
         // parameter = parameters.replace("parameter=","");  
         //  document.location.hash = u.hash;
+        $("#rewardMessage").val("");
 
         var reward = customData.data;
 

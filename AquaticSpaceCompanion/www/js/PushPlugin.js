@@ -3,9 +3,13 @@
 {
     var pushNotification;
 
+
+
+
     window.deviceToken = $.cookie("deviceToken");
 
-    document.addEventListener('deviceready', function() {
+    document.addEventListener('deviceready', function()
+    {
         registerPushNotifications();
     }, false);
 
@@ -187,7 +191,7 @@
 
             var os = (device.platform == 'android' || device.platform == 'Android') ? "android" : "ios";
         }
-        
+
         $.getJSON("http://tnix.eu/~aspace/RegisterDevice.php",
                 {
                     user: $("#loginPassword").val(),

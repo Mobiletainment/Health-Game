@@ -21,7 +21,8 @@
                 "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>": 1,
                 "<feature name=\"NetworkStatus\"><param name=\"android-package\" value=\"org.apache.cordova.networkinformation.NetworkManager\" /></feature>": 1,
                 "<feature name=\"SplashScreen\"><param name=\"android-package\" value=\"org.apache.cordova.splashscreen.SplashScreen\" /></feature>": 1,
-                "<feature name=\"Vibration\"><param name=\"android-package\" value=\"org.apache.cordova.vibration.Vibration\" /></feature>": 1
+                "<feature name=\"Vibration\"><param name=\"android-package\" value=\"org.apache.cordova.vibration.Vibration\" /></feature>": 1,
+                "<feature name=\"AppVersion\"><param name=\"android-package\" value=\"uk.co.whiteoctober.cordova.AppVersion\" /></feature>": 1
             }
         },
         "AndroidManifest.xml": {
@@ -108,6 +109,9 @@
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         },
         "org.apache.cordova.vibration": {
+            "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
+        },
+        "uk.co.whiteoctober.cordova.AppVersion": {
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         }
     },

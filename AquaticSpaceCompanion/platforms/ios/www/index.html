@@ -82,7 +82,17 @@
                 <h2>Aquatic Space</h2>
                 <div>
                     <p>Um Ihr Kind aktiv in das Training zu integrieren, haben wir das Spiel <b>Aquatic Space</b> entwickelt. Sie werden Ihr Kind bei seinen Abenteuern begleiten und die Rolle des Helfers und Unterstützers einnehmen.</p>
-
+                    <p>Dazu muss Ihr Kind Aquatic Space auf einem Smartphone oder Tablet installieren. Installations-Anweisungen erhalten Sie bei Bedarf hier:</p>
+                    <div data-role='collapsible' data-content-theme='d' data-collapsed='true'>
+                        <h4>Android <span class="smaller">(Smartphones und Tablets)</span></h4>
+                        <p>TODO</p>
+                        
+                    </div>
+                    <div data-role='collapsible' data-content-theme='d' data-collapsed='true'>
+                        <h4>iOS <span class="smaller">(iPad, iPhone oder iPod)</span></h4>
+                        <p>TODO</p>
+                    </div>
+                    
                 </div>
             </div>
             <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
@@ -91,7 +101,7 @@
                         <a data-role="button" data-theme="b" onclick="window.history.back();" data-rel="back">Zurück</a>                
                     </div>
                     <div class="ui-block-b">
-                        <a href="#welcome-3" data-role="button" data-theme="b">Weiter</a>    
+                        <a href="#welcome-4" data-role="button" data-theme="b">Weiter</a>    
                     </div>
                 </div>
 
@@ -106,9 +116,9 @@
             <div data-role="main" class="ui-content">
                 <h2>Aquatic Space Installation</h2>
                 <div>
-                    <p>Um mit dem Training fortfahren zu können, muss Ihr Kind auf seinem Smartphone oder Tablet eines der folgenden Versionen von Aquatic Space installieren:</p>
-                    <p><a onclick="window.open('http://www.google.com', '_system');" class="download android">Aquatic Space für Android</a></p>
-                    <p><a onclick="window.open('http://www.apple.com', '_system');" class="download ios">Aquatic Space für Apple iOS</a></p>
+                    <p>Um das Parental Training mit ihrem Kind nutzen zu können, benötigt dieses das Spiel <b>Aquatic Space</b>.</p>
+                    
+                    
                 </div>
             </div>
             <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
@@ -465,14 +475,14 @@
                             <a href="#daily-inputs-menu">
                                 <div id="helper"></div>
                                 <div id="centered"><p class="icon-title">Tägliche Eingaben</p>
-                                 <span id="progressLabelInputs" class="icon-title">Erledigt: 0/3</span>                                
+                                    <span id="progressLabelInputsMain" class="icon-title">Erledigt: 0/3</span>                                
                                 </div>
 
 
                             </a>
                         </li>
                         <li data-row="1" data-col="2" data-sizex="1" data-sizey="1" class="icon aquatic-space">
-                            <a href="#actions">
+                            <a href="#interaction-menu">
                                 <div id="helper"></div>
                                 <div id="centered"><p class="icon-title">Kind & Spiel</p></div>
                             </a>
@@ -538,7 +548,7 @@
                     <div id="progressbarDailyInputs" ><span id="progressLabelInputs" class="progress-label center">Fortschritt</span></div>
                 </div>
             </div>
-            
+
         </div>
 
         <!-- Daily Inputs Tasks Page -->
@@ -709,6 +719,7 @@
         </div>
 
 
+
         <!-- In-Game Reward Page -->
         <div data-role="page" id="rewardingame" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed" data-tap-toggle="false">
@@ -727,7 +738,7 @@
                             <input name="rewardMessage" id="rewardMessage" type="text" data-theme="d" value="" placeholder="Eingabe erforderlich" />
                         </fieldset>
                         <div id="sendRewardContainer">
-                        <input data-role="submit" data-theme="b" type="submit" id="sendReward" value="Belohnung senden" />
+                            <input data-role="submit" data-theme="b" type="submit" id="sendReward" value="Belohnung senden" />
                         </div>
                     </form>
                 </div>
@@ -769,6 +780,234 @@
                     </div>
                     <div class="ui-block-b">
                         <a href="#" data-role="button" data-theme="b" id="timeOutSaveAndEnd">Speichern<span class="ui-icon-check-custom"></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interaction Menu -->
+        <div data-role="page" id="interaction-menu" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed" data-tap-toggle="false">
+                <a href="#main-menu" data-theme="b"><img src="img/home.svg"></a>
+                <h1 style="text-overflow: string;">Kind & Spiel</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h2>Kommunikation</h2>
+                <div>
+                    <p>Es ist wichtig, dass Sie Ihr Kind von Zeit zu Zeit loben oder belohnen.</p>
+
+                    <p>Wählen Sie eine Aktion aus:</p>
+                    <a href='#communication-compliment' data-role='button' data-theme='b'>Kind loben</a>
+                    <a href='#communication-reward' data-role='button' data-theme='b'>Kind belohnen</a>                    
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a data-role="button" data-theme="b" onclick="window.history.back();" data-rel="back">Zurück</a>                   
+                    </div>
+                    <div class="ui-block-b">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Communication Compliment -->
+        <div data-role="page" id="communication-compliment" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed" data-tap-toggle="false">
+                <a href="#main-menu" data-theme="b"><img src="img/home.svg"></a>
+                <h1 style="text-overflow: string;">Kind & Spiel</h1>
+            </div>
+            <div data-role="main" class="ui-content" id="communicationComplimentContent">
+                <h2>Kind loben</h2>
+                <div>
+                    <p>Geben Sie eine Nachricht an, die Sie ihrem Kind senden möchten:</p>
+
+                    <form id="communicationComplimentForm" name="communicationComplimentForm" >
+                        <fieldset data-role="controlgroup" id="complimentContent">
+                            <div>
+                                <input type="radio" name="radioCompliment" id="radioCompliment1" />
+                                <label for="radioCompliment1">Super, das hast du toll gemacht!</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="radioCompliment" id="radioCompliment2" />
+                                <label for="radioCompliment2">Bravo!!! Gut gemacht!</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="radioCompliment" id="radioCompliment3" />
+                                <label for="radioCompliment3">Sehr gut! Ich bin stolz auf dich!</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="radioCompliment" id="radioCompliment4" />
+                                <label for="radioCompliment4">Wow! Einfach toll!</label>
+                            </div>
+                            <div>
+                                <input type="radio" name="radioCompliment" id="radioComplimentCustom1" class="customCheckbox" />
+                                <label for="radioComplimentCustom1"><textarea id="radioComplimentCustom1Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
+                            </div>
+                        </fieldset>
+                        <div id="sendComplimentContainer">
+                            <input data-role="submit" data-theme="b" type="submit" id="sendCompliment" value="Lob senden" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a href="#" data-role="button" data-theme="b" onclick="window.history.back();" data-rel="back">Zurück</a>                
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#" data-role="button" data-theme="b" id="sendComplimentFooter">Senden<span class="ui-icon-mail-custom"></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Communication Reward -->
+        <div data-role="page" id="communication-reward" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed" data-tap-toggle="false">
+                <a href="#main-menu" data-theme="b"><img src="img/home.svg"></a>
+                <h1 style="text-overflow: string;">Kind & Spiel</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h2>Kind belohnen</h2>
+                <div>
+                    <p>Wählen Sie eine Aktion aus:</p>
+                    <a href='#communication-reward-ingame' data-role='button' data-theme='b'>Im Spiel</a>
+                    <a href='#communication-reward-reallife' data-role='button' data-theme='b'>In der Wirklichkeit</a>                    
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a data-role="button" data-theme="b" onclick="window.history.back();" data-rel="back">Zurück</a>                   
+                    </div>
+                    <div class="ui-block-b">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Communication Reward InGame -->
+        <div data-role="page" id="communication-reward-ingame" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed" data-tap-toggle="false">
+                <a href="#main-menu" data-theme="b"><img src="img/home.svg"></a>
+                <h1 style="text-overflow: string;">Kind & Spiel</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h2>Belohnung im Spiel</h2>
+                <div>
+                    <p>Wählen Sie eine Belohnung aus:</p>
+                    <a href='#rewardingame?reward=salad' onclick='customData.data = "salad";
+                            customData.referral = window.location.hash' data-role='button' data-theme='b'>Salatblatt<br>Energieschub</a>
+                    <a href='#rewardingame?reward=snail' onclick='customData.data = "snail";
+                            customData.referral = window.location.hash' data-role='button' data-theme='b'>Schnecke<br>Kurzfristige Verlangsamung</a>
+                    <a href='#rewardingame?reward=sight' onclick='customData.data = "sight";
+                            customData.referral = window.location.hash' data-role='button' data-theme='b'>Brille<br>Kurzfristige freie Sicht</a>
+                    <a href='#rewardingame?reward=life' onclick='customData.data = "life";
+                            customData.referral = window.location.hash' data-role='button' data-theme='b'>+1 Leben<br>Ein extra Leben</a>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a data-role="button" data-theme="b" onclick="window.history.back();" data-rel="back">Zurück</a>                   
+                    </div>
+                    <div class="ui-block-b">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Communication Reward Reallife -->
+        <div data-role="page" id="communication-reward-reallife" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed" data-tap-toggle="false">
+                <a href="#main-menu" data-theme="b"><img src="img/home.svg"></a>
+                <h1 style="text-overflow: string;">Kind & Spiel</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h2>Belohnung in der Wirklichkeit</h2>
+                <div>
+                    <p>Lassen Sie sich nun eine besondere Belohnung für Ihr Kind einfallen!</p>
+                    <p>Beispiele:</p>
+                    <ul class="citationList smallerList">
+                        <li>Super gemacht! Heute darfst du ...</li>
+                        <li>Toll gespielt! Heute werden wir ...</li>
+                    </ul>
+
+                    <form id="rewardReallifeForm" name="rewardReallifeForm" >
+                        <fieldset data-role="fieldcontain">
+                            <label for="rewardRealLifeMessage">Teilen Sie ihrem Kind jetzt die Belohnung als Nachricht mit:</label>
+                            <input name="rewardRealLifeMessage" id="rewardRealLifeMessage" type="text" data-theme="d" value="" placeholder="Eingabe erforderlich" />
+                        </fieldset>
+                        <div id="sendRewardReallifeContainer">
+                            <input data-role="submit" data-theme="b" type="submit" id="sendRewardReallife" value="Belohnung senden" />
+                        </div>
+                    </form>
+
+                    <a href="#communication-reward-ideas" data-role="button" data-icon="info" data-iconpos="right" data-theme="b">Ideen</a>  
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a data-role="button" data-theme="b" onclick="window.history.back();" data-rel="back">Zurück</a>                   
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#" data-role="button" data-theme="b" id="sendRewardReallifeFooter">Senden<span class="ui-icon-mail-custom"></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Communication Reward InGame -->
+        <div data-role="page" id="communication-reward-ideas" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed" data-tap-toggle="false">
+                <a href="#main-menu" data-theme="b"><img src="img/home.svg"></a>
+                <h1 style="text-overflow: string;">Kind & Spiel</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h2>Ideen für Belohnungen</h2>
+                <div>
+                    <div data-role='collapsible' data-content-theme='d' data-collapsed='true'>
+                        <h4>Immaterielle Belohnung</h4>
+                        <p>Beispiele:</p>
+                        <ul class="citationList">
+                            <li>Zeit-zu-Zweit-Verlängerung</li>
+                            <li>Länger fernsehen</li>
+                            <li>Länger wach bleiben</li>
+                            <li>Länger schlafen</li>
+                            <li>In den Park gehen</li>
+                            <li>Dessert oder Essen auswählen</li>
+                            <li>Einen Film schauen</li>
+                            <li>Freunde einladen</li>
+                            <li>Gemeinsam kochen</li>
+                            <li>Gemeinsam ein Spiel oder Videospiel spielen</li>
+                        </ul>
+                    </div>
+                    <div data-role='collapsible' data-content-theme='d' data-collapsed='true'>
+                        <h4>Materielle Belohnung</h4>
+                        <p>Beispiele:</p>
+                        <ul class="citationList">
+                            <li>Kaugummi / Süßigkeiten</li>
+                            <li>Ins Kino gehen</li>
+                            <li>Gemeinsam Sport betreiben</li>
+                            <li>Kostengünstige Geschenke (Spielzeug, Buch, Aufkleber)</li>
+                            <li>Eis essen gehen</li>
+                        </ul>
+                    </div>
+
+
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a data-role="button" data-theme="b" onclick="window.history.back();" data-rel="back">Zurück</a>                   
+                    </div>
+                    <div class="ui-block-b">
                     </div>
                 </div>
             </div>
@@ -900,7 +1139,7 @@
         <script src="js/DailyTasksInputView.js"></script>
         <script src="js/DailyInputsTasksView.js"></script>
         <script src="js/vendor/jquery-handlebars.js"></script>
-        <script src="js/app.js"></script>
         <script src="js/PushPlugin.js"></script>
+        <script src="js/app.js"></script>
     </body>
 </html>

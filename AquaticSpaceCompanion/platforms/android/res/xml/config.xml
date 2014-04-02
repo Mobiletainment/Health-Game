@@ -16,4 +16,7 @@
     <preference name="disallowOverscroll" value="true" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="webviewbounce" value="false" />
+    <feature name="AppVersion">
+        <param name="android-package" value="uk.co.whiteoctober.cordova.AppVersion" />
+    </feature>
 </widget>

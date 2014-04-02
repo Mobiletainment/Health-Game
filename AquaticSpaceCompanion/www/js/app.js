@@ -1,9 +1,9 @@
 // We use an "Immediate Function" to initialize the application to avoid leaving anything behind in the global scope
 (function()
 {
-    window.username = $.cookie("username");
-
+   
     window.customData = {data: "", referral: ""};
+
 
     window.currentView;
     window.dict = {};
@@ -55,12 +55,12 @@
         FastClick.attach(document.body);
 
         if (navigator.notification)
-        { // OverÏride default HTML alert with native dialog
+        { // Override default HTML alert with native dialog
             window.alert = function(message, callback, title)
             {
                 var thisTitle = "Fehler";
 
-                if (arguments.length === 3)
+                if (arguments.length ===3)
                 {
                     thisTitle = title;
                 }
@@ -97,10 +97,30 @@
         $.pnotify.defaults.styling = "jqueryui";
         $.pnotify.defaults.history = false;
 
-        var userExists = $.cookie("username");
-        if (userExists && userExists.length > 1 && document.location.hash == '')
+        //Load cookie information
+        window.username = $.cookie("username");
+        window.versionInfo = $.cookie("versionInfo");
+        
+        var currentVersion = 0.57;
+
+        if (!window.versionInfo || window.versionInfo < currentVersion) //just for test purposes: delete cookies on each new version
         {
-            document.location.hash = "#main-menu";
+            alert("Update successful (Danke fürs Installieren ;))");
+            $.cookie("username", null, { path: '/' });
+            window.username = null;
+            $.cookie("versionInfo", currentVersion, {expires: 20 * 365, path: '/'});
+        }
+
+
+        var userExists = window.username;
+        if (userExists && userExists.length > 1)
+        {
+            if (document.location.hash == '')
+                document.location.hash = "#main-menu";
+        }
+        else
+        {
+             document.location.hash = "#welcome";
         }
         //TODO: INIT
         //$.cookie("username", "test", {expires: 20 * 365, path: '/'});
