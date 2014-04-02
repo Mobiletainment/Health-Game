@@ -47,8 +47,8 @@
         //route();
 
     });
-    
-    
+
+
 
     /* --------------------------------- Event Registration -------------------------------- */
     document.addEventListener('deviceready', function() {
@@ -184,9 +184,50 @@
             widget_margins: [10, 10],
             widget_base_dimensions: [128, 128]
         });
-        
+
         $(".gridster ul").css("margin-left", "-5px");
 
+
+        //Daily Inputs Progressbar
+        function initializeDailyInputsProgress()
+        {
+            var progressLabel = $("#progressLabelInputs");
+            var progressbar = $("#progressbarDailyInputs");
+
+            progressbar.progressbar({
+                value: false,
+                change: function() {
+                    var value = progressbar.progressbar("value");
+
+                    progressLabel.text("Erledigt: " + value + "/3");
+
+                }
+            });
+
+            var selector = "#progressbarDailyInputs";
+            $(selector).bind('progressbarchange', function(event, ui) {
+                var selector = "#progressbarDailyInputs > div";
+                var value = this.getAttribute("aria-valuenow");
+                if (value < 10) {
+                    $(selector).css({'background': 'Red'});
+                } else if (value < 30) {
+                    $(selector).css({'background': 'Orange'});
+                } else if (value < 50) {
+                    $(selector).css({'background': 'Yellow'});
+                } else if (value < 80) {
+                    $(selector).css({'background': 'LightGreen'});
+                }
+                else {
+                    $(selector).css({'background': '#33CC00'});
+                }
+            });
+
+            progressbar.progressbar("value", 0);
+            //  progressbar.removeClass('ui-corner-all');
+            progressbar.height("30");
+        }
+        
+        initializeDailyInputsProgress();
     });
 
     $("#main-menu").on("pagebeforeshow", function(event)
@@ -219,6 +260,7 @@
             console.log("Daily Tasks Input Items found: " + item);
             window.currentView = new DailyTasksInputView(adapter, item);
         });
+
     });
 
     // End: Daily Tasks Input
@@ -235,6 +277,13 @@
     });
     // End: Data Input Behavior
 
+
+    //Start Daily Inputs Menu
+    $("#daily-inputs-menu").on("pagebeforecreate", function(event)
+    {
+
+    });
+    //End Daily Inputs Menu
 
     // Start: Daily Inputs: Benchmark
     $("#daily-inputs-benchmark").on("pagebeforecreate", function(event)
@@ -283,6 +332,8 @@
             alert("Noch nicht implementiert");
         });
     });
+
+
 
 
     $("#data-input-behavior").on("pagebeforecreate", function(event)
@@ -438,29 +489,8 @@
         $("#training").find(":jqmData(role=listview)").listview().listview("refresh");
     });
 
-    $(document).on("pagebeforeshow", "#rewardingame", function(e, data)
+    $(document).on("pagebeforecreate", "#rewardingame", function(event)
     {
-        //var parameters = data("url").split("?")[1];;
-        // parameter = parameters.replace("parameter=","");  
-        //  document.location.hash = u.hash;
-
-        var reward = customData.data;
-
-        $("#rewardImage").attr("src", "img/reward/" + reward + ".png");
-        $("#rewardBackNavigation").attr("href", "index.html" + customData.referral);
-
-        $("#selectedRewardText").text(function()
-        {
-            if (reward === "salad")
-                return "Ein Salatblatt";
-            else if (reward === "snail")
-                return "Eine Schnecke";
-            else if (reward === "sight")
-                return "Eine Brille";
-            else if (reward === "life")
-                return "Ein extra Leben";
-        });
-
         $("#sendInGameForm").validate({
             rules: {
                 rewardMessage: {
@@ -473,6 +503,7 @@
             },
             submitHandler: sendReward
         });
+
 
         function sendReward() {
             //  event.preventDefault();
@@ -505,12 +536,43 @@
             }).always(function() {
                 $.mobile.loading("hide");
             });
-            ;
+
 
             return false; //prevent event propagation
         }
         ;
 
+        $("#sendRewardContainer").hide();
+
+        $("#sendRewardFooter").click(function()
+        {
+            $("#sendReward").trigger("click");
+            return false;
+        });
+    });
+
+    $(document).on("pagebeforeshow", "#rewardingame", function(e, data)
+    {
+        //var parameters = data("url").split("?")[1];;
+        // parameter = parameters.replace("parameter=","");  
+        //  document.location.hash = u.hash;
+
+        var reward = customData.data;
+
+        $("#rewardImage").attr("src", "img/reward/" + reward + ".png");
+        $("#rewardBackNavigation").attr("href", "index.html" + customData.referral);
+
+        $("#selectedRewardText").text(function()
+        {
+            if (reward === "salad")
+                return "Ein Salatblatt";
+            else if (reward === "snail")
+                return "Eine Schnecke";
+            else if (reward === "sight")
+                return "Eine Brille";
+            else if (reward === "life")
+                return "Ein extra Leben";
+        });
     });
 
 

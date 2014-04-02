@@ -187,6 +187,47 @@
 
         $(".gridster ul").css("margin-left", "-5px");
 
+
+        //Daily Inputs Progressbar
+        function initializeDailyInputsProgress()
+        {
+            var progressLabel = $("#progressLabelInputs");
+            var progressbar = $("#progressbarDailyInputs");
+
+            progressbar.progressbar({
+                value: false,
+                change: function() {
+                    var value = progressbar.progressbar("value");
+
+                    progressLabel.text("Erledigt: " + value + "/3");
+
+                }
+            });
+
+            var selector = "#progressbarDailyInputs";
+            $(selector).bind('progressbarchange', function(event, ui) {
+                var selector = "#progressbarDailyInputs > div";
+                var value = this.getAttribute("aria-valuenow");
+                if (value < 10) {
+                    $(selector).css({'background': 'Red'});
+                } else if (value < 30) {
+                    $(selector).css({'background': 'Orange'});
+                } else if (value < 50) {
+                    $(selector).css({'background': 'Yellow'});
+                } else if (value < 80) {
+                    $(selector).css({'background': 'LightGreen'});
+                }
+                else {
+                    $(selector).css({'background': '#33CC00'});
+                }
+            });
+
+            progressbar.progressbar("value", 0);
+            //  progressbar.removeClass('ui-corner-all');
+            progressbar.height("30");
+        }
+
+        initializeDailyInputsProgress();
     });
 
     $("#main-menu").on("pagebeforeshow", function(event)
@@ -219,6 +260,7 @@
             console.log("Daily Tasks Input Items found: " + item);
             window.currentView = new DailyTasksInputView(adapter, item);
         });
+
     });
 
     // End: Daily Tasks Input
@@ -235,6 +277,28 @@
     });
     // End: Data Input Behavior
 
+
+    //Start Daily Inputs Menu
+    $("#daily-inputs-menu").on("pagebeforecreate", function(event)
+    {
+        var progressLabel = $("#progressLabelInputs");
+        var progressbar = $("#progressbarDailyInputs");
+
+        progressbar.progressbar({
+            value: false,
+            change: function() {
+                var value = progressbar.progressbar("value");
+
+                progressLabel.text("Erledigt: " + value + "/3");
+
+            }
+        });
+
+        progressbar.progressbar("value", 0);
+        //  progressbar.removeClass('ui-corner-all');
+        progressbar.height("30");
+    });
+    //End Daily Inputs Menu
 
     // Start: Daily Inputs: Benchmark
     $("#daily-inputs-benchmark").on("pagebeforecreate", function(event)
@@ -283,6 +347,8 @@
             alert("Noch nicht implementiert");
         });
     });
+
+
 
 
     $("#data-input-behavior").on("pagebeforecreate", function(event)
@@ -488,7 +554,8 @@
 
 
             return false; //prevent event propagation
-        };
+        }
+        ;
 
         $("#sendRewardContainer").hide();
 

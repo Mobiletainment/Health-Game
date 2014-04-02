@@ -8,9 +8,26 @@ and open the template in the editor.
     Author     : dp
 */
 
+.selfControlList
+{
+    padding-top: 0px !important;
+    padding-bottom: 5px !important;
+}
+
 .ui-icon-mail-custom
 {
     background-image: url("jquery.mobile/images/icons-png/mail-white.png");
+    background-position: center center;
+    background-repeat: no-repeat; 
+    width: 14px;
+    height: 14px;
+    color:white;
+    float:right;
+}
+
+.ui-icon-check-custom
+{
+    background-image: url("jquery.mobile/images/icons-png/check-white.png");
     background-position: center center;
     background-repeat: no-repeat; 
     width: 14px;
@@ -155,12 +172,24 @@ div.ui-btn-active
 
 #progressbarMain
 {
-    margin-bottom: 10px;
+    margin-bottom: 0px;
 }
 
-#progressLabelMain {
+#progressLabelMain, #progressLabelInputsMain {
     font-size: 0.7em;
-    
+    margin-bottom: 0px;
+}
+
+#progressLabelMain
+{
+    margin-top: 15px;
+    margin-bottom: 0px;
+}
+
+#progressLabelInputsMain
+{
+    padding-top: 0px;
+    margin-top: -25px;
 }
 
 

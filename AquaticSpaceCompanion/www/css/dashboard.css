@@ -34,6 +34,7 @@ div#helper {                /*Required only for Vertical alingment*/
 
     text-shadow: 1px 1px 0 #333;
     text-shadow: 2px 2px 0 #000;
+    margin-bottom: 12px;
 
 }
 

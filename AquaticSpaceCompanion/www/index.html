@@ -464,7 +464,9 @@
                         <li data-row="1" data-col="1" data-sizex="1" data-sizey="1" class="icon daily-input">
                             <a href="#daily-inputs-menu">
                                 <div id="helper"></div>
-                                <div id="centered"><p class="icon-title">Tägliche Eingaben</p></div>
+                                <div id="centered"><p class="icon-title">Tägliche Eingaben</p>
+                                 <span id="progressLabelInputsMain" class="icon-title">Erledigt: 0/3</span>                                
+                                </div>
 
 
                             </a>
@@ -509,7 +511,8 @@
             </div>
             <div data-role="main" class="ui-content">
                 <div>
-                    <p>Um den Fortschritt und die Auswirkungen des Programms nachvollziehen zu können, gibt es kurze tägliche Eingaben, die von Ihnen <strong>jeden Abend ausgefüllt werden sollen</strong>:</p>
+                    <p>Um den Fortschritt und die Auswirkungen des Programms nachvollziehen zu können, gibt es kurze tägliche Eingaben.</p>
+                    <p>Diese sollen von Ihnen <strong>jeden Abend ausgefüllt werden sollen</strong>:</p>
                     <ul data-role="listview" data-inset="true">
                         <li>
                             <a href="#daily-inputs-tasks">
@@ -531,20 +534,17 @@
                 </div>
             </div>
             <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
-                <div class="ui-grid-a">
-                    <div class="ui-block-a">
-                    </div>
-                    <div class="ui-block-b">
-                        <a href="#main-menu" data-role="button" data-theme="b">Weiter</a>    
-                    </div>
+                <div style="margin-right: 15px; margin-left: 15px; margin-top: 5px; margin-bottom: 5px;">
+                    <div id="progressbarDailyInputs" ><span id="progressLabelInputs" class="progress-label center">Fortschritt</span></div>
                 </div>
-
             </div>
+            
         </div>
 
         <!-- Daily Inputs Tasks Page -->
         <div data-role="page" id="daily-inputs-tasks" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed" data-tap-toggle="false">
+                <a href="#main-menu" data-theme="b"><img src="img/home.svg"></a>
                 <h1 style="text-overflow: string;">Tägliche Eingaben</h1>
             </div>
             <div data-role="main" class="ui-content">
@@ -583,6 +583,7 @@
         <!-- Daily Inputs Benchmark Page -->
         <div data-role="page" id="daily-inputs-benchmark" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed" data-tap-toggle="false">
+                <a href="#main-menu" data-theme="b"><img src="img/home.svg"></a>
                 <h1 style="text-overflow: string;">Tägliche Eingaben</h1>
             </div>
             <div data-role="main" class="ui-content">
@@ -617,6 +618,7 @@
         <!-- Daily Inputs Self-Control Page -->
         <div data-role="page" id="daily-inputs-selfcontrol" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed" data-tap-toggle="false">
+                <a href="#main-menu" data-theme="b"><img src="img/home.svg"></a>
                 <h1 style="text-overflow: string;">Tägliche Eingaben</h1>
             </div>
             <div data-role="main" class="ui-content">
@@ -625,7 +627,7 @@
                     <p>Geben Sie an, wie oft Sie die Strategien umgesetzt haben:<p>
                     <ul data-role='listview' data-inset="true">
                         <li data-role="list-divider" data-theme="a">Belohnungen</li>
-                        <li data-theme="d">
+                        <li data-theme="d" class="selfControlList">
                             <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" data-theme="d" class="custom-fieldset">
                                 <legend>Nähe (z.B. Umarmen, Kopf streicheln):</legend>
                                 <input name="radio-choice-nearness" id="radio-choice-nearness0" value="0" checked="checked" type="radio" data-theme="d">
@@ -638,7 +640,7 @@
                                 <label for="radio-choice-nearness3">3+</label>
                             </fieldset>
                         </li>
-                        <li data-theme="d">
+                        <li data-theme="d" class="selfControlList">
                             <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" data-theme="d">
                                 <legend>Immateriell (z.B. in den Park gehen, länger aufbleiben dürfen):</legend>
                                 <input name="radio-choice-immaterial" id="radio-choice-immaterial0" value="0" checked="checked" type="radio" data-theme="d">
@@ -651,7 +653,7 @@
                                 <label for="radio-choice-immaterial3">3+</label>
                             </fieldset>
                         </li>
-                        <li data-theme="d">
+                        <li data-theme="d" class="selfControlList">
                             <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
                                 <legend>Immateriell (z.B. in den Park gehen, länger aufbleiben dürfen):</legend>
                                 <input name="radio-choice-material" id="radio-choice-material0" value="0" checked="checked" type="radio" data-theme="d">
@@ -665,7 +667,7 @@
                             </fieldset>
                         </li>
                         <li data-role="list-divider" data-theme="a">Notfal-Strategien</li>
-                        <li data-theme="d">
+                        <li data-theme="d" class="selfControlList">
                             <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="custom-fieldset">
                                 <legend>Aktives Ignorieren:</legend>
                                 <input name="radio-choice-ignore" id="radio-choice-ignore0" value="0" checked="checked" type="radio" data-theme="d">
@@ -678,7 +680,7 @@
                                 <label for="radio-choice-ignore3">3+</label>
                             </fieldset>
                         </li>
-                        <li data-theme="d">
+                        <li data-theme="d" class="selfControlList">
                             <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
                                 <legend>Auszeit:</legend>
                                 <input name="radio-choice-timeout" id="radio-choice-timeout0" value="0" checked="checked" type="radio" data-theme="d">
@@ -700,7 +702,7 @@
                         <a data-role="button" data-theme="b" onclick="window.history.back();" data-rel="back">Zurück</a>                  
                     </div>
                     <div class="ui-block-b">
-                        <button id="sendSelfcontrolData" data-role="button" data-theme="b">Weiter</button>   
+                        <a href="#" data-role="button" data-theme="b" id="sendSelfcontrolData">Speichern<span class="ui-icon-check-custom"></span></a>
                     </div>
                 </div>
             </div>
@@ -766,7 +768,7 @@
                         <a href="#train-content?chapter=t6" data-role="button" data-theme="b" id="timeOutBackNavigation" onclick="window.history.back();" data-rel="back">Zurück</a>                
                     </div>
                     <div class="ui-block-b">
-                        <button data-theme="b" id="timeOutSaveAndEnd">Gelesen</button>
+                        <a href="#" data-role="button" data-theme="b" id="timeOutSaveAndEnd">Speichern<span class="ui-icon-check-custom"></span></a>
                     </div>
                 </div>
             </div>
@@ -779,7 +781,7 @@
         <script id="training-content-page-tpl" type="text/x-handlebars-template">
 
             <div data-role="header" data-tap-toggle="false" data-position="fixed">
-            <a href="#training" data-theme="b"><img src="img/home.svg">
+            <a href="#main-menu" data-theme="b"><img src="img/home.svg">
             </a>
             <h1>{{title}}</h1>
             </div>
@@ -812,7 +814,7 @@
             {{#ifCond page "<" pageCount}}
             <button data-theme="b" id="next-page">Weiter</button>
             {{else}}
-            <button data-theme="b" id="training-end">Gelesen</button>
+            <a href="#" data-role="button" data-theme="b" id="training-end">Gelesen<span class="ui-icon-check-custom"></span></a>
             {{/ifCond}}
             </div>
             </div>
@@ -837,11 +839,7 @@
             <div data-role="footer" data-position="fixed" data-tap-toggle="false" id="training-footer">
                 <div style="margin-right: 15px; margin-left: 15px; margin-top: 5px; margin-bottom: 5px;">
                     <div id="progressbar" ><span id="progressLabel" class="progress-label center">Fortschritt</span></div>
-
-
-
                 </div>
-
             </div>
 
         </div>
