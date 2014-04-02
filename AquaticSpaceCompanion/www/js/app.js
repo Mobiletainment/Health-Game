@@ -100,7 +100,7 @@
         var userExists = $.cookie("username");
         if (userExists && userExists.length > 1 && document.location.hash == '')
         {
-         //   document.location.hash = "#main-menu";
+            document.location.hash = "#main-menu";
         }
         //TODO: INIT
         //$.cookie("username", "test", {expires: 20 * 365, path: '/'});
@@ -157,7 +157,7 @@
             }
         });
 
-        progressbar.height("20");
+        progressbar.height("15");
 
 
         $(selector).bind('progressbarchange', function(event, ui) {
@@ -182,8 +182,10 @@
 
         $(".gridster ul").gridster({
             widget_margins: [10, 10],
-            widget_base_dimensions: [140, 140]
+            widget_base_dimensions: [128, 128]
         });
+        
+        $(".gridster ul").css("margin-left", "-5px");
 
     });
 

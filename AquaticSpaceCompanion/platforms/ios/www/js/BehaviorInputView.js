@@ -17,6 +17,7 @@ var BehaviorInputView = function(adapter, data)
             else if (this.checked === true && !$.trim(textArea.val()))
             {
                 this.checked = false;
+                textArea.removeClass('ui-body-d').addClass('ui-body-c');
             }
 	    else
             {
