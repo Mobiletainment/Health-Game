@@ -487,7 +487,7 @@
 
                             </a>
                         </li>
-                        
+
                         <li data-row="2" data-col="2" data-sizex="1" data-sizey="1" class="icon statistics">
                             <a href="#">
                                 <div id="helper"></div>
@@ -710,8 +710,8 @@
         <!-- In-Game Reward Page -->
         <div data-role="page" id="rewardingame" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed" data-tap-toggle="false">
-                <a href="#" data-theme="b" data-role="button" id="rewardBackNavigation" onclick="window.history.back();" data-rel="back" data-icon="arrow-l" />Zurück</a>
-                <h1 style="text-overflow: string; margin-left: 50px;">Belohnung im Spiel</h1>
+                <a href="#main-menu" data-theme="b"><img src="img/home.svg"></a>
+                <h1 style="text-overflow: string;">Belohnung im Spiel</h1>
             </div>
             <div data-role="main" class="ui-content" id="rewardInGameContent">
                 <div>
@@ -724,10 +724,22 @@
                             <label for="rewardMessage">Ich schenke dir die Belohnung, weil</label>
                             <input name="rewardMessage" id="rewardMessage" type="text" data-theme="d" value="" placeholder="Eingabe erforderlich" />
                         </fieldset>
+                        <div id="sendRewardContainer">
                         <input data-role="submit" data-theme="b" type="submit" id="sendReward" value="Belohnung senden" />
+                        </div>
                     </form>
                 </div>
-            </div>        
+            </div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false">
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a href="#" data-role="button" data-theme="b" onclick="window.history.back();" data-rel="back">Zurück</a>                
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#" data-role="button" data-theme="b" id="sendRewardFooter">Senden<span class="ui-icon-mail-custom"></span></a>
+                    </div>
+                </div>
+            </div>
         </div>
 
 
@@ -757,7 +769,6 @@
                         <button data-theme="b" id="timeOutSaveAndEnd">Gelesen</button>
                     </div>
                 </div>
-
             </div>
         </div>
 

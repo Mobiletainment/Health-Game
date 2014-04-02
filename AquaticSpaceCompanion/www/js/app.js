@@ -47,8 +47,8 @@
         //route();
 
     });
-    
-    
+
+
 
     /* --------------------------------- Event Registration -------------------------------- */
     document.addEventListener('deviceready', function() {
@@ -184,7 +184,7 @@
             widget_margins: [10, 10],
             widget_base_dimensions: [128, 128]
         });
-        
+
         $(".gridster ul").css("margin-left", "-5px");
 
     });
@@ -438,29 +438,8 @@
         $("#training").find(":jqmData(role=listview)").listview().listview("refresh");
     });
 
-    $(document).on("pagebeforeshow", "#rewardingame", function(e, data)
+    $(document).on("pagebeforecreate", "#rewardingame", function(event)
     {
-        //var parameters = data("url").split("?")[1];;
-        // parameter = parameters.replace("parameter=","");  
-        //  document.location.hash = u.hash;
-
-        var reward = customData.data;
-
-        $("#rewardImage").attr("src", "img/reward/" + reward + ".png");
-        $("#rewardBackNavigation").attr("href", "index.html" + customData.referral);
-
-        $("#selectedRewardText").text(function()
-        {
-            if (reward === "salad")
-                return "Ein Salatblatt";
-            else if (reward === "snail")
-                return "Eine Schnecke";
-            else if (reward === "sight")
-                return "Eine Brille";
-            else if (reward === "life")
-                return "Ein extra Leben";
-        });
-
         $("#sendInGameForm").validate({
             rules: {
                 rewardMessage: {
@@ -473,6 +452,7 @@
             },
             submitHandler: sendReward
         });
+
 
         function sendReward() {
             //  event.preventDefault();
@@ -505,12 +485,42 @@
             }).always(function() {
                 $.mobile.loading("hide");
             });
-            ;
+
 
             return false; //prevent event propagation
-        }
-        ;
+        };
 
+        $("#sendRewardContainer").hide();
+
+        $("#sendRewardFooter").click(function()
+        {
+            $("#sendReward").trigger("click");
+            return false;
+        });
+    });
+
+    $(document).on("pagebeforeshow", "#rewardingame", function(e, data)
+    {
+        //var parameters = data("url").split("?")[1];;
+        // parameter = parameters.replace("parameter=","");  
+        //  document.location.hash = u.hash;
+
+        var reward = customData.data;
+
+        $("#rewardImage").attr("src", "img/reward/" + reward + ".png");
+        $("#rewardBackNavigation").attr("href", "index.html" + customData.referral);
+
+        $("#selectedRewardText").text(function()
+        {
+            if (reward === "salad")
+                return "Ein Salatblatt";
+            else if (reward === "snail")
+                return "Eine Schnecke";
+            else if (reward === "sight")
+                return "Eine Brille";
+            else if (reward === "life")
+                return "Ein extra Leben";
+        });
     });
 
 

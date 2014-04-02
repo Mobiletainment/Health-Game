@@ -8,6 +8,18 @@ and open the template in the editor.
     Author     : dp
 */
 
+.ui-icon-mail-custom
+{
+    background-image: url("jquery.mobile/images/icons-png/mail-white.png");
+    background-position: center center;
+    background-repeat: no-repeat; 
+    width: 14px;
+    height: 14px;
+    color:white;
+    float:right;
+
+}
+
 div .ui-radio .ui-radio-on {
     background: #396b9e !important;
 }
