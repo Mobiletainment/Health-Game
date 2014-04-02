@@ -191,6 +191,7 @@
         //Daily Inputs Progressbar
         function initializeDailyInputsProgress()
         {
+
             var progressLabel = $("#progressLabelInputs");
             var progressbar = $("#progressbarDailyInputs");
 
@@ -357,6 +358,75 @@
         showBehaviorInputView();
     });
 
+    $(document).on("pagebeforeshow", "#communication-compliment", function(event)
+    {
+        $("input[name=radioCompliment]").prop("checked", false).checkboxradio("refresh");
+    });
+
+    $(document).on("pagebeforecreate", "#communication-compliment", function(event)
+    {
+        $("#communicationComplimentForm").validate({
+            rules: {
+                radioCompliment: {
+                    required: true
+                }
+            },
+            messages: {
+                radioCompliment: ""
+            },
+            submitHandler: sendCompliment
+        });
+
+        function sendCompliment() {
+            //  event.preventDefault();
+            //$( "#rewardingame").find('[data-role="main"]').trigger("create");
+            //alert("Submit");
+            console.log("sending compliment");
+            var that = this;
+
+            $.mobile.loading('show', {
+                text: 'Lob wird gesendet...'
+            });
+
+            /*
+             $.getJSON("http://tnix.eu/~aspace/TODO.php",
+             {
+             username: window.username,
+             action: "life"
+             },
+             function(data)
+             {
+             console.log("Server responded");
+             
+             //$.mobile.loading("hide");
+             showToast('Belohnung gesendet');
+             
+             document.location.hash = "#training";
+             
+             }).fail(function()
+             {
+             alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", that);
+             }).always(function() {
+             $.mobile.loading("hide");
+             });
+             */
+
+            alert("TODO: not yet implemented");
+            $.mobile.loading("hide");
+
+            return false; //prevent event propagation
+        }
+        ;
+
+        $("#sendComplimentContainer").hide();
+
+        $("#sendComplimentFooter").click(function()
+        {
+            $("#sendCompliment").trigger("click");
+            return false;
+        });
+    });
+
     $(document).on("pagebeforeshow", "#timeout", function(e, data)
     {
         $("#sendTimeOut").parent().hide();
@@ -496,6 +566,76 @@
 
     });
 
+    $(document).on("pagebeforecreate", "#communication-reward-reallife", function(event)
+    {
+        $("#sendRewardReallifeContainer").hide();
+        $("#rewardReallifeForm").validate({
+            rules: {
+                rewardRealLifeMessage: {
+                    required: true,
+                    minlength: 2
+                }
+            },
+            messages: {
+                rewardRealLifeMessage: "Sie haben keine Belohnungs-Nachricht eingegeben"
+            },
+            submitHandler: sendRealLifeReward
+        });
+
+
+        function sendRealLifeReward() {
+            //  event.preventDefault();
+            //$( "#rewardingame").find('[data-role="main"]').trigger("create");
+            //alert("Submit");
+            console.log("sending reallife reward");
+            var that = this;
+
+            $.mobile.loading('show', {
+                text: 'Belohnungsnachricht wird gesendet...'
+            });
+
+            alert("TODO: not yet implemented!");
+            $.mobile.loading("hide");
+            return false;
+
+            $.getJSON("http://tnix.eu/~aspace/TrainingProgress.php",
+                    {
+                        username: window.username,
+                        action: "life"
+                    },
+            function(data)
+            {
+                console.log("Server responded");
+
+                //$.mobile.loading("hide");
+                showToast('Belohnung gesendet');
+
+                if (customData.referral === "#communication-reward-ingame")
+                    document.location.hash = "#main-menu";
+                else
+                    document.location.hash = "#training";
+
+            }).fail(function()
+            {
+                alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", that);
+            }).always(function() {
+                $.mobile.loading("hide");
+            });
+
+
+            return false; //prevent event propagation
+        }
+        ;
+
+        $("#sendRewardContainer").hide();
+
+        $("#sendRewardReallifeFooter").click(function()
+        {
+            $("#sendRewardReallife").trigger("click");
+            return false;
+        });
+
+    });
 
 
     //Super important: enhancing the layout that got dynamically added. Only way I found working
@@ -543,7 +683,10 @@
                 //$.mobile.loading("hide");
                 showToast('Belohnung gesendet');
 
-                document.location.hash = "#training";
+                if (customData.referral === "#communication-reward-ingame")
+                    document.location.hash = "#main-menu";
+                else
+                    document.location.hash = "#training";
 
             }).fail(function()
             {
@@ -571,6 +714,7 @@
         //var parameters = data("url").split("?")[1];;
         // parameter = parameters.replace("parameter=","");  
         //  document.location.hash = u.hash;
+        $("#rewardMessage").val("");
 
         var reward = customData.data;
 

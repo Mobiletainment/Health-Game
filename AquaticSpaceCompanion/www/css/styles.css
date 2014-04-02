@@ -38,12 +38,17 @@ and open the template in the editor.
 }
 
 div .ui-radio .ui-radio-on {
-    background: #396b9e !important;
+  /*  background: #396b9e !important; */
 }
 .citationList
 {
     margin-top: -10px;
     padding-left: 20px;
+}
+
+.smallerList
+{
+    font-size: 16px;
 }
 
 .centerDiv
