@@ -51,7 +51,13 @@
 
     // handle APNS notifications for iOS
     onNotificationAPN = function(e) {
-        alert("onNotificationAPN");
+
+        if (e.hash)
+        {
+            navigator.notification.alert("Hash: " + e.hash);
+            document.location.hash = e.hash;
+        }
+        
         if (e.alert) {
             navigator.notification.alert(e.alert);
         }
@@ -65,11 +71,16 @@
             pushNotification.setApplicationIconBadgeNumber(successHandler, e.badge);
         }
 
+       
+        
         if (e.foreground)
         {
             alert("Foreground: " + e.foreground);
         }
-    }
+        
+        
+        
+    };
 
     /* --------------------------------- Event Registration -------------------------------- */
     document.addEventListener('deviceready', function() {
@@ -432,8 +443,7 @@
         });
 
         progressbar.progressbar("value", 0);
-        loadTrainingProgress();
-
+        
         $(".gridster ul").gridster({
             widget_margins: [10, 10],
             widget_base_dimensions: [128, 128]
@@ -483,6 +493,9 @@
         }
 
         initializeDailyInputsProgress();
+        
+        loadTrainingProgress();
+
     });
 
     $("#main-menu").on("pagebeforeshow", function(event)

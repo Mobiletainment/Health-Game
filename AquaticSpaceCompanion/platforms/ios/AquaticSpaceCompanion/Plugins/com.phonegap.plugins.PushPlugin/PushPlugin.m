@@ -175,7 +175,9 @@
         NSLog(@"Msg: %@", jsonStr);
 
         NSString * jsCallBack = [NSString stringWithFormat:@"%@(%@);", self.callback, jsonStr];
-        [self.webView stringByEvaluatingJavaScriptFromString:jsCallBack];
+        NSString *success = [self.webView stringByEvaluatingJavaScriptFromString:jsCallBack];
+        
+        NSLog(@"Success: %@", success);
         
         self.notificationMessage = nil;
     }
