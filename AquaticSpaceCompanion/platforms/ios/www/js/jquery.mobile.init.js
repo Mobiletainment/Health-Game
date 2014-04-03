@@ -21,7 +21,7 @@
             setTimeout(function() {
                 $(self).removeClass("ui-btn-active");
             },
-                    500);
+                    100);
         });
     });
 }());

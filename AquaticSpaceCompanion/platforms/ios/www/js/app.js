@@ -64,6 +64,11 @@
         if (e.badge) {
             pushNotification.setApplicationIconBadgeNumber(successHandler, e.badge);
         }
+
+        if (e.foreground)
+        {
+            alert("Foreground: " + e.foreground);
+        }
     }
 
     /* --------------------------------- Event Registration -------------------------------- */
@@ -138,7 +143,7 @@
         window.deviceToken = $.cookie("deviceToken");
     }
 
-    
+
 
     // handle GCM notifications for Android
     function onNotificationGCM(e) {
@@ -199,12 +204,11 @@
 
     function registerDevice()
     {
-        alert("register device");
         console.log("Registering Device");
         $.mobile.loading('show', {
             text: 'Registrierung läuft'
         });
-        
+
         var os;
 
         if (typeof device === "undefined" || typeof device.platform === "undefined")
@@ -272,6 +276,7 @@
         }
         ).always(function() {
             $.mobile.loading("hide");
+            $("#submitLogin").parent().removeClass("ui-btn-active");
         });
     }
 
@@ -377,10 +382,14 @@
 
         function validateLogin() {
             console.log("validating Login");
-
             registerDevice();
             return false;
         }
+        
+        $("#loginPassword").on("keypress", function()
+        {
+            $("#submitLogin").parent().removeClass("ui-btn-active");
+        });
 
     });
 
@@ -1104,27 +1113,27 @@
         $.mobile.loading('show', {
             text: 'Lade Fortschritt'
         });
-/*
-        //Send Push Notification
-        $.getJSON("http://tnix.eu/~aspace/SendPushNotificationToParent.php",
-                {
-                    username: window.username,
-                    action: "TrainingReminder",
-                    message: "Es ist eine neue Trainingseinheit verfügbar!"
-                },
-        function(data)
-        {
-            console.log("Server responded to App.loadTrainingProgress.SendPushNotificationToParent");
-            alert(data.debugInfo);
-
-        }).fail(function()
-        {
-            alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", that);
-        }).always(function() {
-            $.mobile.loading("hide");
-        });
-
-*/
+        /*
+         //Send Push Notification
+         $.getJSON("http://tnix.eu/~aspace/SendPushNotificationToParent.php",
+         {
+         username: window.username,
+         action: "TrainingReminder",
+         message: "Es ist eine neue Trainingseinheit verfügbar!"
+         },
+         function(data)
+         {
+         console.log("Server responded to App.loadTrainingProgress.SendPushNotificationToParent");
+         alert(data.debugInfo);
+         
+         }).fail(function()
+         {
+         alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", that);
+         }).always(function() {
+         $.mobile.loading("hide");
+         });
+         
+         */
         $.getJSON("http://tnix.eu/~aspace/TrainingProgress.php",
                 {
                     username: window.username,

@@ -168,7 +168,7 @@
             isInline = NO;
         }
 		else
-            [jsonStr appendFormat:@"foreground:\"%d\"", 0];
+            [jsonStr appendFormat:@"\"foreground\":\"%d\"", 0];
         
         [jsonStr appendString:@"}"];
 
