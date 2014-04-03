@@ -1,7 +1,7 @@
 // We use an "Immediate Function" to initialize the application to avoid leaving anything behind in the global scope
 (function()
 {
-   
+
     window.customData = {data: "", referral: ""};
 
 
@@ -60,7 +60,7 @@
             {
                 var thisTitle = "Fehler";
 
-                if (arguments.length ===3)
+                if (arguments.length === 3)
                 {
                     thisTitle = title;
                 }
@@ -100,13 +100,13 @@
         //Load cookie information
         window.username = $.cookie("username");
         window.versionInfo = $.cookie("versionInfo");
-        
+
         var currentVersion = 0.57;
 
         if (!window.versionInfo || window.versionInfo < currentVersion) //just for test purposes: delete cookies on each new version
         {
             alert("Update successful (Danke fürs Installieren ;))");
-            $.cookie("username", null, { path: '/' });
+            $.cookie("username", null, {path: '/'});
             window.username = null;
             $.cookie("versionInfo", currentVersion, {expires: 20 * 365, path: '/'});
         }
@@ -120,7 +120,7 @@
         }
         else
         {
-             document.location.hash = "#welcome";
+            document.location.hash = "#welcome";
         }
         //TODO: INIT
         //$.cookie("username", "test", {expires: 20 * 365, path: '/'});
@@ -909,7 +909,31 @@
         var containerNA = "#listItemTrainingStrategieNA";
         var tomorrowItem = "#listDividerTomorrow";
 
-        var textAvailableTime = "Freischaltung in 4 Stunden 30 Minuten";
+        alert(data.waitingTime);
+        window.waitingTime = data.waitingTime;
+        alert("Waiting check");
+        if (window.waitingTime > 0)
+        {
+            clearInterval(window.intervalID);
+
+            function updateWaitingTime()
+            {
+                var hours = window.waitingTime / 3600;
+                
+                $(tomorrowItem).text("Freischaltung in " + Math.floor(hours) + " Stunden " + Math.floor((window.waitingTime % 3600) / 60) + " Minuten");
+                window.waitingTime -= 60;
+                
+                if (window.waitingTime <= 0)
+                {
+                    clearInterval(window.intervalID);
+                    loadTrainingProgress();
+                }
+            }
+            
+            updateWaitingTime();
+            window.intervalID = setInterval(updateWaitingTime, 60000);
+        }
+
         var textAvailable = 'Schließen Sie zuerst die ';
         var text = textAvailable;
 
@@ -917,7 +941,7 @@
         var total = 0;
         var completed = 0;
         var lockStatus = 0; //0=available, 1=gets unlocked tomorrow, 2=not unlocked
-        var completedToday = 0;
+        var unfinishedCourse = false;
         var lastCompleted = true;
 
         $.each(data.returnData, function(key, val)
@@ -934,13 +958,14 @@
             }
             else
             {
-                if (lastCompleted === true) //an uncompleted item
+                if (lastCompleted === true && waitingTime <= 0) //an uncompleted item
                 {
                     lastCompleted = false;
+                    unfinishedCourse = true;
                     $(container + total).data("icon", "arrow-r").show();
                     $(imgId + key).attr("src", "img/checkbox_notDone.png");
                     $(containerNA + total).hide();
-
+                    alert("Letzte");
                     //Set text
                     $(tomorrowItem).text(textAvailable + total + ". Strategie ab");
                 }
@@ -953,10 +978,13 @@
                         //insert list divider
                         $(tomorrowItem).insertBefore($(container + total));
 
-                        if (lastCompleted === true)
+                        if (unfinishedCourse === false && data.waitingTime > 0) //next strategy is still locked
                         {
-                            $(tomorrowItem).text(textAvailableTime);
+                            alert("Waiting time");
+                            //$(tomorrowItem).text(textAvailableTime);
                         }
+
+
 
 //$("#listDiverTomorrow").enhanceWithin();
                         //<li data-role="list-divider">Noch nicht freigeschaltet</li>

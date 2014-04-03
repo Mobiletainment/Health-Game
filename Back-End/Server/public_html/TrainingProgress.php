@@ -6,6 +6,12 @@ header('Content-Type: application/json');
 $user = $_GET['username'];
 $action = $_GET['action'];
 $returnCode = 200;
+$returnData;
+$query;
+$returnMessage;
+$result;
+$debugInfo;
+$waitingTime;
 
 include ("settings.php");
 
@@ -19,8 +25,10 @@ mysql_query('SET collation_connection=utf8_general_ci');
 
 @mysql_select_db($database) or die( "9");
 
-if ($action == "GetProgress")
+function loadProgress()
 {
+	global $user, $action, $returnCode, $returnData, $query, $returnMessage, $result, $debugInfo, $waitingTime;
+
 	$query="SELECT t1, t2, t3, t4, t5, t6 FROM Training WHERE username = '$user'";
 	$result=mysql_query($query);
 
@@ -42,7 +50,24 @@ if ($action == "GetProgress")
 			"t5" => getBoolFromField($row['t5']),
 			"t6" => getBoolFromField($row['t6'])
 			);
+
+		$query = "SELECT DATE FROM Training_Timestamps WHERE username = '$user' AND action = 'C' ORDER BY uid DESC LIMIT 1";
+		$result=mysql_query($query);
+		$row = mysql_fetch_array($result);
+		$timeStamp = strtoTime($row['DATE']);
+		$dt = new DateTime($row['DATE']);
+		$nextDay = date('Y-m-d', strtotime('+1 day', $timeStamp));
+		$notBeforeMidnight = new DateTime($nextDay);
+		$current = new DateTime();
+		$waitingTime = round($notBeforeMidnight->format('U') - $current->format('U')); //the seconds the user has to wait
+		$debugInfo .= "Timestamp: " . $timeStamp . "Current: " . $current->format('M j Y g:i A') . "; Not Before: " . $notBeforeMidnight->format('M j Y g:i A') . "; Original: " . $dt->format('M j Y g:i A') . "Wait: " . $waitingTime;
+		
 	}
+}
+
+if ($action == "GetProgress")
+{
+	loadProgress();
 }
 else if ($action == "SaveProgress")
 {
@@ -56,17 +81,36 @@ else if ($action == "SaveProgress")
 		$query="INSERT INTO Training(username) VALUES('$user')";
 		$result=mysql_query($query);
 	}
+	
+	//Log action to Training_Timestamps
+	$row = mysql_fetch_array($result);
+
+	if (getBoolFromField($row[$chapter]) == false) //user has completed a new training course
+	{
+		$query = "INSERT INTO Training_Timestamps(username, action) VALUES ('$user', 'C')";
+		$result = mysql_query($query);
+		$debugInfo .= "\nUser has completed a new training course";
+	}
+	else //user has re-completed a training course he/she has already done
+	{
+		$query = "INSERT INTO Training_Timestamps(username, action) VALUES ('$user', 'U')";
+		$result = mysql_query($query);
+		$debugInfo .= "\nuser has re-completed a training course";
+	}
 
 	$query = "UPDATE Training SET $chapter=true WHERE username = '$user'";
 	$result=mysql_query($query);
 
-	$returnData = "Chapter " . $chapter . " saved";
+	//$returnData .= "Chapter " . $chapter . " saved";
+	loadProgress();
 }
 
 $data = array(
 		'returnCode' => $returnCode,
 		'returnMessage' => "Successful: " . $action,
-		'returnData' => $returnData
+		'returnData' => $returnData,
+		'debugInfo' => $debugInfo,
+		'waitingTime' => $waitingTime
 		);
 
 echo json_encode($data);
