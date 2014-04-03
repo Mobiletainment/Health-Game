@@ -13,10 +13,21 @@ var DailyTasksInputView = function(adapter, data)
 
         $(container).find(".customCheckbox").bind("change", function(event, ui)
         {
-            if (this.checked)
-                $(this).next().find("textArea").removeClass('ui-body-c').addClass('ui-body-d');
-            else
-                $(this).next().find("textArea").removeClass('ui-body-d').addClass('ui-body-c');
+           var textArea = $(this).next().find("textArea");
+	    if (this.checked)
+            {
+		textArea.removeClass('ui-body-c').addClass('ui-body-d');
+                textArea.focus();
+            }
+            else if (this.checked === true && !$.trim(textArea.val()))
+            {
+                this.checked = false;
+                textArea.removeClass('ui-body-d').addClass('ui-body-c');
+            }
+	    else
+            {
+		textArea.removeClass('ui-body-d').addClass('ui-body-c');
+            }
         });
 
 
@@ -44,7 +55,7 @@ var DailyTasksInputView = function(adapter, data)
                     },
             function(data)
             {
-                console.log("Server responded");
+                console.log("Server responded for DailyTasksInput SaveDailyTasksData");
                 var currentPage = window.location.href.split('#')[0];
                 showToast('Aufgaben gespeichert');
                 window.location.href = currentPage + "#first-aid-bag";

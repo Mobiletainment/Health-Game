@@ -1,9 +1,9 @@
 // We use an "Immediate Function" to initialize the application to avoid leaving anything behind in the global scope
 (function()
 {
-    window.username = $.cookie("username");
 
     window.customData = {data: "", referral: ""};
+
 
     window.currentView;
     window.dict = {};
@@ -37,7 +37,7 @@
         }
     });
 
-    var toastStack =  {"dir1": "right", "dir2": "up", "push": "top"};
+    var toastStack = {"dir1": "right", "dir2": "up", "push": "top"};
 
     /* ---------------------------------- Local Variables ---------------------------------- */
 
@@ -48,18 +48,27 @@
 
     });
 
+
+
     /* --------------------------------- Event Registration -------------------------------- */
     document.addEventListener('deviceready', function() {
         FastClick.attach(document.body);
 
         if (navigator.notification)
-        { // OverÏride default HTML alert with native dialog
-            window.alert = function(message, callback)
+        { // Override default HTML alert with native dialog
+            window.alert = function(message, callback, title)
             {
+                var thisTitle = "Fehler";
+
+                if (arguments.length === 3)
+                {
+                    thisTitle = title;
+                }
+
                 navigator.notification.alert(
                         message, // message
                         callback, // callback
-                        "Fehler", // title
+                        thisTitle, // title
                         'OK'        // buttonName
                         );
             };
@@ -87,7 +96,38 @@
         console.log("Document ready");
         $.pnotify.defaults.styling = "jqueryui";
         $.pnotify.defaults.history = false;
-        //document.location.hash = "#welcome";
+
+        //Load cookie information
+        window.username = $.cookie("username");
+        window.versionInfo = $.cookie("versionInfo");
+
+        var currentVersion = 0.58;
+
+        if (!window.versionInfo || window.versionInfo < currentVersion) //just for test purposes: delete cookies on each new version
+        {
+            alert("Update successful (Danke fürs Installieren ;))");
+            $.cookie("username", null, {path: '/'});
+            window.username = null;
+            $.cookie("versionInfo", currentVersion, {expires: 20 * 365, path: '/'});
+        }
+
+
+        var userExists = window.username;
+        if (userExists && userExists.length > 1)
+        {
+            if (document.location.hash == '')
+                document.location.hash = "#main-menu";
+        }
+        else
+        {
+            document.location.hash = "#welcome";
+        }
+        //TODO: INIT
+        //$.cookie("username", "test", {expires: 20 * 365, path: '/'});
+        //window.username = "test";
+
+
+
 
     });
 
@@ -121,6 +161,7 @@
     // Start: Main Menu
     $("#main-menu").on("pagebeforecreate", function(event)
     {
+
         showTrainingOverview();
 
         var progressLabel = $("#progressLabelMain");
@@ -136,7 +177,7 @@
             }
         });
 
-        progressbar.height("20");
+        progressbar.height("15");
 
 
         $(selector).bind('progressbarchange', function(event, ui) {
@@ -158,11 +199,61 @@
 
         progressbar.progressbar("value", 0);
         loadTrainingProgress();
+
+        $(".gridster ul").gridster({
+            widget_margins: [10, 10],
+            widget_base_dimensions: [128, 128]
+        });
+
+        $(".gridster ul").css("margin-left", "-5px");
+
+
+        //Daily Inputs Progressbar
+        function initializeDailyInputsProgress()
+        {
+
+            var progressLabel = $("#progressLabelInputs");
+            var progressbar = $("#progressbarDailyInputs");
+
+            progressbar.progressbar({
+                value: false,
+                change: function() {
+                    var value = progressbar.progressbar("value");
+
+                    progressLabel.text("Erledigt: " + value + "/3");
+
+                }
+            });
+
+            var selector = "#progressbarDailyInputs";
+            $(selector).bind('progressbarchange', function(event, ui) {
+                var selector = "#progressbarDailyInputs > div";
+                var value = this.getAttribute("aria-valuenow");
+                if (value < 10) {
+                    $(selector).css({'background': 'Red'});
+                } else if (value < 30) {
+                    $(selector).css({'background': 'Orange'});
+                } else if (value < 50) {
+                    $(selector).css({'background': 'Yellow'});
+                } else if (value < 80) {
+                    $(selector).css({'background': 'LightGreen'});
+                }
+                else {
+                    $(selector).css({'background': '#33CC00'});
+                }
+            });
+
+            progressbar.progressbar("value", 0);
+            //  progressbar.removeClass('ui-corner-all');
+            progressbar.height("30");
+        }
+
+        initializeDailyInputsProgress();
     });
 
     $("#main-menu").on("pagebeforeshow", function(event)
     {
-       
+
     });
     // End: Main Menu
 
@@ -190,6 +281,7 @@
             console.log("Daily Tasks Input Items found: " + item);
             window.currentView = new DailyTasksInputView(adapter, item);
         });
+
     });
 
     // End: Daily Tasks Input
@@ -206,6 +298,28 @@
     });
     // End: Data Input Behavior
 
+
+    //Start Daily Inputs Menu
+    $("#daily-inputs-menu").on("pagebeforecreate", function(event)
+    {
+        var progressLabel = $("#progressLabelInputs");
+        var progressbar = $("#progressbarDailyInputs");
+
+        progressbar.progressbar({
+            value: false,
+            change: function() {
+                var value = progressbar.progressbar("value");
+
+                progressLabel.text("Erledigt: " + value + "/3");
+
+            }
+        });
+
+        progressbar.progressbar("value", 0);
+        //  progressbar.removeClass('ui-corner-all');
+        progressbar.height("30");
+    });
+    //End Daily Inputs Menu
 
     // Start: Daily Inputs: Benchmark
     $("#daily-inputs-benchmark").on("pagebeforecreate", function(event)
@@ -245,7 +359,7 @@
             saveData();
         });
     });
-    
+
     // Start: Data Input Behavior
     $("#daily-inputs-selfcontrol").on("pagebeforecreate", function(event)
     {
@@ -256,10 +370,81 @@
     });
 
 
+
+
     $("#data-input-behavior").on("pagebeforecreate", function(event)
     {
         //alert( "This page was just inserted into the dom!" );
         showBehaviorInputView();
+    });
+
+    $(document).on("pagebeforeshow", "#communication-compliment", function(event)
+    {
+        $("input[name=radioCompliment]").prop("checked", false).checkboxradio("refresh");
+    });
+
+    $(document).on("pagebeforecreate", "#communication-compliment", function(event)
+    {
+        $("#communicationComplimentForm").validate({
+            rules: {
+                radioCompliment: {
+                    required: true
+                }
+            },
+            messages: {
+                radioCompliment: ""
+            },
+            submitHandler: sendCompliment
+        });
+
+        function sendCompliment() {
+            //  event.preventDefault();
+            //$( "#rewardingame").find('[data-role="main"]').trigger("create");
+            //alert("Submit");
+            console.log("sending compliment");
+            var that = this;
+
+            $.mobile.loading('show', {
+                text: 'Lob wird gesendet...'
+            });
+
+            /*
+             $.getJSON("http://tnix.eu/~aspace/TODO.php",
+             {
+             username: window.username,
+             action: "life"
+             },
+             function(data)
+             {
+             console.log("Server responded");
+             
+             //$.mobile.loading("hide");
+             showToast('Belohnung gesendet');
+             
+             document.location.hash = "#training";
+             
+             }).fail(function()
+             {
+             alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", that);
+             }).always(function() {
+             $.mobile.loading("hide");
+             });
+             */
+
+            alert("TODO: not yet implemented");
+            $.mobile.loading("hide");
+
+            return false; //prevent event propagation
+        }
+        ;
+
+        $("#sendComplimentContainer").hide();
+
+        $("#sendComplimentFooter").click(function()
+        {
+            $("#sendCompliment").trigger("click");
+            return false;
+        });
     });
 
     $(document).on("pagebeforeshow", "#timeout", function(e, data)
@@ -401,6 +586,76 @@
 
     });
 
+    $(document).on("pagebeforecreate", "#communication-reward-reallife", function(event)
+    {
+        $("#sendRewardReallifeContainer").hide();
+        $("#rewardReallifeForm").validate({
+            rules: {
+                rewardRealLifeMessage: {
+                    required: true,
+                    minlength: 2
+                }
+            },
+            messages: {
+                rewardRealLifeMessage: "Sie haben keine Belohnungs-Nachricht eingegeben"
+            },
+            submitHandler: sendRealLifeReward
+        });
+
+
+        function sendRealLifeReward() {
+            //  event.preventDefault();
+            //$( "#rewardingame").find('[data-role="main"]').trigger("create");
+            //alert("Submit");
+            console.log("sending reallife reward");
+            var that = this;
+
+            $.mobile.loading('show', {
+                text: 'Belohnungsnachricht wird gesendet...'
+            });
+
+            alert("TODO: not yet implemented!");
+            $.mobile.loading("hide");
+            return false;
+
+            $.getJSON("http://tnix.eu/~aspace/TrainingProgress.php",
+                    {
+                        username: window.username,
+                        action: "life"
+                    },
+            function(data)
+            {
+                console.log("Server responded");
+
+                //$.mobile.loading("hide");
+                showToast('Belohnung gesendet');
+
+                if (customData.referral === "#communication-reward-ingame")
+                    document.location.hash = "#main-menu";
+                else
+                    document.location.hash = "#training";
+
+            }).fail(function()
+            {
+                alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", that);
+            }).always(function() {
+                $.mobile.loading("hide");
+            });
+
+
+            return false; //prevent event propagation
+        }
+        ;
+
+        $("#sendRewardContainer").hide();
+
+        $("#sendRewardReallifeFooter").click(function()
+        {
+            $("#sendRewardReallife").trigger("click");
+            return false;
+        });
+
+    });
 
 
     //Super important: enhancing the layout that got dynamically added. Only way I found working
@@ -409,14 +664,8 @@
         $("#training").find(":jqmData(role=listview)").listview().listview("refresh");
     });
 
-    $(document).on("pagebeforeshow", "#rewardingame", function(e, data)
+    $(document).on("pagebeforecreate", "#rewardingame", function(event)
     {
-        //var parameters = data("url").split("?")[1];;
-        // parameter = parameters.replace("parameter=","");  
-        //  document.location.hash = u.hash;
-
-        $("#rewardImage").attr("src", "img/reward/" + customData.data + ".png");
-        $("#rewardBackNavigation").attr("href", "index.html" + customData.referral);
         $("#sendInGameForm").validate({
             rules: {
                 rewardMessage: {
@@ -429,6 +678,7 @@
             },
             submitHandler: sendReward
         });
+
 
         function sendReward() {
             //  event.preventDefault();
@@ -453,7 +703,10 @@
                 //$.mobile.loading("hide");
                 showToast('Belohnung gesendet');
 
-                document.location.hash = "#training";
+                if (customData.referral === "#communication-reward-ingame")
+                    document.location.hash = "#main-menu";
+                else
+                    document.location.hash = "#training";
 
             }).fail(function()
             {
@@ -461,12 +714,44 @@
             }).always(function() {
                 $.mobile.loading("hide");
             });
-            ;
+
 
             return false; //prevent event propagation
         }
         ;
 
+        $("#sendRewardContainer").hide();
+
+        $("#sendRewardFooter").click(function()
+        {
+            $("#sendReward").trigger("click");
+            return false;
+        });
+    });
+
+    $(document).on("pagebeforeshow", "#rewardingame", function(e, data)
+    {
+        //var parameters = data("url").split("?")[1];;
+        // parameter = parameters.replace("parameter=","");  
+        //  document.location.hash = u.hash;
+        $("#rewardMessage").val("");
+
+        var reward = customData.data;
+
+        $("#rewardImage").attr("src", "img/reward/" + reward + ".png");
+        $("#rewardBackNavigation").attr("href", "index.html" + customData.referral);
+
+        $("#selectedRewardText").text(function()
+        {
+            if (reward === "salad")
+                return "Ein Salatblatt";
+            else if (reward === "snail")
+                return "Eine Schnecke";
+            else if (reward === "sight")
+                return "Eine Brille";
+            else if (reward === "life")
+                return "Ein extra Leben";
+        });
     });
 
 
@@ -557,7 +842,7 @@
     {
         var func = this;
         $.mobile.loading('show', {
-            text: 'Speichere Fortschritt'
+            text: 'Aktualisiere Trainingsfortschritt'
         });
 
         console.log("Saving progress for chapter: " + chapterId);
@@ -612,30 +897,169 @@
         }).always(function() {
             $.mobile.loading("hide");
         });
-        
-        
+        var scheduledDate = new Date(new Date().getTime() + 1 * 60000);
+        //alert("Scheduled: " + scheduledDate);
+
+        window.plugin.notification.local.add(
+                {
+                    id:         "TrainingAvailable",  // A unique id of the notifiction
+    date:       scheduledDate,    // This expects a date object
+    message:    "Es ist eine neue Trainingseinheit verfügbar! Tranieren Sie jetzt!",  // The message that is displayed
+    title:      "Trainingseinheit verfügbar"  // The title of the message
+  /*
+        repeat:     "yearly",  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
+    badge:      1,  // Displays number badge to notification
+    sound:      String,  // A sound to be played
+    json:       String,  // Data to be passed through the notification
+    autoCancel: Boolean, // Setting this flag and the notification is automatically canceled when the user clicks it
+    ongoing:    Boolean, // Prevent clearing of notification (Android only)
+    */
+                }
+                );
+
     };
 
     updateTrainingProgress = function(data)
     {
         console.log("Server responded");
 
+        var container = "#listItemTrainingStrategie";
+        var containerNA = "#listItemTrainingStrategieNA";
+        var tomorrowItem = "#listDividerTomorrow";
+
+        
+        window.waitingTime = data.waitingTime;
+        alert(window.waitingTime);
+        if (window.waitingTime > 0)
+        {
+            clearInterval(window.intervalID);
+
+            function updateWaitingTime()
+            {
+                var hours = window.waitingTime / 3600;
+                
+                $(tomorrowItem).text("Freischaltung in " + Math.floor(hours) + " Stunden " + Math.floor((window.waitingTime % 3600) / 60) + " Minuten");
+                window.waitingTime -= 60;
+                
+                if (window.waitingTime <= 0)
+                {
+                    clearInterval(window.intervalID);
+                    loadTrainingProgress();
+                }
+            }
+            
+            updateWaitingTime();
+            window.intervalID = setInterval(updateWaitingTime, 60000);
+        }
+
+        var textAvailable = 'Schließen Sie zuerst die ';
+        var text = textAvailable;
+
         var imgId = '#imgDone_';
         var total = 0;
         var completed = 0;
+        var lockStatus = 0; //0=available, 1=gets unlocked tomorrow, 2=not unlocked
+        var unfinishedCourse = false;
+        var lastCompleted = true;
+        var uncomplete = 0;
 
         $.each(data.returnData, function(key, val)
         {
             ++total;
+            $(container + total).off("click");
 
             if (val === true)
             {
                 ++completed;
+                $(container + total).data("icon", "arrow-r").show();
                 $(imgId + key).attr("src", "img/checkbox_done.png");
+                $(containerNA + total).hide();
             }
+            else
+            {
+                ++uncomplete;
+                
+                if (lastCompleted === true && waitingTime <= 0) //an uncompleted item
+                {
+                    lastCompleted = false;
+                    unfinishedCourse = true;
+                    $(container + total).data("icon", "arrow-r").show();
+                    $(imgId + key).attr("src", "img/checkbox_notDone.png");
+                    $(containerNA + total).hide();
+                    
+                    //Set text
+                    $(tomorrowItem).text(textAvailable + total + ". Strategie ab");
+                }
+                else
+                {
+
+                    if (lockStatus === 0) //here begins the content that gets unlocked tomorrow
+                    {
+                        lockStatus++;
+                        //insert list divider
+                        $(tomorrowItem).insertBefore($(container + total));
+
+                        if (unfinishedCourse === false && data.waitingTime > 0) //next strategy is still locked
+                        {
+                            //$(tomorrowItem).text(textAvailableTime);
+                        }
+
+
+
+//$("#listDiverTomorrow").enhanceWithin();
+                        //<li data-role="list-divider">Noch nicht freigeschaltet</li>
+                        //$(container + total).data("icon", "info").on('click', function(e)
+                        $(containerNA + total).data("icon", "alert").on('click', function(e)
+                        {
+                            alert('Diese Strategie können Sie ab morgen trainieren. Konzentrieren Sie sich bitte zuerst darauf, die bereits gelernten zu üben.', undefined, "Hinweis");
+                            return false;
+                        }).show();
+
+                        $(container + total).hide();
+
+                        $("#listDividerTomorrow").insertAfter($("#trainingNameSpan" + total));
+
+                    }
+
+                    else if (lockStatus === 1)
+                    {
+                        lockStatus++;
+
+                        //
+                        //.before('<li data-role="list-divider" id="listDiverLocked">Noch nicht freigeschaltet<a href="index.html" id="listDividerTomorrowInfo" data-iconpos="right" data-icon="delete"></a></li>');
+                        //.attr("class", "ui-disabled");
+                    }
+
+
+                    if (lockStatus >= 2)
+                    {
+                        $(containerNA + total).data("icon", "info").on('click', function(e)
+                        {
+                            alert('Diese Strategie ist noch nicht verfügbar. Konzentrieren Sie sich bitte zuerst darauf, die bereits gelernten zu üben.', undefined, "Hinweis");
+                            return false;
+                        }).trigger("create").show();
+
+
+                        $(container + total).hide();
+                    }
+                }
+            }
+            
+            
         });
         console.log("Total: " + total);
         console.log("Progressbar : " + $("#progressbar").progressbar("value"));
+
+        if (uncomplete <= 1)
+        {
+            $("#training-listviewNA").hide();
+            $(tomorrowItem).hide();
+            $("#trainingCompletedGratulation").show();
+        }
+        else
+        {
+            $("#trainingCompletedGratulation").hide();
+        }
 
         if (completed > 0 && total > 0)
         {
@@ -647,7 +1071,7 @@
             $("#progressbar").progressbar('value', 0);
             $("#progressbarMain").progressbar('value', 0);
         }
-        
+
         showToast("Trainingsfortschritt aktualisiert");
     };
 
@@ -655,13 +1079,13 @@
     {
         var opts = {
             title: message,
-          //  text: message,
+            //  text: message,
             type: "success",
             stack: toastStack,
             addclass: "stack-bottomleft ui-icon-alt"
         };
-        
+
         $.pnotify(opts);
-           
+
     };
 }());

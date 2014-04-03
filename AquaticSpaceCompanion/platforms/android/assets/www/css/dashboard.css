@@ -1,0 +1,199 @@
+/* 
+  Our list items should not have the regular dots
+*/
+
+.gridsterList
+{
+    margin-left: -10px;
+}
+
+div#centered {
+    width:100px;
+    margin:0 auto;
+    height:100px;           /*Required only for Vertical alingment*/
+    position:static;        /*only static and relativ works. If static just leave it out since it is the default.*/
+
+}
+
+div#helper {                /*Required only for Vertical alingment*/
+    height:50%;
+    width:100%;
+    margin-bottom:-50px;
+}
+
+.icon-title
+{
+    color: #000;
+
+    font-size: 22px;
+    display: inline-block;
+
+    width: 100%;
+    color: #fff;
+    text-align: center;
+
+    text-shadow: 1px 1px 0 #333;
+    text-shadow: 2px 2px 0 #000;
+    margin-bottom: 12px;
+
+}
+
+
+
+.icon
+{
+    position: relative;
+    background-size: contain;
+    background-repeat:no-repeat;
+    vertical-align: middle;
+    background-position: center center;
+    border-bottom: 0 none;
+    border:1px solid #26759e;-webkit-box-shadow: #FEFFFF 0px 1px 3px inset;-moz-box-shadow: #FEFFFF 0px 1px 3px inset; box-shadow: #FEFFFF 0px 1px 3px inset; -webkit-border-radius: 7px; -moz-border-radius: 7px;border-radius: 7px;
+    background: #396b9e /*{b-bup-background-color}*/;
+    font-weight: bold;
+    color: #fff /*{b-bup-color}*/;
+}
+
+.daily-input
+{
+    background-image: url(../img/mixed/daily-input.png), -webkit-gradient(linear, left top, left bottom, from( #5f9cc5 /*{b-bup-background-start}*/), to( #396b9e /*{b-bup-background-end}*/)); /* Saf4+, Chrome */
+    background-image: url(../img/mixed/daily-input.png), -webkit-linear-gradient( #5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/); /* Chrome 10+, Saf5.1+ */
+    background-image: url(../img/mixed/daily-input.png),   -moz-linear-gradient( #5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/); /* FF3.6 */
+    background-image: url(../img/mixed/daily-input.png),    -ms-linear-gradient( #5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/); /* IE10 */
+    background-image: url(../img/mixed/daily-input.png),     -o-linear-gradient( #5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/); /* Opera 11.10+ */
+    background-image: url(../img/mixed/daily-input.png), linear-gradient( #5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/);
+}
+
+
+.aquatic-space
+{
+    background-image: url(../img/mixed/aquatic-space.png), -webkit-gradient(linear, left top, left bottom, from( #5f9cc5 /*{b-bup-background-start}*/), to( #396b9e /*{b-bup-background-end}*/)); /* Saf4+, Chrome */
+    background-image: url(../img/mixed/aquatic-space.png), -webkit-linear-gradient( #5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/); /* Chrome 10+, Saf5.1+ */
+    background-image: url(../img/mixed/aquatic-space.png),   -moz-linear-gradient( #5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/); /* FF3.6 */
+    background-image: url(../img/mixed/aquatic-space.png),    -ms-linear-gradient( #5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/); /* IE10 */
+    background-image: url(../img/mixed/aquatic-space.png),     -o-linear-gradient( #5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/); /* Opera 11.10+ */
+    background-image: url(../img/mixed/aquatic-space.png), linear-gradient( #5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/);
+}
+
+.icon-training
+{
+    background-image: url(../img/mixed/training.png), -webkit-gradient(linear, left top, left bottom, from( #5f9cc5 /*{b-bup-background-start}*/), to( #396b9e /*{b-bup-background-end}*/)); /* Saf4+, Chrome */
+    background-image: url(../img/mixed/training.png), -webkit-linear-gradient( #5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/); /* Chrome 10+, Saf5.1+ */
+    background-image: url(../img/mixed/training.png),   -moz-linear-gradient( #5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/); /* FF3.6 */
+    background-image: url(../img/mixed/training.png),    -ms-linear-gradient( #5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/); /* IE10 */
+    background-image: url(../img/mixed/training.png),     -o-linear-gradient( #5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/); /* Opera 11.10+ */
+    background-image: url(../img/mixed/training.png), linear-gradient( #5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/);
+    background-repeat:no-repeat;
+}
+
+
+
+.statistics
+{
+    background-image: url(../img/mixed/statistics.png), -webkit-gradient(linear, left top, left bottom, from( #5f9cc5 /*{b-bup-background-start}*/), to( #396b9e /*{b-bup-background-end}*/)); /* Saf4+, Chrome */
+    background-image: url(../img/mixed/statistics.png), -webkit-linear-gradient( #5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/); /* Chrome 10+, Saf5.1+ */
+    background-image: url(../img/mixed/statistics.png),   -moz-linear-gradient( #5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/); /* FF3.6 */
+    background-image: url(../img/mixed/statistics.png),    -ms-linear-gradient( #5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/); /* IE10 */
+    background-image: url(../img/mixed/statistics.png),     -o-linear-gradient( #5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/); /* Opera 11.10+ */
+    background-image: url(../img/mixed/statistics.png), linear-gradient( #5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/);
+}
+
+.gridster ul {
+    list-style: none;
+}
+/* 
+  Set out layout to be 960px wide
+*/
+
+.imgBackground
+{
+    background-position: center center;
+}
+
+.gridster {
+    width: auto;
+    margin: 0 auto;
+    color: white;
+    text-align: center;
+}
+
+/* 
+  Give the layout a boxy look with shadows, and 
+  change the cursor over the elements so it's 
+  easier to know where to drag
+*/
+.gridster .gs_w {
+    background: #FFF;
+    cursor: pointer;
+    -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
+/* Align the images to center and middle */
+.gridster img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+/* Define our colours */
+/* purple */
+.gridster li.purple{
+    background:#A200FF;
+}
+
+
+/*  magenta */
+.gridster li.magenta{
+    background: #FF0097;
+}
+
+/*  teal */
+.gridster li.teal{
+    background: #00ABA9;
+}
+
+/*  lime */
+.gridster .lime{
+    background: #8CBF26;
+}
+
+/*  brown */
+.gridster li.brown{
+    background: #A05000;
+}
+
+/* pink */
+.gridster li.pink{
+    background: #E671B8;
+}
+
+/*  orange */
+.gridster li.orange{
+    background: #F09609;
+}
+
+/*  blue */
+.gridster li.blue{
+    background: #1BA1E2;
+}
+
+/*  red */
+.gridster li.red{
+    background: #E51400;
+}
+
+/*  green */
+.gridster li.green{
+    background: #339933;
+}
+
+
+
+
+
+
+
+
+
+

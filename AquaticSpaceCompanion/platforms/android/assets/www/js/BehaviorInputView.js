@@ -8,11 +8,24 @@ var BehaviorInputView = function(adapter, data)
 
 	$("#checkBoxContent").find(".customCheckbox").bind("change", function(event, ui)
 	{
+            var textArea = $(this).next().find("textArea");
 	    if (this.checked)
-		$(this).next().find("textArea").removeClass('ui-body-c').addClass('ui-body-d');
+            {
+		textArea.removeClass('ui-body-c').addClass('ui-body-d');
+                textArea.focus();
+            }
+            else if (this.checked === true && !$.trim(textArea.val()))
+            {
+                this.checked = false;
+                textArea.removeClass('ui-body-d').addClass('ui-body-c');
+            }
 	    else
-		$(this).next().find("textArea").removeClass('ui-body-d').addClass('ui-body-c');
+            {
+		textArea.removeClass('ui-body-d').addClass('ui-body-c');
+            }
 	});
+        
+       
 
 
 	$("#checkBoxContent").find("textarea").blur(function()
@@ -75,10 +88,14 @@ var BehaviorInputView = function(adapter, data)
 		index++;
 	    });
 
-	    if (totalChecks !== 3)
+	    if (totalChecks < 1)
 	    {
-		alert("Bitte wählen Sie 3 unerwünschte Verhaltensweisen aus.");
+		alert("Bitte wählen Sie zumindest 1 unerwünschte Verhaltensweise aus.");
 	    }
+            else if (totalChecks > 3)
+            {
+                alert("Bitte wählen Sie nicht mehr als 3 unerwünschte Verhaltensweisen aus.");
+            }
 	    else
 	    {
 		if (customFeedbackColumns.length > 0)

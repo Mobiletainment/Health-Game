@@ -53,7 +53,7 @@ var BehaviorRatingView = function(adapter, data)
                     },
             function(data)
             {
-                console.log("Server responded: "+ data.debugInfo);
+                console.log("Server responded to BehaviorRating: "+ data.debugInfo);
                 var currentPage = window.location.href.split('#')[0];
                 showToast('Verhaltensweisen gespeichert');
                 window.dict = {};

@@ -26,7 +26,7 @@ var DailyInputsTasksView = function()
                     },
             function(data)
             {
-                console.log("Server responded: " + data.returnCode + "; " + data.returnMessage);
+                console.log("Server responded to DailyInputsTaskView.SaveInputTasksData: " + data.returnCode + "; " + data.returnMessage);
                 var currentPage = window.location.href.split('#')[0];
                 window.location.href = currentPage + "#main-menu";
                 showToast('Aufgaben gespeichert');
@@ -87,7 +87,7 @@ var DailyInputsTasksView = function()
                 },
         function(data)
         {
-            console.log("Server responded for Input Tasks Data: " + data.returnCode);
+            console.log("Server responded for DailyInputsTaskView.LoadDailyTasksData: " + data.returnCode);
             if (data.returnCode === 200)
             {
                 var items = new Array();

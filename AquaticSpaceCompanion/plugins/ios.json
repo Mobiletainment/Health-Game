@@ -7,17 +7,13 @@
         "config.xml": {
             "/*": {
                 "<feature name=\"PushPlugin\"><param name=\"ios-package\" value=\"PushPlugin\" /></feature>": 1,
-                "<feature name=\"Battery\"><param name=\"ios-package\" value=\"CDVBattery\" /></feature>": 1,
-                "<feature name=\"Camera\"><param name=\"ios-package\" value=\"CDVCamera\" /></feature>": 1,
                 "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>": 1,
-                "<feature name=\"Contacts\"><param name=\"ios-package\" value=\"CDVContacts\" /></feature>": 1,
                 "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>": 1,
                 "<feature name=\"Accelerometer\"><param name=\"ios-package\" value=\"CDVAccelerometer\" /></feature>": 1,
                 "<feature name=\"Compass\"><param name=\"ios-package\" value=\"CDVCompass\" /></feature>": 1,
                 "<feature name=\"Notification\"><param name=\"ios-package\" value=\"CDVNotification\" /></feature>": 1,
                 "<feature name=\"File\"><param name=\"ios-package\" value=\"CDVFile\" /><param name=\"onload\" value=\"true\" /></feature>": 1,
                 "<feature name=\"FileTransfer\"><param name=\"ios-package\" value=\"CDVFileTransfer\" /></feature>": 1,
-                "<feature name=\"Geolocation\"><param name=\"ios-package\" value=\"CDVLocation\" /></feature>": 1,
                 "<feature name=\"Globalization\"><param name=\"ios-package\" value=\"CDVGlobalization\" /></feature>": 1,
                 "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>": 1,
                 "<feature name=\"NetworkStatus\"><param name=\"ios-package\" value=\"CDVConnection\" /></feature>": 1,
@@ -33,27 +29,19 @@
             "libz.dylib": {
                 "false": 1
             },
-            "ImageIO.framework": {
-                "true": 1
-            },
-            "CoreLocation.framework": {
-                "false": 1
-            },
+            "ImageIO.framework": {},
+            "CoreLocation.framework": {},
             "CoreGraphics.framework": {
-                "false": 4
-            },
-            "AssetsLibrary.framework": {
-                "false": 3
-            },
-            "MobileCoreServices.framework": {
                 "false": 2
             },
-            "AddressBook.framework": {
-                "true": 1
+            "AssetsLibrary.framework": {
+                "false": 2
             },
-            "AddressBookUI.framework": {
-                "true": 1
+            "MobileCoreServices.framework": {
+                "false": 1
             },
+            "AddressBook.framework": {},
+            "AddressBookUI.framework": {},
             "CoreMotion.framework": {
                 "false": 1
             },
@@ -72,16 +60,7 @@
         "com.testflightapp.cordova-plugin": {
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         },
-        "org.apache.cordova.battery-status": {
-            "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
-        },
-        "org.apache.cordova.camera": {
-            "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
-        },
         "org.apache.cordova.console": {
-            "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
-        },
-        "org.apache.cordova.contacts": {
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         },
         "org.apache.cordova.device": {
@@ -100,9 +79,6 @@
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         },
         "org.apache.cordova.file-transfer": {
-            "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
-        },
-        "org.apache.cordova.geolocation": {
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         },
         "org.apache.cordova.globalization": {

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="net.pertiller.aquaspacecompanion" version="0.49" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="net.pertiller.aquaspacecompanion" version="0.77" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <preference name="loglevel" value="DEBUG" />
     <feature name="App">
         <param name="android-package" value="org.apache.cordova.App" />
@@ -16,7 +16,5 @@
     <preference name="disallowOverscroll" value="true" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="webviewbounce" value="false" />
-    <feature name="AppVersion">
-        <param name="android-package" value="uk.co.whiteoctober.cordova.AppVersion" />
-    </feature>
+    <preference name="Orientation" value="default" />
 </widget>
