@@ -49,6 +49,22 @@
     });
 
 
+    // handle APNS notifications for iOS
+    onNotificationAPN = function(e) {
+        alert("onNotificationAPN");
+        if (e.alert) {
+            navigator.notification.alert(e.alert);
+        }
+
+        if (e.sound) {
+            var snd = new Media(e.sound);
+            snd.play();
+        }
+
+        if (e.badge) {
+            pushNotification.setApplicationIconBadgeNumber(successHandler, e.badge);
+        }
+    }
 
     /* --------------------------------- Event Registration -------------------------------- */
     document.addEventListener('deviceready', function() {
@@ -122,21 +138,7 @@
         window.deviceToken = $.cookie("deviceToken");
     }
 
-    // handle APNS notifications for iOS
-    function onNotificationAPN(e) {
-        if (e.alert) {
-            navigator.notification.alert(e.alert);
-        }
-
-        if (e.sound) {
-            var snd = new Media(e.sound);
-            snd.play();
-        }
-
-        if (e.badge) {
-            pushNotification.setApplicationIconBadgeNumber(successHandler, e.badge);
-        }
-    }
+    
 
     // handle GCM notifications for Android
     function onNotificationGCM(e) {
@@ -385,7 +387,6 @@
     // Start: Main Menu
     $("#main-menu").on("pagebeforecreate", function(event)
     {
-
         showTrainingOverview();
 
         var progressLabel = $("#progressLabelMain");
@@ -1103,7 +1104,7 @@
         $.mobile.loading('show', {
             text: 'Lade Fortschritt'
         });
-
+/*
         //Send Push Notification
         $.getJSON("http://tnix.eu/~aspace/SendPushNotificationToParent.php",
                 {
@@ -1123,7 +1124,7 @@
             $.mobile.loading("hide");
         });
 
-
+*/
         $.getJSON("http://tnix.eu/~aspace/TrainingProgress.php",
                 {
                     username: window.username,
