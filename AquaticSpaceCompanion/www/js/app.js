@@ -909,9 +909,9 @@
         var containerNA = "#listItemTrainingStrategieNA";
         var tomorrowItem = "#listDividerTomorrow";
 
-        alert(data.waitingTime);
+        
         window.waitingTime = data.waitingTime;
-        alert("Waiting check");
+        alert(window.waitingTime);
         if (window.waitingTime > 0)
         {
             clearInterval(window.intervalID);
@@ -943,6 +943,7 @@
         var lockStatus = 0; //0=available, 1=gets unlocked tomorrow, 2=not unlocked
         var unfinishedCourse = false;
         var lastCompleted = true;
+        var uncomplete = 0;
 
         $.each(data.returnData, function(key, val)
         {
@@ -958,6 +959,8 @@
             }
             else
             {
+                ++uncomplete;
+                
                 if (lastCompleted === true && waitingTime <= 0) //an uncompleted item
                 {
                     lastCompleted = false;
@@ -965,7 +968,7 @@
                     $(container + total).data("icon", "arrow-r").show();
                     $(imgId + key).attr("src", "img/checkbox_notDone.png");
                     $(containerNA + total).hide();
-                    alert("Letzte");
+                    
                     //Set text
                     $(tomorrowItem).text(textAvailable + total + ". Strategie ab");
                 }
@@ -980,7 +983,6 @@
 
                         if (unfinishedCourse === false && data.waitingTime > 0) //next strategy is still locked
                         {
-                            alert("Waiting time");
                             //$(tomorrowItem).text(textAvailableTime);
                         }
 
@@ -1024,9 +1026,22 @@
                     }
                 }
             }
+            
+            
         });
         console.log("Total: " + total);
         console.log("Progressbar : " + $("#progressbar").progressbar("value"));
+
+        if (uncomplete <= 1)
+        {
+            $("#training-listviewNA").hide();
+            $(tomorrowItem).hide();
+            $("#trainingCompletedGratulation").show();
+        }
+        else
+        {
+            $("#trainingCompletedGratulation").hide();
+        }
 
         if (completed > 0 && total > 0)
         {

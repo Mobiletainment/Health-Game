@@ -181,7 +181,7 @@ div.ui-btn-active
 }
 
 #progressLabelMain, #progressLabelInputsMain {
-    font-size: 0.7em;
+    font-size: 0.65em;
     margin-bottom: 0px;
 }
 
@@ -222,11 +222,24 @@ div.ui-btn-active
     
 }
 
-.gratulation
+.gratulation, .gratulationTraining
 {
     background-image: url(../img/mixed/gratulation.png);
     background-size: contain;
     background-repeat:no-repeat;
     vertical-align: middle;
     background-position: center center;
+}
+
+.gratulationTraining
+{
+    background-repeat:repeat;
+    background: contain;
+}
+
+.star
+{
+    background-image: url(../img/mixed/star.png);
+    background-repeat:repeat;
+
 }
