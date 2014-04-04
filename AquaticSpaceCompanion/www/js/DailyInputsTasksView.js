@@ -17,12 +17,13 @@ var DailyInputsTasksView = function()
             $.mobile.loading('show', {
                 text: 'Daten werden gespeichert...'
             });
-
+            
             $.getJSON("http://tnix.eu/~aspace/SaveData.php",
                     {
                         username: window.username,
                         action: "SaveInputTasksData",
-                        data: data
+                        data: data,
+                        date: currentDate()
                     },
             function(data)
             {

@@ -6,6 +6,7 @@ header('Content-Type: application/json; charset=UTF-8');
 $user = $_GET['username'];
 $action = $_GET['action'];
 $data = $_GET['data'];
+$date = $_GET['date'];
 
 $returnCode = 200;
 $debugInfo = "";
@@ -44,7 +45,7 @@ if ($action == "SavePersonData")
 
 	
 	$query= "INSERT INTO User_Info(username, gender, mail, birthdate) VALUES('$user', '$gender', '$mail', '$birthdate')";
-	$debugInfo = $query;
+	$debugInfo .= $query;
 	$result=mysql_query($query);
 	
 	$returnData = "Inserted " . $result . " rows";
@@ -61,7 +62,7 @@ else if ($action == "SaveBehaviorData")
 
 	$custom = substr($custom, 0, -2);
 	$query .= $custom . ")";
-	$debugInfo = $query;
+	$debugInfo .= $query;
 	$result=mysql_query($query);
 	
 	$returnData = "Inserted " . $result . " rows";
@@ -92,6 +93,7 @@ else if ($action == "SaveDailyTasksData")
 	$debugInfo .= $query;
 	$result=mysql_query($query);
 	$returnData = "Inserted " . $result . " rows";
+
 }
 else if ($action == "SaveInputTasksData")
 {
@@ -121,6 +123,37 @@ else if ($action == "SaveInputTasksData")
 	$debugInfo .= $query;
 	$result=mysql_query($query);
 	$returnData = "Inserted " . $result . " rows";
+
+
+	$debugInfo .= "Handling DailyInputs_Check";
+	$timestamp = strtotime("$date");
+
+	//check if a new record must be inserted or if it has to be updated
+	$query = "SELECT * from DailyInputs_Check where username = '$user' AND date = DATE(FROM_UNIXTIME($timestamp))";
+	$debugInfo .= "; Query: " . $query;
+	$result=mysql_query($query);
+	$debugInfo .= "Found " . mysql_numrows($result) . " entries in in DailyInputs_Check";
+	
+
+	if(mysql_numrows($result) == 0)
+	{
+		$debugInfo .= "No record for today's Daily Inputs exists. Inserting.";
+		$query = "INSERT INTO DailyInputs_Check (DATE, username, dailyDuties) VALUES (FROM_UNIXTIME($timestamp), '$user', 1)";
+		$debugInfo .= "; Query: " . $query;
+		$result=mysql_query($query);
+		$debugInfo .= "Inserted " . $result . " rows into DailyInputs_Check";
+	}
+	else
+	{
+		//record can be updated
+		$debugInfo .= "Updating record for today's Daily Inputs.";
+		
+
+		$query = "UPDATE DailyInputs_Check SET dailyDuties = 1 WHERE username = '$user' AND date = DATE(FROM_UNIXTIME($timestamp))";
+		$debugInfo .= "; Query: " . $query;
+		$result=mysql_query($query);
+		$debugInfo .= "Updated " . $result . " rows in DailyInputs_Check";
+	}
 }
 
 else if ($action == "LoadDailyTasksData")
@@ -154,7 +187,7 @@ else if ($action == "LoadDailyTasksData")
 else if ($action == "SaveInputBenchmarkData")
 {
 	$query= "INSERT INTO Benchmark_Feedback(username, rating) VALUES('$user', '$data')";
-	$debugInfo = $query;
+	$debugInfo .= $query;
 	$result=mysql_query($query);
 	
 	$returnData = "Inserted " . $result . " rows";

@@ -48,6 +48,11 @@
 
     });
 
+    currentDate = function()
+    {
+        var dt = new Date();
+        return dt.toUTCString();
+    };
 
     // handle APNS notifications for iOS
     onNotificationAPN = function(e) {
