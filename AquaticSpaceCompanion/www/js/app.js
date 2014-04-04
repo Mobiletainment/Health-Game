@@ -399,6 +399,7 @@
         
         $("#loginPassword").on("keypress", function()
         {
+            //$(":submit").parent().removeClass("ui-btn-active");
             $("#submitLogin").parent().removeClass("ui-btn-active");
         });
 

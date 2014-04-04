@@ -6,9 +6,9 @@
     <access origin="*"/>
     <preference name="fullscreen" value="true"/>
     <preference name="Fullscreen" value="true"/>
-    <preference name="StatusBarOverlaysWebView" value="false" />
-    <preference name="disallowOverscroll" value="true" />
-    <preference name="DisallowOverscroll" value="true" />
-    <preference name="webviewbounce" value="false" />
-    <preference name="Orientation" value="default" />
+    <preference name="StatusBarOverlaysWebView" value="false"/>
+    <preference name="disallowOverscroll" value="true"/>
+    <preference name="DisallowOverscroll" value="true"/>
+    <preference name="webviewbounce" value="false"/>
+    <preference name="Orientation" value="default"/>
 </widget>

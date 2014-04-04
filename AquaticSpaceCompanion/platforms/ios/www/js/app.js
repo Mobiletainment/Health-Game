@@ -52,7 +52,7 @@
     // handle APNS notifications for iOS
     onNotificationAPN = function(e) {
 
-        if (e.hash)
+        if (e.hash && e.hash.length > 0)
         {
             navigator.notification.alert("Hash: " + e.hash);
             document.location.hash = e.hash;

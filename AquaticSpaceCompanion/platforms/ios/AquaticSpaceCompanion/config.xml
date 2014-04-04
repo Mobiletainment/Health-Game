@@ -60,9 +60,6 @@
     <feature name="Vibration">
         <param name="ios-package" value="CDVVibration" />
     </feature>
-    <feature name="AppVersion">
-        <param name="ios-package" value="AppVersion" />
-    </feature>
     <feature name="TestFlightSDK">
         <param name="ios-package" value="CDVTestFlight" />
     </feature>

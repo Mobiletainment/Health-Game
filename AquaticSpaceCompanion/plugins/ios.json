@@ -18,8 +18,7 @@
                 "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>": 1,
                 "<feature name=\"NetworkStatus\"><param name=\"ios-package\" value=\"CDVConnection\" /></feature>": 1,
                 "<feature name=\"SplashScreen\"><param name=\"ios-package\" value=\"CDVSplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>": 1,
-                "<feature name=\"Vibration\"><param name=\"ios-package\" value=\"CDVVibration\" /></feature>": 1,
-                "<feature name=\"AppVersion\"><param name=\"ios-package\" value=\"AppVersion\" /></feature>": 1
+                "<feature name=\"Vibration\"><param name=\"ios-package\" value=\"CDVVibration\" /></feature>": 1
             },
             "/widget": {
                 "<feature name=\"TestFlightSDK\"><param name=\"ios-package\" value=\"CDVTestFlight\" /></feature>": 1
@@ -29,10 +28,11 @@
             "libz.dylib": {
                 "false": 1
             },
-            "ImageIO.framework": {},
-            "CoreLocation.framework": {},
-            "CoreGraphics.framework": {
-                "false": 2
+            "CoreMotion.framework": {
+                "false": 1
+            },
+            "AudioToolbox.framework": {
+                "true": 2
             },
             "AssetsLibrary.framework": {
                 "false": 2
@@ -40,13 +40,8 @@
             "MobileCoreServices.framework": {
                 "false": 1
             },
-            "AddressBook.framework": {},
-            "AddressBookUI.framework": {},
-            "CoreMotion.framework": {
-                "false": 1
-            },
-            "AudioToolbox.framework": {
-                "true": 2
+            "CoreGraphics.framework": {
+                "false": 2
             },
             "SystemConfiguration.framework": {
                 "true": 1
@@ -94,9 +89,6 @@
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         },
         "org.apache.cordova.vibration": {
-            "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
-        },
-        "uk.co.whiteoctober.cordova.AppVersion": {
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         }
     },

@@ -168,16 +168,14 @@
             isInline = NO;
         }
 		else
-            [jsonStr appendFormat:@"\"foreground\":\"%d\"", 0];
+            [jsonStr appendFormat:@"foreground:\"%d\"", 0];
         
         [jsonStr appendString:@"}"];
 
         NSLog(@"Msg: %@", jsonStr);
 
         NSString * jsCallBack = [NSString stringWithFormat:@"%@(%@);", self.callback, jsonStr];
-        NSString *success = [self.webView stringByEvaluatingJavaScriptFromString:jsCallBack];
-        
-        NSLog(@"Success: %@", success);
+        [self.webView stringByEvaluatingJavaScriptFromString:jsCallBack];
         
         self.notificationMessage = nil;
     }
