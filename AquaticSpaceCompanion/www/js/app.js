@@ -705,8 +705,10 @@
                     return false;
                 }
             }
+            
+            selectedMessage = "Lob erhalten: " + selectedMessage;
 
-            $.getJSON("http://tnix.eu/~aspace/SendPushNotification.php",
+            $.getJSON("http://tnix.eu/~aspace/SendPushNotificationToChild.php",
                     {
                         username: window.username,
                         data: selectedMessage
@@ -925,12 +927,14 @@
                 text: 'Belohnungsnachricht wird gesendet...'
             });
 
-            alert($("#rewardRealLifeMessage").val());
+            var message = 'Belohnung erhalten: ' + $("#rewardRealLifeMessage").val();
+
+            alert(message);
           
-            $.getJSON("http://tnix.eu/~aspace/SendPushNotification.php",
+            $.getJSON("http://tnix.eu/~aspace/SendPushNotificationToChild.php",
                     {
                         username: window.username,
-                        data: $("#rewardRealLifeMessage").val()
+                        data: message
                     },
             function(data)
             {
@@ -996,10 +1000,14 @@
                 text: 'Belohnung wird gesendet...'
             });
 
-            $.getJSON("http://tnix.eu/~aspace/TrainingProgress.php",
+            var message = $("#selectedRewardText").text() + " erhalten! Ich schenke dir die Belohnung, weil ";
+            message += $("#rewardMessage").val();
+
+            $.getJSON("http://tnix.eu/~aspace/SendPushNotificationToChild.php",
                     {
                         username: window.username,
-                        action: "life"
+                        data: message,
+                        payload: customData.data
                     },
             function(data)
             {
