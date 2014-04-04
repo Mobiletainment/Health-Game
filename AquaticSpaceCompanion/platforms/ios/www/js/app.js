@@ -48,16 +48,21 @@
 
     });
 
+    currentDate = function()
+    {
+        var dt = new Date();
+        return dt.toUTCString();
+    };
 
     // handle APNS notifications for iOS
     onNotificationAPN = function(e) {
 
         if (e.hash && e.hash.length > 0)
         {
-            navigator.notification.alert("Hash: " + e.hash);
+            //navigator.notification.alert("Hash: " + e.hash);
             document.location.hash = e.hash;
         }
-        
+
         if (e.alert) {
             navigator.notification.alert(e.alert);
         }
@@ -71,15 +76,15 @@
             pushNotification.setApplicationIconBadgeNumber(successHandler, e.badge);
         }
 
-       
-        
+
+
         if (e.foreground)
         {
             alert("Foreground: " + e.foreground);
         }
-        
-        
-        
+
+
+
     };
 
     /* --------------------------------- Event Registration -------------------------------- */
@@ -315,7 +320,7 @@
         window.username = $.cookie("username");
         window.versionInfo = $.cookie("versionInfo");
 
-        var currentVersion = 0.60;
+        var currentVersion = 0.61;
 
         if (!window.versionInfo || window.versionInfo < currentVersion) //just for test purposes: delete cookies on each new version
         {
@@ -396,9 +401,10 @@
             registerDevice();
             return false;
         }
-        
+
         $("#loginPassword").on("keypress", function()
         {
+            //$(":submit").parent().removeClass("ui-btn-active");
             $("#submitLogin").parent().removeClass("ui-btn-active");
         });
 
@@ -408,6 +414,7 @@
     $("#main-menu").on("pagebeforecreate", function(event)
     {
         showTrainingOverview();
+        initializeDailyInputsOverview();
 
         var progressLabel = $("#progressLabelMain");
         var selector = "#progressbarMain";
@@ -443,7 +450,7 @@
         });
 
         progressbar.progressbar("value", 0);
-        
+
         $(".gridster ul").gridster({
             widget_margins: [10, 10],
             widget_base_dimensions: [128, 128]
@@ -455,19 +462,8 @@
         //Daily Inputs Progressbar
         function initializeDailyInputsProgress()
         {
-
-            var progressLabel = $("#progressLabelInputs");
             var progressbar = $("#progressbarDailyInputs");
 
-            progressbar.progressbar({
-                value: false,
-                change: function() {
-                    var value = progressbar.progressbar("value");
-
-                    progressLabel.text("Erledigt: " + value + "/3");
-
-                }
-            });
 
             var selector = "#progressbarDailyInputs";
             $(selector).bind('progressbarchange', function(event, ui) {
@@ -493,14 +489,17 @@
         }
 
         initializeDailyInputsProgress();
-        
+
         loadTrainingProgress();
 
     });
 
     $("#main-menu").on("pagebeforeshow", function(event)
     {
-
+        if (document.location.hash == "#main-menu?reload=true")
+        {
+            loadTrainingProgress();
+        }
     });
     // End: Main Menu
 
@@ -547,25 +546,22 @@
 
 
     //Start Daily Inputs Menu
-    $("#daily-inputs-menu").on("pagebeforecreate", function(event)
+    function initializeDailyInputsOverview()
     {
-        var progressLabel = $("#progressLabelInputs");
         var progressbar = $("#progressbarDailyInputs");
 
         progressbar.progressbar({
             value: false,
             change: function() {
                 var value = progressbar.progressbar("value");
-
-                progressLabel.text("Erledigt: " + value + "/3");
-
             }
         });
 
         progressbar.progressbar("value", 0);
         //  progressbar.removeClass('ui-corner-all');
         progressbar.height("30");
-    });
+    }
+    ;
     //End Daily Inputs Menu
 
     // Start: Daily Inputs: Benchmark
@@ -583,13 +579,14 @@
                     {
                         username: window.username,
                         action: "SaveInputBenchmarkData",
-                        data: $("#daily-inputs-benchmark").find("#sliderBenchmark").val()
+                        data: $("#daily-inputs-benchmark").find("#sliderBenchmark").val(),
+                        date: currentDate()
                     },
             function(data)
             {
                 console.log("Server responded to app.SaveInputBenchmarkData: " + data.returnCode + "; " + data.returnMessage);
                 var currentPage = window.location.href.split('#')[0];
-                window.location.href = currentPage + "#daily-inputs-menu";
+                window.location.href = currentPage + "#main-menu?reload=true";
                 showToast('Verhaltensmaßstab gespeichert');
 
             }).fail(function()
@@ -610,9 +607,48 @@
     // Start: Data Input Behavior
     $("#daily-inputs-selfcontrol").on("pagebeforecreate", function(event)
     {
+        function saveData()
+        {
+            var func = this;
+
+            $.mobile.loading('show', {
+                text: 'Daten werden gespeichert...'
+            });
+
+            $.getJSON("http://tnix.eu/~aspace/SaveData.php",
+                    {
+                        username: window.username,
+                        action: "SaveSelfControlData",
+                        data: window.dict,
+                        date: currentDate()
+                    },
+            function(data)
+            {
+                console.log("Server responded to daily-inputs-selfcontrol.SaveSelfControlData: " + data.returnCode + "; " + data.returnMessage);
+                var currentPage = window.location.href.split('#')[0];
+                window.location.href = currentPage + "#main-menu?reload=true";
+                showToast('Selbst-Kontroll-Infos gespeichert');
+
+            }).fail(function()
+            {
+                alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", func);
+            }).always(function() {
+                $.mobile.loading("hide");
+            });
+        }
+
+        //Click
         $("#daily-inputs-selfcontrol").find("#sendSelfcontrolData").click(function()
         {
-            alert("Noch nicht implementiert");
+            window.dict = {};
+            window.dict["near"] = $("#radioChoiceNear :radio:checked").val();
+            window.dict["immaterial"] = $("#radioChoiceImmaterial :radio:checked").val();
+            window.dict["material"] = $("#radioChoiceMaterial :radio:checked").val();
+            window.dict["ignoring"] = $("#radioChoiceIgnore :radio:checked").val();
+            window.dict["timeout"] = $("#radioChoiceTimeout :radio:checked").val();
+
+            saveData();
+
         });
     });
 
@@ -655,20 +691,23 @@
                 text: 'Lob wird gesendet...'
             });
 
-            /*
-             $.getJSON("http://tnix.eu/~aspace/TODO.php",
+            var selectedMessage = $("#complimentContent :radio:checked").next().text(); 
+            alert(selectedMessage);
+           
+             $.getJSON("http://tnix.eu/~aspace/SendPushNotification.php",
              {
              username: window.username,
-             action: "life"
+             message: selectedMessage
              },
              function(data)
              {
-             console.log("Server responded");
+                 
+             console.log("Server responded in communication-compliment sendCompliment");
              
              //$.mobile.loading("hide");
              showToast('Belohnung gesendet');
              
-             document.location.hash = "#training";
+             document.location.hash = "#main-menu";
              
              }).fail(function()
              {
@@ -676,7 +715,7 @@
              }).always(function() {
              $.mobile.loading("hide");
              });
-             */
+             
 
             alert("TODO: not yet implemented");
             $.mobile.loading("hide");
@@ -1098,7 +1137,8 @@
                 {
                     username: window.username,
                     action: "SaveProgress",
-                    chapter: chapterId
+                    chapter: chapterId,
+                    date: currentDate()
                 },
         function(data)
         {
@@ -1150,13 +1190,13 @@
         $.getJSON("http://tnix.eu/~aspace/TrainingProgress.php",
                 {
                     username: window.username,
-                    action: "GetProgress"
+                    action: "GetProgress",
+                    date: currentDate()
                 },
         function(data)
         {
             updateTrainingProgress(data);
-
-
+            updateDailyInputsProgress(data.dailyInputs);
 
         }).fail(function()
         {
@@ -1201,7 +1241,7 @@
 
 
         window.waitingTime = data.waitingTime;
-        alert(window.waitingTime);
+
         if (window.waitingTime > 0)
         {
             clearInterval(window.intervalID);
@@ -1244,7 +1284,8 @@
             {
                 ++completed;
                 $(container + total).data("icon", "arrow-r").show();
-                $(imgId + key).attr("src", "img/checkbox_done.png");
+                setDoneImageForElement(imgId + key);
+
                 $(containerNA + total).hide();
             }
             else
@@ -1256,7 +1297,8 @@
                     lastCompleted = false;
                     unfinishedCourse = true;
                     $(container + total).data("icon", "arrow-r").show();
-                    $(imgId + key).attr("src", "img/checkbox_notDone.png");
+                    setNotDoneImageForElement(imgId + key);
+
                     $(containerNA + total).hide();
 
                     //Set text
@@ -1322,7 +1364,7 @@
         console.log("Total: " + total);
         console.log("Progressbar : " + $("#progressbar").progressbar("value"));
 
-        if (uncomplete <= 1)
+        if (uncomplete < 1)
         {
             $("#training-listviewNA").hide();
             $(tomorrowItem).hide();
@@ -1344,8 +1386,40 @@
             $("#progressbarMain").progressbar('value', 0);
         }
 
-        showToast("Trainingsfortschritt aktualisiert");
+        showToast("Fortschritt aktualisiert");
     };
+
+    updateDailyInputsProgress = function(dailyInputs)
+    {
+        //Update amount daily inputs completed
+        $(".dailyInputsCompleted").text(dailyInputs.totalInputs);
+        $("#progressbarDailyInputs").progressbar('value', Math.round(33.33 * dailyInputs.totalInputs));
+
+        if (dailyInputs.dailyDuties == "1")
+            setDoneImageForElement("#imgDone_daily1");
+        else
+            setNotDoneImageForElement("#imgDone_daily1");
+        
+        if (dailyInputs.benchmark == "1")
+            setDoneImageForElement("#imgDone_daily2");
+        else
+            setNotDoneImageForElement("#imgDone_daily2");
+
+        if (dailyInputs.selfControl == "1")
+            setDoneImageForElement("#imgDone_daily3");
+        else
+            setNotDoneImageForElement("#imgDone_daily3");
+    };
+
+    function setDoneImageForElement(element)
+    {
+        $(element).attr("src", "img/checkbox_done.png");
+    }
+
+    function setNotDoneImageForElement(element)
+    {
+        $(element).attr("src", "img/checkbox_notDone.png");
+    }
 
     showToast = function(message)
     {

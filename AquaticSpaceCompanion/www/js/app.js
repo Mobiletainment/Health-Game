@@ -320,11 +320,11 @@
         window.username = $.cookie("username");
         window.versionInfo = $.cookie("versionInfo");
 
-        var currentVersion = 0.60;
+        var currentVersion = 0.61;
 
         if (!window.versionInfo || window.versionInfo < currentVersion) //just for test purposes: delete cookies on each new version
         {
-            alert("Update successful (Danke fürs Installieren ;))");
+            alert("Update erfolgreich! Danke fürs Installieren ;)");
             $.cookie("username", null, {path: '/'});
             window.username = null;
             $.cookie("versionInfo", currentVersion, {expires: 20 * 365, path: '/'});
@@ -691,31 +691,43 @@
                 text: 'Lob wird gesendet...'
             });
 
-            /*
-             $.getJSON("http://tnix.eu/~aspace/TODO.php",
-             {
-             username: window.username,
-             action: "life"
-             },
-             function(data)
-             {
-             console.log("Server responded");
-             
-             //$.mobile.loading("hide");
-             showToast('Belohnung gesendet');
-             
-             document.location.hash = "#training";
-             
-             }).fail(function()
-             {
-             alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", that);
-             }).always(function() {
-             $.mobile.loading("hide");
-             });
-             */
+            var selectedMessage = $("#complimentContent :radio:checked").next().text();
 
-            alert("TODO: not yet implemented");
-            $.mobile.loading("hide");
+            //check if a custom message was entered
+            if ($("#radioComplimentCustom1").is(":checked"))
+            {
+                selectedMessage = $("#radioComplimentCustom1").next().find("textArea").val();
+                if (selectedMessage.length === 0)
+                {
+                    alert("Sie haben keine Nachricht eingegeben");
+                    $("#radioComplimentCustom1").focus();
+                    $.mobile.loading("hide");
+                    return false;
+                }
+            }
+
+            $.getJSON("http://tnix.eu/~aspace/SendPushNotification.php",
+                    {
+                        username: window.username,
+                        data: selectedMessage
+                    },
+            function(data)
+            {
+
+                console.log("Server responded in communication-compliment sendCompliment");
+
+                //$.mobile.loading("hide");
+                showToast('Belohnung gesendet');
+
+                document.location.hash = "#main-menu";
+
+            }).fail(function()
+            {
+                alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", that);
+            }).always(function() {
+                $.mobile.loading("hide");
+            });
+
 
             return false; //prevent event propagation
         }
@@ -728,6 +740,22 @@
             $("#sendCompliment").trigger("click");
             return false;
         });
+
+        $("#radioComplimentCustom1").bind("change", function(event, ui)
+        {
+            var textArea = $(this).next().find("textArea");
+            if (this.checked)
+            {
+                textArea.removeClass('ui-body-c').addClass('ui-body-d');
+                textArea.focus();
+            }
+        });
+
+        $("#radioComplimentCustom1Text").blur(function()
+        {
+            $(this).removeClass('ui-body-d').addClass('ui-body-c');
+        });
+
     });
 
     $(document).on("pagebeforeshow", "#timeout", function(e, data)
@@ -897,14 +925,12 @@
                 text: 'Belohnungsnachricht wird gesendet...'
             });
 
-            alert("TODO: not yet implemented!");
-            $.mobile.loading("hide");
-            return false;
-
-            $.getJSON("http://tnix.eu/~aspace/TrainingProgress.php",
+            alert($("#rewardRealLifeMessage").val());
+          
+            $.getJSON("http://tnix.eu/~aspace/SendPushNotification.php",
                     {
                         username: window.username,
-                        action: "life"
+                        data: $("#rewardRealLifeMessage").val()
                     },
             function(data)
             {
@@ -912,11 +938,8 @@
 
                 //$.mobile.loading("hide");
                 showToast('Belohnung gesendet');
-
-                if (customData.referral === "#communication-reward-ingame")
-                    document.location.hash = "#main-menu";
-                else
-                    document.location.hash = "#training";
+                
+                document.location.hash = "#main-menu";
 
             }).fail(function()
             {
@@ -924,7 +947,6 @@
             }).always(function() {
                 $.mobile.loading("hide");
             });
-
 
             return false; //prevent event propagation
         }
@@ -1396,7 +1418,7 @@
             setDoneImageForElement("#imgDone_daily1");
         else
             setNotDoneImageForElement("#imgDone_daily1");
-        
+
         if (dailyInputs.benchmark == "1")
             setDoneImageForElement("#imgDone_daily2");
         else
