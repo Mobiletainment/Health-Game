@@ -37,11 +37,11 @@ if (strlen($checkboxes) > 0)
 
 	//echo $checkboxes . "\n";
 
-	$query= "INSERT INTO Checkbox_Feedback (deviceID, username, isChild, screenName, customFeedback, $checkboxes) VALUES('$deviceID', '$username', $isChild, '$screenName', '$customFeedback', $checkboxFeedback)";
+	$query= "INSERT INTO Checkbox_Feedback (deviceID, username, isChild, screenName, customFeedback1, $checkboxes) VALUES('$deviceID', '$username', $isChild, '$screenName', '$customFeedback', $checkboxFeedback)";
 }
 else
 {
-	$query= "INSERT INTO Checkbox_Feedback (deviceID, username, isChild, screenName, customFeedback) VALUES('$deviceID', '$username', $isChild, '$screenName', '$customFeedback')";
+	$query= "INSERT INTO Checkbox_Feedback (deviceID, username, isChild, screenName, customFeedback1) VALUES('$deviceID', '$username', $isChild, '$screenName', '$customFeedback')";
 }
 
 //echo $query . "\n";

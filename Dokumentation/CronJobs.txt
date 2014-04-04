@@ -1,0 +1,23 @@
+CronJob:
+
+Send Push Notification Training available
+
+
+0 18 * * * /usr/sbin/update-motd
+
+
+0 18 * * * curl --silent tnix.eu/~aspace/SendPushNotificationToParent.php?username=David&action=TrainingReminder
+
+
+
+* * * * * curl --silent tnix.eu/~aspace/SendPushNotificationToParent.php?username=David&action=TrainingReminder
+
+
+* * * * * /usr/bin/curl --silent tnix.eu/~aspace/SendPushNotificationToParent.php?username=David&action=TrainingReminder
+
+
+* * * * * /usr/bin/curl -o temp.txt http://tnix.eu/~aspace/CheckForPushNotification.php
+
+
+crontab -e
+0 18 * * * /usr/bin/curl --silent http://tnix.eu/~aspace/CheckForPushNotification.php
