@@ -59,7 +59,7 @@
 
         if (e.hash && e.hash.length > 0)
         {
-            navigator.notification.alert("Hash: " + e.hash);
+            //navigator.notification.alert("Hash: " + e.hash);
             document.location.hash = e.hash;
         }
         
@@ -589,7 +589,8 @@
                     {
                         username: window.username,
                         action: "SaveInputBenchmarkData",
-                        data: $("#daily-inputs-benchmark").find("#sliderBenchmark").val()
+                        data: $("#daily-inputs-benchmark").find("#sliderBenchmark").val(),
+                        date: currentDate()
                     },
             function(data)
             {
@@ -616,9 +617,48 @@
     // Start: Data Input Behavior
     $("#daily-inputs-selfcontrol").on("pagebeforecreate", function(event)
     {
+        function saveData()
+        {
+            var func = this;
+
+            $.mobile.loading('show', {
+                text: 'Daten werden gespeichert...'
+            });
+            
+            $.getJSON("http://tnix.eu/~aspace/SaveData.php",
+                    {
+                        username: window.username,
+                        action: "SaveSelfControlData",
+                        data: window.dict,
+                        date: currentDate()
+                    },
+            function(data)
+            {
+                console.log("Server responded to daily-inputs-selfcontrol.SaveSelfControlData: " + data.returnCode + "; " + data.returnMessage);
+                var currentPage = window.location.href.split('#')[0];
+                window.location.href = currentPage + "#main-menu";
+                showToast('Selbst-Kontroll-Infos gespeichert');
+
+            }).fail(function()
+            {
+                alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", func);
+            }).always(function() {
+                $.mobile.loading("hide");
+            });
+        }
+
+        //Click
         $("#daily-inputs-selfcontrol").find("#sendSelfcontrolData").click(function()
         {
-            alert("Noch nicht implementiert");
+            window.dict = {};
+            window.dict["near"] = $("#radioChoiceNear :radio:checked").val();
+            window.dict["immaterial"] = $("#radioChoiceImmaterial :radio:checked").val();
+            window.dict["material"] = $("#radioChoiceMaterial :radio:checked").val();
+            window.dict["ignoring"] = $("#radioChoiceIgnore :radio:checked").val();
+            window.dict["timeout"] = $("#radioChoiceTimeout :radio:checked").val();
+            
+            saveData();
+
         });
     });
 
@@ -1207,7 +1247,7 @@
 
 
         window.waitingTime = data.waitingTime;
-        alert(window.waitingTime);
+        
         if (window.waitingTime > 0)
         {
             clearInterval(window.intervalID);

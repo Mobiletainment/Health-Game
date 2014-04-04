@@ -638,7 +638,7 @@
                     <ul data-role='listview' data-inset="true">
                         <li data-role="list-divider" data-theme="a">Belohnungen</li>
                         <li data-theme="d" class="selfControlList">
-                            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" data-theme="d" class="custom-fieldset">
+                            <fieldset data-role="controlgroup" id="radioChoiceNear" data-type="horizontal" data-mini="true" data-theme="d" class="custom-fieldset">
                                 <legend>Nähe (z.B. Umarmen, Kopf streicheln):</legend>
                                 <input name="radio-choice-nearness" id="radio-choice-nearness0" value="0" checked="checked" type="radio" data-theme="d">
                                 <label for="radio-choice-nearness0">0</label>
@@ -646,12 +646,12 @@
                                 <label for="radio-choice-nearness1">1</label>
                                 <input name="radio-choice-nearness" id="radio-choice-nearness2" value="2" type="radio" data-theme="d">
                                 <label for="radio-choice-nearness2">2</label>
-                                <input name="radio-choice-nearness" id="radio-choice-nearness3" value="3+" type="radio" data-theme="d">
+                                <input name="radio-choice-nearness" id="radio-choice-nearness3" value="3" type="radio" data-theme="d">
                                 <label for="radio-choice-nearness3">3+</label>
                             </fieldset>
                         </li>
                         <li data-theme="d" class="selfControlList">
-                            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" data-theme="d">
+                            <fieldset data-role="controlgroup" id="radioChoiceImmaterial" data-type="horizontal" data-mini="true" data-theme="d">
                                 <legend>Immateriell (z.B. in den Park gehen, länger aufbleiben dürfen):</legend>
                                 <input name="radio-choice-immaterial" id="radio-choice-immaterial0" value="0" checked="checked" type="radio" data-theme="d">
                                 <label for="radio-choice-immaterial0">0</label>
@@ -659,26 +659,26 @@
                                 <label for="radio-choice-immaterial1">1</label>
                                 <input name="radio-choice-immaterial" id="radio-choice-immaterial2" value="2" type="radio" data-theme="d">
                                 <label for="radio-choice-immaterial2">2</label>
-                                <input name="radio-choice-immaterial" id="radio-choice-immaterial3" value="3+" type="radio" data-theme="d">
+                                <input name="radio-choice-immaterial" id="radio-choice-immaterial3" value="3" type="radio" data-theme="d">
                                 <label for="radio-choice-immaterial3">3+</label>
                             </fieldset>
                         </li>
                         <li data-theme="d" class="selfControlList">
-                            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-                                <legend>Immateriell (z.B. in den Park gehen, länger aufbleiben dürfen):</legend>
+                            <fieldset data-role="controlgroup" id="radioChoiceMaterial" data-type="horizontal" data-mini="true">
+                                <legend>Materiell (z.B. ins Kino gehen, Süßigkeiten):</legend>
                                 <input name="radio-choice-material" id="radio-choice-material0" value="0" checked="checked" type="radio" data-theme="d">
                                 <label for="radio-choice-material0">0</label>
                                 <input name="radio-choice-material" id="radio-choice-material1" value="1" type="radio" data-theme="d">
                                 <label for="radio-choice-material1">1</label>
                                 <input name="radio-choice-material" id="radio-choice-material2" value="2" type="radio" data-theme="d">
                                 <label for="radio-choice-material2">2</label>
-                                <input name="radio-choice-material" id="radio-choice-material3" value="3+" type="radio" data-theme="d">
+                                <input name="radio-choice-material" id="radio-choice-material3" value="3" type="radio" data-theme="d">
                                 <label for="radio-choice-material3">3+</label>
                             </fieldset>
                         </li>
                         <li data-role="list-divider" data-theme="a">Notfal-Strategien</li>
                         <li data-theme="d" class="selfControlList">
-                            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" class="custom-fieldset">
+                            <fieldset data-role="controlgroup" id="radioChoiceIgnore" data-type="horizontal" data-mini="true" class="custom-fieldset">
                                 <legend>Aktives Ignorieren:</legend>
                                 <input name="radio-choice-ignore" id="radio-choice-ignore0" value="0" checked="checked" type="radio" data-theme="d">
                                 <label for="radio-choice-ignore0">0</label>
@@ -686,12 +686,12 @@
                                 <label for="radio-choice-ignore1">1</label>
                                 <input name="radio-choice-ignore" id="radio-choice-ignore2" value="2" type="radio" data-theme="d">
                                 <label for="radio-choice-ignore2">2</label>
-                                <input name="radio-choice-ignore" id="radio-choice-ignore3" value="3+" type="radio" data-theme="d">
+                                <input name="radio-choice-ignore" id="radio-choice-ignore3" value="3" type="radio" data-theme="d">
                                 <label for="radio-choice-ignore3">3+</label>
                             </fieldset>
                         </li>
                         <li data-theme="d" class="selfControlList">
-                            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                            <fieldset data-role="controlgroup" id="radioChoiceTimeout" data-type="horizontal" data-mini="true">
                                 <legend>Auszeit:</legend>
                                 <input name="radio-choice-timeout" id="radio-choice-timeout0" value="0" checked="checked" type="radio" data-theme="d">
                                 <label for="radio-choice-timeout0">0</label>
@@ -699,7 +699,7 @@
                                 <label for="radio-choice-timeout1">1</label>
                                 <input name="radio-choice-timeout" id="radio-choice-timeout2" value="2" type="radio" data-theme="d">
                                 <label for="radio-choice-timeout2">2</label>
-                                <input name="radio-choice-timeout" id="radio-choice-timeout3" value="3+" type="radio" data-theme="d">
+                                <input name="radio-choice-timeout" id="radio-choice-timeout3" value="3" type="radio" data-theme="d">
                                 <label for="radio-choice-timeout3">3+</label>
                             </fieldset>
                         </li>
