@@ -36,6 +36,11 @@ public class ECPNManager: MonoBehaviour
 
     public void RegisterUser(string username, bool isChild)
     {
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            callback("Error: Keine Internetverbindung");
+        }
+
         //callback ("RegisterUser");
         UserManager.IsChild = isChild; //child/parent handlingSSL: unable to obtain common name from peer certificate
         UserManager.SetUsername(username);
@@ -177,13 +182,15 @@ public class ECPNManager: MonoBehaviour
      */ 
     private IEnumerator StoreDeviceID(string rID, string os)
     {
+        Debug.Log("Sotring Device ID for rID: " + rID + ", OS: " + os);
         UserManager.SetDevToken(rID);
         WWWForm form = CreateDefaultForm();
         AddFormField(form, "OS", os);
-
+        Debug.Log("Creating Request");
         WWW w = CreateWebRequest("RegisterDeviceIDtoDB.php", form);
+        Debug.Log("Sending Request");
         yield return w;
-
+        Debug.Log("Handling Request");
         HandleResponse(w);
     }
     
@@ -319,6 +326,8 @@ public class ECPNManager: MonoBehaviour
         AddFormField(form, "username", UserManager.GetUsername());
         AddFormField(form, "isChild", UserManager.IsChild.ToString());
 
+        Debug.Log(String.Format("CreateDefaultForm with DeviceID: {0}, regID: {1}, Username: {2}, isChild: {3}", SystemInfo.deviceUniqueIdentifier, UserManager.GetDevToken(), UserManager.GetUsername(), UserManager.IsChild.ToString()));
+
         return form;
     }
 
@@ -336,7 +345,7 @@ public class ECPNManager: MonoBehaviour
     
     WWW CreateWebRequest(string targetAddress, WWWForm form)
     {
-        string location = UserManager.GetServerPath() + targetAddress;
+        string location = "http://tnix.eu/~aspace/" + targetAddress;
         WWW w = new WWW(location, form);
 
         Debug.Log("Web request to location: " + location);
@@ -347,9 +356,10 @@ public class ECPNManager: MonoBehaviour
     {
         Debug.Log("ECPNManager: handling response ");
 
-        if (w.error != null)
+        if (!String.IsNullOrEmpty(w.error))
         {
-            Debug.Log("ECPNManager: error occurred, no response");
+            Debug.LogError("ECPNManager: HandleResponse ERRORerror occurred, no response");
+            Debug.Log("Bytes: " + w.bytesDownloaded + ", isDone: " + w.isDone + ", URL: " + w.url + ", Error: " + w.error + ", Text: " + w.text);
             string errorMessage = w.error;
             w.Dispose();
             callback("Error: " + errorMessage);
@@ -367,7 +377,7 @@ public class ECPNManager: MonoBehaviour
 
     void HandleResponseWithoutFeedback(WWW w)
     {
-        if (w.error != null)
+        if (!String.IsNullOrEmpty(w.error)
         {
             string errorMessage = w.error;
             w.Dispose();
