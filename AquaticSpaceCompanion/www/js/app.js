@@ -64,7 +64,12 @@
         }
 
         if (e.alert) {
-            navigator.notification.alert(e.alert);
+            navigator.notification.alert(
+                        e.alert, // message
+                        undefined, // callback
+                        "Nachricht", // title
+                        'Ansehen'        // buttonName
+                        );
         }
 
         if (e.sound) {
@@ -257,7 +262,7 @@
             os = (device.platform === 'android' || device.platform === 'Android') ? "android" : "ios";
         }
 
-        $.getJSON("http://tnix.eu/~aspace/RegisterDevice.php",
+        $.getJSON("http://tnix.eu/~aspace/RegisterDeviceOfParent.php",
                 {
                     user: $("#loginPassword").val(),
                     data: window.deviceToken,
@@ -320,7 +325,7 @@
         window.username = $.cookie("username");
         window.versionInfo = $.cookie("versionInfo");
 
-        var currentVersion = 0.61;
+        var currentVersion = 0.62;
 
         if (!window.versionInfo || window.versionInfo < currentVersion) //just for test purposes: delete cookies on each new version
         {
@@ -711,7 +716,8 @@
             $.getJSON("http://tnix.eu/~aspace/SendPushNotificationToChild.php",
                     {
                         username: window.username,
-                        data: selectedMessage
+                        data: selectedMessage,
+                        cation: "compliment"
                     },
             function(data)
             {
@@ -929,12 +935,11 @@
 
             var message = 'Belohnung erhalten: ' + $("#rewardRealLifeMessage").val();
 
-            alert(message);
-          
             $.getJSON("http://tnix.eu/~aspace/SendPushNotificationToChild.php",
                     {
                         username: window.username,
-                        data: message
+                        data: message,
+                        action: "reward_reallife"
                     },
             function(data)
             {
@@ -1007,6 +1012,7 @@
                     {
                         username: window.username,
                         data: message,
+                        action: "reward_ingame",
                         payload: customData.data
                     },
             function(data)

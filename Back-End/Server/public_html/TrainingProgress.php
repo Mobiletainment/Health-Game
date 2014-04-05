@@ -5,6 +5,7 @@ header('Content-Type: application/json');
 
 $user = $_GET['username'];
 $action = $_GET['action'];
+$date = $_GET['date'];
 $returnCode = 200;
 $returnData;
 $query;
@@ -12,6 +13,7 @@ $returnMessage;
 $result;
 $debugInfo;
 $waitingTime;
+$dailyInputs = 0;
 
 include ("settings.php");
 
@@ -25,9 +27,11 @@ mysql_query('SET collation_connection=utf8_general_ci');
 
 @mysql_select_db($database) or die( "9");
 
+$timestamp = strtotime("$date");
+
 function loadProgress()
 {
-	global $user, $action, $returnCode, $returnData, $query, $returnMessage, $result, $debugInfo, $waitingTime;
+	global $user, $action, $returnCode, $returnData, $query, $returnMessage, $result, $debugInfo, $waitingTime, $dailyInputs, $timestamp;
 
 	$query="SELECT t1, t2, t3, t4, t5, t6 FROM Training WHERE username = '$user'";
 	$result=mysql_query($query);
@@ -62,6 +66,23 @@ function loadProgress()
 		$waitingTime = round($notBeforeMidnight->format('U') - $current->format('U')); //the seconds the user has to wait
 		$debugInfo .= "Timestamp: " . $timeStamp . "Current: " . $current->format('M j Y g:i A') . "; Not Before: " . $notBeforeMidnight->format('M j Y g:i A') . "; Original: " . $dt->format('M j Y g:i A') . "Wait: " . $waitingTime;
 		
+		//Update daily input progress
+		$query = "SELECT dailyDuties, benchmark, selfControl from DailyInputs_Check WHERE username = '$user' AND date = DATE(FROM_UNIXTIME($timestamp))";
+		$debugInfo .= "; Query: " . $query;
+		$result=mysql_query($query);
+		$row = mysql_fetch_array($result);
+
+		$totalInputs = 0;
+		$totalInputs += $row["dailyDuties"];
+		$totalInputs += $row["benchmark"];
+		$totalInputs += $row["selfControl"];
+
+		$dailyInputs = array(
+			'totalInputs' => $totalInputs,
+			'dailyDuties' => $row["dailyDuties"],
+			'benchmark'   => $row["benchmark"],
+			'selfControl' => $row["selfControl"]			
+			);
 	}
 }
 
@@ -110,7 +131,8 @@ $data = array(
 		'returnMessage' => "Successful: " . $action,
 		'returnData' => $returnData,
 		'debugInfo' => $debugInfo,
-		'waitingTime' => $waitingTime
+		'waitingTime' => $waitingTime,
+		'dailyInputs' => $dailyInputs
 		);
 
 echo json_encode($data);

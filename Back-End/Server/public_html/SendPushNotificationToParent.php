@@ -68,6 +68,9 @@ $debugInfo .= "Messages delivered: " .count($androidIDs) . " android / " .count(
 
 function send_android_notification($deviceIDs)
 {
+	global $debugInfo, $action, $message, $hash;
+	$debugInfo .= "send_android_notification with message: " . $message;
+
 	$debugInfo .= 'CURL INIT BEFORE';
 	$message = "TODO";
 	$message = array("price" => $message);
@@ -76,6 +79,7 @@ function send_android_notification($deviceIDs)
 	$fields = array(
 		'registration_ids' => $deviceIDs,
 		'data' => $message,
+		'hash' => $hash
 		);
 	$headers = array(
 		'Authorization: key='.GOOGLE_API_KEY,
@@ -127,6 +131,16 @@ function setPayload($action)
 		
 		$message = "Es ist eine neue Trainingseinheit verfügbar";
 		$hash = "#training";
+	}
+	else if ($action == "CommunicationReminder")
+	{
+		$message = "Sie haben Ihr Kind seit gestern nicht mehr gelobt/belohnt! Holen Sie dies bei der nächsten Gelegenheit nach!";
+		$hash = "#interaction-menu";
+	}
+	else if ($action == "CommunicationReminderNever")
+	{
+		$message = "Sie haben Ihr Kind noch nie gelobt/belohnt! Holen Sie dies bei der nächsten Gelegenheit nach!";
+		$hash = "#interaction-menu";
 	}
 }
 

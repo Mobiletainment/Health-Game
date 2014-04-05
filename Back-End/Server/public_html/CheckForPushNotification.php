@@ -16,7 +16,7 @@ mysql_query('SET collation_connection=utf8_general_ci');
 
 
 
-$query = "SELECT * FROM ECPN_table WHERE isChild = 0";
+$query = "SELECT DISTINCT username FROM Training_Timestamps WHERE action = 'C'";
 $result = mysql_query($query);
 
 

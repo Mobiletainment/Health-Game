@@ -66,6 +66,7 @@ else if ($action == "SaveBehaviorData")
 	$result=mysql_query($query);
 	
 	$returnData = "Inserted " . $result . " rows";
+
 }
 else if ($action == "SaveDailyTasksData")
 {
@@ -124,36 +125,8 @@ else if ($action == "SaveInputTasksData")
 	$result=mysql_query($query);
 	$returnData = "Inserted " . $result . " rows";
 
-
-	$debugInfo .= "Handling DailyInputs_Check";
-	$timestamp = strtotime("$date");
-
-	//check if a new record must be inserted or if it has to be updated
-	$query = "SELECT * from DailyInputs_Check where username = '$user' AND date = DATE(FROM_UNIXTIME($timestamp))";
-	$debugInfo .= "; Query: " . $query;
-	$result=mysql_query($query);
-	$debugInfo .= "Found " . mysql_numrows($result) . " entries in in DailyInputs_Check";
+	handleDailyInputsCheck("dailyDuties");
 	
-
-	if(mysql_numrows($result) == 0)
-	{
-		$debugInfo .= "No record for today's Daily Inputs exists. Inserting.";
-		$query = "INSERT INTO DailyInputs_Check (DATE, username, dailyDuties) VALUES (FROM_UNIXTIME($timestamp), '$user', 1)";
-		$debugInfo .= "; Query: " . $query;
-		$result=mysql_query($query);
-		$debugInfo .= "Inserted " . $result . " rows into DailyInputs_Check";
-	}
-	else
-	{
-		//record can be updated
-		$debugInfo .= "Updating record for today's Daily Inputs.";
-		
-
-		$query = "UPDATE DailyInputs_Check SET dailyDuties = 1 WHERE username = '$user' AND date = DATE(FROM_UNIXTIME($timestamp))";
-		$debugInfo .= "; Query: " . $query;
-		$result=mysql_query($query);
-		$debugInfo .= "Updated " . $result . " rows in DailyInputs_Check";
-	}
 }
 
 else if ($action == "LoadDailyTasksData")
@@ -191,8 +164,25 @@ else if ($action == "SaveInputBenchmarkData")
 	$result=mysql_query($query);
 	
 	$returnData = "Inserted " . $result . " rows";
-
+	handleDailyInputsCheck("benchmark");
 }
+
+else if ($action == "SaveSelfControlData")
+{
+	$near = $data["near"];
+	$immaterial = $data["immaterial"];
+	$material = $data["material"];
+	$ignoring = $data["ignoring"];
+	$timeout = $data["timeout"];
+	
+	$query= "INSERT INTO SelfControl_Feedback(username, near, immaterial, material, ignoring, timeout) VALUES('$user', '$near', '$immaterial', '$material', '$ignoring', '$timeout')";
+	$debugInfo .= $query;
+	$result=mysql_query($query);
+	
+	$returnData = "Inserted " . $result . " rows";
+	handleDailyInputsCheck("selfControl");
+}
+
 else
 {
 	$returnCode = 404;
@@ -207,6 +197,39 @@ $data = array(
 
 echo json_encode($data);
 
+function handleDailyInputsCheck($field)
+{
+	global $debugInfo, $user, $date;
+	$debugInfo .= "Handling DailyInputs_Check for field: " . $field;
+	$timestamp = strtotime("$date");
+
+	//check if a new record must be inserted or if it has to be updated
+	$query = "SELECT * from DailyInputs_Check where username = '$user' AND date = DATE(FROM_UNIXTIME($timestamp))";
+	$debugInfo .= "; Query: " . $query;
+	$result=mysql_query($query);
+	$debugInfo .= "Found " . mysql_numrows($result) . " entries in in DailyInputs_Check";
+	
+
+	if(mysql_numrows($result) == 0)
+	{
+		$debugInfo .= "No record for today's Daily Inputs exists. Inserting.";
+		$query = "INSERT INTO DailyInputs_Check (DATE, username, $field) VALUES (FROM_UNIXTIME($timestamp), '$user', 1)";
+		$debugInfo .= "; Query: " . $query;
+		$result=mysql_query($query);
+		$debugInfo .= "Inserted " . $result . " rows into DailyInputs_Check";
+	}
+	else
+	{
+		//record can be updated
+		$debugInfo .= "Updating record for today's Daily Inputs.";
+		
+
+		$query = "UPDATE DailyInputs_Check SET $field = 1 WHERE username = '$user' AND date = DATE(FROM_UNIXTIME($timestamp))";
+		$debugInfo .= "; Query: " . $query;
+		$result=mysql_query($query);
+		$debugInfo .= "Updated " . $result . " rows in DailyInputs_Check";
+	}
+}
 
 function getBoolFromField($field)
 {
