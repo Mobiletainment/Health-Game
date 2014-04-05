@@ -29,6 +29,13 @@ public class ECPNManager: MonoBehaviour
         }
     }
 
+    public enum PushNotificationAction
+    {
+        LevelCompleted,
+        LevelPackCompleted,
+        TrophyWon
+    }
+
     public string GetUsername()
     {
         return UserManager.GetUsername();
@@ -128,7 +135,11 @@ public class ECPNManager: MonoBehaviour
     {
         StartCoroutine(SendECPNmessage(message));
     }
-    
+
+    public void SendPushMessageToParent(PushNotificationAction action)
+    {
+        StartCoroutine(SendPushNotificationToParent(action));
+    }
     
         
     
@@ -206,6 +217,20 @@ public class ECPNManager: MonoBehaviour
         AddFormField(form, "message", message);
 
         string targetAddress = "SendECPNmessageTargeted.php";
+        
+        WWW w = CreateWebRequest(targetAddress, form);
+        yield return w;
+        
+        HandleResponseWithoutFeedback(w);
+    }
+
+    private IEnumerator SendPushNotificationToParent(PushNotificationAction action)
+    {
+        // Send message to server with accName - devToken pair
+        WWWForm form = CreateDefaultForm();
+        AddFormField(form, "action", action.ToString());
+        
+        string targetAddress = "SendPushNotificationToParent.php";
         
         WWW w = CreateWebRequest(targetAddress, form);
         yield return w;
@@ -377,7 +402,7 @@ public class ECPNManager: MonoBehaviour
 
     void HandleResponseWithoutFeedback(WWW w)
     {
-        if (!String.IsNullOrEmpty(w.error)
+        if (!String.IsNullOrEmpty(w.error))
         {
             string errorMessage = w.error;
             w.Dispose();

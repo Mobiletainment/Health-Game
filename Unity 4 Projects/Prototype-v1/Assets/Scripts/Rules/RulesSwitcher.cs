@@ -63,9 +63,7 @@ public class RulesSwitcher : MonoBehaviour
 	// TODO... (This is never ever beeing called!)
 	void LevelDone()
 	{
-		Backend.SendPushMessage("Ihr Kind hat 1 Level geschafft! Bitte loben Sie es!");
-
-		LoadGameOverScene();
+        LoadGameOverScene();
 	}
 
 	void LoadGameOverScene()
