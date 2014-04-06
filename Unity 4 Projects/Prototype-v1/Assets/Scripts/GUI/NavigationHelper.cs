@@ -46,7 +46,7 @@ public class NavigationHelper : MonoBehaviour
 #endif
         userManager = UserManager.Instance;
         
-        userManager.ResetData(); //uncomment this to start from the beginning and not load the game directly on startup
+        //userManager.ResetData(); //uncomment this to start from the beginning and not load the game directly on startup
         float currentVersion = float.Parse(new TrackedBundleVersion().current.version);
         Debug.Log("Current Version: " + currentVersion + ", Previously installed: " + userManager.GetVersion());
 
@@ -55,19 +55,10 @@ public class NavigationHelper : MonoBehaviour
         if (userManager.LoginState == UserManager.Authentication.LoggedIn)
         {
             Debug.Log("User is logged in");
-            
-            if (userManager.IsChild == true)
-            {
-                TestFlight.PassCheckpoint("Known User");
-                LoadGameScene();
-            }
-            else
-            {
-                TestFlight.PassCheckpoint("New User");
-                LoadParentMenu();
-            }
+            TestFlight.PassCheckpoint("Known User");
+            LoadGameScene();
         }
-        else if (userManager.LoginState == UserManager.Authentication.Registered && userManager.IsChild == true)
+        else if (userManager.LoginState == UserManager.Authentication.Registered)
         {
             LoadChildFinishRegistration();
         }

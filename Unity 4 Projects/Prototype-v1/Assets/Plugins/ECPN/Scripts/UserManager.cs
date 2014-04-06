@@ -150,13 +150,13 @@ public class UserManager : MonoBehaviour
         this.version = newVersion;
     }
 
-    /*
+
     public bool IsLoggedIn()
     {
         Debug.Log("LoginState: " + LoginState);
         return !string.IsNullOrEmpty(GetUsername()) && !string.IsNullOrEmpty(GetDevToken()) && LoginState == Authentication.LoggedIn;
     }
-*/
+
     public void ResetData()
     {
         Debug.Log("Caution: Deleting User Data");
