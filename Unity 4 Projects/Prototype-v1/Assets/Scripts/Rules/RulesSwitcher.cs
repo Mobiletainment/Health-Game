@@ -77,7 +77,7 @@ public class RulesSwitcher : MonoBehaviour
 
 		if(LifesLeft >= 0)
 		{
-			lifesLabel.text = string.Format("Lifes left: {0}", LifesLeft.ToString());
+			lifesLabel.text = string.Format("Verbleibende Leben: {0}", LifesLeft.ToString());
 		}
 	}
 }

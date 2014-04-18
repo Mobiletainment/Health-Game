@@ -16,7 +16,9 @@ public class InGameUIController : MonoBehaviour
 
 		// Optical Score:
 		_scoreFillSprite.fillAmount = 0.0f;
-		_scoreDescription.text = LevelInfo.Rating.NEGATIVE.ToString(); // DEBUG ONLY
+
+
+		_scoreDescription.text = "LOS GEHT'S!"; // DEBUG ONLY
 	}
 
 	void Start() 
@@ -34,8 +36,21 @@ public class InGameUIController : MonoBehaviour
 		LevelInfo.Rating rating = levelInfo.GetRating(Score);
 
 		// TODO: Show Medals for current rank as image!
-		_scoreDescription.text = rating.ToString(); // DEBUG ONLY
 
+
+        switch (rating)
+        {
+            case LevelInfo.Rating.NEGATIVE:
+                _scoreDescription.text = "KEINE MEDAILLE";
+                break;
+            case LevelInfo.Rating.SILVER:
+                _scoreDescription.text = "SILBER";
+                break;
+            default:
+                _scoreDescription.text = rating.ToString(); // DEBUG ONLY
+                break;
+        }
+		
 		int lowerBorder = 0, upperBorder = 0;
 		float fillPercentage = 1.0f;
 
