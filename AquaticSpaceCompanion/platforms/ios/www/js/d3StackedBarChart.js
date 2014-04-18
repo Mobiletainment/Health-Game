@@ -44,6 +44,8 @@ d3.json("mperday.json", function(json) {
             ])
             .range([h - padding.bottom - padding.top, 0]);
 
+    var parseDate = d3.time.format("%a").parse;
+
     var xAxis = d3.svg.axis()
             .scale(xScale)
             .orient("bottom")
@@ -52,7 +54,27 @@ d3.json("mperday.json", function(json) {
                 return d;
             }))
             //  .ticksValues(xScale.domain.map(function(d) { return d.date;}))
-            .tickFormat(d3.time.format("%a"));
+            .tickFormat(function(d) {
+                switch (d.getDay())
+                {
+                    case 0:
+                        return "So.";
+                    case 1:
+                        return "Mo.";
+                    case 2:
+                        return "Di.";
+                    case 3:
+                        return "Mi.";
+                        case 4:
+                        return "Do.";
+                        case 5:
+                        return "Fr.";
+                        case 6:
+                        return "Sa.";
+                    default:
+                        return d;
+                }
+            });
     //.tickFormat(d3.time.format("%d"));
     var yAxis = d3.svg.axis()
             .scale(yScale)

@@ -1017,24 +1017,24 @@
         <div data-role="page" id="train-content" data-theme="c" data-content-theme="c">
         </div>
 
-        <script id="training-content-page-tpl" type="text/x-handlebars-template">
+        <script id="training-content-page-tpl" type="text/html">
 
             <div data-role="header" data-tap-toggle="false" data-position="fixed">
-            <a href="#main-menu" data-theme="b"><img src="img/home.svg">
-            </a>
-            <h1>{{title}}</h1>
+                <a href="#main-menu" data-theme="b"><img src="img/home.svg">
+                </a>
+                <h1>{{title}}</h1>
             </div>
 
 
             <div data-role="main" class="ui-content">
-            <h2>{{subTitle}}</h2>
-            <div id="progressbarPages" ><span id="progressLabelPages" class="progress-label center">Seite 1 von 9</span></div>
-            <ul data-role="listview" id="training-content-listview" data-inset="true">
-            <li>
-            <div id="training-content-main">
-            </div>
-            </li>
-            </ul>
+                <h2>{{subTitle}}</h2>
+                <div id="progressbarPages" ><span id="progressLabelPages" class="progress-label center">Seite 1 von 9</span></div>
+                <ul data-role="listview" id="training-content-listview" data-inset="true">
+                    <li>
+                        <div id="training-content-main">
+                        </div>
+                    </li>
+                </ul>
             </div>
             <div data-role="footer" data-position="fixed" data-tap-toggle="false" id="training-content-footer"></div>
 
@@ -1091,62 +1091,62 @@
         </div>
 
 
-        <script id="training-li-tpl" type="text/x-handlebars-template">
-            <li data-role="list-divider" data-theme="a">Freigeschaltete Strategien</li>
+        <script id="training-li-tpl" type="text/html">
+        <li data-role="list-divider" data-theme="a">Freigeschaltete Strategien</li>
 
-            {{#each items}}
-            <li id="listItemTrainingStrategie{{inc @index}}" class="bluebackground">
+        {{#each items}}
+        <li id="listItemTrainingStrategie{{inc @index}}" class="bluebackground">
             <a href="#train-content?chapter=t{{inc @index}}">
-            <img id="imgDone_t{{inc @index}}" class="ui-li-icon" src="img/checkbox_notDone.png">{{inc @index}}. <span>{{name}}</span>
+                <img id="imgDone_t{{inc @index}}" class="ui-li-icon" src="img/checkbox_notDone.png">{{inc @index}}. <span>{{name}}</span>
             </a>            
-            </li>
-            {{/each}}
-        </script>
-        <script id="training-li-tplNA" type="text/x-handlebars-template">
-            <li data-role="list-divider" data-theme="e" >Noch nicht freigeschaltet</li>
-            {{#each items}}
-            <li id="listItemTrainingStrategieNA{{inc @index}}">
+        </li>
+        {{/each}}
+    </script>
+    <script id="training-li-tplNA" type="text/html">
+        <li data-role="list-divider" data-theme="e" >Noch nicht freigeschaltet</li>
+        {{#each items}}
+        <li id="listItemTrainingStrategieNA{{inc @index}}">
             <a href="#train-content?chapter=t{{inc @index}}">
-            <img id="imgDoneNA_t{{inc @index}}" class="ui-li-icon" src="img/checkbox_notDone.png">{{inc @index}}. <span id="trainingNameSpan{{inc @index}}">{{name}}</span>
+                <img id="imgDoneNA_t{{inc @index}}" class="ui-li-icon" src="img/checkbox_notDone.png">{{inc @index}}. <span id="trainingNameSpan{{inc @index}}">{{name}}</span>
             </a>            
-            </li>
-            {{/each}}
-        </script>
+        </li>
+        {{/each}}
+    </script>
 
 
-        <script src="js/helper.js"></script>
-        <script src="cordova.js"></script>
-        <script src="js/vendor/fastclick.js"></script>
-        <script src="js/vendor/handlebars.js"></script>
+    <script src="js/helper.js"></script>
+    <script src="cordova.js"></script>
+    <script src="js/vendor/fastclick.js"></script>
+    <script src="js/vendor/handlebars.js"></script>
 
-        <!-- jQuery -->
-        <script src="js/vendor/jquery.js"></script>
-        <script src="js/jquery.mobile.init.js"></script>
+    <!-- jQuery -->
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/jquery.mobile.init.js"></script>
 
-        <script src="js/vendor/jquery-ui/jquery.ui.core.js"></script>
-        <script src="js/vendor/jquery-ui/jquery.ui.widget.js"></script>
-        <script src="js/vendor/jquery-ui/jquery.ui.progressbar.js"></script>
+    <script src="js/vendor/jquery-ui/jquery.ui.core.js"></script>
+    <script src="js/vendor/jquery-ui/jquery.ui.widget.js"></script>
+    <script src="js/vendor/jquery-ui/jquery.ui.progressbar.js"></script>
 
 
-        <script src="js/vendor/jquery.mobile.js"></script>
-        <script src="js/vendor/jquery.validate.min.js"></script>
-        <script src="js/vendor/jquery.pnotify/jquery.pnotify.js"></script>
-        <script src="js/vendor/jquery.cookie.js"></script>
-        <script src="js/vendor/iscroll.js"></script>
-        <script src="js/vendor/jquery.mobile.iscrollview.js"></script>
-        <script src="js/vendor/testflight.js"></script>
-        <script src="js/vendor/PushNotification.js"></script>
-        <script src="js/adapters/localstorage-adapter.js"></script>
-        <script src="js/vendor/jquery.gridster.min.js"></script>
+    <script src="js/vendor/jquery.mobile.js"></script>
+    <script src="js/vendor/jquery.validate.min.js"></script>
+    <script src="js/vendor/jquery.pnotify/jquery.pnotify.js"></script>
+    <script src="js/vendor/jquery.cookie.js"></script>
+    <script src="js/vendor/iscroll.js"></script>
+    <script src="js/vendor/jquery.mobile.iscrollview.js"></script>
+    <script src="js/vendor/testflight.js"></script>
+    <script src="js/vendor/PushNotification.js"></script>
+    <script src="js/adapters/localstorage-adapter.js"></script>
+    <script src="js/vendor/jquery.gridster.min.js"></script>
 
-        <script src="js/TrainingContentView.js"></script>
-        <script src="js/TrainingView.js"></script>
-        <script src="js/BehaviorInputView.js"></script>
-        <script src="js/BehaviorRatingView.js"></script>
-        <script src="js/DailyTasksInputView.js"></script>
-        <script src="js/DailyInputsTasksView.js"></script>
-        <script src="js/vendor/jquery-handlebars.js"></script>
-        <script src="js/PushPlugin.js"></script>
-        <script src="js/app.js"></script>
-    </body>
+    <script src="js/TrainingContentView.js"></script>
+    <script src="js/TrainingView.js"></script>
+    <script src="js/BehaviorInputView.js"></script>
+    <script src="js/BehaviorRatingView.js"></script>
+    <script src="js/DailyTasksInputView.js"></script>
+    <script src="js/DailyInputsTasksView.js"></script>
+    <script src="js/vendor/jquery-handlebars.js"></script>
+    <script src="js/PushPlugin.js"></script>
+    <script src="js/app.js"></script>
+</body>
 </html>
