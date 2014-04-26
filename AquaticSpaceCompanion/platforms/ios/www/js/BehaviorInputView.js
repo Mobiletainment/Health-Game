@@ -5,6 +5,8 @@ var BehaviorInputView = function(adapter, data)
     this.initialize = function()
     {
 	$("#checkBoxContent").html(behaviorContentTpl(data));
+        $("#checkBoxContent").trigger("create");
+      
 
 	$("#checkBoxContent").find(".customCheckbox").bind("change", function(event, ui)
 	{

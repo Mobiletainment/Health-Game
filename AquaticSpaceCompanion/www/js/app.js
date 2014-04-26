@@ -325,7 +325,7 @@
         window.username = $.cookie("username");
         window.versionInfo = $.cookie("versionInfo");
 
-        var currentVersion = 0.76;
+        var currentVersion = 0.79;
 
         if (!window.versionInfo || window.versionInfo < currentVersion) //just for test purposes: delete cookies on each new version
         {
@@ -340,7 +340,8 @@
         if (userExists && userExists.length > 1)
         {
             if (document.location.hash == '')
-                document.location.hash = "#main-menu";
+                document.location.hash = "#data-input-behavior-intro";
+                //  document.location.hash = "#main-menu";
 
         }
         else
@@ -717,7 +718,7 @@
                     {
                         username: window.username,
                         data: selectedMessage,
-                        cation: "compliment"
+                        action: "compliment"
                     },
             function(data)
             {

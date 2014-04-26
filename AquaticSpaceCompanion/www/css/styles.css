@@ -8,6 +8,33 @@ and open the template in the editor.
     Author     : dp
 */
 
+textarea.ui-input-text
+{
+    font-weight: bold;
+}
+
+textarea.ui-input-text::-webkit-input-placeholder {
+   font-weight: normal;
+}
+
+textarea.ui-input-text:-moz-placeholder { /* Firefox 18- */
+   font-weight: normal;  
+}
+
+textarea.ui-input-text::-moz-placeholder {  /* Firefox 19+ */
+   font-weight: normal;
+}
+
+textarea.ui-input-text:-ms-input-placeholder {  
+   font-weight: normal;
+}
+
+.ui-checkbox .customCheckboxLabel .ui-btn-inner, .ui-radio .ui-btn-icon-left .ui-btn-inner
+{
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
 .selfControlList
 {
     padding-top: 0px !important;

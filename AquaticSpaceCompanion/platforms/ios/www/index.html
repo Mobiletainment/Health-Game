@@ -254,9 +254,9 @@
             <div data-role="main" class="ui-content">
                 <h2>Unerwünschte Verhaltensweisen</h2>
                 <div>
-                    <p>Wählen Sie als nächstes die Verhaltensweisen ihres Kindes aus, welche das Familienleben schwierig gestalten.</p>
-                    <p>Sie können dabei vorgefertigte Auswahlmöglichkeiten anhaken oder eigene eingeben.</p>
-                    <p>Konzentrieren Sie sich zunächst auf die wichtigsten 3.</p>
+                    <p>Als nächstes sollten Sie sich überlegen, welche Verhaltensweisen ihres Kindes das Familienleben schwierig gestalten.</p>
+                    <p>Dazu können Sie nachfolgend zutreffende Auswahlmöglichkeiten anhaken oder eigene eingeben.</p>
+                    <p>Wichtig ist, dass Sie sich zunächst auf <b>die wichtigsten</b> unerwünschten Verhaltensweisen konzentrieren.</p>
                 </div>
             </div>
             <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
@@ -280,7 +280,7 @@
             <div data-role="main" class="ui-content" data-tap-toggle="false">
                 <h2>Unerwünschte Verhaltensweisen</h2>
                 <div>
-                    <p>Wählen Sie unerwünschte Verhaltensweisen oder geben Sie selbst welche ein:</p>
+                    <p>Geben Sie bitte <b>bis zu 3</b> unerwünschte Verhaltensweisen ihres Kindes an:</p>
                     <fieldset data-role="controlgroup" id="checkBoxContent">
 
                         <!-- TODO: invoke template -->
@@ -310,30 +310,30 @@
 
             <div>
             <input type="checkbox" name="checkboxCustom1" id="checkboxCustom1" class="customCheckbox" />
-            <label for="checkboxCustom1"><textarea id="checkboxCustom1Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
+            <label class="customCheckboxLabel" for="checkboxCustom1"><textarea id="checkboxCustom1Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
             </div>
 
             <div>
             <input type="checkbox" name="checkboxCustom2" id="checkboxCustom2" class="customCheckbox" />
-            <label for="checkboxCustom2"><textarea  id="checkboxCustom2Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
+            <label class="customCheckboxLabel" for="checkboxCustom2"><textarea  id="checkboxCustom2Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
             </div>
 
             <div>
             <input type="checkbox" name="checkboxCustom3" id="checkboxCustom3" class="customCheckbox" />
-            <label for="checkboxCustom3"><textarea  id="checkboxCustom3Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
+            <label class="customCheckboxLabel" for="checkboxCustom3"><textarea  id="checkboxCustom3Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
             </div>
         </script>
 
         <!-- Data Input Behavior Rating Page -->
         <div data-role="page" id="data-input-behavior-rating" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed" data-tap-toggle="false">
-                <h1 style="text-overflow: string;">Problemverhalten</h1>
+                <h1 style="text-overflow: string;">Bewertung</h1>
                 <a href="#" onclick="alert('TODO: Hab den Informationstext noch nicht gekriegt');" class="ui-btn-right" data-icon="info" data-iconpos="notext" data-inline="true" data-theme="a"></a>
             </div>
             <div data-role="main" class="ui-content">
                 <h2>Unerwünschte Verhaltensweisen (<span id="pageIndexBehavior"></span> von <span id="pageIndexBehaviorEnd">3</span>)</h2>
                 <div>
-                    <p>Bitte bewerten Sie, wie schwerwiegend das Problemverhalten Ihres Kindes diese Woche war, auf einer Skala von 1 (sehr schlecht) bis 10 (sehr gut):<p>
+                    <p>Bitte bewerten Sie, wie schwerwiegend das Problemverhalten Ihres Kindes diese Woche war:<p>
                     <h3 id="behaviorProblem"></h3>
                     <fieldset data-role="controlgroup">
 
@@ -349,7 +349,7 @@
             <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
-                        <a data-role="button" data-theme="b" id="behaviorInputBack" data-direction="reverse">Zurück</a>                
+                        <a data-role="button" data-theme="b" id="behaviorInputBack" data-direction="reverse">Zurück</a> 
                     </div>
                     <div class="ui-block-b">
                         <button id="sendBehaviorRatingInput" data-role="button" data-theme="b">Weiter</button>   
@@ -1017,24 +1017,24 @@
         <div data-role="page" id="train-content" data-theme="c" data-content-theme="c">
         </div>
 
-        <script id="training-content-page-tpl" type="text/x-handlebars-template">
+        <script id="training-content-page-tpl" type="text/html">
 
             <div data-role="header" data-tap-toggle="false" data-position="fixed">
-            <a href="#main-menu" data-theme="b"><img src="img/home.svg">
-            </a>
-            <h1>{{title}}</h1>
+                <a href="#main-menu" data-theme="b"><img src="img/home.svg">
+                </a>
+                <h1>{{title}}</h1>
             </div>
 
 
             <div data-role="main" class="ui-content">
-            <h2>{{subTitle}}</h2>
-            <div id="progressbarPages" ><span id="progressLabelPages" class="progress-label center">Seite 1 von 9</span></div>
-            <ul data-role="listview" id="training-content-listview" data-inset="true">
-            <li>
-            <div id="training-content-main">
-            </div>
-            </li>
-            </ul>
+                <h2>{{subTitle}}</h2>
+                <div id="progressbarPages" ><span id="progressLabelPages" class="progress-label center">Seite 1 von 9</span></div>
+                <ul data-role="listview" id="training-content-listview" data-inset="true">
+                    <li>
+                        <div id="training-content-main">
+                        </div>
+                    </li>
+                </ul>
             </div>
             <div data-role="footer" data-position="fixed" data-tap-toggle="false" id="training-content-footer"></div>
 
@@ -1091,62 +1091,62 @@
         </div>
 
 
-        <script id="training-li-tpl" type="text/x-handlebars-template">
-            <li data-role="list-divider" data-theme="a">Freigeschaltete Strategien</li>
+        <script id="training-li-tpl" type="text/html">
+        <li data-role="list-divider" data-theme="a">Freigeschaltete Strategien</li>
 
-            {{#each items}}
-            <li id="listItemTrainingStrategie{{inc @index}}" class="bluebackground">
+        {{#each items}}
+        <li id="listItemTrainingStrategie{{inc @index}}" class="bluebackground">
             <a href="#train-content?chapter=t{{inc @index}}">
-            <img id="imgDone_t{{inc @index}}" class="ui-li-icon" src="img/checkbox_notDone.png">{{inc @index}}. <span>{{name}}</span>
+                <img id="imgDone_t{{inc @index}}" class="ui-li-icon" src="img/checkbox_notDone.png">{{inc @index}}. <span>{{name}}</span>
             </a>            
-            </li>
-            {{/each}}
-        </script>
-        <script id="training-li-tplNA" type="text/x-handlebars-template">
-            <li data-role="list-divider" data-theme="e" >Noch nicht freigeschaltet</li>
-            {{#each items}}
-            <li id="listItemTrainingStrategieNA{{inc @index}}">
+        </li>
+        {{/each}}
+    </script>
+    <script id="training-li-tplNA" type="text/html">
+        <li data-role="list-divider" data-theme="e" >Noch nicht freigeschaltet</li>
+        {{#each items}}
+        <li id="listItemTrainingStrategieNA{{inc @index}}">
             <a href="#train-content?chapter=t{{inc @index}}">
-            <img id="imgDoneNA_t{{inc @index}}" class="ui-li-icon" src="img/checkbox_notDone.png">{{inc @index}}. <span id="trainingNameSpan{{inc @index}}">{{name}}</span>
+                <img id="imgDoneNA_t{{inc @index}}" class="ui-li-icon" src="img/checkbox_notDone.png">{{inc @index}}. <span id="trainingNameSpan{{inc @index}}">{{name}}</span>
             </a>            
-            </li>
-            {{/each}}
-        </script>
+        </li>
+        {{/each}}
+    </script>
 
 
-        <script src="js/helper.js"></script>
-        <script src="cordova.js"></script>
-        <script src="js/vendor/fastclick.js"></script>
-        <script src="js/vendor/handlebars.js"></script>
+    <script src="js/helper.js"></script>
+    <script src="cordova.js"></script>
+    <script src="js/vendor/fastclick.js"></script>
+    <script src="js/vendor/handlebars.js"></script>
 
-        <!-- jQuery -->
-        <script src="js/vendor/jquery.js"></script>
-        <script src="js/jquery.mobile.init.js"></script>
+    <!-- jQuery -->
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/jquery.mobile.init.js"></script>
 
-        <script src="js/vendor/jquery-ui/jquery.ui.core.js"></script>
-        <script src="js/vendor/jquery-ui/jquery.ui.widget.js"></script>
-        <script src="js/vendor/jquery-ui/jquery.ui.progressbar.js"></script>
+    <script src="js/vendor/jquery-ui/jquery.ui.core.js"></script>
+    <script src="js/vendor/jquery-ui/jquery.ui.widget.js"></script>
+    <script src="js/vendor/jquery-ui/jquery.ui.progressbar.js"></script>
 
 
-        <script src="js/vendor/jquery.mobile.js"></script>
-        <script src="js/vendor/jquery.validate.min.js"></script>
-        <script src="js/vendor/jquery.pnotify/jquery.pnotify.js"></script>
-        <script src="js/vendor/jquery.cookie.js"></script>
-        <script src="js/vendor/iscroll.js"></script>
-        <script src="js/vendor/jquery.mobile.iscrollview.js"></script>
-        <script src="js/vendor/testflight.js"></script>
-        <script src="js/vendor/PushNotification.js"></script>
-        <script src="js/adapters/localstorage-adapter.js"></script>
-        <script src="js/vendor/jquery.gridster.min.js"></script>
+    <script src="js/vendor/jquery.mobile.js"></script>
+    <script src="js/vendor/jquery.validate.min.js"></script>
+    <script src="js/vendor/jquery.pnotify/jquery.pnotify.js"></script>
+    <script src="js/vendor/jquery.cookie.js"></script>
+    <script src="js/vendor/iscroll.js"></script>
+    <script src="js/vendor/jquery.mobile.iscrollview.js"></script>
+    <script src="js/vendor/testflight.js"></script>
+    <script src="js/vendor/PushNotification.js"></script>
+    <script src="js/adapters/localstorage-adapter.js"></script>
+    <script src="js/vendor/jquery.gridster.min.js"></script>
 
-        <script src="js/TrainingContentView.js"></script>
-        <script src="js/TrainingView.js"></script>
-        <script src="js/BehaviorInputView.js"></script>
-        <script src="js/BehaviorRatingView.js"></script>
-        <script src="js/DailyTasksInputView.js"></script>
-        <script src="js/DailyInputsTasksView.js"></script>
-        <script src="js/vendor/jquery-handlebars.js"></script>
-        <script src="js/PushPlugin.js"></script>
-        <script src="js/app.js"></script>
-    </body>
+    <script src="js/TrainingContentView.js"></script>
+    <script src="js/TrainingView.js"></script>
+    <script src="js/BehaviorInputView.js"></script>
+    <script src="js/BehaviorRatingView.js"></script>
+    <script src="js/DailyTasksInputView.js"></script>
+    <script src="js/DailyInputsTasksView.js"></script>
+    <script src="js/vendor/jquery-handlebars.js"></script>
+    <script src="js/PushPlugin.js"></script>
+    <script src="js/app.js"></script>
+</body>
 </html>

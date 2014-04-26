@@ -5,7 +5,7 @@ var BehaviorInputView = function(adapter, data)
     this.initialize = function()
     {
 	$("#checkBoxContent").html(behaviorContentTpl(data));
-
+    
 	$("#checkBoxContent").find(".customCheckbox").bind("change", function(event, ui)
 	{
             var textArea = $(this).next().find("textArea");
