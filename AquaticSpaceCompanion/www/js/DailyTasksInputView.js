@@ -57,7 +57,7 @@ var DailyTasksInputView = function(adapter, data)
             {
                 console.log("Server responded for DailyTasksInput SaveDailyTasksData");
                 var currentPage = window.location.href.split('#')[0];
-                showToast('Aufgaben gespeichert');
+                showToast('Tägliche Aufgaben erfasst');
                 window.location.href = currentPage + "#first-aid-bag";
                 
 

@@ -55,7 +55,7 @@ var BehaviorRatingView = function(adapter, data)
             {
                 console.log("Server responded to BehaviorRating: "+ data.debugInfo);
                 var currentPage = window.location.href.split('#')[0];
-                showToast('Verhaltensweisen gespeichert');
+                showToast('Verhaltensweisen erfasst');
                 window.dict = {};
                 window.location.href = currentPage + "#daily-tasks-input-intro";
                 
