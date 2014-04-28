@@ -56,7 +56,15 @@ display: block;
 .ui-pnotify-icon, .ui-pnotify-icon span {
 display: block;
 float: left;
+background-image: url(../../../img/mixed/badge.png);
+background-repeat:no-repeat;
 }
+
+.ui-pnotify-icon-badge, .ui-pnotify-icon-badge span {
+display: block;
+float: right;
+}
+
 /* -- History Pulldown */
 .ui-pnotify-history-container {
 position: absolute;

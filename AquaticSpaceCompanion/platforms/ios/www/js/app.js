@@ -340,8 +340,11 @@
         if (userExists && userExists.length > 1)
         {
             if (document.location.hash == '')
-                document.location.hash = "#data-input-behavior-intro";
-                //  document.location.hash = "#main-menu";
+            {
+                //document.location.hash = "#data-input-behavior-intro";
+                //document.location.hash = "#responsive-test";
+                  document.location.hash = "#main-menu";
+            }
 
         }
         else

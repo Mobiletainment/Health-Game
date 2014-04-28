@@ -5,9 +5,7 @@ var BehaviorInputView = function(adapter, data)
     this.initialize = function()
     {
 	$("#checkBoxContent").html(behaviorContentTpl(data));
-        $("#checkBoxContent").trigger("create");
-      
-
+    
 	$("#checkBoxContent").find(".customCheckbox").bind("change", function(event, ui)
 	{
             var textArea = $(this).next().find("textArea");
@@ -92,11 +90,11 @@ var BehaviorInputView = function(adapter, data)
 
 	    if (totalChecks < 1)
 	    {
-		alert("Bitte wählen Sie zumindest 1 unerwünschte Verhaltensweise aus.");
+		alert("Sie haben nichts ausgewählt. Geben Sie zumindest ein unerwünschtes Verhalten ihres Kindes an.", undefined, "Achtung");
 	    }
             else if (totalChecks > 3)
             {
-                alert("Bitte wählen Sie nicht mehr als 3 unerwünschte Verhaltensweisen aus.");
+                alert("Sie haben zu viele unerwünschte Verhaltensweisen ausgewählt. Konzentrieren Sie sich zunächst nur auf die drei wichtigsten.", undefined, "Achtung");
             }
 	    else
 	    {

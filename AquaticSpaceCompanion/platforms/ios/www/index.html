@@ -361,18 +361,18 @@
         <!-- Daily Tasks Intro Page -->
         <div data-role="page" id="daily-tasks-input-intro" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed" data-tap-toggle="false">
-                <h1 style="text-overflow: string;">Tägliche Eingaben</h1>
+                <h1 style="text-overflow: string;">Eingaben</h1>
             </div>
             <div data-role="main" class="ui-content">
                 <h2>Tägliche Aufgaben</h2>
                 <div>
                     <p>Kinder sollten lernen kleine <b>tägliche Aufgaben</b> in der Familie zu übernehmen!</p>
-                    <p>Die täglichen Aufgaben sind eine gute Grundlage um die Strategien zu üben, die Sie im Laufe des Spiels kennen lernen werden.</p>
+                    <p>Die täglichen Aufgaben sind eine gute Grundlage um die Strategien zu üben, die Sie im Laufe des Trainings kennen lernen werden.</p>
                 </div>
             </div>
             <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
                 <div class="ui-grid-a">
-                    <div class="ui-block-a">
+                    <div class="ui-block-a"><a data-role="button" data-theme="b" id="behaviorInputBack" data-direction="reverse">Zurück</a> 
                     </div>
                     <div class="ui-block-b">
                         <a href="#daily-tasks-input" data-role="button" data-theme="b">Weiter</a>    
@@ -385,12 +385,12 @@
         <!-- Daily Tasks Input Page -->
         <div data-role="page" id="daily-tasks-input" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed" data-tap-toggle="false">
-                <h1 style="text-overflow: string;">Tägliche Eingaben</h1>
+                <h1 style="text-overflow: string;">Eingaben</h1>
             </div>
             <div data-role="main" class="ui-content">
                 <h2>Tägliche Aufgaben</h2>
                 <div>
-                    <p>Wählen Sie jetzt, wie sich ihr Kind beteiligt oder beteiligen könnte:</p>
+                    <p>Wählen Sie jetzt, wie sich ihr Kind täglich beteiligt oder beteiligen könnte:</p>
                     <fieldset data-role="controlgroup" id="dailyTasksContent">
 
                         <!-- TODO: invoke template -->
@@ -1012,7 +1012,46 @@
                 </div>
             </div>
         </div>
-
+        
+        <!-- Responsive Test 
+        <div data-role="page" id="responsive-test" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed" data-tap-toggle="false">
+                <a href="#main-menu" data-theme="b"><img src="img/home.svg"></a>
+                <h1 style="text-overflow: string;">Kopfzeile mit Titel</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h2>Überschrift</h2>
+                 <ul data-role="listview" id="responsive-listview" data-inset="true"  data-scroll="true">
+                    <li>
+                        <div id="training-content-main">
+                        <h3 style="margin-top: -10px;">Bereich für Inhalt<h3>
+                        <div>Merkmale:</div>
+                        <ul style="font-weight: normal; padding-left: 20px;"><li>Automatischer Zeilenumbruch</li>
+                        <li>Vertikale Bildlaufleiste bei Überlänge</li>
+                        <li>Leserliche Darstellung von Text, unabhängig von der Auflösung, Bildschirmgröße, Pixeldichte oder dem Seitenverhältnis des Displays</li>
+                        <li>u.v.m.</li>
+                        </ul>                       
+                        </div>
+                       
+                    </li>
+                </ul>
+                   
+                </div>
+            
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a data-role="button" data-theme="b" onclick="window.history.back();" data-rel="back">Zurück</a>                   
+                    </div>
+                    <div class="ui-block-b">
+                     <button data-theme="b" id="next-page">Weiter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        -->
+        
+        
         <!-- Training Content Page -->
         <div data-role="page" id="train-content" data-theme="c" data-content-theme="c">
         </div>

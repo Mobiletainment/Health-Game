@@ -2,18 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/www/config.xml</file>
-            <file>file:/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/www/css/styles.css</file>
-            <file>file:/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/www/css/jquery.mobile/jquery.mobile-1.3.1.css</file>
-            <file>file:/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/www/index.html</file>
-            <file>file:/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/www/dailyInputStatistics.html</file>
-            <file>file:/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/www/css/d3StackedBarChart.css</file>
-            <file>file:/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/www/js/d3StackedBarChart.js</file>
-            <file>file:/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/www/mperday.json</file>
-            <file>file:/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/www/js/BehaviorInputView.js</file>
-            <file>file:/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/www/js/app.js</file>
-            <file>file:/Users/dp/Documents/Health-Game/AquaticSpaceCompanion/www/js/adapters/localstorage-adapter.js</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

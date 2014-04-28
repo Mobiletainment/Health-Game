@@ -46,7 +46,7 @@ public class NavigationHelper : MonoBehaviour
 #endif
         userManager = UserManager.Instance;
         
-        //userManager.ResetData(); //uncomment this to start from the beginning and not load the game directly on startup
+        userManager.ResetData(); //uncomment this to start from the beginning and not load the game directly on startup
         float currentVersion = float.Parse(new TrackedBundleVersion().current.version);
         Debug.Log("Current Version: " + currentVersion + ", Previously installed: " + userManager.GetVersion());
 

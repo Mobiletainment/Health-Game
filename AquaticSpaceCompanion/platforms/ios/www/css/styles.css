@@ -173,8 +173,13 @@ div .ui-radio .ui-radio-on {
 
 
 .ui-pnotify-container {
-background: #DFF0D8;
+background: #DFF0D8 url(../img/mixed/badge3.png);
+    background-size: contain;
+    background-repeat:no-repeat;
+    vertical-align: middle;
+    background-position: right center;   
 margin-bottom: 20px;
+
 }
 
 .ui-header .ui-title {

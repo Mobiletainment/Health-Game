@@ -4,6 +4,9 @@
 * Copyright 2014 jQuery Foundation and other contributors; Licensed MIT */
 /* Layout helpers
 ----------------------------------*/
+
+
+
 .ui-helper-hidden {
 	display: none;
 }
@@ -1186,4 +1189,13 @@ body .ui-tooltip {
 	opacity: .3/*{opacityShadow}*/;
 	filter: Alpha(Opacity=30)/*{opacityFilterShadow}*/;
 	border-radius: 8px/*{cornerRadiusShadow}*/;
+}
+
+.ui-icon-badge
+{
+    background-image: url("../img/mixed/badge.png");
+    background-position: center center;
+    background-repeat: no-repeat; 
+    width: 14px;
+    height: 14px;
 }
