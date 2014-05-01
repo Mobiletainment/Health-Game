@@ -29,8 +29,8 @@ var DailyInputsTasksView = function()
             {
                 console.log("Server responded to DailyInputsTaskView.SaveInputTasksData: " + data.returnCode + "; " + data.returnMessage);
                 var currentPage = window.location.href.split('#')[0];
-                window.location.href = currentPage + "#main-menu?reload=true";
-                showToast('Tägliche Aufgaben gespeichert');
+                window.location.href = currentPage + "#daily-inputs-menu";
+                showToast('Tägliche Aufgaben erfasst');
 
             }).fail(function()
             {

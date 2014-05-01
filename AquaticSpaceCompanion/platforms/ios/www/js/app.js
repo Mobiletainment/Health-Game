@@ -114,6 +114,21 @@
                         'OK'        // buttonName
                         );
             };
+            
+            function onConfirm(button) {
+                alert('You selected button ' + button);
+            }
+
+            
+            window.alertNoConnection = function(callback)
+            {
+                navigator.notification.confirm(
+                        "Um die Belohnung sofort an Ihr Kind senden zu können, vergewissern Sie sich bitte, dass Sie Netzempfang haben oder ein funktionierendes WLAN verwenden.", // message
+                        function(button) { if (button === 2) callback(); }, // callback
+                        "Keine Internetverbindung", // title
+                        'Auf später verschieben,Nochmal versuchen'        // buttonName
+                        );
+            };
         }
 
         successFunction = function()
@@ -317,6 +332,7 @@
 
     $(document).ready(function()
     {
+        
         console.log("Document ready");
         $.pnotify.defaults.styling = "jqueryui";
         $.pnotify.defaults.history = false;
@@ -595,8 +611,8 @@
             {
                 console.log("Server responded to app.SaveInputBenchmarkData: " + data.returnCode + "; " + data.returnMessage);
                 var currentPage = window.location.href.split('#')[0];
-                window.location.href = currentPage + "#main-menu?reload=true";
-                showToast('Verhaltensmaßstab gespeichert');
+                window.location.href = currentPage + "#daily-inputs-menu";
+                showToast('Verhalten erfasst');
 
             }).fail(function()
             {
@@ -956,7 +972,8 @@
 
             }).fail(function()
             {
-                alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", that);
+                window.alertNoConnection(that);
+                //alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", that);
             }).always(function() {
                 $.mobile.loading("hide");
             });
@@ -1033,7 +1050,7 @@
 
             }).fail(function()
             {
-                alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", that);
+                alertNoConnection(that);
             }).always(function() {
                 $.mobile.loading("hide");
             });
@@ -1458,8 +1475,11 @@
         $(element).attr("src", "img/checkbox_notDone.png");
     }
 
-    showToast = function(message)
+    showToast = function(message, icon)
     {
+        if (icon)
+            icon = " " + icon;
+        
         var opts = {
             title: message,
             //  text: message,
