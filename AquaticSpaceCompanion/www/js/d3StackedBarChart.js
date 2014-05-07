@@ -1,9 +1,9 @@
 
-var padding = {top: 10, right: 90, bottom: 100, left: 45};
+var padding = {top: 30, right: 120, bottom: 100, left: 45};
 var dataset;
 //Set up stack method
 var stack = d3.layout.stack();
-
+var offsetX = 135;
 
 var w = $("body").width();
 var h = $("body").height();
@@ -15,9 +15,9 @@ d3.json("mperday.json", function(json) {
     stack(dataset);
 
     var color_hash = {
-        0: ["Tägliche Aufgaben", "#e7298a"],
-        1: ["Verhaltensmaßstab", "#7570b3"],
-        2: ["Selbst-Kontrolle", "#d95f02"]
+        0: ["Tägliche Aufgaben", "#7b3294"],
+        1: ["Verhaltensmaßstab", "#e7298a"],
+        2: ["Selbst-Kontrolle", "#4575b4"]
 
     };
 
@@ -123,7 +123,7 @@ d3.json("mperday.json", function(json) {
             .enter()
             .append("g")
             .attr("class", "rgroups")
-            .attr("transform", "translate(" + padding.left + "," + (h - padding.bottom) + ")")
+            .attr("transform", "translate(" + (padding.left + offsetX) + "," + (h - padding.bottom) + ")")
             .style("fill", function(d, i) {
                 return color_hash[dataset.indexOf(d)][1];
             });
@@ -145,7 +145,7 @@ d3.json("mperday.json", function(json) {
             })
             .ease("linear")
             .attr("x", function(d) {
-                return xScale(new Date(d.time));
+                return xScale(new Date(d.time)) + 3;
             })
             .attr("y", function(d) {
                 return -(-yScale(d.y0) - yScale(d.y) + (h - padding.top - padding.bottom) * 2);
@@ -158,18 +158,18 @@ d3.json("mperday.json", function(json) {
 
     svg.append("g")
             .attr("class", "x axis")
-            .attr("transform", "translate(57.5," + (h - padding.bottom) + ")")
+            .attr("transform", "translate(" + (55 + offsetX) + "," + (h - padding.bottom) + ")")
             .call(xAxis);
 
 
     svg.append("g")
             .attr("class", "y axis")
-            .attr("transform", "translate(" + padding.left + "," + padding.top + ")")
+            .attr("transform", "translate(" + (padding.left + offsetX) + "," + padding.top + ")")
             .call(yAxis);
     svg.append("svg:line")
-            .attr("x1", padding.left - 0)
+            .attr("x1", padding.left - 0 + offsetX)
             .attr("y1", padding.top)
-            .attr("x2", w - 1.5 * padding.right + 8)
+            .attr("x2", w)
             .attr("y2", padding.top)
             .style("stroke", "#111")
             .style("stroke-width", 2)
@@ -177,8 +177,8 @@ d3.json("mperday.json", function(json) {
 
      svg.append("g").append("text")
             .attr("class", "legend")
-            .attr("x", w - 1.5 * padding.right + 10)
-            .attr("y", padding.top + 3)
+            .attr("x", (padding.left + w + padding.right) / 2)
+            .attr("y", padding.top - 2)
             .attr("height", 30)
             .attr("width", 100)
             .style("font-weight", "bolder")
@@ -190,11 +190,10 @@ d3.json("mperday.json", function(json) {
 
     var legend = svg.append("g")
             .attr("class", "legend")
-            .attr("x", w - padding.right - 13)
+            .attr("x", padding.left)
             .attr("y", 45)
             .attr("height", 100)
             .attr("width", 100);
-
  
 
     legend.selectAll("g").data(dataset)
@@ -203,30 +202,30 @@ d3.json("mperday.json", function(json) {
             .each(function(d, i) {
                 var g = d3.select(this);
                 g.append("rect")
-                        .attr("x", w - padding.right - 13)
+                        .attr("x", 0)
                         .attr("y", i * 25 + 30)
                         .attr("width", 10)
                         .attr("height", 10)
-                        .style("fill", color_hash[String(i)][1]);
+                        .style("fill", color_hash[String(2-i)][1]);
 
                 g.append("text")
-                        .attr("x", w - padding.right + 2)
-                        .attr("y", i * 25 + 40)
+                        .attr("x", 12)
+                        .attr("y", i * 25 + 39)
                         .attr("height", 30)
                         .attr("width", 100)
-                        .style("fill", color_hash[String(i)][1])
-                        .text(color_hash[String(i)][0]);
+                        .style("fill", color_hash[String(2-i)][1])
+                        .text(color_hash[String(2-i)][0]);
             });
             
        legend.append("g").append("text")
-            .attr("x", w - padding.right - 15)
+            .attr("x", 0)
             .attr("y", 20)
             .attr("height", 0)
             .attr("width", 100)
             .style("font-weight", "bolder")
-            .text("Erledigte Eingabe:");
+            .text("Erledigte Eingaben:");
     
-       legend.attr("transform", "translate(0,25)");
+       legend.attr("transform", "translate(" + 10 + ",10)");
     /*
      svg.append("text")
      .attr("transform", "rotate(-90)")
@@ -276,121 +275,5 @@ d3.json("mperday.json", function(json) {
      .text('Erledigte Tägliche Eingaben der letzten 7 Tage');
      */
     //On click, update with new data			
-    d3.selectAll(".m")
-            .on("click", function() {
-                var date = this.getAttribute("value");
-
-                var str;
-                if (date == "2014-02-19") {
-                    str = "19.json";
-                } else if (date == "2014-02-20") {
-                    str = "20.json";
-                } else if (date == "2014-02-21") {
-                    str = "21.json";
-                } else if (date == "2014-02-22") {
-                    str = "22.json";
-                } else {
-                    str = "23.json";
-                }
-
-                d3.json(str, function(json) {
-
-                    dataset = json;
-                    stack(dataset);
-
-                    console.log(dataset);
-
-                    xScale.domain([new Date(0, 0, 0, dataset[0][0].time, 0, 0, 0), new Date(0, 0, 0, dataset[0][dataset[0].length - 1].time, 0, 0, 0)])
-                            .rangeRound([0, w - padding.left - padding.right]);
-
-                    yScale.domain([0,
-                        d3.max(dataset, function(d) {
-                            return d3.max(d, function(d) {
-                                return d.y0 + d.y;
-                            });
-                        })
-                    ])
-                            .range([h - padding.bottom - padding.top, 0]);
-
-                    xAxis.scale(xScale)
-                            .ticks(d3.time.hour, 2)
-                            .tickFormat(d3.time.format("%H"));
-
-                    yAxis.scale(yScale)
-                            .orient("left")
-                            .ticks(10);
-
-                    groups = svg.selectAll(".rgroups")
-                            .data(dataset);
-
-                    groups.enter().append("g")
-                            .attr("class", "rgroups")
-                            .attr("transform", "translate(" + padding.left + "," + (h - padding.bottom) + ")")
-                            .style("fill", function(d, i) {
-                                return color(i);
-                            });
-
-
-                    rect = groups.selectAll("rect")
-                            .data(function(d) {
-                                return d;
-                            });
-
-                    rect.enter()
-                            .append("rect")
-                            .attr("x", w)
-                            .attr("width", 1)
-                            .style("fill-opacity", 1e-6);
-
-                    rect.transition()
-                            .duration(1000)
-                            .ease("linear")
-                            .attr("x", function(d) {
-                                return xScale(new Date(0, 0, 0, d.time, 0, 0, 0));
-                            })
-                            .attr("y", function(d) {
-                                return -(-yScale(d.y0) - yScale(d.y) + (h - padding.top - padding.bottom) * 2);
-                            })
-                            .attr("height", function(d) {
-                                return -yScale(d.y) + (h - padding.top - padding.bottom);
-                            })
-                            .attr("width", 15)
-                            .style("fill-opacity", 1);
-
-                    rect.exit()
-                            .transition()
-                            .duration(1000)
-                            .ease("circle")
-                            .attr("x", w)
-                            .remove();
-
-                    groups.exit()
-                            .transition()
-                            .duration(1000)
-                            .ease("circle")
-                            .attr("x", w)
-                            .remove();
-
-
-                    svg.select(".x.axis")
-                            .transition()
-                            .duration(1000)
-                            .ease("circle")
-                            .call(xAxis);
-
-                    svg.select(".y.axis")
-                            .transition()
-                            .duration(1000)
-                            .ease("circle")
-                            .call(yAxis);
-
-                    svg.select(".xtext")
-                            .text("Hours");
-
-                    svg.select(".title")
-                            .text("Number of messages per hour on " + date + ".");
-                });
-            });
-
-
+  
 });
