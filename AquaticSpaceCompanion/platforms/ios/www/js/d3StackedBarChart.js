@@ -1,5 +1,5 @@
 
-var padding = {top: 40, right: 40, bottom: 20, left: 50};
+var padding = {top: 10, right: 90, bottom: 100, left: 45};
 var dataset;
 //Set up stack method
 var stack = d3.layout.stack();
@@ -15,9 +15,9 @@ d3.json("mperday.json", function(json) {
     stack(dataset);
 
     var color_hash = {
-        0: ["Tägliche Aufgaben", "#1f77b4"],
-        1: ["Verhaltensmaßstab", "#2ca02c"],
-        2: ["Selbst-Kontrolle", "#ff7f0e"]
+        0: ["Tägliche Aufgaben", "#e7298a"],
+        1: ["Verhaltensmaßstab", "#7570b3"],
+        2: ["Selbst-Kontrolle", "#d95f02"]
 
     };
 
@@ -54,6 +54,7 @@ d3.json("mperday.json", function(json) {
                 return d;
             }))
             //  .ticksValues(xScale.domain.map(function(d) { return d.date;}))
+
             .tickFormat(function(d) {
                 switch (d.getDay())
                 {
@@ -65,11 +66,11 @@ d3.json("mperday.json", function(json) {
                         return "Di.";
                     case 3:
                         return "Mi.";
-                        case 4:
+                    case 4:
                         return "Do.";
-                        case 5:
+                    case 5:
                         return "Fr.";
-                        case 6:
+                    case 6:
                         return "Sa.";
                     default:
                         return d;
@@ -82,9 +83,13 @@ d3.json("mperday.json", function(json) {
             .ticks(3)
             .tickFormat(function(d) {
                 if (d == 0)
-                    return "keine '";
+                    return "keine";
+                else if (d === 3)
+                    return "100%";
+                else if (d === 2)
+                    return "66%";
                 else
-                    return d + " von 3";
+                    return "33%";
             });
 
 
@@ -153,7 +158,7 @@ d3.json("mperday.json", function(json) {
 
     svg.append("g")
             .attr("class", "x axis")
-            .attr("transform", "translate(40," + (h - padding.bottom) + ")")
+            .attr("transform", "translate(57.5," + (h - padding.bottom) + ")")
             .call(xAxis);
 
 
@@ -161,15 +166,36 @@ d3.json("mperday.json", function(json) {
             .attr("class", "y axis")
             .attr("transform", "translate(" + padding.left + "," + padding.top + ")")
             .call(yAxis);
+    svg.append("svg:line")
+            .attr("x1", padding.left - 0)
+            .attr("y1", padding.top)
+            .attr("x2", w - 1.5 * padding.right + 8)
+            .attr("y2", padding.top)
+            .style("stroke", "#111")
+            .style("stroke-width", 2)
+            .style("stroke-dasharray", ("3, 3"));
+
+     svg.append("g").append("text")
+            .attr("class", "legend")
+            .attr("x", w - 1.5 * padding.right + 10)
+            .attr("y", padding.top + 3)
+            .attr("height", 30)
+            .attr("width", 100)
+            .style("font-weight", "bolder")
+            .text("Ziel");
 
     // adding legend
 
+
+
     var legend = svg.append("g")
             .attr("class", "legend")
-            .attr("x", w - padding.right - 65)
-            .attr("y", 25)
+            .attr("x", w - padding.right - 13)
+            .attr("y", 45)
             .attr("height", 100)
             .attr("width", 100);
+
+ 
 
     legend.selectAll("g").data(dataset)
             .enter()
@@ -177,20 +203,30 @@ d3.json("mperday.json", function(json) {
             .each(function(d, i) {
                 var g = d3.select(this);
                 g.append("rect")
-                        .attr("x", w - padding.right - 65)
-                        .attr("y", i * 25 + 10)
+                        .attr("x", w - padding.right - 13)
+                        .attr("y", i * 25 + 30)
                         .attr("width", 10)
                         .attr("height", 10)
                         .style("fill", color_hash[String(i)][1]);
 
                 g.append("text")
-                        .attr("x", w - padding.right - 50)
-                        .attr("y", i * 25 + 20)
+                        .attr("x", w - padding.right + 2)
+                        .attr("y", i * 25 + 40)
                         .attr("height", 30)
                         .attr("width", 100)
                         .style("fill", color_hash[String(i)][1])
                         .text(color_hash[String(i)][0]);
             });
+            
+       legend.append("g").append("text")
+            .attr("x", w - padding.right - 15)
+            .attr("y", 20)
+            .attr("height", 0)
+            .attr("width", 100)
+            .style("font-weight", "bolder")
+            .text("Erledigte Eingabe:");
+    
+       legend.attr("transform", "translate(0,25)");
     /*
      svg.append("text")
      .attr("transform", "rotate(-90)")
@@ -210,35 +246,35 @@ d3.json("mperday.json", function(json) {
     {
         window.history.back();
     }
+    /*
+     var hyperlink = svg.append("svg:a");
+     
+     hyperlink.on("click", navigateBack);
+     hyperlink.append("svg:image")
+     .attr('x', 10)
+     .attr('y', 4)
+     .attr('width', 20)
+     .attr('height', 20)
+     .attr("xlink:href", "css/jquery.mobile/images/icons-png/arrow-l-black.png");
+     hyperlink.append("text")
+     .attr("x", 30)
+     .attr("y", 20)
+     .attr("text-anchor", "left")
+     .style("font-size", "16px")
+     //.style("text-decoration", "underline")
+     .text('Zurück');
+     */
 
-    var hyperlink = svg.append("svg:a");
-
-    hyperlink.on("click", navigateBack);
-    hyperlink.append("svg:image")
-            .attr('x', 10)
-            .attr('y', 4)
-            .attr('width', 20)
-            .attr('height', 20)
-            .attr("xlink:href", "css/jquery.mobile/images/icons-png/arrow-l-black.png");
-    hyperlink.append("text")
-            .attr("x", 30)
-            .attr("y", 20)
-            .attr("text-anchor", "left")
-            .style("font-size", "16px")
-            //.style("text-decoration", "underline")
-            .text('Zurück');
-
-
-
-    svg.append("text")
-            .attr("class", "title")
-            .attr("x", 90)
-            .attr("y", 20)
-            .attr("text-anchor", "left")
-            .style("font-size", "16px")
-            //.style("text-decoration", "underline")
-            .text('Erledigte Tägliche Eingaben der letzten 7 Tage');
-
+    /*
+     svg.append("text")
+     .attr("class", "title")
+     .attr("x", 90)
+     .attr("y", 20)
+     .attr("text-anchor", "left")
+     .style("font-size", "16px")
+     //.style("text-decoration", "underline")
+     .text('Erledigte Tägliche Eingaben der letzten 7 Tage');
+     */
     //On click, update with new data			
     d3.selectAll(".m")
             .on("click", function() {

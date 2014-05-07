@@ -467,9 +467,9 @@
                 <h1 style="text-overflow: string;">Hauptmenü</h1>
             </div>
             <div data-role="main" class="ui-content">
-                <h3>Bitte wählen Sie eine Aktion aus:</h3>
+                <h3>Aktionsmöglichkeiten:</h3>
 
-                <div class="gridster">
+                <div class="gridster" style="margin-top: -10px;">
                     <ul class="gridsterList">
                         <li data-row="1" data-col="1" data-sizex="1" data-sizey="1" class="icon daily-input">
                             <a href="#daily-inputs-menu">
@@ -508,6 +508,12 @@
                             </a>
                         </li>
                     </ul>
+
+                </div>
+                <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                    <div>
+                        <span style="float: left; margin-left: 40px; width:180px;">Wow, Sie haben bereits<h3 style="margin-bottom: 0px; margin-right: 0px; margin-top: 5px;">6 Badges erhalten!</h3></span><img style="float: right; margin-top: -15px; margin-right: 35px; " width="64" height="64" src="img/mixed/badge_x6.png">
+                    </div>
                 </div>
 
             </div>  
@@ -600,7 +606,7 @@
                 <h2>Verhaltensmaßstab</h2>
                 <div>
                     <p>Bewerten Sie das <b>Verhalten Ihres Kindes während des gesamten Tages</b> auf einer Skala von sehr problematisch bis ohne Probleme.</p><p>Dadurch können Sie die Verbesserungen Ihres Kindes protokollieren und anylsieren.</p>
-                    <p>
+
                     <fieldset data-role="controlgroup">
 
                         <input name="sliderBenchmark" id="sliderBenchmark" data-theme="d" min="1" max="10" data-highlight="true" value="5" type="range">
@@ -611,7 +617,7 @@
                             </div></label>
 
                     </fieldset>
-                    </p>
+
                 </div>
             </div>
             <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
