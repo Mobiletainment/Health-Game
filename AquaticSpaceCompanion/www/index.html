@@ -501,7 +501,8 @@
                         </li>
 
                         <li data-row="2" data-col="2" data-sizex="1" data-sizey="1" class="icon statistics">
-                            <a href="dailyInputStatistics.html" rel="external">
+                            <a href="#statistics-menu">
+                            <!-- <a href="dailyInputStatistics.html" rel="external"> -->
                                 <div id="helper"></div>
                                 <div id="centered"><p class="icon-title">Statistiken</p></div>
                                 <h2></h2>
@@ -1008,6 +1009,31 @@
                     </div>
 
 
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a data-role="button" data-theme="b" onclick="window.history.back();" data-rel="back">Zurück</a>                   
+                    </div>
+                    <div class="ui-block-b">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Statistics Menu -->
+        <div data-role="page" id="statistics-menu" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed" data-tap-toggle="false">
+                <a href="#main-menu" data-theme="b"><img src="img/home.svg"></a>
+                <h1 style="text-overflow: string;">Statistiken</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h2>Auswertungen</h2>
+                <div>
+                    <p>Wählen Sie eine Statistik aus:</p>
+                    <a href='dailyInputStatistics.html' rel="external" data-role='button' data-theme='b'>Tägliche Eingaben</a>
+                    <a href='statisticsBehavior.html' rel="external" data-role='button' data-theme='b'>Verhaltensmaßstab</a>                    
                 </div>
             </div>
             <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
