@@ -1,5 +1,5 @@
 var w = $("body").width();
-var h = $("body").height() - 60;
+var h = $("body").height() - 120;
 
 var maxValues = 14;
 
@@ -18,21 +18,15 @@ var svg = null,
 function draw() {
     var data = generateData();
     var marginTopBottom = 40;
-    var marginLeftRight = 20;
+    var marginLeftRight = 35;
     var max = d3.max(data, function(d) {
         return d.value
     });
     var min = 0;
-    var pointRadius = 2.0;
+    var pointRadius = 4.0;
     var x = d3.time.scale().range([0, w - marginLeftRight * 2]).domain([data[0].date, data[data.length - 1].date]);
     var y = d3.scale.linear().range([h - marginTopBottom * 2, 0]).domain([min, max]);
-    var color_hash = {
-        0: ["Tägliche Aufgaben", "#7b3294"],
-        1: ["Verhaltensmaßstab", "#e7298a"],
-        2: ["Selbst-Kontrolle", "#4575b4"]
-
-    };
-
+    
     var xAxis = d3.svg.axis()
             .scale(x)
             .tickSize(h - marginTopBottom * 2)
@@ -73,9 +67,11 @@ function draw() {
     var yAxis = d3.svg.axis()
             .scale(y).orient('left')
             .tickSize(-w + marginLeftRight * 2).tickPadding(10)
-            .ticks(10)
+            .ticks(3)
             .tickFormat(function(d) {
-                return "";
+                if (d === 0)
+                    return "keine";
+                return d + " von 3";
             });
     var t = null;
 
@@ -88,31 +84,34 @@ function draw() {
                 .attr('height', h)
                 .attr('class', 'viz')
                 .append('svg:g')
-                .attr('transform', 'translate(' + marginLeftRight + ',' + marginTopBottom + ')');
+                .attr('transform', 'translate(' + (marginLeftRight+22) + ',' + (marginTopBottom - 10) + ')');
 
+                
 
 
         var gradient = svg.append("svg:defs")
                 .append("svg:linearGradient")
                 .attr("id", "ProblemGradient")
-                .attr("x1", "100%")
-                .attr("y1", "0%")
-                .attr("x2", "100%")
-                .attr("y2", "100%")
-                .attr("spreadMethod", "pad");
-
-        gradient.append("svg:stop")
-                .attr("offset", "0%")
-                .attr("stop-color", "#00FF2F")
-                .attr("stop-opacity", 1);
-
-        gradient.append("svg:stop")
-                .attr("offset", "100%")
-                .attr("stop-color", "#BA2828")
-                .attr("stop-opacity", 1);
+                .attr("gradientUnits", "userSpaceOnUse")    
+        .attr("x1", 0).attr("y1", y(0))         
+        .attr("x2", 0).attr("y2", y(3))      
+    .selectAll("stop")                      
+        .data([                             
+            {offset: "0%", color: "#b92928"},       
+            {offset: "40%", color: "red"},  
+            {offset: "40%", color: "red"},        
+            {offset: "80%", color: "red"},        
+            {offset: "95%", color: "#12b725"},  
+            {offset: "100%", color: "#66cc00"}    
+        ])                  
+    .enter().append("stop")         
+        .attr("offset", function(d) { return d.offset; })   
+        .attr("stop-color", function(d) { return d.color; }); 
 
 
     }
+
+    
 
     t = svg.transition().duration(transitionDuration);
 
@@ -130,12 +129,12 @@ function draw() {
     if (!xAxisGroup) {
         xAxisGroup = svg.append('svg:g')
                 .attr('class', 'xTick')
-                .attr("transform", "translate(0,3)")
+                .attr("transform", "translate(0,9)")
                 .call(xAxis);
         
         svg.append('svg:g')
                 .attr('class', 'xTick')
-                .attr("transform", "translate(" + 2 + ",-6)")
+                .attr("transform", "translate(" + 2 + ",0)")
                 .call(xAxis2);
                 
     }
@@ -169,6 +168,26 @@ function draw() {
             })
             .interpolate("linear");
 
+            //Goal line
+    svg.append("line")
+            .attr("x1", 0)
+            .attr("y1", 0)
+            .attr("x2", w - marginLeftRight * 2)
+            .attr("y2", 0)
+            .style("stroke", "#111")
+            .style("stroke-width", 2)
+            .style("stroke-dasharray", ("3, 3"));
+    
+    
+    svg.append("line")
+            .attr("class", "line")
+            .attr("x1", 0)
+            .attr("y1", h - marginTopBottom * 2)
+            .attr("x2", w - marginLeftRight * 2)
+            .attr("y2", h - marginTopBottom * 2)
+            .style("stroke", "#000")
+            .style("stroke-width", 0.4);
+
     /*
      .attr("d", d3.svg.line()
      .x(function(d) { return x(d.date); })
@@ -196,7 +215,7 @@ function draw() {
             .enter()
             .append('svg:path')
             .attr("class", "area")
-            .style("fill", "url(#ProblemGradient)")
+           // .style("fill", "url(#ProblemGradient)")
             .attr("d", garea(data));
 
     dataLines.enter().append('path')
@@ -236,15 +255,7 @@ function draw() {
             .duration(transitionDuration)
             .attr("d", garea(data));
 
-   //Goal line
-    svg.append("line")
-            .attr("x1", 0)
-            .attr("y1", 0)
-            .attr("x2", w - marginLeftRight * 2)
-            .attr("y2", 0)
-            .style("stroke", "#111")
-            .style("stroke-width", 2)
-            .style("stroke-dasharray", ("3, 3"));
+   
 
     // Draw the points
     if (!dataCirclesGroup) {
@@ -258,6 +269,16 @@ function draw() {
             .enter()
             .append('svg:circle')
             .attr('class', 'data-point')
+           /*
+            .style('stroke', function(d)
+                { 
+                    console.log(d.value);
+                    if (d.value === 3)
+                        return '#12b725';
+                    else
+                        return '#b92928';
+                })
+            */
             .style('opacity', 1e-6)
             .attr('cx', function(d) {
                 return x(d.date)
@@ -265,12 +286,22 @@ function draw() {
             .attr('cy', function() {
                 return y(0)
             })
-            .attr('r', function() {
-                return (data.length <= maxDataPointsForDots) ? pointRadius : 0
+            .attr('r', function(d) {
+             
+                return (data.length <= maxDataPointsForDots) ? pointRadius : 0;
             })
+            .style('stroke', function(d)
+                { 
+                    console.log(d.value);
+                    if (d.value === 3)
+                        return '#12b725';
+                    else
+                        return '#b92928';
+                })
             .transition()
             .duration(transitionDuration)
             .style('opacity', 1)
+    
             .attr('cx', function(d) {
                 return x(d.date)
             })
@@ -287,7 +318,9 @@ function draw() {
             .attr('cy', function(d) {
                 return y(d.value)
             })
-            .attr('r', function() {
+            .attr('r', function(d) {
+                 if (d.value === 3)
+                    return 4;
                 return (data.length <= maxDataPointsForDots) ? pointRadius : 0
             })
             .style('opacity', 1);
@@ -306,7 +339,7 @@ function draw() {
 
     svg.append("g").append("text")
             .attr("class", "goal")
-            .attr("x", w / 2)
+            .attr("x", (w+12-2*marginLeftRight)/2)
             .attr("y", -3)
             .attr("text-anchor", "middle")
             .attr("height", 30)
@@ -315,7 +348,7 @@ function draw() {
             .style("font-weight", "bolder")
             .style("fill", "#000")
             .text("Ziel");
-
+/*
     var legend = svg.append("g")
             .attr("class", "legend")
             .attr("x", 0)
@@ -329,14 +362,14 @@ function draw() {
             .attr("y", 0)
             .attr("width", 10)
             .attr("height", 10)
-            .style("fill", "#16e62f");
+            .style("fill", "#12b725");
 
     legend.append("text")
             .attr("class", "legend")
             .attr("x", 12)
             .attr("y", 9)
-            .style("fill", "#16e62f")
-            .text("Ohne Probleme");
+            .style("fill", "#12b725")
+            .text("Alle Eingaben erledigt");
 
     legend.append("rect")
             .attr("x", 0)
@@ -350,11 +383,12 @@ function draw() {
             .attr("x", 12)
             .attr("y", 24)
             .style("fill", "#b92928")
-            .text("Sehr problematisch");
+            .text("Keine oder nicht alle erledigt");
 
 
     legend.attr("transform", "translate(" + 0 + ",-35)");
-
+*/
+/*
     $('svg circle').tipsy({
         gravity: 'w',
         html: true,
@@ -364,17 +398,21 @@ function draw() {
             return 'Date: ' + pDate.getDate() + " " + monthNames[pDate.getMonth()] + " " + pDate.getFullYear() + '<br>Value: ' + d.value;
         }
     });
+    */
 }
 
 function generateData() {
     var data = [];
     var i = maxValues;
 
+    var values = [0, 1, 2, 3, 0, 3, 3, 3, 0, 0, 0, 3, 3, 3, 3,3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3];
+
     while (i--) {
         var date = new Date();
-        date.setDate(date.getDate() - i);
+        date.setDate(date.getDate() - 28 - i);
         date.setHours(0, 0, 0, 0);
-        data.push({'value': Math.round(Math.random() * 10), 'date': date});
+        //data.push({'value': Math.round(Math.random() * 3), 'date': date});
+        data.push({'value': values[maxValues - i], 'date': date});
     }
     
     data[0].value = 0;
@@ -382,5 +420,4 @@ function generateData() {
     return data;
 }
 
-d3.select('#button').on('click', draw);
 draw();

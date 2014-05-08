@@ -39,7 +39,7 @@ function draw() {
             .tickPadding(10)
             .ticks(maxValues)
             .tickFormat(function(d) {
-                return d.getDate() + "." + d.getMonth();
+                return d.getDate() + "." + (d.getMonth() + 1);
                 
             });
     var xAxis2 = d3.svg.axis()

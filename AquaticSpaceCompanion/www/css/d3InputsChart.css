@@ -9,10 +9,11 @@ and open the template in the editor.
 */
 
 .data-line {
-	stroke: grey;
-	stroke-width: 2;
+	//stroke: grey;
+	stroke-width: 3;
 	fill: none;
 	stroke-dasharray: 0;
+        stroke: url(#ProblemGradient);
 }
 
 path {
@@ -23,7 +24,8 @@ path {
 }
 
 .area {
-  	fill: url(#ProblemGradient);
+  	//fill: #12b725;
+        //fill: url(#ProblemGradient);
 }
 
 text {
@@ -41,7 +43,7 @@ text {
 
 line {
 	stroke: #CDCDCD;
-	stroke-width: 0.5;
+	stroke-width: 0.2;
 	/* stroke-dasharray: 3 3; */
 	fill: none;
 }
