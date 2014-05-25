@@ -254,9 +254,9 @@
             <div data-role="main" class="ui-content">
                 <h2>Unerwünschte Verhaltensweisen</h2>
                 <div>
-                    <p>Wählen Sie als nächstes die Verhaltensweisen ihres Kindes aus, welche das Familienleben schwierig gestalten.</p>
-                    <p>Sie können dabei vorgefertigte Auswahlmöglichkeiten anhaken oder eigene eingeben.</p>
-                    <p>Konzentrieren Sie sich zunächst auf die wichtigsten 3.</p>
+                    <p>Als nächstes sollten Sie sich überlegen, welche Verhaltensweisen ihres Kindes das Familienleben schwierig gestalten.</p>
+                    <p>Dazu können Sie nachfolgend zutreffende Auswahlmöglichkeiten anhaken oder eigene eingeben.</p>
+                    <p>Wichtig ist, dass Sie sich zunächst auf <b>die wichtigsten</b> unerwünschten Verhaltensweisen konzentrieren.</p>
                 </div>
             </div>
             <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
@@ -280,7 +280,7 @@
             <div data-role="main" class="ui-content" data-tap-toggle="false">
                 <h2>Unerwünschte Verhaltensweisen</h2>
                 <div>
-                    <p>Wählen Sie unerwünschte Verhaltensweisen oder geben Sie selbst welche ein:</p>
+                    <p>Geben Sie bitte <b>bis zu 3</b> unerwünschte Verhaltensweisen ihres Kindes an:</p>
                     <fieldset data-role="controlgroup" id="checkBoxContent">
 
                         <!-- TODO: invoke template -->
@@ -310,30 +310,30 @@
 
             <div>
             <input type="checkbox" name="checkboxCustom1" id="checkboxCustom1" class="customCheckbox" />
-            <label for="checkboxCustom1"><textarea id="checkboxCustom1Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
+            <label class="customCheckboxLabel" for="checkboxCustom1"><textarea id="checkboxCustom1Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
             </div>
 
             <div>
             <input type="checkbox" name="checkboxCustom2" id="checkboxCustom2" class="customCheckbox" />
-            <label for="checkboxCustom2"><textarea  id="checkboxCustom2Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
+            <label class="customCheckboxLabel" for="checkboxCustom2"><textarea  id="checkboxCustom2Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
             </div>
 
             <div>
             <input type="checkbox" name="checkboxCustom3" id="checkboxCustom3" class="customCheckbox" />
-            <label for="checkboxCustom3"><textarea  id="checkboxCustom3Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
+            <label class="customCheckboxLabel" for="checkboxCustom3"><textarea  id="checkboxCustom3Text" data-theme="c" placeholder="Eigene Eingabe (bei Bedarf)"></textarea></label>
             </div>
         </script>
 
         <!-- Data Input Behavior Rating Page -->
         <div data-role="page" id="data-input-behavior-rating" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed" data-tap-toggle="false">
-                <h1 style="text-overflow: string;">Problemverhalten</h1>
+                <h1 style="text-overflow: string;">Bewertung</h1>
                 <a href="#" onclick="alert('TODO: Hab den Informationstext noch nicht gekriegt');" class="ui-btn-right" data-icon="info" data-iconpos="notext" data-inline="true" data-theme="a"></a>
             </div>
             <div data-role="main" class="ui-content">
                 <h2>Unerwünschte Verhaltensweisen (<span id="pageIndexBehavior"></span> von <span id="pageIndexBehaviorEnd">3</span>)</h2>
                 <div>
-                    <p>Bitte bewerten Sie, wie schwerwiegend das Problemverhalten Ihres Kindes diese Woche war, auf einer Skala von 1 (sehr schlecht) bis 10 (sehr gut):<p>
+                    <p>Bitte bewerten Sie, wie schwerwiegend das Problemverhalten Ihres Kindes diese Woche war:<p>
                     <h3 id="behaviorProblem"></h3>
                     <fieldset data-role="controlgroup">
 
@@ -349,7 +349,7 @@
             <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
-                        <a data-role="button" data-theme="b" id="behaviorInputBack" data-direction="reverse">Zurück</a>                
+                        <a data-role="button" data-theme="b" id="behaviorInputBack" data-direction="reverse">Zurück</a> 
                     </div>
                     <div class="ui-block-b">
                         <button id="sendBehaviorRatingInput" data-role="button" data-theme="b">Weiter</button>   
@@ -361,18 +361,18 @@
         <!-- Daily Tasks Intro Page -->
         <div data-role="page" id="daily-tasks-input-intro" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed" data-tap-toggle="false">
-                <h1 style="text-overflow: string;">Tägliche Eingaben</h1>
+                <h1 style="text-overflow: string;">Eingaben</h1>
             </div>
             <div data-role="main" class="ui-content">
                 <h2>Tägliche Aufgaben</h2>
                 <div>
                     <p>Kinder sollten lernen kleine <b>tägliche Aufgaben</b> in der Familie zu übernehmen!</p>
-                    <p>Die täglichen Aufgaben sind eine gute Grundlage um die Strategien zu üben, die Sie im Laufe des Spiels kennen lernen werden.</p>
+                    <p>Die täglichen Aufgaben sind eine gute Grundlage um die Strategien zu üben, die Sie im Laufe des Trainings kennen lernen werden.</p>
                 </div>
             </div>
             <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
                 <div class="ui-grid-a">
-                    <div class="ui-block-a">
+                    <div class="ui-block-a"><a data-role="button" data-theme="b" id="behaviorInputBack" data-direction="reverse">Zurück</a> 
                     </div>
                     <div class="ui-block-b">
                         <a href="#daily-tasks-input" data-role="button" data-theme="b">Weiter</a>    
@@ -385,12 +385,12 @@
         <!-- Daily Tasks Input Page -->
         <div data-role="page" id="daily-tasks-input" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed" data-tap-toggle="false">
-                <h1 style="text-overflow: string;">Tägliche Eingaben</h1>
+                <h1 style="text-overflow: string;">Eingaben</h1>
             </div>
             <div data-role="main" class="ui-content">
                 <h2>Tägliche Aufgaben</h2>
                 <div>
-                    <p>Wählen Sie jetzt, wie sich ihr Kind beteiligt oder beteiligen könnte:</p>
+                    <p>Wählen Sie jetzt, wie sich ihr Kind täglich beteiligt oder beteiligen könnte:</p>
                     <fieldset data-role="controlgroup" id="dailyTasksContent">
 
                         <!-- TODO: invoke template -->
@@ -467,9 +467,9 @@
                 <h1 style="text-overflow: string;">Hauptmenü</h1>
             </div>
             <div data-role="main" class="ui-content">
-                <h3>Bitte wählen Sie eine Aktion aus:</h3>
+                <h3>Aktionsmöglichkeiten:</h3>
 
-                <div class="gridster">
+                <div class="gridster" style="margin-top: -10px;">
                     <ul class="gridsterList">
                         <li data-row="1" data-col="1" data-sizex="1" data-sizey="1" class="icon daily-input">
                             <a href="#daily-inputs-menu">
@@ -501,13 +501,20 @@
                         </li>
 
                         <li data-row="2" data-col="2" data-sizex="1" data-sizey="1" class="icon statistics">
-                            <a href="dailyInputStatistics.html" rel="external">
+                            <a href="#statistics-menu">
+                            <!-- <a href="dailyInputStatistics.html" rel="external"> -->
                                 <div id="helper"></div>
                                 <div id="centered"><p class="icon-title">Statistiken</p></div>
                                 <h2></h2>
                             </a>
                         </li>
                     </ul>
+
+                </div>
+                <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                    <div>
+                        <span style="float: left; margin-left: 40px; width:180px;">Wow, Sie haben bereits<h3 style="margin-bottom: 0px; margin-right: 0px; margin-top: 5px;">6 Badges erhalten!</h3></span><img style="float: right; margin-top: -15px; margin-right: 35px; " width="64" height="64" src="img/mixed/badge_x6.png">
+                    </div>
                 </div>
 
             </div>  
@@ -599,17 +606,19 @@
             <div data-role="main" class="ui-content">
                 <h2>Verhaltensmaßstab</h2>
                 <div>
-                    <p>Bewerten Sie das Verhalten Ihres Kindes während des gesamten Tages auf einer Skala von 1 (sehr schlecht) bis 10 (sehr gut). Dadurch können Sie die Verbesserungen Ihres Kindes protokollieren und anylsieren.<p>
+                    <p>Bewerten Sie das <b>Verhalten Ihres Kindes während des gesamten Tages</b> auf einer Skala von sehr problematisch bis ohne Probleme.</p><p>Dadurch können Sie die Verbesserungen Ihres Kindes protokollieren und anylsieren.</p>
+
                     <fieldset data-role="controlgroup">
 
                         <input name="sliderBenchmark" id="sliderBenchmark" data-theme="d" min="1" max="10" data-highlight="true" value="5" type="range">
                         <label for="sliderBenchmark" class="full-height-wrapper-content"><div class="ui-grid-b">
-                                <div class="ui-block-a"><b>schlecht</b></div>
-                                <div class="ui-block-b"><b>teils teils</b></div>
-                                <div class="ui-block-c"><b>gut</b></div>
+                                <div class="ui-block-a"><b>sehr problematisch</b></div>
+                                <div class="ui-block-b"><b></b></div>
+                                <div class="ui-block-c"><b>ohne Probleme</b></div>
                             </div></label>
 
                     </fieldset>
+
                 </div>
             </div>
             <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
@@ -1012,6 +1021,71 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Statistics Menu -->
+        <div data-role="page" id="statistics-menu" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed" data-tap-toggle="false">
+                <a href="#main-menu" data-theme="b"><img src="img/home.svg"></a>
+                <h1 style="text-overflow: string;">Statistiken</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h2>Auswertungen</h2>
+                <div>
+                    <p>Wählen Sie eine Statistik aus:</p>
+                    <a href='statisticsBehavior.html' rel="external" data-role='button' data-theme='b'>Verhaltensmaßstab</a>                    
+                    <a href='statisticsDailyTasks.html' rel="external" data-role='button' data-theme='b'>Erledigte Aufgaben</a>
+                    <a href='statisticsDailyInputs.html' rel="external" data-role='button' data-theme='b'>Erledigte Eingaben</a>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a data-role="button" data-theme="b" onclick="window.history.back();" data-rel="back">Zurück</a>                   
+                    </div>
+                    <div class="ui-block-b">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Responsive Test 
+        <div data-role="page" id="responsive-test" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed" data-tap-toggle="false">
+                <a href="#main-menu" data-theme="b"><img src="img/home.svg"></a>
+                <h1 style="text-overflow: string;">Kopfzeile mit Titel</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h2>Überschrift</h2>
+                 <ul data-role="listview" id="responsive-listview" data-inset="true"  data-scroll="true">
+                    <li>
+                        <div id="training-content-main">
+                        <h3 style="margin-top: -10px;">Bereich für Inhalt<h3>
+                        <div>Merkmale:</div>
+                        <ul style="font-weight: normal; padding-left: 20px;"><li>Automatischer Zeilenumbruch</li>
+                        <li>Vertikale Bildlaufleiste bei Überlänge</li>
+                        <li>Leserliche Darstellung von Text, unabhängig von der Auflösung, Bildschirmgröße, Pixeldichte oder dem Seitenverhältnis des Displays</li>
+                        <li>u.v.m.</li>
+                        </ul>                       
+                        </div>
+                       
+                    </li>
+                </ul>
+                   
+                </div>
+            
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a data-role="button" data-theme="b" onclick="window.history.back();" data-rel="back">Zurück</a>                   
+                    </div>
+                    <div class="ui-block-b">
+                     <button data-theme="b" id="next-page">Weiter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        -->
+
 
         <!-- Training Content Page -->
         <div data-role="page" id="train-content" data-theme="c" data-content-theme="c">

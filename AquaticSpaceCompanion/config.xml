@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="net.pertiller.aquaspacecompanion" version="0.80">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="net.pertiller.aquaspacecompanion" version="1">
     <name>AquaticSpaceCompanion</name>
     <description>The Companion App to the Aquatic Space Health Game</description>
     <author email="david.pertiller@gmail.com" href="http://www.pertiller.net">David Pertiller</author>
