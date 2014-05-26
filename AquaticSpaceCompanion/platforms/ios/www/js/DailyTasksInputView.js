@@ -55,6 +55,7 @@ var DailyTasksInputView = function(adapter, data)
                     },
             function(data)
             {
+                
                 console.log("Server responded for DailyTasksInput SaveDailyTasksData");
                 var currentPage = window.location.href.split('#')[0];
                 showToast('Aufgaben gespeichert');

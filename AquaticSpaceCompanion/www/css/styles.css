@@ -8,6 +8,10 @@ and open the template in the editor.
     Author     : dp
 */
 
+.center-wrapper{
+text-align: center;
+}
+
 .selfControlList
 {
     padding-top: 0px !important;

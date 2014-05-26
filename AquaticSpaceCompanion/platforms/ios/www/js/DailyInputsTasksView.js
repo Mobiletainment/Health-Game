@@ -27,6 +27,11 @@ var DailyInputsTasksView = function()
                     },
             function(data)
             {
+                if (data.extraInfo)
+                {
+                    setBadges(data.extraInfo);
+                }
+                
                 console.log("Server responded to DailyInputsTaskView.SaveInputTasksData: " + data.returnCode + "; " + data.returnMessage);
                 var currentPage = window.location.href.split('#')[0];
                 window.location.href = currentPage + "#main-menu?reload=true";

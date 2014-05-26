@@ -17,18 +17,19 @@ var DailyInputsTasksView = function()
             $.mobile.loading('show', {
                 text: 'Daten werden gespeichert...'
             });
-
+            
             $.getJSON("http://tnix.eu/~aspace/SaveData.php",
                     {
                         username: window.username,
                         action: "SaveInputTasksData",
-                        data: data
+                        data: data,
+                        date: currentDate()
                     },
             function(data)
             {
-                console.log("Server responded: " + data.returnCode + "; " + data.returnMessage);
+                console.log("Server responded to DailyInputsTaskView.SaveInputTasksData: " + data.returnCode + "; " + data.returnMessage);
                 var currentPage = window.location.href.split('#')[0];
-                window.location.href = currentPage + "#main-menu";
+                window.location.href = currentPage + "#main-menu?reload=true";
                 showToast('Aufgaben gespeichert');
 
             }).fail(function()
@@ -87,7 +88,7 @@ var DailyInputsTasksView = function()
                 },
         function(data)
         {
-            console.log("Server responded for Input Tasks Data: " + data.returnCode);
+            console.log("Server responded for DailyInputsTaskView.LoadDailyTasksData: " + data.returnCode);
             if (data.returnCode === 200)
             {
                 var items = new Array();

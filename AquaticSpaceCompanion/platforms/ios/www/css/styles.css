@@ -8,6 +8,10 @@ and open the template in the editor.
     Author     : dp
 */
 
+.center-wrapper{
+text-align: center;
+}
+
 .selfControlList
 {
     padding-top: 0px !important;
@@ -145,9 +149,15 @@ div .ui-radio .ui-radio-on {
 }
 
 
-.ui-pnotify-container {
-background: #DFF0D8;
-margin-bottom: 20px;
+.ui-pnotify-container
+{
+    background: #DFF0D8 url(../img/mixed/badge-daily.png);
+    background-size: contain;
+    background-repeat:no-repeat;
+    vertical-align: middle;
+    background-position: right center;   
+    margin-bottom: 10px;
+
 }
 
 .ui-header .ui-title {

@@ -3,7 +3,7 @@
 {
 
     window.customData = {data: "", referral: ""};
-
+    window.deviceToken = $.cookie("deviceToken");
 
     window.currentView;
     window.dict = {};
@@ -48,7 +48,61 @@
 
     });
 
+    currentDate = function()
+    {
+        var dt = new Date();
+        return dt.toUTCString();
+    };
 
+    // handle APNS notifications for iOS
+    onNotificationAPN = function(e) {
+        alert("Notification received");
+        if (e.event === 'registered')
+        {
+            alert("Registering Android");
+            if (e.regid.length > 0)
+            {
+
+                // Your GCM push server needs to know the regID before it can push to this device
+                // here is where you might want to send it the regID for later use.
+                alert("regID = " + e.regid);
+                setDeviceToken(e.regid);
+            }
+        }
+        if (e.hash && e.hash.length > 0)
+        {
+            //navigator.notification.alert("Hash: " + e.hash);
+            document.location.hash = e.hash;
+        }
+
+        if (e.alert) {
+            navigator.notification.alert(
+                    e.alert, // message
+                    undefined, // callback
+                    "Nachricht", // title
+                    'Ansehen'        // buttonName
+                    );
+        }
+
+        if (e.sound) {
+            var snd = new Media(e.sound);
+            snd.play();
+        }
+
+        if (e.badge) {
+            pushNotification.setApplicationIconBadgeNumber(successHandler, e.badge);
+        }
+
+
+
+        if (e.foreground)
+        {
+            alert("Foreground: " + e.foreground);
+        }
+
+
+
+    };
 
     /* --------------------------------- Event Registration -------------------------------- */
     document.addEventListener('deviceready', function() {
@@ -87,9 +141,195 @@
         var tf = new TestFlight();
         tf.takeOff(successFunction, failedFunction, "029ece91-ccbf-4e5e-8ed0-3b012f5fb854");
 
+        try
+        {
+            pushNotification = window.plugins.pushNotification;
+            if (device.platform == 'android' || device.platform == 'Android')
+            {
+                alert("Registering Android Push");
+                pushNotification.register(successHandler, errorHandler, {"senderID": "927166403109", "ecb": "onNotificationGCM"});		// required!
+            }
+            else
+            {
+                //alert("Registering iOS Push");
+                pushNotification.register(tokenHandler, errorHandler, {"badge": "true", "sound": "true", "alert": "true", "ecb": "onNotificationAPN"});	// required!
+            }
+        }
+        catch (err)
+        {
+            txt = "There was an error on this page.\n\n";
+            txt += "Error description: " + err.message + "\n\n";
+            alert(txt);
+            $.mobile.loading("hide");
 
+            if (typeof device === "undefined" || typeof device.platform === "undefined")
+            {
+                tokenHandler("browser-test");
+            }
+        }
 
     }, false);
+
+    function setDeviceToken(token)
+    {
+        alert("deviceToken " + token);
+        $.cookie("deviceToken", token, {expires: 20 * 365, path: '/'});
+        window.deviceToken = $.cookie("deviceToken");
+    }
+
+
+
+    // handle GCM notifications for Android
+    function onNotificationGCM(e) {
+      
+        switch (e.event)
+        {
+            case 'registered':
+                if (e.regid.length > 0)
+                {
+                    // Your GCM push server needs to know the regID before it can push to this device
+                    // here is where you might want to send it the regID for later use.
+                    alert("regID = " + e.regid);
+                    setDeviceToken(e.regid);
+                }
+                break;
+
+            case 'message':
+                // if this flag is set, this notification happened while we were in the foreground.
+                // you might want to play a sound to get the user's attention, throw up a dialog, etc.
+                if (e.foreground)
+                {
+                  //  $("#app-status-ul").append('<li>--INLINE NOTIFICATION--' + '</li>');
+
+                    // if the notification contains a soundname, play it.
+                    var my_media = new Media("/android_asset/www/" + e.soundname);
+                    my_media.play();
+                }
+                else
+                {	// otherwise we were launched because the user touched a notification in the notification tray.
+                    /*
+                    if (e.coldstart)
+                        $("#app-status-ul").append('<li>--COLDSTART NOTIFICATION--' + '</li>');
+                    else
+                        $("#app-status-ul").append('<li>--BACKGROUND NOTIFICATION--' + '</li>');
+                        */
+                }
+
+             //   $("#app-status-ul").append('<li>MESSAGE -> MSG: ' + e.payload.message + '</li>');
+              //  $("#app-status-ul").append('<li>MESSAGE -> MSGCNT: ' + e.payload.msgcnt + '</li>');
+                break;
+
+            case 'error':
+                alert('<li>ERROR -> MSG:' + e.msg + '</li>');
+             //   $("#app-status-ul").append('<li>ERROR -> MSG:' + e.msg + '</li>');
+                break;
+
+            default:
+                //
+                //$("#app-status-ul").append('<li>EVENT -> Unknown, an event was received and we do not know what it is</li>');
+                break;
+        }
+    }
+
+    function tokenHandler(result) {
+        setDeviceToken(result);
+        // Your iOS push server needs to know the token before it can push to this device
+        // here is where you might want to send it the token for later use
+        //registerDevice();
+
+    }
+
+    function registerDevice()
+    {
+        console.log("Registering Device");
+        $.mobile.loading('show', {
+            text: 'Registrierung läuft'
+        });
+
+        var os;
+
+        if (typeof device === "undefined" || typeof device.platform === "undefined")
+        {
+            console.log("Using Browser");
+            os = "browser";
+            window.deviceToken = "browser";
+        }
+        else
+        {
+
+            if (!window.deviceToken && device.name)
+            {
+                console.log("No DeviceToken for Device: " + device.name);
+                $.mobile.loading("hide");
+                alert("Um fortfahren zu können, müssen Push-Benachrichtigungen aktiviert sein. Erlauben Sie bitte Push-Benachrichtigungen und versuchen Sie es erneut.")
+
+                //TODO:
+                if (device.name === "iPhone Simulator")
+                {
+
+                }
+                else
+                {
+                    // registerPushNotifications();
+                    return;
+                }
+            }
+
+            os = (device.platform === 'android' || device.platform === 'Android') ? "android" : "ios";
+        }
+
+        $.getJSON("http://tnix.eu/~aspace/RegisterDeviceOfParent.php",
+                {
+                    user: $("#loginPassword").val(),
+                    data: window.deviceToken,
+                    os: os
+                }, function(data)
+        {
+            console.log("Server responded to app.RegisterDevice");
+
+
+            if (data.returnCode === 200)
+            {
+                $.cookie("username", $("#loginPassword").val(), {expires: 20 * 365, path: '/'});
+                window.username = $("#loginPassword").val();
+                showToast('Überprüfung erfolgreich');
+                $("#loginButton").trigger("click");
+            }
+            else if (data.returnCode === 401)
+            {
+                alert("Keine Übereinstimmung. Möglicherweise hat sich Ihr Kind noch nicht registriert oder Sie haben sich vertippt. Überprüfen Sie bitte das Passwort und versuchen Sie es nochmal.")
+            }
+            else
+            {
+                console.log("Es ist ein Fehler beim Push-Plugin aufgetreten")
+                //TODO : Fehler ansehen
+                alert("Es ist ein Fehler beim Push-Plugin aufgetreten");
+            }
+
+        }
+        ).fail(function()
+        {
+            alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", registerDevice);
+        }
+        ).always(function() {
+            $.mobile.loading("hide");
+            $("#submitLogin").parent().removeClass("ui-btn-active");
+        });
+    }
+
+
+    function successHandler(result)
+    {
+        alert("Successfully registered Push Notifications: " + result);
+
+    }
+
+    function errorHandler(error)
+    {
+        alert("Registering Push Notifications failed: " + error);
+
+    }
+
 
     $(document).ready(function()
     {
@@ -101,11 +341,11 @@
         window.username = $.cookie("username");
         window.versionInfo = $.cookie("versionInfo");
 
-        var currentVersion = 0.58;
+        var currentVersion = 0.76;
 
         if (!window.versionInfo || window.versionInfo < currentVersion) //just for test purposes: delete cookies on each new version
         {
-            alert("Update successful (Danke fürs Installieren ;))");
+            alert("New version installed! Beginning from start. Thank you for testing!");
             $.cookie("username", null, {path: '/'});
             window.username = null;
             $.cookie("versionInfo", currentVersion, {expires: 20 * 365, path: '/'});
@@ -117,6 +357,7 @@
         {
             if (document.location.hash == '')
                 document.location.hash = "#main-menu";
+
         }
         else
         {
@@ -158,11 +399,43 @@
         }
     });
 
+    // Login:
+    $("#login").on("pagebeforecreate", function(event)
+    {
+        $("#loginButton").parent().hide();
+        $("#loginForm").validate({
+            rules: {
+                loginPassword: {
+                    required: true,
+                    minlength: 2
+                }
+            },
+            messages: {
+                loginPassword: "Das Team-Passwort ist nicht korrekt. Überprüfen Sie bitte Ihre Eingabe"
+            },
+            submitHandler: validateLogin
+        });
+
+
+        function validateLogin() {
+            console.log("validating Login");
+            registerDevice();
+            return false;
+        }
+
+        $("#loginPassword").on("keypress", function()
+        {
+            //$(":submit").parent().removeClass("ui-btn-active");
+            $("#submitLogin").parent().removeClass("ui-btn-active");
+        });
+
+    });
+
     // Start: Main Menu
     $("#main-menu").on("pagebeforecreate", function(event)
     {
-
         showTrainingOverview();
+        initializeDailyInputsOverview();
 
         var progressLabel = $("#progressLabelMain");
         var selector = "#progressbarMain";
@@ -198,7 +471,6 @@
         });
 
         progressbar.progressbar("value", 0);
-        loadTrainingProgress();
 
         $(".gridster ul").gridster({
             widget_margins: [10, 10],
@@ -211,19 +483,8 @@
         //Daily Inputs Progressbar
         function initializeDailyInputsProgress()
         {
-
-            var progressLabel = $("#progressLabelInputs");
             var progressbar = $("#progressbarDailyInputs");
 
-            progressbar.progressbar({
-                value: false,
-                change: function() {
-                    var value = progressbar.progressbar("value");
-
-                    progressLabel.text("Erledigt: " + value + "/3");
-
-                }
-            });
 
             var selector = "#progressbarDailyInputs";
             $(selector).bind('progressbarchange', function(event, ui) {
@@ -249,11 +510,17 @@
         }
 
         initializeDailyInputsProgress();
+
+        loadTrainingProgress();
+
     });
 
     $("#main-menu").on("pagebeforeshow", function(event)
     {
-
+        if (document.location.hash == "#main-menu?reload=true")
+        {
+            loadTrainingProgress();
+        }
     });
     // End: Main Menu
 
@@ -300,25 +567,22 @@
 
 
     //Start Daily Inputs Menu
-    $("#daily-inputs-menu").on("pagebeforecreate", function(event)
+    function initializeDailyInputsOverview()
     {
-        var progressLabel = $("#progressLabelInputs");
         var progressbar = $("#progressbarDailyInputs");
 
         progressbar.progressbar({
             value: false,
             change: function() {
                 var value = progressbar.progressbar("value");
-
-                progressLabel.text("Erledigt: " + value + "/3");
-
             }
         });
 
         progressbar.progressbar("value", 0);
         //  progressbar.removeClass('ui-corner-all');
         progressbar.height("30");
-    });
+    }
+    ;
     //End Daily Inputs Menu
 
     // Start: Daily Inputs: Benchmark
@@ -336,13 +600,14 @@
                     {
                         username: window.username,
                         action: "SaveInputBenchmarkData",
-                        data: $("#daily-inputs-benchmark").find("#sliderBenchmark").val()
+                        data: $("#daily-inputs-benchmark").find("#sliderBenchmark").val(),
+                        date: currentDate()
                     },
             function(data)
             {
-                console.log("Server responded: " + data.returnCode + "; " + data.returnMessage);
+                console.log("Server responded to app.SaveInputBenchmarkData: " + data.returnCode + "; " + data.returnMessage);
                 var currentPage = window.location.href.split('#')[0];
-                window.location.href = currentPage + "#daily-inputs-menu";
+                window.location.href = currentPage + "#main-menu?reload=true";
                 showToast('Verhaltensmaßstab gespeichert');
 
             }).fail(function()
@@ -363,9 +628,48 @@
     // Start: Data Input Behavior
     $("#daily-inputs-selfcontrol").on("pagebeforecreate", function(event)
     {
+        function saveData()
+        {
+            var func = this;
+
+            $.mobile.loading('show', {
+                text: 'Daten werden gespeichert...'
+            });
+
+            $.getJSON("http://tnix.eu/~aspace/SaveData.php",
+                    {
+                        username: window.username,
+                        action: "SaveSelfControlData",
+                        data: window.dict,
+                        date: currentDate()
+                    },
+            function(data)
+            {
+                console.log("Server responded to daily-inputs-selfcontrol.SaveSelfControlData: " + data.returnCode + "; " + data.returnMessage);
+                var currentPage = window.location.href.split('#')[0];
+                window.location.href = currentPage + "#main-menu?reload=true";
+                showToast('Selbst-Kontroll-Infos gespeichert');
+
+            }).fail(function()
+            {
+                alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", func);
+            }).always(function() {
+                $.mobile.loading("hide");
+            });
+        }
+
+        //Click
         $("#daily-inputs-selfcontrol").find("#sendSelfcontrolData").click(function()
         {
-            alert("Noch nicht implementiert");
+            window.dict = {};
+            window.dict["near"] = $("#radioChoiceNear :radio:checked").val();
+            window.dict["immaterial"] = $("#radioChoiceImmaterial :radio:checked").val();
+            window.dict["material"] = $("#radioChoiceMaterial :radio:checked").val();
+            window.dict["ignoring"] = $("#radioChoiceIgnore :radio:checked").val();
+            window.dict["timeout"] = $("#radioChoiceTimeout :radio:checked").val();
+
+            saveData();
+
         });
     });
 
@@ -408,31 +712,46 @@
                 text: 'Lob wird gesendet...'
             });
 
-            /*
-             $.getJSON("http://tnix.eu/~aspace/TODO.php",
-             {
-             username: window.username,
-             action: "life"
-             },
-             function(data)
-             {
-             console.log("Server responded");
-             
-             //$.mobile.loading("hide");
-             showToast('Belohnung gesendet');
-             
-             document.location.hash = "#training";
-             
-             }).fail(function()
-             {
-             alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", that);
-             }).always(function() {
-             $.mobile.loading("hide");
-             });
-             */
+            var selectedMessage = $("#complimentContent :radio:checked").next().text();
 
-            alert("TODO: not yet implemented");
-            $.mobile.loading("hide");
+            //check if a custom message was entered
+            if ($("#radioComplimentCustom1").is(":checked"))
+            {
+                selectedMessage = $("#radioComplimentCustom1").next().find("textArea").val();
+                if (selectedMessage.length === 0)
+                {
+                    alert("Sie haben keine Nachricht eingegeben");
+                    $("#radioComplimentCustom1").focus();
+                    $.mobile.loading("hide");
+                    return false;
+                }
+            }
+
+            selectedMessage = "Lob erhalten: " + selectedMessage;
+
+            $.getJSON("http://tnix.eu/~aspace/SendPushNotificationToChild.php",
+                    {
+                        username: window.username,
+                        data: selectedMessage,
+                        cation: "compliment"
+                    },
+            function(data)
+            {
+
+                console.log("Server responded in communication-compliment sendCompliment");
+
+                //$.mobile.loading("hide");
+                showToast('Belohnung gesendet');
+
+                document.location.hash = "#main-menu";
+
+            }).fail(function()
+            {
+                alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", that);
+            }).always(function() {
+                $.mobile.loading("hide");
+            });
+
 
             return false; //prevent event propagation
         }
@@ -445,6 +764,22 @@
             $("#sendCompliment").trigger("click");
             return false;
         });
+
+        $("#radioComplimentCustom1").bind("change", function(event, ui)
+        {
+            var textArea = $(this).next().find("textArea");
+            if (this.checked)
+            {
+                textArea.removeClass('ui-body-c').addClass('ui-body-d');
+                textArea.focus();
+            }
+        });
+
+        $("#radioComplimentCustom1Text").blur(function()
+        {
+            $(this).removeClass('ui-body-d').addClass('ui-body-c');
+        });
+
     });
 
     $(document).on("pagebeforeshow", "#timeout", function(e, data)
@@ -502,7 +837,7 @@
                     },
             function(data)
             {
-                console.log("Server responded");
+                console.log("Server responded to app.SaveTimeout");
                 showToast("Auszeit-Ort gespeichert");
                 saveTrainingProgress("t6");
             }).fail(function()
@@ -567,7 +902,7 @@
                     },
             function(data)
             {
-                console.log("Server responded");
+                console.log("Server responded to app.SavePersonData");
                 var currentPage = window.location.href.split('#')[0];
                 showToast("Daten wurden gespeichert");
                 window.location.href = currentPage + "#data-input-behavior-intro";
@@ -614,26 +949,22 @@
                 text: 'Belohnungsnachricht wird gesendet...'
             });
 
-            alert("TODO: not yet implemented!");
-            $.mobile.loading("hide");
-            return false;
+            var message = 'Belohnung erhalten: ' + $("#rewardRealLifeMessage").val();
 
-            $.getJSON("http://tnix.eu/~aspace/TrainingProgress.php",
+            $.getJSON("http://tnix.eu/~aspace/SendPushNotificationToChild.php",
                     {
                         username: window.username,
-                        action: "life"
+                        data: message,
+                        action: "reward_reallife"
                     },
             function(data)
             {
-                console.log("Server responded");
+                console.log("Server responded to app.TrainingProgress");
 
                 //$.mobile.loading("hide");
                 showToast('Belohnung gesendet');
 
-                if (customData.referral === "#communication-reward-ingame")
-                    document.location.hash = "#main-menu";
-                else
-                    document.location.hash = "#training";
+                document.location.hash = "#main-menu";
 
             }).fail(function()
             {
@@ -641,7 +972,6 @@
             }).always(function() {
                 $.mobile.loading("hide");
             });
-
 
             return false; //prevent event propagation
         }
@@ -691,14 +1021,19 @@
                 text: 'Belohnung wird gesendet...'
             });
 
-            $.getJSON("http://tnix.eu/~aspace/TrainingProgress.php",
+            var message = $("#selectedRewardText").text() + " erhalten! Ich schenke dir die Belohnung, weil ";
+            message += $("#rewardMessage").val();
+
+            $.getJSON("http://tnix.eu/~aspace/SendPushNotificationToChild.php",
                     {
                         username: window.username,
-                        action: "life"
+                        data: message,
+                        action: "reward_ingame",
+                        payload: customData.data
                     },
             function(data)
             {
-                console.log("Server responded");
+                console.log("Server responded to app.rewardInGame");
 
                 //$.mobile.loading("hide");
                 showToast('Belohnung gesendet');
@@ -851,13 +1186,14 @@
                 {
                     username: window.username,
                     action: "SaveProgress",
-                    chapter: chapterId
+                    chapter: chapterId,
+                    date: currentDate()
                 },
         function(data)
         {
             updateTrainingProgress(data);
 
-            console.log("Server responded");
+            console.log("Server responded to app.TrainingsProgress.SaveProgress");
             //alert(data.returnData);
             //$.mobile.loading("hide");
             var currentPage = window.location.href.split('#')[0];
@@ -879,17 +1215,37 @@
         $.mobile.loading('show', {
             text: 'Lade Fortschritt'
         });
-
+        /*
+         //Send Push Notification
+         $.getJSON("http://tnix.eu/~aspace/SendPushNotificationToParent.php",
+         {
+         username: window.username,
+         action: "TrainingReminder",
+         message: "Es ist eine neue Trainingseinheit verfügbar!"
+         },
+         function(data)
+         {
+         console.log("Server responded to App.loadTrainingProgress.SendPushNotificationToParent");
+         alert(data.debugInfo);
+         
+         }).fail(function()
+         {
+         alert("Die Internetverbindung ist unterbrochen. Erneut versuchen?", that);
+         }).always(function() {
+         $.mobile.loading("hide");
+         });
+         
+         */
         $.getJSON("http://tnix.eu/~aspace/TrainingProgress.php",
                 {
                     username: window.username,
-                    action: "GetProgress"
+                    action: "GetProgress",
+                    date: currentDate()
                 },
         function(data)
         {
             updateTrainingProgress(data);
-
-
+            updateDailyInputsProgress(data.dailyInputs);
 
         }).fail(function()
         {
@@ -900,36 +1256,41 @@
         var scheduledDate = new Date(new Date().getTime() + 1 * 60000);
         //alert("Scheduled: " + scheduledDate);
 
-        window.plugin.notification.local.add(
-                {
-                    id:         "TrainingAvailable",  // A unique id of the notifiction
-    date:       scheduledDate,    // This expects a date object
-    message:    "Es ist eine neue Trainingseinheit verfügbar! Tranieren Sie jetzt!",  // The message that is displayed
-    title:      "Trainingseinheit verfügbar"  // The title of the message
-  /*
-        repeat:     "yearly",  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
-    badge:      1,  // Displays number badge to notification
-    sound:      String,  // A sound to be played
-    json:       String,  // Data to be passed through the notification
-    autoCancel: Boolean, // Setting this flag and the notification is automatically canceled when the user clicks it
-    ongoing:    Boolean, // Prevent clearing of notification (Android only)
-    */
-                }
-                );
 
+
+
+
+        /*
+         window.plugin.notification.local.add(
+         {
+         id:         "TrainingAvailable",  // A unique id of the notifiction
+         date:       scheduledDate,    // This expects a date object
+         message:    "Es ist eine neue Trainingseinheit verfügbar! Tranieren Sie jetzt!",  // The message that is displayed
+         title:      "Trainingseinheit verfügbar"  // The title of the message
+         
+         repeat:     "yearly",  // Either 'secondly', 'minutely', 'hourly', 'daily', 'weekly', 'monthly' or 'yearly'
+         badge:      1,  // Displays number badge to notification
+         sound:      String,  // A sound to be played
+         json:       String,  // Data to be passed through the notification
+         autoCancel: Boolean, // Setting this flag and the notification is automatically canceled when the user clicks it
+         ongoing:    Boolean, // Prevent clearing of notification (Android only)
+         
+         }
+         );
+         */
     };
 
     updateTrainingProgress = function(data)
     {
-        console.log("Server responded");
+        console.log("Server responded to UpdateTrainingProgress");
 
         var container = "#listItemTrainingStrategie";
         var containerNA = "#listItemTrainingStrategieNA";
         var tomorrowItem = "#listDividerTomorrow";
 
-        
+
         window.waitingTime = data.waitingTime;
-        alert(window.waitingTime);
+
         if (window.waitingTime > 0)
         {
             clearInterval(window.intervalID);
@@ -937,17 +1298,17 @@
             function updateWaitingTime()
             {
                 var hours = window.waitingTime / 3600;
-                
+
                 $(tomorrowItem).text("Freischaltung in " + Math.floor(hours) + " Stunden " + Math.floor((window.waitingTime % 3600) / 60) + " Minuten");
                 window.waitingTime -= 60;
-                
+
                 if (window.waitingTime <= 0)
                 {
                     clearInterval(window.intervalID);
                     loadTrainingProgress();
                 }
             }
-            
+
             updateWaitingTime();
             window.intervalID = setInterval(updateWaitingTime, 60000);
         }
@@ -972,21 +1333,23 @@
             {
                 ++completed;
                 $(container + total).data("icon", "arrow-r").show();
-                $(imgId + key).attr("src", "img/checkbox_done.png");
+                setDoneImageForElement(imgId + key);
+
                 $(containerNA + total).hide();
             }
             else
             {
                 ++uncomplete;
-                
+
                 if (lastCompleted === true && waitingTime <= 0) //an uncompleted item
                 {
                     lastCompleted = false;
                     unfinishedCourse = true;
                     $(container + total).data("icon", "arrow-r").show();
-                    $(imgId + key).attr("src", "img/checkbox_notDone.png");
+                    setNotDoneImageForElement(imgId + key);
+
                     $(containerNA + total).hide();
-                    
+
                     //Set text
                     $(tomorrowItem).text(textAvailable + total + ". Strategie ab");
                 }
@@ -1044,13 +1407,13 @@
                     }
                 }
             }
-            
-            
+
+
         });
         console.log("Total: " + total);
         console.log("Progressbar : " + $("#progressbar").progressbar("value"));
 
-        if (uncomplete <= 1)
+        if (uncomplete < 1)
         {
             $("#training-listviewNA").hide();
             $(tomorrowItem).hide();
@@ -1072,8 +1435,40 @@
             $("#progressbarMain").progressbar('value', 0);
         }
 
-        showToast("Trainingsfortschritt aktualisiert");
+        showToast("Fortschritt aktualisiert");
     };
+
+    updateDailyInputsProgress = function(dailyInputs)
+    {
+        //Update amount daily inputs completed
+        $(".dailyInputsCompleted").text(dailyInputs.totalInputs);
+        $("#progressbarDailyInputs").progressbar('value', Math.round(33.33 * dailyInputs.totalInputs));
+
+        if (dailyInputs.dailyDuties == "1")
+            setDoneImageForElement("#imgDone_daily1");
+        else
+            setNotDoneImageForElement("#imgDone_daily1");
+
+        if (dailyInputs.benchmark == "1")
+            setDoneImageForElement("#imgDone_daily2");
+        else
+            setNotDoneImageForElement("#imgDone_daily2");
+
+        if (dailyInputs.selfControl == "1")
+            setDoneImageForElement("#imgDone_daily3");
+        else
+            setNotDoneImageForElement("#imgDone_daily3");
+    };
+
+    function setDoneImageForElement(element)
+    {
+        $(element).attr("src", "img/checkbox_done.png");
+    }
+
+    function setNotDoneImageForElement(element)
+    {
+        $(element).attr("src", "img/checkbox_notDone.png");
+    }
 
     showToast = function(message)
     {

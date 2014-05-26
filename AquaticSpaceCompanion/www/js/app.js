@@ -7,11 +7,14 @@
 
     window.currentView;
     window.dict = {};
+    window.badges = $.cookie("badges");
 
     Handlebars.registerHelper("inc", function(value, options)
     {
         return parseInt(value) + 1;
     });
+
+    
 
     Handlebars.registerHelper('ifCond', function(v1, operator, v2, options) {
 
@@ -56,7 +59,19 @@
 
     // handle APNS notifications for iOS
     onNotificationAPN = function(e) {
+        //alert("Notification received");
+        if (e.event === 'registered')
+        {
+            alert("Registering Android");
+            if (e.regid.length > 0)
+            {
 
+                // Your GCM push server needs to know the regID before it can push to this device
+                // here is where you might want to send it the regID for later use.
+                alert("regID = " + e.regid);
+                setDeviceToken(e.regid);
+            }
+        }
         if (e.hash && e.hash.length > 0)
         {
             //navigator.notification.alert("Hash: " + e.hash);
@@ -65,11 +80,11 @@
 
         if (e.alert) {
             navigator.notification.alert(
-                        e.alert, // message
-                        undefined, // callback
-                        "Nachricht", // title
-                        'Ansehen'        // buttonName
-                        );
+                    e.alert, // message
+                    undefined, // callback
+                    "Nachricht", // title
+                    'Ansehen'        // buttonName
+                    );
         }
 
         if (e.sound) {
@@ -100,7 +115,7 @@
         { // Override default HTML alert with native dialog
             window.alert = function(message, callback, title)
             {
-                var thisTitle = "Fehler";
+                var thisTitle = "Ohoh, ein Fehler...";
 
                 if (arguments.length === 3)
                 {
@@ -135,7 +150,7 @@
             if (device.platform == 'android' || device.platform == 'Android')
             {
                 alert("Registering Android Push");
-                pushNotification.register(successHandler, errorHandler, {"senderID": "661780372179", "ecb": "onNotificationGCM"});		// required!
+                pushNotification.register(successHandler, errorHandler, {"senderID": "927166403109", "ecb": "onNotificationGCM"});		// required!
             }
             else
             {
@@ -160,25 +175,34 @@
 
     function setDeviceToken(token)
     {
+        //alert("deviceToken " + token);
         $.cookie("deviceToken", token, {expires: 20 * 365, path: '/'});
         window.deviceToken = $.cookie("deviceToken");
     }
 
+    setBadges = function(badgeCount)
+    {
+        if (badgeCount)
+        {
+            window.badges = badgeCount;
+            $.cookie("badges", badgeCount, {expires: 20 * 365, path: '/'});
+            $("#badges").text(window.badges);
+        }
+    }
 
 
     // handle GCM notifications for Android
     function onNotificationGCM(e) {
-        $("#app-status-ul").append('<li>EVENT -> RECEIVED:' + e.event + '</li>');
 
         switch (e.event)
         {
             case 'registered':
                 if (e.regid.length > 0)
                 {
-                    $("#app-status-ul").append('<li>REGISTERED -> REGID:' + e.regid + "</li>");
                     // Your GCM push server needs to know the regID before it can push to this device
                     // here is where you might want to send it the regID for later use.
-                    console.log("regID = " + e.regid);
+                    alert("regID = " + e.regid);
+                    setDeviceToken(e.regid);
                 }
                 break;
 
@@ -187,7 +211,7 @@
                 // you might want to play a sound to get the user's attention, throw up a dialog, etc.
                 if (e.foreground)
                 {
-                    $("#app-status-ul").append('<li>--INLINE NOTIFICATION--' + '</li>');
+                    //  $("#app-status-ul").append('<li>--INLINE NOTIFICATION--' + '</li>');
 
                     // if the notification contains a soundname, play it.
                     var my_media = new Media("/android_asset/www/" + e.soundname);
@@ -195,22 +219,26 @@
                 }
                 else
                 {	// otherwise we were launched because the user touched a notification in the notification tray.
-                    if (e.coldstart)
-                        $("#app-status-ul").append('<li>--COLDSTART NOTIFICATION--' + '</li>');
-                    else
-                        $("#app-status-ul").append('<li>--BACKGROUND NOTIFICATION--' + '</li>');
+                    /*
+                     if (e.coldstart)
+                     $("#app-status-ul").append('<li>--COLDSTART NOTIFICATION--' + '</li>');
+                     else
+                     $("#app-status-ul").append('<li>--BACKGROUND NOTIFICATION--' + '</li>');
+                     */
                 }
 
-                $("#app-status-ul").append('<li>MESSAGE -> MSG: ' + e.payload.message + '</li>');
-                $("#app-status-ul").append('<li>MESSAGE -> MSGCNT: ' + e.payload.msgcnt + '</li>');
+                //   $("#app-status-ul").append('<li>MESSAGE -> MSG: ' + e.payload.message + '</li>');
+                //  $("#app-status-ul").append('<li>MESSAGE -> MSGCNT: ' + e.payload.msgcnt + '</li>');
                 break;
 
             case 'error':
-                $("#app-status-ul").append('<li>ERROR -> MSG:' + e.msg + '</li>');
+                alert('<li>ERROR -> MSG:' + e.msg + '</li>');
+                //   $("#app-status-ul").append('<li>ERROR -> MSG:' + e.msg + '</li>');
                 break;
 
             default:
-                $("#app-status-ul").append('<li>EVENT -> Unknown, an event was received and we do not know what it is</li>');
+                //
+                //$("#app-status-ul").append('<li>EVENT -> Unknown, an event was received and we do not know what it is</li>');
                 break;
         }
     }
@@ -325,11 +353,11 @@
         window.username = $.cookie("username");
         window.versionInfo = $.cookie("versionInfo");
 
-        var currentVersion = 0.76;
+        var currentVersion = 0.91;
 
         if (!window.versionInfo || window.versionInfo < currentVersion) //just for test purposes: delete cookies on each new version
         {
-            alert("Update erfolgreich! Danke fürs Installieren ;)");
+            alert("New version installed! Beginning from start. Thank you for testing!");
             $.cookie("username", null, {path: '/'});
             window.username = null;
             $.cookie("versionInfo", currentVersion, {expires: 20 * 365, path: '/'});
@@ -418,6 +446,7 @@
     // Start: Main Menu
     $("#main-menu").on("pagebeforecreate", function(event)
     {
+         $("#badges").text(window.badges);
         showTrainingOverview();
         initializeDailyInputsOverview();
 
@@ -501,6 +530,7 @@
 
     $("#main-menu").on("pagebeforeshow", function(event)
     {
+        
         if (document.location.hash == "#main-menu?reload=true")
         {
             loadTrainingProgress();
@@ -589,6 +619,11 @@
                     },
             function(data)
             {
+                if (data.extraInfo)
+                {
+                    setBadges(data.extraInfo);
+                }
+
                 console.log("Server responded to app.SaveInputBenchmarkData: " + data.returnCode + "; " + data.returnMessage);
                 var currentPage = window.location.href.split('#')[0];
                 window.location.href = currentPage + "#main-menu?reload=true";
@@ -629,6 +664,11 @@
                     },
             function(data)
             {
+                if (data.extraInfo)
+                {
+                    setBadges(data.extraInfo);
+                }
+
                 console.log("Server responded to daily-inputs-selfcontrol.SaveSelfControlData: " + data.returnCode + "; " + data.returnMessage);
                 var currentPage = window.location.href.split('#')[0];
                 window.location.href = currentPage + "#main-menu?reload=true";
@@ -710,7 +750,7 @@
                     return false;
                 }
             }
-            
+
             selectedMessage = "Lob erhalten: " + selectedMessage;
 
             $.getJSON("http://tnix.eu/~aspace/SendPushNotificationToChild.php",
@@ -947,7 +987,7 @@
 
                 //$.mobile.loading("hide");
                 showToast('Belohnung gesendet');
-                
+
                 document.location.hash = "#main-menu";
 
             }).fail(function()

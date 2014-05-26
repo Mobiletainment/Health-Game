@@ -284,7 +284,7 @@ module.exports.metadata =
     "com.phonegap.plugins.PushPlugin": "2.1.1",
     "com.testflightapp.cordova-plugin": "3.0.0",
     "org.apache.cordova.console": "0.2.7",
-    "org.apache.cordova.device": "0.2.8",
+    "org.apache.cordova.device": "0.2.9",
     "org.apache.cordova.device-motion": "0.2.6",
     "org.apache.cordova.device-orientation": "0.3.5",
     "org.apache.cordova.dialogs": "0.2.6",
