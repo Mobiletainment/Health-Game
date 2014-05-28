@@ -55,14 +55,15 @@ public class MoveOnTrack : MonoBehaviour
 	private int _divisor = 20000;
 
 	// The spline, the user wants to move on:
-	public SplineLine _switchSpline;
+	private SplineLine _switchSpline;
 
 	// Manage visibility of items:
-	private int[] itemVisibilityIndizes = new int[System.Enum.GetNames(typeof(PickupLine)).Length];
+	private int[] _visLineIndexNear = new int[System.Enum.GetNames(typeof(PickupLine)).Length];
+	private int[] _visLineIndexFar = new int[System.Enum.GetNames(typeof(PickupLine)).Length];
 	private float[] nextItemDistances = new float[System.Enum.GetNames(typeof(PickupLine)).Length];
-	private int _visSplineIndex = 0;
-	private int _visIndexPart = 0;
 	private float _visStepSize = 0.1f;
+	// Updated implementation...
+	private List<Transform> _allPickups;
 
 	[HideInInspector]
 	private RuleConfig _ruleConfig; // RuleConfig is set by PickupManager in Start.
@@ -76,6 +77,11 @@ public class MoveOnTrack : MonoBehaviour
 	{
 		get { return _track; }
 		private set { _track = value; }
+	}
+
+	public PickupManager GetPickupManager()
+	{
+		return _puManager;
 	}
 
 //	public int curLevel = 0; // REMOVE THAT AFTER TESTING!
@@ -116,6 +122,10 @@ public class MoveOnTrack : MonoBehaviour
 		// Init PickupManager:
 		_puManager.InitPickups(_track);
 
+		// Set the maximum score for the LevelInfo (Points & Rating)
+//		_levelInfo.SetMaxScore(_puManager.GoodItemAmount);
+//		Debug.Log ("Max Score was set to " + _puManager.GoodItemAmount);
+
 		// Init Controlpoints for current spline:
 		_points = _track.splineContainer.GetSpline(_spline);
 		
@@ -153,7 +163,7 @@ public class MoveOnTrack : MonoBehaviour
 			foreach(PickupManager.PickupLev levItem in pickupLine.Value)
 			{
 				Color tempCol = levItem.Pickup.renderer.material.color;
-				tempCol.a = _pickupDefaultAlpha;
+				tempCol.a = 0.0f;
 				levItem.Pickup.renderer.material.color = tempCol;
 			}
 		}
@@ -165,7 +175,11 @@ public class MoveOnTrack : MonoBehaviour
 		}
 		// Calculate the first -skill-distance- for normal visibility:
 		float visStartDist = _visStepSize * _skillVisibility;
-		MoveVisLineForDist(visStartDist);
+//		MoveVisLineForDist(visStartDist);
+		UpdatePickupVisibility(visStartDist, visStartDist * 2.0f); // TODO: FarDist
+
+		// Initialize pickup list:
+
 	}
 	
 	// Update is called once per frame
@@ -237,7 +251,8 @@ public class MoveOnTrack : MonoBehaviour
 			}
 
 			// Update Pickup Visibility:
-			MoveVisLineForDist(_curSpeed * Time.deltaTime);
+//			MoveVisLineForDist(_curSpeed * Time.deltaTime);
+			UpdatePickupVisibility(_visStepSize * _skillVisibility, _visStepSize * _skillVisibility * 2.0f);
 
 			// Update Object Position:
 			_lastPos = _nextPos;
@@ -250,11 +265,17 @@ public class MoveOnTrack : MonoBehaviour
 
 			// Update Rotations:
 			Vector3 curDir = _nextPos - _lastPos;
-			Quaternion nextObjRot = Quaternion.Slerp(_moveObject.rotation, Quaternion.LookRotation(curDir), 0.1f);
-			_moveObject.rotation = nextObjRot;
-			// Camera Rotation:
-			Quaternion nextCamRot = Quaternion.Slerp(_camMover.rotation, Quaternion.LookRotation(curDir), 0.1f);
-			_camMover.rotation = nextCamRot;
+//			Debug.Log ("1"+_moveObject.rotation);
+//			Debug.Log ("2"+Quaternion.LookRotation(curDir));
+			if(curDir != Vector3.zero)
+			{
+				Quaternion nextObjRot = Quaternion.Slerp(_moveObject.rotation, Quaternion.LookRotation(curDir), 0.1f);
+				_moveObject.rotation = nextObjRot;
+			
+				// Camera Rotation:
+				Quaternion nextCamRot = Quaternion.Slerp(_camMover.rotation, Quaternion.LookRotation(curDir), 0.1f);
+				_camMover.rotation = nextCamRot;
+			}
 
 			if(_switchSpline != _spline)
 			{
@@ -330,11 +351,11 @@ public class MoveOnTrack : MonoBehaviour
 			if(indexPart > _divisor) indexPart = _divisor;
 
 			// Lower the Speed to zero, if the end of the track is reached...
-			if(splineIndex > points.Count - 4)
-			{
-				StartCoroutine(SpeedChange(0.0f, 1.0f, true));
-				// TODO: EndSequence of level can be started here!
-			}
+//			if(splineIndex > points.Count - 4)
+//			{
+//				StartCoroutine(SpeedChange(0.0f, 1.0f, true));
+//				// TODO: EndSequence of level can be started here!
+//			}
 
 			Vector3 pos = GetPosOnSpline(splineIndex, (float)indexPart/(float)_divisor, points);
 			curDist += Vector3.Distance(nextPos, pos);
@@ -462,53 +483,159 @@ public class MoveOnTrack : MonoBehaviour
 		return false;
 	}
 
-	// TODO: This seems to have a bug! (Items get visible to early.)
-	private void MoveVisLineForDist(float dist)
+	// TODO: Optimize this algorithm. Currently, it is checking the distance between avatar and every other
+	// pickup. It would be better to only check these, that are close -> Find optimization!
+	private void UpdatePickupVisibility(float distNear, float distFar)
 	{
-		float checkedDist = 0;
-		Vector3 checkPos = GetPosOnSpline(_visSplineIndex, (float)_visIndexPart/(float)_divisor, _track.splineContainer.GetSpline(SplineLine.CENTER));
-		Dictionary<PickupLine, List<PickupElementVec3>> pickupLines = _track.pickupContainer.GetLineDict();
+		Vector3 leftPoint3 = GetPosOnSpline(_splineIndex, (float)_indexPart / (float)_divisor, _track.splineContainer.GetSpline(SplineLine.LEFT5));
+		Vector3 rightPoint3 = GetPosOnSpline(_splineIndex, (float)_indexPart / (float)_divisor, _track.splineContainer.GetSpline(SplineLine.RIGHT5));
+		Vector2 leftPoint = new Vector2(leftPoint3.x, leftPoint3.z);
+		Vector2 rightPoint = new Vector2(rightPoint3.x, rightPoint3.z);
 
-		while(checkedDist < dist)
+		PickupContainer<PickupManager.PickupLev> allPickups = _puManager.GetPickups();
+
+		for(int line = (int)_leftMaxSpline; line <= (int)_rightMaxSpline; ++line)
 		{
-			Vector3 curSplinePos = GetPosOnSpline(_visSplineIndex, (float)_visIndexPart/(float)_divisor, _track.splineContainer.GetSpline(SplineLine.LEFT5));
-//			Vector3 curRightPos = GetPosOnSpline(_visSplineIndex, (float)_visIndexPart/(float)_divisor, _track.splineContainer.GetSpline(SplineLine.RIGHT5));
+			List<PickupManager.PickupLev> linePickups = allPickups.GetLine((PickupLine)line);
 
-			foreach(KeyValuePair<PickupLine, List<PickupElementVec3>> pickupLine in pickupLines)
+//			_visLineIndex[line] = 0; // TODO: This should not be neccessary... (optimization reset.)
+
+//			for(; _visLineIndex[line] < linePickups.Count; _visLineIndex[line]++)
+//			{
+//				if(_visLineIndexNear[line] >= linePickups.Count)
+//				{
+//					// No next pickup items available on this line.
+////					break;
+//					continue;
+//				}
+			if(_visLineIndexNear[line] < linePickups.Count)
 			{
-				int tempIndex = (int)pickupLine.Key;
-				
-				if(itemVisibilityIndizes[tempIndex] >= pickupLine.Value.Count)
+
+				Transform pickup = linePickups[_visLineIndexNear[line]].Pickup;
+
+				// HACK: Also calc distance between avatar and pickup item (to check, if items are irrelevant for the triangle-method):
+				float airLine = (_moveObject.position - pickup.position).magnitude;
+				if(airLine <= (distNear * 1.3f))
 				{
-					// All items on this line done...
-					continue;
-				}
-				
-				Vector3 curPickupPos = pickupLine.Value[itemVisibilityIndizes[tempIndex]].position;
-//				float tempDist = Vector3.Distance(curLeftPos, curPickupPos) + Vector3.Distance(curRightPos, curPickupPos);
-				float tempDist = Vector3.Distance(curSplinePos, curPickupPos);
-				
-				if(nextItemDistances[tempIndex] > tempDist)
-				{
-					nextItemDistances[tempIndex] = tempDist;
-				}
-				else
-				{
-					// Change visibility (transparency) of the items, that are in the closer distance:
-					Transform curTrans = _puManager.GetPickups().GetLine(pickupLine.Key)[itemVisibilityIndizes[tempIndex]].Pickup;
-					StartCoroutine(ChangePickupVisability(curTrans, _visSwitchTime));
+					Vector2 topPoint = new Vector2(pickup.position.x, pickup.position.z);
 					
-					itemVisibilityIndizes[tempIndex]++;
-					nextItemDistances[tempIndex] = float.MaxValue;
+					float straightDist = GetStraightDistance(leftPoint, rightPoint, topPoint);
+
+					if(straightDist <= distNear)
+					{
+						StartCoroutine(ChangePickupVisability(pickup, _visSwitchTime));
+						//						Debug.Log ("heightC: " + heightC, pickup);
+						_visLineIndexNear[line]++;
+					}
 				}
 			}
-			// This distance calculation is not perfect, but it's doing its job for the moment...
-			float nextStep = (_visStepSize > dist ? dist : _visStepSize);
-			Vector3 nextPos = GetNextStepOnSpline(SplineLine.CENTER, ref _visSplineIndex, ref _visIndexPart, nextStep);
-			checkedDist += Vector3.Distance(nextPos, checkPos);
-			checkPos = nextPos;
+			if(_visLineIndexFar[line] < linePickups.Count)
+			{
+				Transform pickup = linePickups[_visLineIndexFar[line]].Pickup;
+
+				// HACK: Also calc distance between avatar and pickup item (to check, if items are irrelevant for the triangle-method):
+				float airLine = (_moveObject.position - pickup.position).magnitude;
+				if(airLine <= (distFar * 1.3f))
+				{
+					Vector2 topPoint = new Vector2(pickup.position.x, pickup.position.z);
+					
+					float straightDist = GetStraightDistance(leftPoint, rightPoint, topPoint);
+
+					if(straightDist <= distFar)
+					{
+						// Update Visablity for Far-Distance
+						StartCoroutine(StartPickupSemiVisability(pickup, _visSwitchTime));
+						
+						_visLineIndexFar[line]++;
+					}
+				}
+			}
+
+//					if(heightC <= distFar && heightC > distNear && airLine < (distFar * 2f))
+//					{
+//						// Update Visablity for Far-Distance
+//						StartCoroutine(StartPickupSemiVisability(pickup, _visSwitchTime));
+//
+////						_visLineIndex[line]++;
+//					}
+//					else if(heightC <= distNear && airLine < (distNear * 2f))
+//					{
+//						StartCoroutine(ChangePickupVisability(pickup, _visSwitchTime));
+////						Debug.Log ("heightC: " + heightC, pickup);
+//						_visLineIndexNear[line]++;
+//					}
+//					else
+//					{
+//						// All other items on this line are far away...
+//						done = true; // TODO: This does NOT work as optimazation... Seems to have the wrong order in the pickup container lists...
+//					}
+//				}
+//			}
 		}
 	}
+
+	private float GetStraightDistance(Vector2 leftPoint, Vector2 rightPoint, Vector2 topPoint)
+	{
+		// Calculating the straight distance from the avatar to the pickup by triangulating it and using the triangles hight.
+		float lenA = (rightPoint - topPoint).magnitude;
+		float lenB = (leftPoint - topPoint).magnitude;
+		float lenC = (leftPoint - rightPoint).magnitude;
+		float semiperimeter = (lenA + lenB + lenC) / 2.0f;
+		
+		float discriminant = semiperimeter * (semiperimeter - lenA) * (semiperimeter - lenB) * (semiperimeter - lenC);
+		if(discriminant < 0.0f) discriminant *= -1.0f; // Discriminant must be positive!
+		float heightC = (2.0f / lenC) * Mathf.Sqrt(discriminant);
+
+		return heightC;
+	}
+	
+	//	// TO DO: This seems to have a bug! (Items get visible to early.)
+//	private void MoveVisLineForDist(float dist)
+//	{
+//		float checkedDist = 0;
+//		Vector3 checkPos = GetPosOnSpline(_visSplineIndex, (float)_visIndexPart/(float)_divisor, _track.splineContainer.GetSpline(SplineLine.CENTER));
+//		Dictionary<PickupLine, List<PickupElementVec3>> pickupLines = _track.pickupContainer.GetLineDict();
+//
+//		while(checkedDist < dist)
+//		{
+//			Vector3 curSplinePos = GetPosOnSpline(_visSplineIndex, (float)_visIndexPart/(float)_divisor, _track.splineContainer.GetSpline(SplineLine.LEFT5));
+////			Vector3 curRightPos = GetPosOnSpline(_visSplineIndex, (float)_visIndexPart/(float)_divisor, _track.splineContainer.GetSpline(SplineLine.RIGHT5));
+//
+//			foreach(KeyValuePair<PickupLine, List<PickupElementVec3>> pickupLine in pickupLines)
+//			{
+//				int tempIndex = (int)pickupLine.Key;
+//				
+//				if(itemVisibilityIndizes[tempIndex] >= pickupLine.Value.Count)
+//				{
+//					// All items on this line done...
+//					continue;
+//				}
+//				
+//				Vector3 curPickupPos = pickupLine.Value[itemVisibilityIndizes[tempIndex]].position;
+////				float tempDist = Vector3.Distance(curLeftPos, curPickupPos) + Vector3.Distance(curRightPos, curPickupPos);
+//				float tempDist = Vector3.Distance(curSplinePos, curPickupPos);
+//				
+//				if(nextItemDistances[tempIndex] > tempDist)
+//				{
+//					nextItemDistances[tempIndex] = tempDist;
+//				}
+//				else
+//				{
+//					// Change visibility (transparency) of the items, that are in the closer distance:
+//					Transform curTrans = _puManager.GetPickups().GetLine(pickupLine.Key)[itemVisibilityIndizes[tempIndex]].Pickup;
+//					StartCoroutine(ChangePickupVisability(curTrans, _visSwitchTime));
+//					
+//					itemVisibilityIndizes[tempIndex]++;
+//					nextItemDistances[tempIndex] = float.MaxValue;
+//				}
+//			}
+//			// This distance calculation is not perfect, but it's doing its job for the moment...
+//			float nextStep = (_visStepSize > dist ? dist : _visStepSize);
+//			Vector3 nextPos = GetNextStepOnSpline(SplineLine.CENTER, ref _visSplineIndex, ref _visIndexPart, nextStep);
+//			checkedDist += Vector3.Distance(nextPos, checkPos);
+//			checkPos = nextPos;
+//		}
+//	}
 
 	// Changes transparency and color to full visibility:
 	private IEnumerator ChangePickupVisability(Transform item, float changeTime)
@@ -526,7 +653,25 @@ public class MoveOnTrack : MonoBehaviour
 			curTime += Time.deltaTime;
 
 			Color tempCol = Color.Lerp(startColor, aimColor, colorCurve.Evaluate(curTime));
-//			Color tempCol = item.renderer.material.color;
+			tempCol.a = curve.Evaluate(curTime);
+			item.renderer.material.color = tempCol;
+
+			yield return new WaitForSeconds(Time.deltaTime);
+		}
+	}
+
+	// Changes pickup from invisible to black and half transparency:
+	private IEnumerator StartPickupSemiVisability(Transform item, float changeTime)
+	{
+		float startAlpha = item.renderer.material.color.a;
+		AnimationCurve curve = new AnimationCurve(new Keyframe(0, startAlpha), new Keyframe(changeTime, _pickupDefaultAlpha));
+		float curTime = 0.0f;
+		
+		while(curTime < changeTime)
+		{
+			curTime += Time.deltaTime;
+
+			Color tempCol = item.renderer.material.color;
 			tempCol.a = curve.Evaluate(curTime);
 			item.renderer.material.color = tempCol;
 
@@ -565,7 +710,7 @@ public class MoveOnTrack : MonoBehaviour
 	{
 		_stopMovement = true;
 
-		_finalPointsDisplay.ShowFinalPoints(_levelInfo, _skillManager);
+		_finalPointsDisplay.ShowFinalPoints(_levelInfo, _skillManager, _puManager.GoodItemAmount);
 	}
 
 	public void TriggerPause(bool enable)

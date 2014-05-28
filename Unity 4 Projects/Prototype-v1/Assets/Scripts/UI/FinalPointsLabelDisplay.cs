@@ -10,7 +10,7 @@ public class FinalPointsLabelDisplay : MonoBehaviour
 //	private RulesSwitcher _rulesSwitcher;
 	public InGameUIController _uiController;
 
-	public void ShowFinalPoints(LevelInfo levelInfo, SkillManager sm)
+	public void ShowFinalPoints(LevelInfo levelInfo, SkillManager sm, int maxPoints)
 	{
 //		_rulesSwitcher = GameObject.Find("Rule Switcher").GetComponent<RulesSwitcher>();
 //
@@ -20,7 +20,7 @@ public class FinalPointsLabelDisplay : MonoBehaviour
 //		}
 
 		int points = _uiController.Score;
-		LevelInfo.Rating rating = levelInfo.GetRating(points);
+		LevelInfo.Rating rating = levelInfo.GetRating(points, maxPoints);
 
 		_points.text = "Points: " + points;
 		_medal.text = "Medal: " + rating.ToString(); // TODO: Visualize as Graphic!

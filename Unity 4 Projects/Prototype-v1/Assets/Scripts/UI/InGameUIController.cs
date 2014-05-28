@@ -26,51 +26,67 @@ public class InGameUIController : MonoBehaviour
 	
 	}
 
-	public void UpdateScore(LevelInfo levelInfo, int i = 1)
+	public void UpdateScore(LevelInfo levelInfo, int maxPoints, int i = 1)
 	{
 		Score = Score + i;
 		
 		if (Score < 0) // avoid negative score
 			Score = 0;
 
-		LevelInfo.Rating rating = levelInfo.GetRating(Score);
+		LevelInfo.Rating rating = levelInfo.GetRating(Score, maxPoints);
+		float ratingPercent = levelInfo.GetRatingInPercent(Score);
 
-		// TODO: Show Medals for current rank as image!
+		// TODO: Show Medals for current rank as image! (Currently german hardcoded text!)
 
+		if(ratingPercent < 1.0f)
+		{
+	        switch (rating)
+	        {
+	            case LevelInfo.Rating.NEGATIVE:
+	                _scoreDescription.text = "KEINE MEDAILLE";
+	                break;
+	            case LevelInfo.Rating.SILVER:
+	                _scoreDescription.text = "SILBER";
+	                break;
+	            default:
+	                _scoreDescription.text = rating.ToString(); // DEBUG ONLY
+	                break;
+	        }
+		}
+		else
+		{
+			_scoreDescription.text = "PERFEKT";
+		}
 
-        switch (rating)
-        {
-            case LevelInfo.Rating.NEGATIVE:
-                _scoreDescription.text = "KEINE MEDAILLE";
-                break;
-            case LevelInfo.Rating.SILVER:
-                _scoreDescription.text = "SILBER";
-                break;
-            default:
-                _scoreDescription.text = rating.ToString(); // DEBUG ONLY
-                break;
-        }
 		
-		int lowerBorder = 0, upperBorder = 0;
-		float fillPercentage = 1.0f;
+		float lowerBorder = 0, upperBorder = 0;
+		float fillPercentage = 1.0f; // GOLD
+		float totalPercentage = levelInfo.GetRatingInPercent(Score);
 
-		if(rating == LevelInfo.Rating.NEGATIVE)
+		if(rating == LevelInfo.Rating.NEGATIVE) // NEGATIVE
 		{
 			lowerBorder = 0;
-			upperBorder = levelInfo.NecessaryPositiveItemCount[0];
+			upperBorder = levelInfo.GetNecessaryPositiveItemPercent(0);
 
-			fillPercentage = (float)Score / (float)upperBorder;
+			fillPercentage = totalPercentage / upperBorder;
 			Debug.Log ("InGameUI: rating currently negative!");
 		}
-		else if(rating < LevelInfo.Rating.GOLD)
+		else if(rating < LevelInfo.Rating.GOLD) // BRONZE, SILVER
 		{
-			lowerBorder = levelInfo.NecessaryPositiveItemCount[(int)rating];
-			upperBorder = levelInfo.NecessaryPositiveItemCount[((int)rating) + 1];
+			lowerBorder = levelInfo.GetNecessaryPositiveItemPercent((int)rating);
+			upperBorder = levelInfo.GetNecessaryPositiveItemPercent(((int)rating) + 1);
 
-			fillPercentage = (float)(Score - lowerBorder) / (float)(upperBorder - lowerBorder);
+			fillPercentage = (totalPercentage - lowerBorder) / (upperBorder - lowerBorder);
+		}
+		else if(rating == LevelInfo.Rating.GOLD) // GOLD
+		{
+			lowerBorder = levelInfo.GetNecessaryPositiveItemPercent((int)rating);
+			upperBorder = 1.0f;
+			
+			fillPercentage = (totalPercentage - lowerBorder) / (upperBorder - lowerBorder);
 		}
 
-		Debug.Log ("Percentage: " + fillPercentage);
+		Debug.Log ("Total Percentage: " + totalPercentage + ", Fillup Percentage: " + fillPercentage);
 		FillupScore(fillPercentage);
 	}
 

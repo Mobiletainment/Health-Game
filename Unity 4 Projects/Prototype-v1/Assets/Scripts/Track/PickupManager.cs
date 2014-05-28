@@ -40,6 +40,9 @@ public class PickupManager : MonoBehaviour
 
 	public RuleConfig _ruleConfig;
 
+	[System.ComponentModel.DefaultValue(0)]
+	public int GoodItemAmount { get; private set; }
+	
 	private MoveOnTrack _moveOnTrackInstance = null;
 
 	private PickupContainer<PickupLev> _pickups = new PickupContainer<PickupLev>();
@@ -82,28 +85,55 @@ public class PickupManager : MonoBehaviour
 		// Parent object for all pickups:
 		GameObject itemContainer = new GameObject();
 		itemContainer.name = "ItemContainer";
+		int itemCount = 1;
+
+		TrackRule curTrackRule = null;
 		
 		// Initialize good and bad pickups: (TODO: This is random only, if the player is especially lucky, he will only gain bad items...)
-		foreach(KeyValuePair<PickupLine, List<PickupElementVec3>> pickupLine in _track.pickupContainer.GetLineDict())
+		// TODO: An item is also called a good one, if it is for the right arm, but it is on the very left side, so it's uncollectable. (Not nice)
+		foreach(CleanTrackPartData trackPart in _track.cleanTrackParts)
 		{
-			foreach(PickupElementVec3 pickup in pickupLine.Value)
+			// Set current rule:
+			if(trackPart.isRule)
 			{
-				// Create random item:
-				PickupInfo.Shape shape = (PickupInfo.Shape)Random.Range(0, 2); // 0-1 (min inclusive, max exclusive)
-				PickupInfo.Color color = (PickupInfo.Color)Random.Range(0, 2); // 0-1 (min inclusive, max exclusive)
-				
-				GameObject item = Instantiate(_ruleConfig.GetPickupShape(shape).gameObject, pickup.position, pickup.rotation) as GameObject;
-				PickupInfo pickupItem = item.AddComponent<PickupInfo>();
-				pickupItem.Initialize(shape, color);
-				item.transform.rotation *= _ruleConfig.GetPickupShape(shape).localRotation;
-				item.transform.parent = itemContainer.transform;
-				item.renderer.material.color = Color.black; // _ruleConfig.GetPickupColor(color);
-				
-				// Add items to the pickup-list:
-				PickupLev pickupLevitation = new PickupLev(item.transform);
-//				pickupLevitation.CurTime = Random.Range(0.0f, 1.0f);
-				pickupLevitation.CurTime = 0.0f;
-				_pickups.GetLine(pickupLine.Key).Add(pickupLevitation);
+				if(curTrackRule == null)
+				{
+					curTrackRule = _track.firstRule;
+				}
+				else
+				{
+					curTrackRule = curTrackRule._nextRule;
+				}
+			}
+
+			foreach(KeyValuePair<PickupLine, List<PickupElementVec3>> pickupLine in trackPart.pickupContainer.GetLineDict())
+			{
+				foreach(PickupElementVec3 pickup in pickupLine.Value)
+				{
+					// Create random item:
+					PickupInfo.Shape shape = (PickupInfo.Shape)Random.Range(0, 2); // 0-1 (min inclusive, max exclusive)
+					PickupInfo.Color color = (PickupInfo.Color)Random.Range(0, 2); // 0-1 (min inclusive, max exclusive)
+
+					GameObject item = Instantiate(_ruleConfig.GetPickupShape(shape).gameObject, pickup.position, pickup.rotation) as GameObject;
+					PickupInfo pickupItem = item.AddComponent<PickupInfo>();
+					pickupItem.Initialize(shape, color);
+					item.transform.rotation *= _ruleConfig.GetPickupShape(shape).localRotation;
+					item.transform.parent = itemContainer.transform;
+					item.renderer.material.color = Color.black; // _ruleConfig.GetPickupColor(color);
+					item.name = (itemCount++) + "_" + item.name;
+
+					if(curTrackRule._leftRule.CheckRule(pickupItem) | curTrackRule._rightRule.CheckRule(pickupItem))
+					{
+						// This is a good item:
+						GoodItemAmount++;
+					}
+					
+					// Add items to the pickup-list:
+					PickupLev pickupLevitation = new PickupLev(item.transform);
+//					pickupLevitation.CurTime = Random.Range(0.0f, 1.0f);
+					pickupLevitation.CurTime = 0.0f;
+					_pickups.GetLine(pickupLine.Key).Add(pickupLevitation);
+				}
 			}
 		}
 	}
@@ -117,7 +147,7 @@ public class PickupManager : MonoBehaviour
 	{
 		if(!_isInitialized)
 		{
-			Debug.Log("Error: No PickupManager initialization has been done!");
+			Debug.LogError("Error: No PickupManager initialization has been done!");
 			return;
 		}
 

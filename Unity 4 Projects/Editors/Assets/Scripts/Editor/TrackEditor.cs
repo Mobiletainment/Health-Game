@@ -174,6 +174,10 @@ public class TrackEditor : Editor
 		{
 			EditorInPickupMode();
 		}
+		else if(_data.editorMode == MasterTrackScript.Mode.RULE)
+		{
+			EditorInRuleMode();
+		}
 		else if(_data.editorMode == MasterTrackScript.Mode.SAVE)
 		{
 			EditorInSaveMode();
@@ -336,6 +340,38 @@ public class TrackEditor : Editor
 			_data.editorMode = MasterTrackScript.Mode.PICKUP;
 
 			RefreshPickupRGColors();
+		}
+
+		if(GUILayout.Button("Enter Rule-Switch-Mode..."))
+		{
+			_data.editorMode = MasterTrackScript.Mode.RULE;
+
+			if(_data.arrowAsset == null)
+			{
+				Debug.LogWarning("No Asset for an Arrow (Erase / Insert) has been set.\n" +
+				                 "Look into the Editor-Configuration to fix this issue.");
+			}
+			
+			// Initialze the Arrows:
+			_data.changeArrowContainer = new GameObject("ArrowContainer");
+			
+			foreach(TrackPartScript part in _data.currentTrackParts)
+			{
+				CreateRuleArrow(part, _data);
+			}
+
+			// Make those, that are rules, yellow:
+			Material matYellow = new Material(_data.currentTrackParts[0].ReferenceObjectStart.renderer.sharedMaterial);
+			matYellow.color = Color.yellow;
+			foreach(Transform arrow in _data.changeArrowContainer.transform)
+			{
+				RuleArrowScript ras = arrow.GetComponent<RuleArrowScript>();
+				if(ras.trackPart.IsRule)
+				{
+//					Debug.Log ("Changed color");
+					arrow.renderer.sharedMaterial = matYellow;
+				}
+			}
 		}
 
 		if(GUILayout.Button("Save or Load Track..."))
@@ -592,6 +628,19 @@ public class TrackEditor : Editor
 			}
 		}
 	}
+
+	public void EditorInRuleMode()
+	{
+		if(GUILayout.Button("Leave Rule-Switch-Mode"))
+		{
+			//Undo.RegisterSceneUndo("Enter Normal Mode");
+			
+			_data.editorMode = MasterTrackScript.Mode.NORMAL;
+			
+			DestroyImmediate(_data.changeArrowContainer);
+			_data.changeArrowContainer = null;
+		}
+	}
 	
 	public void EditorInSaveMode()
 	{
@@ -716,36 +765,83 @@ public class TrackEditor : Editor
 				// Add the Clean-Data Script to add Spline information:
 				CleanTrackData cleanData = copyObj.AddComponent<CleanTrackData>();
 
+				for(int i = 0; i < copy.currentTrackParts.Count; ++i)
+				{
+					TrackPartScript tps = copy.currentTrackParts[i];
+
+					// Add the reference to the plane:
+					cleanData.splinePlanes.Add(tps.ReferenceObjectPlane.transform);
+
+					// Make TrackPart to cleanTrackPart:
+					CleanTrackPartData cleanTrackPart = tps.gameObject.AddComponent<CleanTrackPartData>();
+
+					// Is this trackPart a Rule?
+					if(tps.IsRule)
+					{
+						cleanTrackPart.isRule = tps.IsRule;
+						cleanTrackPart.extraPosition = tps.ReferenceObjectStart.transform.position;
+						cleanTrackPart.extraRotation = tps.ReferenceObjectStart.transform.rotation;
+					}
+					// Or is it the last trackPart (-> finishLine)
+					else if(i == copy.currentTrackParts.Count - 1)
+					{
+						cleanTrackPart.isFinishLine = true;
+						cleanTrackPart.extraPosition = tps.ReferenceObjectStart.transform.position;
+						cleanTrackPart.extraRotation = tps.ReferenceObjectStart.transform.rotation;
+					}
+					
+					// Add all active Pickups to the Clean-Data script (Vector3-Based):
+					PickupContainerTrans pickups = tps.GetPickupContainer();
+					foreach(KeyValuePair<PickupLine, List<PickupElementTrans>> entry in pickups.GetLineDict())
+					{
+						List<PickupElementVec3> pickupList = cleanTrackPart.pickupContainer.GetLine(entry.Key);
+						// The pickupList (Reference) is currently empty -> Fill it up:
+						foreach(PickupElementTrans pickupElement in entry.Value)
+						{
+							// Only add active ones!
+							if(pickupElement.active)
+							{
+								PickupElementVec3 tempElement = new PickupElementVec3();
+								tempElement.active = pickupElement.active;
+								tempElement.position = pickupElement.position.position;
+								tempElement.rotation = pickupElement.position.rotation;
+								pickupList.Add(tempElement);
+							}
+						}
+					}
+					
+					// Add the reference to the TrackPart:
+					cleanData.cleanTrackParts.Add(cleanTrackPart);
+
+					// Destroy everything, that isn't needed in the clean prefab:
+					DestroyImmediate(tps.ReferenceObjectStart);
+					DestroyImmediate(tps.ReferenceObjectEnd);
+					DestroyImmediate(tps.ReferenceObjectSpline);
+					DestroyImmediate(tps.ReferenceObjectPickup);
+					DestroyImmediate(tps.ReferenceObjectEnvironment);
+				}
+
+				// Remove the Editor-Script of all parts:
 				foreach(Transform trackPart in copy.transform)
 				{
 					TrackPartScript tps = trackPart.GetComponent<TrackPartScript>();
 					// Check, if the item is realy a TPS:
 					if(tps != null)
 					{
-						// Add the reference to the plane:
-						cleanData.splinePlanes.Add(tps.ReferenceObjectPlane.transform);
-
-						// Destroy everything, that isn't needed in the clean prefab:
-						DestroyImmediate(tps.ReferenceObjectStart);
-						DestroyImmediate(tps.ReferenceObjectEnd);
-						DestroyImmediate(tps.ReferenceObjectSpline);
-						DestroyImmediate(tps.ReferenceObjectPickup);
-						DestroyImmediate(tps.ReferenceObjectEnvironment);
-
 						DestroyImmediate(trackPart.GetComponent<TrackPartScript>());
 					}
 				}
 
-				// Remove the Editor-Script:
+				// Remove the Master Editor-Script:
 				DestroyImmediate(copyObj.GetComponent<MasterTrackScript>());
 
-				// Gather all information and get the full spline & all Pickups (Transform-Based):
+				// Gather all information and get the full spline --& all Pickups-- (Transform-Based):
 				SplineContainerTrans fullSpline = new SplineContainerTrans();
-				PickupContainerTrans allPickups = new PickupContainerTrans();
+//				PickupContainerTrans allPickups = new PickupContainerTrans();
 				foreach(TrackPartScript trackPart in _data.currentTrackParts)
 				{
 					fullSpline.AddSplineContainer(trackPart.GetSplineContainer());
-					allPickups.AddPickupContainer(trackPart.GetPickupContainer());
+//					allPickups.AddPickupContainer(trackPart.GetPickupContainer());
 				}
 
 				// Add the controlPoints of all TrackParts to the Clean-Data script (Vector3-Based):
@@ -758,23 +854,23 @@ public class TrackEditor : Editor
 					}
 				}
 
-				// Add all active Pickups to the Clean-Data script (Vector3-Based):
-				foreach(KeyValuePair<PickupLine, List<PickupElementTrans>> entry in allPickups.GetLineDict())
-				{
-					List<PickupElementVec3> pickupList = cleanData.pickupContainer.GetLine(entry.Key);
-					foreach(PickupElementTrans pickupElement in entry.Value)
-					{
-						// Only add active ones!
-						if(pickupElement.active)
-						{
-							PickupElementVec3 tempElement = new PickupElementVec3();
-							tempElement.active = pickupElement.active;
-							tempElement.position = pickupElement.position.position;
-							tempElement.rotation = pickupElement.position.rotation;
-							pickupList.Add(tempElement);
-						}
-					}
-				}
+//				// Add all active Pickups to the Clean-Data script (Vector3-Based):
+//				foreach(KeyValuePair<PickupLine, List<PickupElementTrans>> entry in allPickups.GetLineDict())
+//				{
+//					List<PickupElementVec3> pickupList = cleanData.pickupContainer.GetLine(entry.Key);
+//					foreach(PickupElementTrans pickupElement in entry.Value)
+//					{
+//						// Only add active ones!
+//						if(pickupElement.active)
+//						{
+//							PickupElementVec3 tempElement = new PickupElementVec3();
+//							tempElement.active = pickupElement.active;
+//							tempElement.position = pickupElement.position.position;
+//							tempElement.rotation = pickupElement.position.rotation;
+//							pickupList.Add(tempElement);
+//						}
+//					}
+//				}
 
 				// Copy is clean, create the prefab:
 				// TODO: Hardcoded Path -> Make it configureable (instead of "Assets/Resources/Prefabs/SavedTracks/")
@@ -907,6 +1003,25 @@ public class TrackEditor : Editor
 	
 	public static void CreateInsertionArrow(TrackPartScript trackPart, MasterTrackScript trackReference)
 	{
+		GameObject arrow = CreateEmptyArrow(trackPart, trackReference, Color.green);
+
+		InsertArrowScript insertArrow = arrow.AddComponent<InsertArrowScript>();
+		insertArrow.trackPart = trackPart;
+		insertArrow.trackReference = trackReference;
+	}
+
+	public static void CreateRuleArrow(TrackPartScript trackPart, MasterTrackScript trackReference)
+	{
+		GameObject arrow = CreateEmptyArrow(trackPart, trackReference, Color.blue);
+
+		RuleArrowScript ruleArrow = arrow.AddComponent<RuleArrowScript>();
+		ruleArrow.trackPart = trackPart;
+		ruleArrow.trackReference = trackReference;
+	}
+
+	// Creates an arrow over the ReferenceObjectStart position:
+	public static GameObject CreateEmptyArrow(TrackPartScript trackPart, MasterTrackScript trackReference, Color color)
+	{
 		GameObject arrow = null;
 		
 		if(trackReference.arrowAsset != null)
@@ -923,12 +1038,10 @@ public class TrackEditor : Editor
 			arrow.transform.position = trackPart.ReferenceObjectStart.transform.position + Vector3.up;
 		}
 		
-		InsertArrowScript insertArrow = arrow.AddComponent<InsertArrowScript>();
-		insertArrow.trackPart = trackPart;
-		insertArrow.trackReference = trackReference;
-		
-		insertArrow.gameObject.renderer.sharedMaterial.color = Color.green;
-		insertArrow.transform.parent = trackReference.changeArrowContainer.transform;
+		arrow.renderer.sharedMaterial.color = color;
+		arrow.transform.parent = trackReference.changeArrowContainer.transform;
+
+		return arrow;
 	}
 
 	private void ManageSplines(bool showSplines)

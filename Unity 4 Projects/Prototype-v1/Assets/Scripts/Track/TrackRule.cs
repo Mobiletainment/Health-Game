@@ -113,3 +113,9 @@ public class TrackRule : MonoBehaviour
 		}
 	}
 }
+
+public partial class CleanTrackData : MonoBehaviour 
+{
+	// The first rule for this track. (All other can be get via the linked rule system -> _nextRule)
+	public TrackRule firstRule;
+}

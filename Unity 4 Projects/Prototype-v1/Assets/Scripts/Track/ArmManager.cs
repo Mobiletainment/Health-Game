@@ -72,7 +72,7 @@ public class ArmManager : MonoBehaviour
 	public void UpdateScore()
 	{
 		Debug.Log ("ArmManager: Update Score!");
-		_uiController.UpdateScore(_moveOnTrackInstance._levelManager.GetCurrentLevel(), 1);
+		_uiController.UpdateScore(_moveOnTrackInstance._levelManager.GetCurrentLevel(), _moveOnTrackInstance.GetPickupManager().GoodItemAmount, 1);
 	}
 
 	// TODO: BUT HOW? :/

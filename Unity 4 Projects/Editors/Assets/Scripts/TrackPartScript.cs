@@ -30,12 +30,22 @@ public class TrackPartScript : MonoBehaviour
 
 	// Information for the TrackEditor (renew single TrackParts after changes):
 	[SerializeField]
-//	[HideInInspector]
+	[HideInInspector]
 	private int _trackPartMgrIndex;
 	public int TrackPartMgrIndex
 	{
 		get { return _trackPartMgrIndex; }
 		set { _trackPartMgrIndex = value; }
+	}
+
+	// Does this trackPart contain a rule?
+	[SerializeField]
+	[HideInInspector]
+	private bool _isRule;
+	public bool IsRule
+	{
+		get { return _isRule; }
+		set { _isRule = value; }
 	}
 
 	// Getter & Setter:

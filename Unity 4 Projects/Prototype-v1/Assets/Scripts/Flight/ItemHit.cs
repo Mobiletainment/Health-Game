@@ -106,7 +106,7 @@ public class ItemHit : MonoBehaviour
 				iconGO.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 				iconGO.transform.localPosition = lifePos;
 
-				Debug.Log (iconGO.transform.position);
+//				Debug.Log (iconGO.transform.position);
 	            lifePos.x += _lifePosRight;
 				UITexture icon = iconGO.GetComponent<UITexture>();
 				_iconLifeList.Add(icon);
@@ -142,6 +142,14 @@ public class ItemHit : MonoBehaviour
 
 			// Shrink and deactivate the cought pickup item:
 			StartCoroutine(DownSizeItem(hit.transform));
+		}
+
+		// Else it might be the finish line: TODO: Hardcoded Tag-Name
+		else if(hit.tag.Equals("FinishLine"))
+		{
+			Debug.Log ("Finish Line was hit!");
+			MoveOnTrack motInstance = _armManager.gameObject.GetComponent<MoveOnTrack>();
+			StartCoroutine(motInstance.SpeedChange(0.0f, 2.0f, true));
 		}
 	}
 
