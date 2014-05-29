@@ -78,7 +78,6 @@ public class CleanTrackDataEditor : Editor
 					// Init finish line:
 					if(trackPart.isFinishLine)
 					{
-						Debug.Log("FINISH LINE");
 						// (TODO: HardCoded path...)
 						GameObject finishLineObj = Instantiate(Resources.Load("Prefabs/FinishLineColliderBox", typeof(GameObject)), 
 						                                    trackPart.extraPosition, 
