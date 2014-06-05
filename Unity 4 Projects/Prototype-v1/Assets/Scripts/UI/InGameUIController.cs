@@ -5,6 +5,7 @@ public class InGameUIController : MonoBehaviour
 {
 	public UISprite _scoreFillSprite;
 	public UILabel _scoreDescription; // TODO: Remove this and replace it by a sweet image!
+	public UIPanel _noLifesPanel;
 
 	[HideInInspector]
 	public int Score { get; protected set; }
@@ -117,5 +118,18 @@ public class InGameUIController : MonoBehaviour
 		}
 
 		_scoreFillSprite.fillAmount = percentage;
+	}
+
+	public void ActivateNoLifesMenu(bool enable)
+	{
+		// TODO: Fade in and out (change alpha) slowly...
+		if(enable)
+		{
+			_noLifesPanel.alpha = 1.0f;
+		}
+		else
+		{
+			_noLifesPanel.alpha = 0.0f;
+		}
 	}
 }

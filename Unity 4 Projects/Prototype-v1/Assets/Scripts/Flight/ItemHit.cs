@@ -12,7 +12,7 @@ public class ItemHit : MonoBehaviour
 //	protected AudioSource _audioSource;
 //	protected AudioReverbZone _audioReverb;
 
-	private SkillManager _skillManager;
+	private SkillManager _skillManager = null;
 	private static int _skillLifes = -1; // Needs to be static, because there are 2 ItemHit Objects (left & right arm)
 
 	public Transform _lifePos;
@@ -57,6 +57,11 @@ public class ItemHit : MonoBehaviour
 
 	public Side _side;
 
+	public SkillManager GetSkillManager()
+	{
+		return _skillManager;
+	}
+
 	public void Awake()
 	{
 		_activeHit = ActiveHit.None;
@@ -90,30 +95,50 @@ public class ItemHit : MonoBehaviour
 			_skillManager = new SkillManager();
 			_skillManager.Init();
 			
+//			Debug.Log("I was called: " + this.gameObject);
+			InitLifes();
+		}
+	}
+
+	public void InitLifes()
+	{
+		if(_skillManager != null) // Only for the arm, that has an initialized SkillManager.
+		{
+			// Destroy everything, if icon list is already filled:
+			if(_iconLifeList != null)
+			{
+				for(int i = 0; i < _iconLifeList.Count; ++i)
+				{
+					DestroyImmediate(_iconLifeList[i].gameObject);
+				}
+				_iconLifeList.Clear();
+			}
+
+			// Start initialization:
 			_skillLifes = _skillManager.GetSkillByName("Life").CurrentValue;
 			RuleSwitcher.UpdateLife(_skillLifes);
-
+			
 			// Initialize little life icons:
 			_iconLifeList = new List<UITexture>();
 			Vector3 lifePos = _lifePos.position;
 			lifePos.y += _lifePosUp;
 			lifePos.x -= _lifePosRight * (_skillLifes - 1) * 0.5f;
-
+			
 			for(int i = 0; i < _skillLifes; ++i)
 			{
 				GameObject iconGO = Instantiate(_iconLife.gameObject, Vector3.zero, Quaternion.identity) as GameObject;
 				iconGO.transform.parent = _lifePos;
 				iconGO.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 				iconGO.transform.localPosition = lifePos;
-
-//				Debug.Log (iconGO.transform.position);
-	            lifePos.x += _lifePosRight;
+				
+				// Debug.Log (iconGO.transform.position);
+				lifePos.x += _lifePosRight;
 				UITexture icon = iconGO.GetComponent<UITexture>();
 				_iconLifeList.Add(icon);
 			}
 		}
 	}
-
+	
 	public void OnTriggerEnter(Collider hit)
 	{
 		GameObject hitObject = hit.gameObject;
@@ -259,6 +284,7 @@ public class ItemHit : MonoBehaviour
 //					Application.LoadLevel("GameOver");
 					MoveOnTrack moveOnTrack = _armManager.GetMoveOnTrackInstance();
 					moveOnTrack.TriggerPause(true); // Stop Avatar movement.
+					_armManager._uiController.ActivateNoLifesMenu(true);
 				}
 
 				lastItemHit = Time.time;
