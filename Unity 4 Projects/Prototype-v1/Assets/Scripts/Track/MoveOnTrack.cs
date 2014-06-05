@@ -107,6 +107,10 @@ public class MoveOnTrack : MonoBehaviour
 		_skillVisibility = _skillManager.GetSkillByName("Sight").CurrentValue;
 		
 //		Debug.Log ("Movement: " + _skillMovement + ", Visibility: " + _skillVisibility);
+
+		// TODO: Remove Test
+//		AvatarState.SetStateValue(AvatarState.State.CURRENT_ENERGY, 15);
+//		AvatarState.Save();
 	}
 
 	// Use this for initialization

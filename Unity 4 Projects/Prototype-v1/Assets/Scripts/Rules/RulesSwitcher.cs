@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class RulesSwitcher : MonoBehaviour
 {
 	public UILabel scoreLabel;
-	public UILabel lifesLabel;
+	public UILabel lifesLabel; // Note: Now abused as EnergyLabel...
 	public int LifesLeft { get; protected set;}
 
 	private Rule _leftRule;
@@ -46,6 +46,8 @@ public class RulesSwitcher : MonoBehaviour
 	{
 		LifesLeft = 0;
 		UpdateLife(0);
+
+		WriteOutEnergyLevel();
 	}
 	
 	public bool IsItemHitGood(GameObject gameObject, ItemHit.Side side)
@@ -61,23 +63,30 @@ public class RulesSwitcher : MonoBehaviour
 	}
 
 	// TODO... (This is never ever beeing called!)
-	void LevelDone()
-	{
-        LoadGameOverScene();
-	}
-
-	void LoadGameOverScene()
-	{
-		Application.LoadLevel("GameOver");
-	}
+//	void LevelDone()
+//	{
+//        LoadGameOverScene();
+//	}
+//
+//	void LoadGameOverScene()
+//	{
+//		Application.LoadLevel("GameOver");
+//	}
 
 	public void UpdateLife(int i = -1)
 	{
 		LifesLeft = LifesLeft + i;
 
-		if(LifesLeft >= 0)
-		{
-			lifesLabel.text = string.Format("Verbleibende Leben: {0}", LifesLeft.ToString());
-		}
+//		if(LifesLeft >= 0)
+//		{
+//			lifesLabel.text = string.Format("Verbleibende Leben: {0}", LifesLeft.ToString());
+//		}
+	}
+
+	private void WriteOutEnergyLevel()
+	{
+		AvatarState.DecreaseStateValue(AvatarState.State.CURRENT_ENERGY); // THIS IS JUST FOR DEMO!
+		AvatarState.Save();
+		lifesLabel.text = string.Format("Bestehende Energie: {0}", AvatarState.GetStateValue(AvatarState.State.CURRENT_ENERGY));
 	}
 }

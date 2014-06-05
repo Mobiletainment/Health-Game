@@ -23,6 +23,11 @@ public class ArmManager : MonoBehaviour
 		private set { _invulnerable = value; }
 	}
 
+	public MoveOnTrack GetMoveOnTrackInstance()
+	{
+		return _moveOnTrackInstance;
+	}
+
 	// Methods:
 
 	// Use this for initialization

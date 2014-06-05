@@ -256,7 +256,9 @@ public class ItemHit : MonoBehaviour
 				if(RuleSwitcher.LifesLeft <= 0)
 				{
 					Debug.Log ("NO LIFES LEFT - GAME OVER!");
-					Application.LoadLevel("GameOver");
+//					Application.LoadLevel("GameOver");
+					MoveOnTrack moveOnTrack = _armManager.GetMoveOnTrackInstance();
+					moveOnTrack.TriggerPause(true); // Stop Avatar movement.
 				}
 
 				lastItemHit = Time.time;
