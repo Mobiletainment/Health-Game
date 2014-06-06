@@ -392,7 +392,7 @@ public class ECPNManager: MonoBehaviour
 
         AddFormField(form, "deviceID", SystemInfo.deviceUniqueIdentifier);
         AddFormField(form, "regID", UserManager.GetDevToken());
-        AddFormField(form, "username", "david");
+        AddFormField(form, "username", UserManager.GetUsername());
         AddFormField(form, "isChild", UserManager.IsChild.ToString());
 
         Debug.Log(String.Format("CreateDefaultForm with DeviceID: {0}, regID: {1}, Username: {2}, isChild: {3}", SystemInfo.deviceUniqueIdentifier, UserManager.GetDevToken(), UserManager.GetUsername(), UserManager.IsChild.ToString()));
