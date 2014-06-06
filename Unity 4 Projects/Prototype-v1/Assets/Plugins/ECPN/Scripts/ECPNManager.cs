@@ -6,6 +6,7 @@ using System.Text;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Net;
+using MiniJSON;
 
 /*
  * This class is responsible for polling device Token from either APSN (Apple) or Google Cloud Messaging Server and once it is received it is sent to the PHP server
@@ -55,8 +56,51 @@ public class ECPNManager: MonoBehaviour
         RequestDeviceToken();
     }
 
+	public void GetPowerUps()
+	{
+		Debug.Log("getting power up");
+		//Upon successful request, the server sets the available power ups to 0, so that they can't be requested a second time.
+		//Caution: the client needs to store the retrieved power ups reliable, otherwise a loss will occur.
+		StartCoroutine(GetPowerUpsImpl());
+	}
+
+	private IEnumerator GetPowerUpsImpl()
+	{
+		Debug.Log("Getting Power Ups");
+		// Send message to server with accName - devToken pair
+		WWWForm form = CreateDefaultForm();
+		
+		string targetAddress = "GetPowerUps.php";
+		
+		WWW w = CreateWebRequest(targetAddress, form);
+		yield return w;
+
+		if (!String.IsNullOrEmpty(w.text))
+		{
+			try
+			{
+				Debug.Log(w.text);
+				var dict = Json.Deserialize(w.text) as Dictionary<string,object>;
+				int boost = Convert.ToInt32((dict["GIFT_ENERGY_BOOST"]));
+				int resurrection = Convert.ToInt32(dict["GIFT_RESURRECTION"]);
+				int slowMotion = Convert.ToInt32(dict["GIFT_SLOW_MOTION"]);
+				int freeSight = Convert.ToInt32(dict["GIFT_FREE_SIGHT"]);
+				
+				Debug.Log(String.Format("Transacted Power-Ups. Boost: {0}, Resurrection: {1}, Slow Motion: {2}, Free Sight: {3}", boost, resurrection, slowMotion, freeSight));
+
+				//TODO: Handle retrieved power-ups
+			}
+			catch (Exception ex)
+			{
+				Debug.LogError("Power Ups could not be retrieved! " + ex.Message);	
+			}
+
+		}
+	}
+
     void Start()
     {
+		GetPowerUps();
     }
 
 
@@ -348,7 +392,7 @@ public class ECPNManager: MonoBehaviour
 
         AddFormField(form, "deviceID", SystemInfo.deviceUniqueIdentifier);
         AddFormField(form, "regID", UserManager.GetDevToken());
-        AddFormField(form, "username", UserManager.GetUsername());
+        AddFormField(form, "username", "david");
         AddFormField(form, "isChild", UserManager.IsChild.ToString());
 
         Debug.Log(String.Format("CreateDefaultForm with DeviceID: {0}, regID: {1}, Username: {2}, isChild: {3}", SystemInfo.deviceUniqueIdentifier, UserManager.GetDevToken(), UserManager.GetUsername(), UserManager.IsChild.ToString()));
