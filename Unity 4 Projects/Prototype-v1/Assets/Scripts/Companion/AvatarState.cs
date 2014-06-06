@@ -39,8 +39,13 @@ public class AvatarState
 
 	public static void IncreaseStateValue(State state)
 	{
+		IncreaseStateValue(state, 1);
+	}
+
+	public static void IncreaseStateValue(State state, int amount)
+	{
 		int giftAmount = GetStateValue(state);
-		giftAmount++;
+		giftAmount += amount;
 		SetStateValue(state, giftAmount);
 	}
 
