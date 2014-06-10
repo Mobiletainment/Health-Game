@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,10 +39,12 @@ public class PowerUpsHandler : MonoBehaviour, INetworkTransfer {
 			SetAvatarStateValue(AvatarState.State.GIFT_FREE_SIGHT, dict);
 			SetAvatarStateValue(AvatarState.State.GIFT_RESURRECTION, dict);
 			SetAvatarStateValue(AvatarState.State.GIFT_SLOW_MOTION, dict);
+			
+			AvatarState.Save();
 
 			//At this point all power ups have been successfully set
 			//Delete them from server
-			backend.FetchPowerUps(this, true); //Sets the available Power-Ups on Server to 0
+//			backend.FetchPowerUps(this, true); //Sets the available Power-Ups on Server to 0
 
 		}
 		catch (Exception ex)
@@ -55,9 +57,6 @@ public class PowerUpsHandler : MonoBehaviour, INetworkTransfer {
 	{
 		int powerUps = Convert.ToInt32((dict[state.ToString()]));
 		AvatarState.IncreaseStateValue(state, powerUps);
-		AvatarState.Save();
 		Debug.Log(String.Format("Saved Power-Up. Name: {0}, Amount: {1}", state.ToString(), powerUps));
-
 	}
-
 }

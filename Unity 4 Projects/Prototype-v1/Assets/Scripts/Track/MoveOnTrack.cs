@@ -50,6 +50,9 @@ public class MoveOnTrack : MonoBehaviour
 
 	private float _curSpeed = 0.0f;
 
+	private float _slowMoBackupSpeed;
+	private bool _slowMotionActive = false;
+
 //	private float _splineLength = 0;
 
 	private int _divisor = 20000;
@@ -720,5 +723,28 @@ public class MoveOnTrack : MonoBehaviour
 	public void TriggerPause(bool enable)
 	{
 		_enablePause = enable;
+	}
+
+	public void ActivateSlowMotion()
+	{
+		if(_slowMotionActive == false)
+		{
+			_slowMoBackupSpeed = _curSpeed;
+
+			StartCoroutine(SpeedChange(_speed / 2.0f, 0.5f));
+
+			_slowMotionActive = true;
+		}
+	}
+
+	public void DisableSlowMotion()
+	{
+		if(_slowMotionActive == true)
+		{
+			// TODO: Hardcoded time of 2 Seconds... (Same in ActivateSlowMotion Script)
+			StartCoroutine(SpeedChange(_slowMoBackupSpeed, 2.0f));
+
+			_slowMotionActive = false;
+		}
 	}
 }
