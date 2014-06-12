@@ -14,7 +14,7 @@ public class LevelSelectionManager : MonoBehaviour
 
 		for(int i = 0; i < _levelButtons.Count; ++i)
 		{
-			float userScore = _levelManager._userScore[i];
+			float userScore = _levelManager.GetUserScore(i);
 			LevelInfo.Rating userRating;
 
 			if(userScore < necessaryPositiveItemPercent[(int)LevelInfo.Rating.BRONZE])

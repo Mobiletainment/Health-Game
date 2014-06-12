@@ -96,11 +96,7 @@ public class LevelInfo : MonoBehaviour
 	{
 		float rating = (float)score / (float)maxScore;
 
-		if(rating > levelManager._userScore[LevelManager.CurrentLevel])
-		{
-			// Only update score, if it is more then the last try...
-			levelManager._userScore[LevelManager.CurrentLevel] = rating;
-			levelManager.Save();
-		}
+		levelManager.UpdateUserScore(LevelManager.CurrentLevel, rating);
+		levelManager.SaveUserScore();
 	}
 }
