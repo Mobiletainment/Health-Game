@@ -22,6 +22,7 @@ public class LevelInfo : MonoBehaviour
 		BRONZE = 0,
 		SILVER,
 		GOLD,
+		PERFECT,
 		NEGATIVE
 	}
 
@@ -89,5 +90,17 @@ public class LevelInfo : MonoBehaviour
 	public float GetRatingInPercent(int score)
 	{
 		return (float)score / (float)_maxScore;
+	}
+
+	public void SetUserScore(int score, int maxScore, LevelManager levelManager)
+	{
+		float rating = (float)score / (float)maxScore;
+
+		if(rating > levelManager._userScore[LevelManager.CurrentLevel])
+		{
+			// Only update score, if it is more then the last try...
+			levelManager._userScore[LevelManager.CurrentLevel] = rating;
+			levelManager.Save();
+		}
 	}
 }

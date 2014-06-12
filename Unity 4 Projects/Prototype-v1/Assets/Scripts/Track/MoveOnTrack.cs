@@ -717,7 +717,7 @@ public class MoveOnTrack : MonoBehaviour
 	{
 		_stopMovement = true;
 
-		_finalPointsDisplay.ShowFinalPoints(_levelInfo, _skillManager, _puManager.GoodItemAmount);
+		_finalPointsDisplay.ShowFinalPoints(_levelInfo, _skillManager, _levelManager, _puManager.GoodItemAmount);
 	}
 
 	public void TriggerPause(bool enable)
