@@ -25,6 +25,9 @@ public class MoveOnTrack : MonoBehaviour
 
 	public FinalPointsLabelDisplay _finalPointsDisplay;
 
+	private bool _leftInput = false;
+	private bool _rightInput = false;
+
 	private SkillManager _skillManager;
 	private int _skillMovement;
 	private int _skillVisibility;
@@ -89,7 +92,7 @@ public class MoveOnTrack : MonoBehaviour
 
 //	public int curLevel = 0; // REMOVE THAT AFTER TESTING!
 
-	void Awake()
+	private void Awake()
 	{
 //		LevelManager.CurrentLevel = curLevel;
 		// Load Track:
@@ -117,7 +120,7 @@ public class MoveOnTrack : MonoBehaviour
 	}
 
 	// Use this for initialization
-	void Start () {
+	private void Start() {
 		// Init the moveable object (Avatar):
 		_moveObject = transform;
 
@@ -190,12 +193,9 @@ public class MoveOnTrack : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update() 
+	private void Update() 
 	{
 		// ---- INPUT START ----
-		bool leftInput = false;
-		bool rightInput = false;
-
 		// No input during pause: (Else, it would move e.g. one right after pressing play again...)
 		if(_enablePause == false)
 		{
@@ -203,32 +203,32 @@ public class MoveOnTrack : MonoBehaviour
 #			if UNITY_EDITOR || UNITY_STANDALONE
 			if(Input.GetKey(KeyCode.A))
 			{
-				leftInput = true;
+				_leftInput = true;
 			}
 			else if(Input.GetKey(KeyCode.D))
 			{
-				rightInput = true;
+				_rightInput = true;
 			}
 // Input for mobile devices:
-#			elif MOBILE
-			if(Input.GetMouseButton(0))
-			{
-				float touchPos = Input.mousePosition.x;
-
-				if(touchPos < Screen.width * 0.5f)
-				{
-					leftInput = true;
-				}
-				else
-				{
-					rightInput = true;
-				}
-			}
+//#			elif MOBILE
+//			if(Input.GetMouseButton(0))
+//			{
+//				float touchPos = Input.mousePosition.x;
+//
+//				if(touchPos < Screen.width * 0.5f)
+//				{
+//					leftInput = true;
+//				}
+//				else
+//				{
+//					rightInput = true;
+//				}
+//			}
 #			endif
 		}
 
 		if (_switchSpline==_spline)
-		if(leftInput == true)
+		if(_leftInput == true)
 		{
 			if(_switchSpline > _leftMaxSpline)
 			{
@@ -237,8 +237,9 @@ public class MoveOnTrack : MonoBehaviour
 					_switchSpline--;
 				}
 			}
+			_leftInput = false;
 		}
-		else if(rightInput == true)
+		else if(_rightInput == true)
 		{
 			if(_switchSpline < _rightMaxSpline)
 			{
@@ -247,6 +248,7 @@ public class MoveOnTrack : MonoBehaviour
 					_switchSpline++;
 				}
 			}
+			_rightInput = false;
 		}
 		// ---- INPUT END ----
 
@@ -746,5 +748,21 @@ public class MoveOnTrack : MonoBehaviour
 
 			_slowMotionActive = false;
 		}
+	}
+
+	public void GiveLeftInput()
+	{
+		// Input for mobile devices:
+#		if MOBILE
+		_leftInput = true;
+#		endif
+	}
+
+	public void GiveRightInput()
+	{		
+		// Input for mobile devices:
+#		if MOBILE
+		_rightInput = true;
+#		endif
 	}
 }
