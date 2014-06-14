@@ -750,6 +750,11 @@ public class MoveOnTrack : MonoBehaviour
 		}
 	}
 
+	public float GetCurrentSpeed()
+	{
+		return _curSpeed;
+	}
+
 	public void GiveLeftInput()
 	{
 		// Input for mobile devices:

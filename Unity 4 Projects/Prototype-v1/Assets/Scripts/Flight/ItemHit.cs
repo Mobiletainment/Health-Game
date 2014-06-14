@@ -236,6 +236,7 @@ public class ItemHit : MonoBehaviour
 //		}
 
 		_activeHit = hit;
+		MoveOnTrack mot = _armManager.GetMoveOnTrackInstance();
 
 		switch (hit)
 		{
@@ -254,7 +255,10 @@ public class ItemHit : MonoBehaviour
 			_armManager.StartTrail(lastHitPosition);
 			_armManager.UpdateScore();
 //			RuleSwitcher.UpdateScore(1);
-			
+
+//			Debug.Log ("Speed shall change from " + mot.GetCurrentSpeed() + " to " + mot.GetCurrentSpeed() * 1.05f);
+			StartCoroutine(mot.SpeedChange(mot.GetCurrentSpeed() * 1.02f, 0.5f)); // Raise speed by 2%
+
 			lastItemHit = Time.time;
 			break;
 
@@ -286,6 +290,8 @@ public class ItemHit : MonoBehaviour
 					moveOnTrack.TriggerPause(true); // Stop Avatar movement.
 					_armManager._uiController.ActivateNoLifesMenu(true);
 				}
+
+				StartCoroutine(mot.SpeedChange(mot.GetCurrentSpeed() * 0.95f, 0.5f)); // Decrease speed by 5%
 
 				lastItemHit = Time.time;
 				#if UNITY_IPHONE || UNITY_ANDROID
