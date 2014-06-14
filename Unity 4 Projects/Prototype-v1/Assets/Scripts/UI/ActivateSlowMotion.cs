@@ -11,8 +11,18 @@ public class ActivateSlowMotion : MonoBehaviour
 	private UIImageButton _imageButton;
 	private UISprite _sprite;
 
+	private int _giftAmount = 0;
+
 	private void Start()
 	{
+		_giftAmount = AvatarState.GetStateValue(AvatarState.State.GIFT_SLOW_MOTION);
+
+		// Disable this button, if no gifts are available
+		if(_giftAmount <= 0)
+		{
+			gameObject.SetActive(false);
+		}
+
 		_imageButton = gameObject.GetComponent<UIImageButton>();
 		_sprite = transform.GetComponentInChildren(typeof(UISprite)) as UISprite;
 	}
@@ -20,6 +30,10 @@ public class ActivateSlowMotion : MonoBehaviour
 	private void OnClick()
 	{
 		StartSlowMotion();
+
+		// The gift "SlowMotion" has been used:
+		AvatarState.DecreaseStateValue(AvatarState.State.GIFT_SLOW_MOTION);
+		_giftAmount--;
 	}
 
 	private void Update()
@@ -53,9 +67,17 @@ public class ActivateSlowMotion : MonoBehaviour
 
 		_moveOnTrack.DisableSlowMotion();
 
-		StartCoroutine(EnableButtonIn(2.0f)); // Hardcoded like in MoveOnTrack.
+		if(_giftAmount > 0)
+		{
+			StartCoroutine(EnableButtonIn(2.0f)); // Hardcoded like in MoveOnTrack.
 
-		_sprite.fillAmount = 1.0f;
+			_sprite.fillAmount = 1.0f;
+		}
+		else
+		{
+			// All gifts have been used -> Disable the button.
+			gameObject.SetActive(false);
+		}
 	}
 
 	public IEnumerator EnableButtonIn(float seconds)
