@@ -7,18 +7,12 @@ public class FinalPointsLabelDisplay : MonoBehaviour
 	public UILabel _points;
 	public UILabel _unusedSkillPoints;
 
-//	private RulesSwitcher _rulesSwitcher;
+	public UIButton _nextTrackButton;
+
 	public InGameUIController _uiController;
 
 	public void ShowFinalPoints(LevelInfo levelInfo, SkillManager sm, LevelManager levelManager, int maxPoints)
 	{
-//		_rulesSwitcher = GameObject.Find("Rule Switcher").GetComponent<RulesSwitcher>();
-//
-//		if(_rulesSwitcher == null)
-//		{
-//			Debug.LogError("Error: No RulesSwitcher could be found!");
-//		}
-
 		int points = _uiController.Score;
 		LevelInfo.Rating rating = levelInfo.GetRating(points, maxPoints);
 
@@ -27,6 +21,14 @@ public class FinalPointsLabelDisplay : MonoBehaviour
 
 		_points.text = "Points: " + points;
 		_medal.text = "Medal: " + rating.ToString(); // TODO: Visualize as Graphic!
+
+		// Do not display "Next Track" Button, if result is negative / GetUserScore is negative...
+		float bestUserScore = levelManager.GetUserScore(LevelManager.CurrentLevel);
+		LevelInfo.Rating bestRating = levelInfo.GetRating(bestUserScore);
+		if(bestRating == LevelInfo.Rating.NEGATIVE)
+		{
+			_nextTrackButton.gameObject.SetActive(false);
+		}
 
 		// QUICK HACK - TODO: Find a good solution on a good place -> See also SkillManager...
 		int curUnusedSkillPoints = 0;

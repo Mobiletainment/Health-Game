@@ -64,20 +64,26 @@ public class LevelInfo : MonoBehaviour
 	public Rating GetRating(int score, int maxScore)
 	{
 		_maxScore = maxScore; // PFUSCH
+		float rating = (float)score / (float)_maxScore;
+		// Debug.Log ("Score: " + score + " MaxScore: " + _maxScore + " Log: " + (int)Rating.BRONZE + "/" + _necessaryPositiveItemPercent.Length);
+
+		return GetRating(rating);
+	}
+
+	public Rating GetRating(float percent)
+	{
 		// TODO: Are these values fine? (HARDCODED)
 		_necessaryPositiveItemPercent = new float[3] { 0.5f, 0.75f, 0.9f }; // PFUSCH
-//		Debug.Log ("Score: " + score + " MaxScore: " + _maxScore + " Log: " + (int)Rating.BRONZE + "/" + _necessaryPositiveItemPercent.Length);
-		float rating = (float)score / (float)_maxScore;
-
-		if(rating < _necessaryPositiveItemPercent[(int)Rating.BRONZE])
+		
+		if(percent < _necessaryPositiveItemPercent[(int)Rating.BRONZE])
 		{
 			return Rating.NEGATIVE;
 		}
-		else if(rating < _necessaryPositiveItemPercent[(int)Rating.SILVER])
+		else if(percent < _necessaryPositiveItemPercent[(int)Rating.SILVER])
 		{
 			return Rating.BRONZE;
 		}
-		else if(rating < _necessaryPositiveItemPercent[(int)Rating.GOLD])
+		else if(percent < _necessaryPositiveItemPercent[(int)Rating.GOLD])
 		{
 			return Rating.SILVER;
 		}
