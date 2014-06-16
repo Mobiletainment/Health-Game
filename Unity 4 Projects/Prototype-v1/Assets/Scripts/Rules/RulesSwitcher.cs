@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class RulesSwitcher : MonoBehaviour
 {
-	public UILabel scoreLabel;
+	public TutorialPanelScript _tutPanel;
 	public UILabel lifesLabel; // Note: Now abused as EnergyLabel...
 	public int LifesLeft { get; protected set;}
 
@@ -61,17 +61,6 @@ public class RulesSwitcher : MonoBehaviour
 
 		return false;
 	}
-
-	// TODO... (This is never ever beeing called!)
-//	void LevelDone()
-//	{
-//        LoadGameOverScene();
-//	}
-//
-//	void LoadGameOverScene()
-//	{
-//		Application.LoadLevel("GameOver");
-//	}
 
 	public void UpdateLife(int i = -1)
 	{

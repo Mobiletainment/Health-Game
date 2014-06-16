@@ -22,4 +22,10 @@ public class CustomMenu
 	{
 		CustomAssetUtility.CreateAsset<LevelManager>();
 	}
+
+	[MenuItem("CustomMenu/Create Asset/TutorialText Asset")]
+	public static void CreateTutorialTextAsset()
+	{
+		CustomAssetUtility.CreateAsset<TutorialTextManager>();
+	}
 }
