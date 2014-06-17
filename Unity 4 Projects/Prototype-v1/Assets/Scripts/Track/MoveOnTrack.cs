@@ -647,7 +647,7 @@ public class MoveOnTrack : MonoBehaviour
 //	}
 
 	// Changes transparency and color to full visibility:
-	private IEnumerator ChangePickupVisability(Transform item, float changeTime)
+	public IEnumerator ChangePickupVisability(Transform item, float changeTime)
 	{
 		float startAlpha = item.renderer.material.color.a;
 		AnimationCurve curve = new AnimationCurve(new Keyframe(0, startAlpha), new Keyframe(changeTime, 1.0f));
@@ -673,6 +673,13 @@ public class MoveOnTrack : MonoBehaviour
 	private IEnumerator StartPickupSemiVisability(Transform item, float changeTime)
 	{
 		float startAlpha = item.renderer.material.color.a;
+
+		if(startAlpha > _pickupDefaultAlpha)
+		{
+			// This will be the case, if the Sight-Gift has been used and all pickups are already fully visible.
+			return false;
+		}
+
 		AnimationCurve curve = new AnimationCurve(new Keyframe(0, startAlpha), new Keyframe(changeTime, _pickupDefaultAlpha));
 		float curTime = 0.0f;
 		
