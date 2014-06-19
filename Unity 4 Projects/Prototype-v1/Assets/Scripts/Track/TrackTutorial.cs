@@ -10,31 +10,35 @@ public class TrackTutorial : MonoBehaviour
 
 	public void OnTriggerEnter(Collider other)
 	{
-		if(_tutTriggered == false)
+		// Only if the User want's to see the tutorial:
+		if(PlayerPrefs.GetInt(EnableTutorialSetting.PrefKey) == 1)
 		{
-			_tutTriggered = true;
-
-			// Is the HitObject the Avatar (or better asked, one of its arms)?
-			ItemHit hitObject = other.gameObject.GetComponent<ItemHit>();
-			if(hitObject != null)
+			if(_tutTriggered == false)
 			{
-				MoveOnTrack mot = hitObject._armManager.GetMoveOnTrackInstance();
-				RulesSwitcher ruleSwitcher = GameObject.Find("Rule Switcher").GetComponent<RulesSwitcher>();
+				_tutTriggered = true;
 
-				TutorialPanelScript tutPanelRef = ruleSwitcher._tutPanel;
-				UIPanel tutPanel = tutPanelRef.GetComponent<UIPanel>();
-				UILabel tutLabel = tutPanelRef.tutText;
-				tutLabel.pivot = UIWidget.Pivot.Left;
+				// Is the HitObject the Avatar (or better asked, one of its arms)?
+				ItemHit hitObject = other.gameObject.GetComponent<ItemHit>();
+				if(hitObject != null)
+				{
+					MoveOnTrack mot = hitObject._armManager.GetMoveOnTrackInstance();
+					RulesSwitcher ruleSwitcher = GameObject.Find("Rule Switcher").GetComponent<RulesSwitcher>();
 
-				tutLabel.text = _tutTextManager.TutTexts[_tutTextID];
-				tutLabel.multiLine = true;
+					TutorialPanelScript tutPanelRef = ruleSwitcher._tutPanel;
+					UIPanel tutPanel = tutPanelRef.GetComponent<UIPanel>();
+					UILabel tutLabel = tutPanelRef.tutText;
+					tutLabel.pivot = UIWidget.Pivot.Left;
 
-				// Stop movement:
-				mot.TriggerPause(true);
-				// Show Tutorial:
-				tutPanel.alpha = 1.0f;
+					tutLabel.text = _tutTextManager.TutTexts[_tutTextID];
+					tutLabel.multiLine = true;
 
-				// TODO: Fade out after time or only via button?!
+					// Stop movement:
+					mot.TriggerPause(true);
+					// Show Tutorial:
+					tutPanel.alpha = 1.0f;
+
+					// Fade out and end of pause will be triggered by a button.
+				}
 			}
 		}
 	}
