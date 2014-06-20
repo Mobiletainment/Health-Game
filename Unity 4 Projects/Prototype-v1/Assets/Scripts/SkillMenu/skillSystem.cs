@@ -154,5 +154,11 @@ public class skillSystem : MonoBehaviour
 	{
 		_sm.CheatAddUnspendPoints();
 		TextUpdate();
+
+		AvatarState.SetStateValue(AvatarState.State.CURRENT_ENERGY, 15);
+		AvatarState.IncreaseStateValue(AvatarState.State.GIFT_ENERGY_BOOST);
+		AvatarState.IncreaseStateValue(AvatarState.State.GIFT_FREE_SIGHT);
+		AvatarState.IncreaseStateValue(AvatarState.State.GIFT_RESURRECTION);
+		AvatarState.IncreaseStateValue(AvatarState.State.GIFT_SLOW_MOTION);
 	}
 }
