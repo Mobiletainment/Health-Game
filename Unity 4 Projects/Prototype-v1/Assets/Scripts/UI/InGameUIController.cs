@@ -3,23 +3,27 @@ using System.Collections;
 
 public class InGameUIController : MonoBehaviour 
 {
-	public UISprite _scoreFillSprite;
-	public UILabel _scoreDescription; // TODO: Remove this and replace it by a sweet image!
+//	public UISprite _scoreFillSprite;
+//	public UILabel _scoreDescription; // TODO: Remove this and replace it by a sweet image!
+	public UISprite _scoreFillBronze;
+	public UISprite _scoreFillSilver;
+	public UISprite _scoreFillGold;
 	public UIPanel _noLifesPanel;
 
 	[HideInInspector]
 	public int Score { get; protected set; }
 	
-	void Awake() 
+	private void Awake() 
 	{
 		// Score (Points):
 		Score = 0;
 
 		// Optical Score:
-		_scoreFillSprite.fillAmount = 0.0f;
+		_scoreFillBronze.fillAmount = 0.0f;
+		_scoreFillSilver.fillAmount = 0.0f;
+		_scoreFillGold.fillAmount = 0.0f;
 
-
-		_scoreDescription.text = "LOS GEHT'S!"; // DEBUG ONLY
+//		_scoreDescription.text = "LOS GEHT'S!"; // DEBUG ONLY
 	}
 
 	void Start() 
@@ -35,29 +39,28 @@ public class InGameUIController : MonoBehaviour
 			Score = 0;
 
 		LevelInfo.Rating rating = levelInfo.GetRating(Score, maxPoints);
-		float ratingPercent = levelInfo.GetRatingInPercent(Score);
+//		float ratingPercent = levelInfo.GetRatingInPercent(Score);
 
-		// TODO: Show Medals for current rank as image! (Currently german hardcoded text!)
-
-		if(ratingPercent < 1.0f)
-		{
-	        switch (rating)
-	        {
-	            case LevelInfo.Rating.NEGATIVE:
-	                _scoreDescription.text = "KEINE MEDAILLE";
-	                break;
-	            case LevelInfo.Rating.SILVER:
-	                _scoreDescription.text = "SILBER";
-	                break;
-	            default:
-	                _scoreDescription.text = rating.ToString(); // DEBUG ONLY
-	                break;
-	        }
-		}
-		else
-		{
-			_scoreDescription.text = "PERFEKT";
-		}
+		// DONE: Show Medals for current rank as image! (Currently german hardcoded text!)
+//		if(ratingPercent < 1.0f)
+//		{
+//	        switch (rating)
+//	        {
+//	            case LevelInfo.Rating.NEGATIVE:
+//	                _scoreDescription.text = "KEINE MEDAILLE";
+//	                break;
+//	            case LevelInfo.Rating.SILVER:
+//	                _scoreDescription.text = "SILBER";
+//	                break;
+//	            default:
+//	                _scoreDescription.text = rating.ToString(); // DEBUG ONLY
+//	                break;
+//	        }
+//		}
+//		else
+//		{
+//			_scoreDescription.text = "PERFEKT";
+//		}
 
 		
 		float lowerBorder = 0, upperBorder = 0;
@@ -88,36 +91,70 @@ public class InGameUIController : MonoBehaviour
 		}
 
 		Debug.Log ("Total Percentage: " + totalPercentage + ", Fillup Percentage: " + fillPercentage);
-		FillupScore(fillPercentage);
+		FillupScore(rating, fillPercentage);
 	}
 
 	// float percentage must be between 0.0f and 1.0f!
-	public void FillupScore(float percentage)
+	public void FillupScore(LevelInfo.Rating rating, float percentage)
 	{
 		float fillTime = 0.2f;
 
-		if(percentage < _scoreFillSprite.fillAmount)
+//		if(percentage < _scoreFillSprite.fillAmount)
+//		{
+//			StartCoroutine(FillupScoreByTime(1.0f, fillTime));
+//		}
+
+		UISprite changeSprite = null;
+		UISprite lastSprite = null;
+
+		switch(rating)
 		{
-			StartCoroutine(FillupScoreByTime(1.0f, fillTime));
+		case LevelInfo.Rating.NEGATIVE:
+			changeSprite = _scoreFillBronze;
+			break;
+		case LevelInfo.Rating.BRONZE:
+			if(_scoreFillBronze.fillAmount < 1.0f)
+			{
+				lastSprite = _scoreFillBronze;
+			}
+			changeSprite = _scoreFillSilver;
+			break;
+		case LevelInfo.Rating.SILVER:
+			if(_scoreFillSilver.fillAmount < 1.0f)
+			{
+				lastSprite = _scoreFillSilver;
+			}
+			changeSprite = _scoreFillGold;
+			break;
+		case LevelInfo.Rating.GOLD:
+			lastSprite = _scoreFillGold;
+			break;
 		}
 
-		StartCoroutine(FillupScoreByTime(percentage, fillTime));
+		if(lastSprite != null)
+		{
+			StartCoroutine(FillupScoreByTime(lastSprite, 1.0f, fillTime));
+		}
+		if(changeSprite != null)
+		{
+			StartCoroutine(FillupScoreByTime(changeSprite, percentage, fillTime));
+		}
 	}
 
-	private IEnumerator FillupScoreByTime(float percentage, float duration)
+	private IEnumerator FillupScoreByTime(UISprite scoreSprite, float percentage, float duration)
 	{
 		float curTime = 0.0f;
-		AnimationCurve fillCurve = AnimationCurve.Linear(0.0f, _scoreFillSprite.fillAmount, duration, percentage);
+		AnimationCurve fillCurve = AnimationCurve.Linear(0.0f, scoreSprite.fillAmount, duration, percentage);
 
 		while(curTime < duration)
 		{
 			curTime += Time.deltaTime;
-			_scoreFillSprite.fillAmount = fillCurve.Evaluate(curTime);
+			scoreSprite.fillAmount = fillCurve.Evaluate(curTime);
 
 			yield return new WaitForSeconds(Time.deltaTime);
 		}
 
-		_scoreFillSprite.fillAmount = percentage;
+		scoreSprite.fillAmount = percentage;
 	}
 
 	public void ActivateNoLifesMenu(bool enable)
