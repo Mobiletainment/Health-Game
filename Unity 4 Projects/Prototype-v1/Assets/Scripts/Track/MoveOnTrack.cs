@@ -227,28 +227,30 @@ public class MoveOnTrack : MonoBehaviour
 #			endif
 		}
 
-		if (_switchSpline==_spline)
-		if(_leftInput == true)
+		if (_switchSpline == _spline)
 		{
-			if(_switchSpline > _leftMaxSpline)
+			if(_leftInput == true)
 			{
-				if(SplineAccessGaranted(_switchSpline-1, _skillMovement-1))
+				if(_switchSpline > _leftMaxSpline)
 				{
-					_switchSpline--;
+					if(SplineAccessGaranted(_switchSpline-1, _skillMovement-1))
+					{
+						_switchSpline--;
+					}
 				}
+				_leftInput = false;
 			}
-			_leftInput = false;
-		}
-		else if(_rightInput == true)
-		{
-			if(_switchSpline < _rightMaxSpline)
+			else if(_rightInput == true)
 			{
-				if(SplineAccessGaranted(_switchSpline+1, _skillMovement-1))
+				if(_switchSpline < _rightMaxSpline)
 				{
-					_switchSpline++;
+					if(SplineAccessGaranted(_switchSpline+1, _skillMovement-1))
+					{
+						_switchSpline++;
+					}
 				}
+				_rightInput = false;
 			}
-			_rightInput = false;
 		}
 		// ---- INPUT END ----
 
@@ -766,7 +768,10 @@ public class MoveOnTrack : MonoBehaviour
 	{
 		// Input for mobile devices:
 #		if MOBILE
-		_leftInput = true;
+		if(_enablePause == false && _switchSpline == _spline)
+		{
+			_leftInput = true;
+		}
 #		endif
 	}
 
@@ -774,7 +779,10 @@ public class MoveOnTrack : MonoBehaviour
 	{		
 		// Input for mobile devices:
 #		if MOBILE
-		_rightInput = true;
+		if(_enablePause == false && _switchSpline == _spline)
+		{
+			_rightInput = true;
+		}
 #		endif
 	}
 }

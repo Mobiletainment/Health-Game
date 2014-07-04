@@ -45,7 +45,8 @@ public class OnPauseScene : MonoBehaviour
 		}
 		else if(_mode == Mode.RESTART)
 		{
-			Debug.Log("TODO RESTART!");
+//			Debug.Log("TODO RESTART!");
+			Application.LoadLevel("TrackFlight");
 		}
 		else if(_mode == Mode.MAINMENU)
 		{
