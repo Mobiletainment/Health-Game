@@ -6,7 +6,7 @@ public class NavigateForward : MonoBehaviour
     public GameObject _next;
     private ECPNManager ecpnManager;
     public string customInfoForNextScreen = "";
-    UIButton button;
+    UIImageButton button;
     UILabel lable;
     float time = 0.0f;
     int pointsHelper = 0;
@@ -74,10 +74,13 @@ public class NavigateForward : MonoBehaviour
 
     public void ResetButton()
     {
-        button = transform.GetComponent<UIButton>();
-        button.isEnabled = true;
-        lable = transform.GetComponentInChildren<UILabel>();
-        lable.text = lable.text.Replace(".", "");
+        button = transform.GetComponent<UIImageButton>();
+		if(button != null)
+		{
+	        button.isEnabled = true;
+	        lable = transform.GetComponentInChildren<UILabel>();
+	        lable.text = lable.text.Replace(".", "");
+		}
         pointsHelper = 0;
         time = 0;
     }
@@ -96,23 +99,28 @@ public class NavigateForward : MonoBehaviour
 
     public void UpdatePoints()
     {
-        if (!button.isEnabled)
-            time += Time.deltaTime;
-        ;
-        if (time > 0.33)
-        {
-            if (pointsHelper > 2)
-            {
-                lable.text = lable.text.Replace(".", "");
-                pointsHelper = 0;
-            }
-            else
-            {
-                lable.text += ".";
-                pointsHelper++;
-            }
-            time = 0;
-        }
+		if(button != null)
+		{
+	        if (!button.isEnabled)
+			{
+	            time += Time.deltaTime;
+			}
+
+	        if (time > 0.33)
+	        {
+	            if (pointsHelper > 2)
+	            {
+	                lable.text = lable.text.Replace(".", "");
+	                pointsHelper = 0;
+	            }
+	            else
+	            {
+	                lable.text += ".";
+	                pointsHelper++;
+	            }
+	            time = 0;
+	        }
+		}
     }
 
     public void ActionFailed(string response)

@@ -51,30 +51,48 @@ public class NavigationHelper : MonoBehaviour
         Debug.Log("Current Version: " + currentVersion + ", Previously installed: " + userManager.GetVersion());
 
         userManager.SetVersion(currentVersion, true); //true = Resest UserData when new version is installed
-
-        if (userManager.LoginState == UserManager.Authentication.LoggedIn)
-        {
-            Debug.Log("User is logged in");
-            TestFlight.PassCheckpoint("Known User");
-            LoadGameScene();
-        }
-        else if (userManager.LoginState == UserManager.Authentication.Registered)
-        {
-            LoadChildFinishRegistration();
-        }
-    
     }
     
     void Start()
     {
         //LoadParentMenu();
+
+		if (userManager.LoginState == UserManager.Authentication.LoggedIn)
+		{
+            Debug.Log("User is logged in");
+            TestFlight.PassCheckpoint("Known User");
+            ShowMainMenu();
+        }
+        else if (userManager.LoginState == UserManager.Authentication.Registered)
+        {
+			NGUITools.SetActive(MenuStack.Instance._panels.Peek(), true);
+			LoadChildFinishRegistration();
+		}
     }
     
-    public static void LoadGameScene()
+    public static void ShowMainMenu()
     {
-        Debug.Log("Loading Game Scene");
-        Screen.orientation = ScreenOrientation.LandscapeLeft;
-        Application.LoadLevel("TrackFlight");
+        Debug.Log("Showing Main Menu");
+//        Screen.orientation = ScreenOrientation.LandscapeLeft;
+//        Application.LoadLevel("TrackFlight");
+		GameObject[] tagArray = GameObject.FindGameObjectsWithTag("MainMenu");
+		if(tagArray.Length > 0)
+		{
+			UIPanel mainMenu = tagArray[0].GetComponent<UIPanel>();
+			if(mainMenu != null)
+			{
+				mainMenu.alpha = 1.0f;
+			}
+			else
+			{
+				Debug.LogError("Error: The as \"MainMenu\" tagged GameObject is not a UIPanel!");
+			}
+		}
+		else
+		{
+			Debug.LogError("Error: No MainMenu tagged UIPanel could be found!");
+		}
+
     }
   
     public void LoadChildFinishRegistration()

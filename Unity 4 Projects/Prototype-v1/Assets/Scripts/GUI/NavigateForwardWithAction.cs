@@ -71,7 +71,8 @@ public class NavigateForwardWithAction : NavigateForward
                 ActionCompleted();
                 break;
             case ActionType.LoadGameScene:
-                NavigationHelper.LoadGameScene();
+				transform.parent.gameObject.SetActive(false);
+                NavigationHelper.ShowMainMenu();
                 break;
             default:
                 break;
@@ -98,7 +99,8 @@ public class NavigateForwardWithAction : NavigateForward
         switch (PerformAction)
         {
             case ActionType.RegisterChild:
-                output.text = string.Format("Hallo, {0}!\nDein Benutzername {0} ist zugleich dein Team-Name.", getInput());
+				// output.text = string.Format("Hallo, {0}!\nDein Benutzername {0} ist zugleich dein Team-Name.", getInput());
+				output.text = string.Format("Hallo, {0}!", getInput());
                 UserManager.Instance.LoginState = UserManager.Authentication.Registered;
                 customInfoForNextScreen = getInput();
                 break;

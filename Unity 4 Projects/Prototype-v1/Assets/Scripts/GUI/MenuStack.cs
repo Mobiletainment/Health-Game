@@ -11,6 +11,9 @@ public class MenuStack : MonoBehaviour {
 	void Awake ()
 	{
 		_instance = MenuStack.Instance;
+
+		_instance._panels=new Stack<GameObject>();
+		_instance._panels.Push(_start);
 	}
 
 	public static MenuStack Instance
@@ -33,11 +36,9 @@ public class MenuStack : MonoBehaviour {
 	}
 
 	// Use this for initialization
-	void Start () {
-		_instance._panels=new Stack<GameObject>();
-		_instance._panels.Push(_start);
-		NGUITools.SetActive(_instance._panels.Peek(), true);
-
+	void Start () 
+	{
+//		NGUITools.SetActive(_instance._panels.Peek(), true);
 	}
 	public static void ShowError(string errorMsg){
 		NGUITools.SetActive (_instance._errorPanel,true);
