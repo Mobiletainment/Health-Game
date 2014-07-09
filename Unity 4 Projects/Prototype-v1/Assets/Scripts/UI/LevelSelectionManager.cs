@@ -10,6 +10,8 @@ public class LevelSelectionManager : MonoBehaviour
 	// Use this for initialization
 	private void Start() 
 	{
+		EnergyManager.UpdateState();
+
 		float[] necessaryPositiveItemPercent = new float[3] { 0.5f, 0.75f, 0.9f }; // TODO: Hardcoded PFUSCH (Same in LevelInfo.cs)
 
 		for(int i = 0; i < _levelButtons.Count; ++i)
@@ -43,7 +45,12 @@ public class LevelSelectionManager : MonoBehaviour
 
 			_levelButtons[i].GetComponent<LoadFlightScene>().UpdateLevelSuccess(userRating);
 
-			bool shallActivateNextButton = (userScore >= necessaryPositiveItemPercent[(int)LevelInfo.Rating.BRONZE]);
+			bool shallActivateNextButton = false;
+			if(AvatarState.GetStateValue(AvatarState.State.CURRENT_ENERGY) > 0)
+			{
+				shallActivateNextButton = (userScore >= necessaryPositiveItemPercent[(int)LevelInfo.Rating.BRONZE]);
+			}
+
 			if(i < _levelButtons.Count - 1)
 			{
 				_levelButtons[i+1].GetComponent<LoadFlightScene>().SetButtonState(shallActivateNextButton);

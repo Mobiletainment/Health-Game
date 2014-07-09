@@ -114,9 +114,12 @@ public class MoveOnTrack : MonoBehaviour
 		
 //		Debug.Log ("Movement: " + _skillMovement + ", Visibility: " + _skillVisibility);
 
-		// TODO: Remove Test
-//		AvatarState.SetStateValue(AvatarState.State.CURRENT_ENERGY, 15);
-//		AvatarState.Save();
+
+//		AvatarState.SetStateValue(AvatarState.State.CURRENT_ENERGY, 6); // Test ONLY
+	
+		EnergyManager.ResetWaitingTime();
+		AvatarState.DecreaseStateValue(AvatarState.State.CURRENT_ENERGY);
+		AvatarState.Save();
 	}
 
 	// Use this for initialization

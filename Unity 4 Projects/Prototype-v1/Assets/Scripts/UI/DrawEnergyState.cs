@@ -15,6 +15,8 @@ public class DrawEnergyState : MonoBehaviour
 	// Use this for initialization
 	private void Start() 
 	{
+		EnergyManager.UpdateState();
+
 		int currentEnergy = AvatarState.GetStateValue(AvatarState.State.CURRENT_ENERGY);
 
 //		// DEPRECATED: The maxiumum energy value is 15. There will be drawn 3 rows with each 5 columns of energy symbols.

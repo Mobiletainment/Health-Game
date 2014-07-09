@@ -4,8 +4,8 @@ using System.Collections;
 public class PopUpError : MonoBehaviour {
 	public UILabel _text;
     public UILabel _title;
-	UISprite _sprite;
-	UIImageButton _button;
+//	UISprite _sprite;
+//	UIImageButton _button;
 	// Use this for initialization
 	void Start () {
 	}
@@ -22,13 +22,13 @@ public class PopUpError : MonoBehaviour {
 
 		//Debug.Log (_button.transform.localPosition);
 	}
-	void OnEnable(){
-		_sprite = transform.GetComponentInChildren<UISprite> ();
-		_button = transform.GetComponentInChildren<UIImageButton> ();
-
-	}
+//	void OnEnable(){
+//		_sprite = transform.GetComponentInChildren<UISprite> ();
+//		_button = transform.GetComponentInChildren<UIImageButton> ();
+//
+//	}
 	// Update is called once per frame
-	void Update () {
-	
-	}
+//	void Update () {
+//	
+//	}
 }

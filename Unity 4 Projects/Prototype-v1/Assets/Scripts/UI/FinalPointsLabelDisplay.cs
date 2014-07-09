@@ -49,5 +49,7 @@ public class FinalPointsLabelDisplay : MonoBehaviour
 
 		UIPanel panel = gameObject.GetComponent<UIPanel>();
 		panel.alpha = 1.0f;
+
+		EnergyManager.ResetWaitingTime();
 	}
 }
