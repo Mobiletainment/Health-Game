@@ -16,6 +16,7 @@ public class OnPauseScene : MonoBehaviour
 	public MoveOnTrack _gameInstance = null;
 	public UIPanel _otherPanel = null;
 	public InGameUIController _uiController = null;
+	public bool _restartCosts = true;
 
 	private void Start()
 	{
@@ -41,6 +42,11 @@ public class OnPauseScene : MonoBehaviour
     {
 		if(_mode == Mode.RESTART)
 		{
+			if(_restartCosts == false)
+			{
+				AvatarState.IncreaseStateValue(AvatarState.State.CURRENT_ENERGY);
+			}
+
 			Application.LoadLevel("TrackFlight");
 			return;
 		}

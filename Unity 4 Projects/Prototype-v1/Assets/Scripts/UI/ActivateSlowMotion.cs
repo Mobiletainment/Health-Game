@@ -20,7 +20,8 @@ public class ActivateSlowMotion : MonoBehaviour
 		// Disable this button, if no gifts are available
 		if(_giftAmount <= 0)
 		{
-			gameObject.SetActive(false);
+//			gameObject.SetActive(false);
+			gameObject.GetComponent<UIImageButton>().isEnabled = false;
 		}
 
 		_imageButton = gameObject.GetComponent<UIImageButton>();

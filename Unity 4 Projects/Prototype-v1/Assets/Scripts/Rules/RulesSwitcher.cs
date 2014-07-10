@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class RulesSwitcher : MonoBehaviour
 {
 	public TutorialPanelScript _tutPanel;
-	public UILabel lifesLabel; // Note: Now abused as EnergyLabel...
+//	public UILabel lifesLabel; // Note: Now abused as EnergyLabel...
 	public int LifesLeft { get; protected set;}
 
 	private Rule _leftRule;
@@ -77,6 +77,6 @@ public class RulesSwitcher : MonoBehaviour
 		EnergyManager.UpdateState();
 		AvatarState.DecreaseStateValue(AvatarState.State.CURRENT_ENERGY);
 		AvatarState.Save();
-		lifesLabel.text = string.Format("Bestehende Energie: {0}", AvatarState.GetStateValue(AvatarState.State.CURRENT_ENERGY));
+//		lifesLabel.text = string.Format("Bestehende Energie: {0}", AvatarState.GetStateValue(AvatarState.State.CURRENT_ENERGY));
 	}
 }

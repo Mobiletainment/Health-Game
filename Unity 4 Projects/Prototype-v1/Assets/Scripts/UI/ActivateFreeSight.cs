@@ -15,7 +15,8 @@ public class ActivateFreeSight : MonoBehaviour
 		// Disable this button, if no sight-gifts are available
 		if(AvatarState.GetStateValue(AvatarState.State.GIFT_FREE_SIGHT) <= 0)
 		{
-			gameObject.SetActive(false);
+//			gameObject.SetActive(false);
+			gameObject.GetComponent<UIImageButton>().isEnabled = false;
 		}
 		
 		_sprite = transform.GetComponentInChildren(typeof(UISprite)) as UISprite;

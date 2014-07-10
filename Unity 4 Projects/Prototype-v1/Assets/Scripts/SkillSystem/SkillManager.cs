@@ -253,4 +253,14 @@ public class SkillManager {
 
 		return UnspentPoints;
 	}
+
+	public int GetUnspentSkillPoints()
+	{
+		if(PlayerPrefs.HasKey("unspentPoints"))
+		{
+			return PlayerPrefs.GetInt("unspentPoints");
+		}
+
+		return 0;
+	}
 }
