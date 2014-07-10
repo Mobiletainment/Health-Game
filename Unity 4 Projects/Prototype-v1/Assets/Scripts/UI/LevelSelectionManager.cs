@@ -11,8 +11,15 @@ public class LevelSelectionManager : MonoBehaviour
 	private void Start() 
 	{
 		EnergyManager.UpdateState();
+		int currentEnergy = AvatarState.GetStateValue(AvatarState.State.CURRENT_ENERGY);
 
 		float[] necessaryPositiveItemPercent = new float[3] { 0.5f, 0.75f, 0.9f }; // TODO: Hardcoded PFUSCH (Same in LevelInfo.cs)
+
+		if(currentEnergy <= 0)
+		{
+			// Deactivate first button, if avatar has no energy. (All other buttons will be deactivated via shallActivateNextButton in the loop.)
+			_levelButtons[0].GetComponent<LoadFlightScene>().SetButtonState(false);
+		}
 
 		for(int i = 0; i < _levelButtons.Count; ++i)
 		{
@@ -46,7 +53,7 @@ public class LevelSelectionManager : MonoBehaviour
 			_levelButtons[i].GetComponent<LoadFlightScene>().UpdateLevelSuccess(userRating);
 
 			bool shallActivateNextButton = false;
-			if(AvatarState.GetStateValue(AvatarState.State.CURRENT_ENERGY) > 0)
+			if(currentEnergy > 0)
 			{
 				shallActivateNextButton = (userScore >= necessaryPositiveItemPercent[(int)LevelInfo.Rating.BRONZE]);
 			}
