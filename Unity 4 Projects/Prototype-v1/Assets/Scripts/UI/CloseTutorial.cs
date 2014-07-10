@@ -9,6 +9,17 @@ public class CloseTutorial : MonoBehaviour
 	private void OnClick()
 	{
 		_parentPanel.alpha = 0.0f;
+
+		TutorialPanelScript tutorialPanel = _parentPanel.GetComponent<TutorialPanelScript>();
+		if(tutorialPanel != null)
+		{
+			tutorialPanel._uiController.DisplayHUD(true);
+		}
+		else
+		{
+			Debug.LogError("UiController could not be found!");
+		}
+
 		_moveOnTrack.TriggerPause(false);
 	}
 }

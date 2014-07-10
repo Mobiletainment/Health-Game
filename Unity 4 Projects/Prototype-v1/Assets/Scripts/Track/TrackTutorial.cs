@@ -27,13 +27,15 @@ public class TrackTutorial : MonoBehaviour
 					TutorialPanelScript tutPanelRef = ruleSwitcher._tutPanel;
 					UIPanel tutPanel = tutPanelRef.GetComponent<UIPanel>();
 					UILabel tutLabel = tutPanelRef.tutText;
-					tutLabel.pivot = UIWidget.Pivot.Left;
+					tutLabel.pivot = UIWidget.Pivot.TopLeft;
 
 					tutLabel.text = _tutTextManager.TutTexts[_tutTextID];
 					tutLabel.multiLine = true;
 
 					// Stop movement:
 					mot.TriggerPause(true);
+					// Hide HUD:
+					tutPanelRef._uiController.DisplayHUD(false);
 					// Show Tutorial:
 					tutPanel.alpha = 1.0f;
 

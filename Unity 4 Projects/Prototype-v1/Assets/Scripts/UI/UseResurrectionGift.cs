@@ -8,12 +8,28 @@ public class UseResurrectionGift : MonoBehaviour
 	public ItemHit _rightArm; // Same here
 	public MoveOnTrack _moveOnTrack;
 
+	private void Start()
+	{
+		if(AvatarState.GetStateValue(AvatarState.State.GIFT_RESURRECTION) <= 0)
+		{
+			UIImageButton target = gameObject.GetComponent<UIImageButton>();
+
+			if(target != null)
+			{
+				target.isEnabled = false;
+			}
+			else
+			{
+				Debug.LogError("No UIImageButton has been attached to the UseResurrectionGift Button!");
+			}
+		}
+	}
+
+	// This button is disabled, if not enough Resurrection gifts are available.
 	private void OnClick()
 	{
-		// TODO: Check for Resurrection Gift (AvatarState)
-		Debug.Log("Currently available Resurrection Gifts: " + AvatarState.GetStateValue(AvatarState.State.GIFT_RESURRECTION));
+//		Debug.Log("Currently available Resurrection Gifts: " + AvatarState.GetStateValue(AvatarState.State.GIFT_RESURRECTION));
 
-		// TODO if > 0 ...
 		_leftArm.InitLifes();
 		_rightArm.InitLifes();
 
@@ -22,5 +38,9 @@ public class UseResurrectionGift : MonoBehaviour
 
 		// Enable Play (stop Pause):
 		_moveOnTrack.TriggerPause(false);
+
+		// Decrease Gift Amount:
+		AvatarState.DecreaseStateValue(AvatarState.State.GIFT_RESURRECTION);
+		AvatarState.Save();
 	}
 }

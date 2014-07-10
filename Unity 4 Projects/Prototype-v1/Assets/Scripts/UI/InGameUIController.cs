@@ -8,7 +8,16 @@ public class InGameUIController : MonoBehaviour
 	public UISprite _scoreFillBronze;
 	public UISprite _scoreFillSilver;
 	public UISprite _scoreFillGold;
+
+	public UIPanel _lifeDisplayPanel;
+	public UIPanel _finalPointsPanel;
+	public UIPanel _movementPanel;
 	public UIPanel _noLifesPanel;
+	public UIPanel _awardDisplayPanel;
+	public UIPanel _boostDisplayPanel;
+	public UIPanel _menuDisplayPanel;
+	public UIPanel _menuPausePanel;
+	public UIPanel _tutorialPanel;
 
 	[HideInInspector]
 	public int Score { get; protected set; }
@@ -162,11 +171,33 @@ public class InGameUIController : MonoBehaviour
 		// TODO: Fade in and out (change alpha) slowly...
 		if(enable)
 		{
+			foreach(Transform trans in _noLifesPanel.transform)
+			{
+				AvailableNote note = trans.GetComponent<AvailableNote>();
+				if(note != null)
+				{
+					note.UpdateText();
+				}
+			}
+
+			DisplayHUD(false);
 			_noLifesPanel.alpha = 1.0f;
 		}
 		else
 		{
 			_noLifesPanel.alpha = 0.0f;
+			DisplayHUD(true);
 		}
+	}
+
+	// Display or hide the HUD Elements (like Menu, Coin Award, etc.)
+	public void DisplayHUD(bool active)
+	{
+		float alpha = (active ? 1.0f : 0.0f);
+
+		_lifeDisplayPanel.alpha = alpha;
+		_awardDisplayPanel.alpha = alpha;
+		_boostDisplayPanel.alpha = alpha;
+		_menuDisplayPanel.alpha = alpha;
 	}
 }

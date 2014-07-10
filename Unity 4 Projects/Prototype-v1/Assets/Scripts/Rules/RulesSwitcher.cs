@@ -74,7 +74,8 @@ public class RulesSwitcher : MonoBehaviour
 
 	private void WriteOutEnergyLevel()
 	{
-		AvatarState.DecreaseStateValue(AvatarState.State.CURRENT_ENERGY); // THIS IS JUST FOR DEMO!
+		EnergyManager.UpdateState();
+		AvatarState.DecreaseStateValue(AvatarState.State.CURRENT_ENERGY);
 		AvatarState.Save();
 		lifesLabel.text = string.Format("Bestehende Energie: {0}", AvatarState.GetStateValue(AvatarState.State.CURRENT_ENERGY));
 	}
