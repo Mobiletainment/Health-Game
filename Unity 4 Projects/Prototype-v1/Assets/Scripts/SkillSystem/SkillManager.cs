@@ -305,7 +305,7 @@ public class SkillManager {
 		// TODO: This Method has to be updated, if more skills are implemented!
 		// Currently there is only Skill-0, Skill-1, and Skill-3 in use:
 
-		int spentSkillPoints = _skills[0].CurrentValue + _skills[1].CurrentValue + _skills[3].CurrentValue;
+		int spentSkillPoints = (_skills[0].CurrentValue - _skills[0].DefaultValue) + (_skills[1].CurrentValue - _skills[1].DefaultValue) + (_skills[3].CurrentValue - _skills[3].DefaultValue);
 
 		return spentSkillPoints;
 	}

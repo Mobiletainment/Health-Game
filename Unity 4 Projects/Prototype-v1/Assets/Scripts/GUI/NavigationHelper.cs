@@ -68,6 +68,11 @@ public class NavigationHelper : MonoBehaviour
 			NGUITools.SetActive(MenuStack.Instance._panels.Peek(), true);
 			LoadChildFinishRegistration();
 		}
+		else // UserManager.Authentication.NotLoggedIn
+		{
+			Debug.Log(MenuStack.Instance._panels.Peek());
+			NGUITools.SetActive(MenuStack.Instance._panels.Peek(), true);
+		}
     }
     
     public static void ShowMainMenu()
