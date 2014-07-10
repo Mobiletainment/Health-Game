@@ -23,7 +23,11 @@ public class FinalPointsLabelDisplay : MonoBehaviour
 		int points = _uiController.Score;
 		LevelInfo.Rating rating = levelInfo.GetRating(points, maxPoints);
 
-		// Set User-Score:
+		// Get the original User-Score:
+		float originalUserScore = levelManager.GetUserScore(LevelManager.CurrentLevel);
+		LevelInfo.Rating originalRating = levelInfo.GetRating(originalUserScore);
+
+		// Set the new User-Score: (Internally, this will only be done, if it is better than the original)
 		levelInfo.SetUserScore(points, maxPoints, levelManager);
 
 		_points.text = points + " / " + maxPoints;
@@ -38,8 +42,19 @@ public class FinalPointsLabelDisplay : MonoBehaviour
 			_nextTrackButton.isEnabled = false;
 		}
 
-		// QUICK HACK - TODO: Find a good solution on a good place for adding medal points -> See also SkillManager...
-		int curUnusedSkillPoints = sm.GetUnspentSkillPoints();
+		// Adding new Medal Points (to acquire Skill Points)
+		// Compare original with best score (if not equal and best not negative)
+		if(originalRating != bestRating && bestRating != LevelInfo.Rating.NEGATIVE)
+		{
+			int originalPoints = (originalRating == LevelInfo.Rating.NEGATIVE ? 0 : ((int)originalRating)+1);
+			int bestPoints = ((int)bestRating)+1;
+
+			int diff = bestPoints - originalPoints;
+
+			sm.AddMedalPoints(diff);
+		}
+
+		// Set some UI Texts, images, and button states, that depend on the track result:
 		int retryCosts = 0;
 		_retryButton._restartCosts = false;
 		if(rating == LevelInfo.Rating.NEGATIVE)
@@ -57,23 +72,21 @@ public class FinalPointsLabelDisplay : MonoBehaviour
 		else if(rating == LevelInfo.Rating.BRONZE)
 		{
 			_medal.spriteName = "Coin_Bronze";
-			curUnusedSkillPoints = sm.AddMedalPoints(1);
 		}
 		else if(rating == LevelInfo.Rating.SILVER)
 		{
 			_medal.spriteName = "Coin_Silver";
-			curUnusedSkillPoints = sm.AddMedalPoints(2);
 		}
 		else if(rating == LevelInfo.Rating.GOLD)
 		{
 			_medal.spriteName = "Coin_Gold";
-			curUnusedSkillPoints = sm.AddMedalPoints(3);
 		}
 		else if(rating == LevelInfo.Rating.PERFECT)
 		{
 			_medal.spriteName = "Coin_Perfect";
 		}
 
+		int curUnusedSkillPoints = sm.GetUnspentSkillPoints();
 		_unusedSkillPoints.text = curUnusedSkillPoints.ToString();
 		_retryCostLabel.text = "Energie kosten: " + retryCosts; // TODO: Translation?!
 

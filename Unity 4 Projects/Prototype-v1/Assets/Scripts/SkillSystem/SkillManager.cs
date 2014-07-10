@@ -6,7 +6,7 @@ using System.IO;
 
 public class SkillManager {
 	
-	public int UnspentPoints;
+//	public int UnspentPoints;
 	
 	private static int _noOfSkills = 5;
 	public string SkillName1 = "Agility";
@@ -19,8 +19,8 @@ public class SkillManager {
 
 	// TODO: Implement correct (scaleable) solution!
 	// QuickSolution for "MedalPoints to SkillPoints":
-	public int[] _medalToSkillTable = new int[] {3, 6, 10, 14, 19, 24};
-	public int _curMedalPoints;
+//	public int[] _medalToSkillTable = new int[] {3, 6, 10, 14, 19, 24};
+//	public int _curMedalPoints;
 	
 	public SkillManager()
 	{
@@ -29,25 +29,25 @@ public class SkillManager {
 	
 	public void Init() // HasKey must be called at Start-Method of an Unity Script
 	{
-		if(PlayerPrefs.HasKey("unspentPoints"))
-		{
-			UnspentPoints = PlayerPrefs.GetInt("unspentPoints");
-		}
-		else
-		{
-			UnspentPoints = 0;
-			PlayerPrefs.SetInt("unspentPoints", UnspentPoints);
-		}
+//		if(PlayerPrefs.HasKey("unspentPoints"))
+//		{
+//			UnspentPoints = PlayerPrefs.GetInt("unspentPoints");
+//		}
+//		else
+//		{
+//			UnspentPoints = 0;
+//			PlayerPrefs.SetInt("unspentPoints", UnspentPoints);
+//		}
 
-		if(PlayerPrefs.HasKey("medalPoints"))
-		{
-			_curMedalPoints = PlayerPrefs.GetInt("medalPoints");
-		}
-		else
-		{
-			_curMedalPoints = 0;
-			PlayerPrefs.SetInt("medalPoints", _curMedalPoints);
-		}
+//		if(PlayerPrefs.HasKey("medalPoints"))
+//		{
+//			_curMedalPoints = PlayerPrefs.GetInt("medalPoints");
+//		}
+//		else
+//		{
+//			_curMedalPoints = 0;
+//			PlayerPrefs.SetInt("medalPoints", _curMedalPoints);
+//		}
 		
 		if(PlayerPrefs.HasKey(SkillName1))
 		{
@@ -101,10 +101,17 @@ public class SkillManager {
 	}
 
 	// DEBUG ONLY:
-	public void CheatAddUnspendPoints(int add = 10)
+	public void CheatAddMedalPoints(int add = 10)
 	{
-		UnspentPoints += add;
-		PlayerPrefs.SetInt("unspentPoints", UnspentPoints);
+		int curMedalPoints = 0;
+		if(PlayerPrefs.HasKey("medalPoints"))
+		{
+			curMedalPoints = PlayerPrefs.GetInt("medalPoints");
+		}
+
+		curMedalPoints += add;
+
+		PlayerPrefs.SetInt("medalPoints", curMedalPoints);
 	}
 	
 	public Skill GetSkillByName(string name)
@@ -120,7 +127,8 @@ public class SkillManager {
 	
 	public bool IncreaseSkill(string name)
 	{
-		if(UnspentPoints <= 0)
+
+		if(GetUnspentSkillPoints() <= 0)
 			return false;
 		
 		for(int i = 0; i < _noOfSkills; ++i)
@@ -128,11 +136,6 @@ public class SkillManager {
 			if(_skills[i].Name.Equals(name))
 			{
 				bool success = _skills[i].Increase();
-				
-				if(success)
-				{
-					--UnspentPoints;
-				}
 				
 				return success;
 			}
@@ -148,11 +151,6 @@ public class SkillManager {
 			if(_skills[i].Name.Equals(name))
 			{
 				bool success = _skills[i].Decrease();
-				
-				if(success)
-				{
-					++UnspentPoints;
-				}
 				
 				return success;
 			}
@@ -196,8 +194,8 @@ public class SkillManager {
 			PlayerPrefs.SetString(_skills[i].Name, CastSkillToString(_skills[i]));
 		}
 		// Save the unspentPoints:
-		PlayerPrefs.SetInt("unspentPoints", UnspentPoints);
-		PlayerPrefs.SetInt("medalPoints", _curMedalPoints);
+//		PlayerPrefs.SetInt("unspentPoints", UnspentPoints);
+//		PlayerPrefs.SetInt("medalPoints", _curMedalPoints);
 		
 		Debug.Log ("Save!");
 		PlayerPrefs.Save();
@@ -220,47 +218,95 @@ public class SkillManager {
 		Debug.Log ("Reset!");
 	}
 
-	// Quick solution: Add medal points, for enough collected points, a skillpoint will be given:
-	// Returns the amount of unused skillpoints.
-	public int AddMedalPoints(int medalPoints)
+	// Add medal points. (For enough collected medal points, a skillpoint will be given):
+	public void AddMedalPoints(int medalPoints)
 	{
-		Debug.Log ("AddMedalPoints: " + medalPoints);
-		for(int i = 0; i < _medalToSkillTable.Length; ++i)
+//		// Old Calculation:
+//		Debug.Log ("AddMedalPoints: " + medalPoints);
+//		for(int i = 0; i < _medalToSkillTable.Length; ++i)
+//		{
+//			if(_medalToSkillTable[i] > _curMedalPoints)
+//			{
+//				if(_medalToSkillTable[i] <= (_curMedalPoints + medalPoints))
+//				{
+//					UnspentPoints++;
+//				}
+//				else
+//				{
+//					break;
+//				}
+//			}
+//		}
+//
+//		_curMedalPoints += medalPoints;
+//
+//		// Save the unspentPoints and medal points::
+//		PlayerPrefs.SetInt("unspentPoints", UnspentPoints);
+//		PlayerPrefs.SetInt("medalPoints", _curMedalPoints);
+//		PlayerPrefs.Save();
+//
+//		return UnspentPoints;
+
+		int curMedalPoints = 0;
+		if(PlayerPrefs.HasKey("medalPoints"))
 		{
-//			Debug.Log ("Iteration: " + i);
-//			Debug.Log ("Table: " + _medalToSkillTable[i] + " > CurMedalPoints: " + _curMedalPoints);
-			if(_medalToSkillTable[i] > _curMedalPoints)
-			{
-				if(_medalToSkillTable[i] <= (_curMedalPoints + medalPoints))
-				{
-//					Debug.Log ("UnspentPoints++");
-					UnspentPoints++;
-				}
-				else
-				{
-//					Debug.Log ("Break");
-					break;
-				}
-			}
+			curMedalPoints = PlayerPrefs.GetInt("medalPoints");
 		}
-
-		_curMedalPoints += medalPoints;
-
-		// Save the unspentPoints and medal points::
-		PlayerPrefs.SetInt("unspentPoints", UnspentPoints);
-		PlayerPrefs.SetInt("medalPoints", _curMedalPoints);
+		curMedalPoints += medalPoints;
+		PlayerPrefs.SetInt("medalPoints", curMedalPoints);
 		PlayerPrefs.Save();
-
-		return UnspentPoints;
 	}
+
+
 
 	public int GetUnspentSkillPoints()
 	{
-		if(PlayerPrefs.HasKey("unspentPoints"))
+//		if(PlayerPrefs.HasKey("unspentPoints"))
+//		{
+//			return PlayerPrefs.GetInt("unspentPoints");
+//		}
+//
+//		return 0;
+
+		return (CalcGivenSkillPoints() - CalcSpentSkillPoints());
+	}
+
+	// Returns the amount of all given Skillpoints (the spent and the unspent ones) on base of all collected medal points:
+	private int CalcGivenSkillPoints()
+	{
+		// TODO: This Method has to be updated, if more skills or levels are implemented!
+
+		// HINT: This could be also be implemented by Unity Curves and must not be linear!
+
+		// Calculation has been done linear (this can be changed later on)
+		// Basis: 25 Levels a 4 Medal points (One for each Medal, Bronze, Silver, Gold, Perfect) => max. 100 Medal points to earn.
+		// Basis: 31 Skillpoints might be put into currently all of the 3 available Skills, 7 Points are given by default
+		// => 31 - 7 = 24 Skillpoints are needed to fill all Skills to their max.
+		// Doing a linear curve through the 2 Points: A(0|0) and B(100|24)
+		// y = kx + d -> 1) 0 = 0x + d => d = 0 2) 24 = 100k + d => k = 24 / 100.
+		// y = 24/100*x (where y == SkillPoints and x == earned MedalPoints)
+
+
+		int curMedalPoints = 0;
+		if(PlayerPrefs.HasKey("medalPoints"))
 		{
-			return PlayerPrefs.GetInt("unspentPoints");
+			curMedalPoints = PlayerPrefs.GetInt("medalPoints");
 		}
 
-		return 0;
+		float givenSkillPointsF = ((24.0f/100.0f) * curMedalPoints);
+		int givenSkillPoints = (int)System.Math.Floor(givenSkillPointsF);
+
+		return givenSkillPoints;
+	}
+
+	// Returns the amount of all spent skillpoints:
+	private int CalcSpentSkillPoints()
+	{
+		// TODO: This Method has to be updated, if more skills are implemented!
+		// Currently there is only Skill-0, Skill-1, and Skill-3 in use:
+
+		int spentSkillPoints = _skills[0].CurrentValue + _skills[1].CurrentValue + _skills[3].CurrentValue;
+
+		return spentSkillPoints;
 	}
 }

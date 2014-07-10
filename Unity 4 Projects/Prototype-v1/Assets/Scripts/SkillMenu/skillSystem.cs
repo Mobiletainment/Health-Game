@@ -55,7 +55,7 @@ public class skillSystem : MonoBehaviour
 
     void TextUpdate()
     {
-        unusedSkillpoints.text = _sm.UnspentPoints.ToString();
+        unusedSkillpoints.text = _sm.GetUnspentSkillPoints().ToString();
 		
 		//Debug.Log("SM -> " + _sm);
 
@@ -152,10 +152,10 @@ public class skillSystem : MonoBehaviour
 	// DEBUG ONLY:
 	public void AddCheatPoints()
 	{
-		_sm.CheatAddUnspendPoints();
+		_sm.CheatAddMedalPoints();
 		TextUpdate();
 
-		AvatarState.SetStateValue(AvatarState.State.CURRENT_ENERGY, 15);
+		AvatarState.SetStateValue(AvatarState.State.CURRENT_ENERGY, 6);
 		AvatarState.IncreaseStateValue(AvatarState.State.GIFT_ENERGY_BOOST);
 		AvatarState.IncreaseStateValue(AvatarState.State.GIFT_FREE_SIGHT);
 		AvatarState.IncreaseStateValue(AvatarState.State.GIFT_RESURRECTION);
