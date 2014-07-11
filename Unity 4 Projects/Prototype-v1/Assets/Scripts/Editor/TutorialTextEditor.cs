@@ -16,6 +16,10 @@ public class TutorialTextEditor : Editor
 		{
 			Debug.LogError("Error: Target is null.");
 		}
+		else if(_target.TutTexts == null)
+		{
+			_target.TutTexts = new string[1];
+		}
 	}
 
 	public override void OnInspectorGUI()
