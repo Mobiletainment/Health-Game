@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class DrawEnergyState : MonoBehaviour 
 {
@@ -12,12 +13,14 @@ public class DrawEnergyState : MonoBehaviour
 	public int distanceSide = 40;
 	public int distanceHeight = 20;
 
+	private List<UISprite> _spriteList;
+
 	// Use this for initialization
 	private void Start() 
 	{
-		EnergyManager.UpdateState();
+		_spriteList = new List<UISprite>();
 
-		int currentEnergy = AvatarState.GetStateValue(AvatarState.State.CURRENT_ENERGY);
+		UpdateEnergySprites();
 
 //		// DEPRECATED: The maxiumum energy value is 15. There will be drawn 3 rows with each 5 columns of energy symbols.
 //		int counter = 0;
@@ -46,6 +49,24 @@ public class DrawEnergyState : MonoBehaviour
 ////			Debug.Log (startposTop - (row * (startposTop - distanceHeight)));
 //		}
 
+
+	}
+
+	public void UpdateEnergySprites()
+	{
+		if(_spriteList.Count > 0)
+		{
+			foreach(UISprite sprite in _spriteList)
+			{
+				GameObject.DestroyImmediate(sprite.gameObject);
+			}
+			_spriteList.Clear();
+		}
+
+		EnergyManager.UpdateState();
+
+		int currentEnergy = AvatarState.GetStateValue(AvatarState.State.CURRENT_ENERGY);
+
 		// The maxiumum energy value is 6, all energy symbols are drawn in one row:
 		int counter = 0;
 		for(int col = 0; col < 6; ++col)
@@ -53,9 +74,10 @@ public class DrawEnergyState : MonoBehaviour
 			counter++;
 			UISprite curSprite = (counter <= currentEnergy ? _spriteFull : _spriteLow);
 			UISprite spriteInstance = Instantiate(curSprite, Vector3.zero, Quaternion.identity) as UISprite;
+			_spriteList.Add(spriteInstance);
 			spriteInstance.transform.parent = transform;
 			spriteInstance.transform.localScale = Vector3.one;
-
+			
 			spriteInstance.topAnchor.target = transform;
 			spriteInstance.topAnchor.absolute = startposTop + size;
 			spriteInstance.bottomAnchor.target = transform;

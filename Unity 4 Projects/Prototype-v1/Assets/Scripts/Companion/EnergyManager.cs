@@ -9,7 +9,7 @@ public class EnergyManager : MonoBehaviour
 	private static int _sleepingTimePerPoint = 5 * 60; // 5 Minutes per Energy-Point regeneration.
 	private static int _maxEnergyPoints = 6;
 
-	private static int TimeStampLastAction
+	public static int TimeStampLastAction
 	{
 		get 
 		{
@@ -23,7 +23,7 @@ public class EnergyManager : MonoBehaviour
 			return 0; // Currently, there isn't an entry for this state.
 		}
 
-		set 
+		private set 
 		{
 			PlayerPrefs.SetInt(_prefix + "TimeStampLastAction", value);
 			PlayerPrefs.Save();
@@ -57,6 +57,12 @@ public class EnergyManager : MonoBehaviour
 	{
 		get { return _maxEnergyPoints; }
 		private set { _maxEnergyPoints = value; }
+	}
+
+	public static int SleepingTimePerPoint
+	{
+		get { return _sleepingTimePerPoint; }
+		private set { _sleepingTimePerPoint = value; }
 	}
 
 	public static void UpdateState()

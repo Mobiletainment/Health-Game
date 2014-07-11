@@ -5,6 +5,8 @@ public class SleepButton : MonoBehaviour
 {
 	UIImageButton _target = null;
 
+	public UILabel _sleepInfoLabel;
+
 	private void Awake()
 	{
 		_target = gameObject.GetComponent<UIImageButton>();
@@ -32,6 +34,11 @@ public class SleepButton : MonoBehaviour
 		_target.isEnabled = false;
 
 //		_wasPressed = true;
+
+		if(_sleepInfoLabel.gameObject.activeSelf == false)
+		{
+			_sleepInfoLabel.gameObject.SetActive(true);
+		}
 	}
 //	private bool _wasPressed = false;
 //	private void Update()
