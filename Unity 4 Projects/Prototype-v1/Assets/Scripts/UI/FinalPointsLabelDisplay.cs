@@ -31,7 +31,7 @@ public class FinalPointsLabelDisplay : MonoBehaviour
 		levelInfo.SetUserScore(points, maxPoints, levelManager);
 
 		_points.text = points + " / " + maxPoints;
-//		_medal.text = "Medal: " + rating.ToString(); // DONE: Visualize as Graphic!
+		Debug.Log("Medal: " + rating.ToString()); // DONE: Visualize as Graphic!
 
 		// Deactivate "Next Track" Button, if result is negative / GetUserScore is negative OR player is out of energy:
 		float bestUserScore = levelManager.GetUserScore(LevelManager.CurrentLevel);

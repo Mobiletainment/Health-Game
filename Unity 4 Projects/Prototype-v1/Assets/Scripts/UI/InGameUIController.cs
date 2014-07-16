@@ -91,12 +91,19 @@ public class InGameUIController : MonoBehaviour
 
 			fillPercentage = (totalPercentage - lowerBorder) / (upperBorder - lowerBorder);
 		}
-		else if(rating == LevelInfo.Rating.GOLD) // GOLD
+		else if(rating >= LevelInfo.Rating.GOLD) // GOLD
 		{
-			lowerBorder = levelInfo.GetNecessaryPositiveItemPercent((int)rating);
-			upperBorder = 1.0f;
+			if(rating == LevelInfo.Rating.PERFECT)
+			{
+				fillPercentage = 1.0f;
+			}
+			else
+			{
+				lowerBorder = levelInfo.GetNecessaryPositiveItemPercent((int)rating);
+				upperBorder = 1.0f;
 			
-			fillPercentage = (totalPercentage - lowerBorder) / (upperBorder - lowerBorder);
+				fillPercentage = (totalPercentage - lowerBorder) / (upperBorder - lowerBorder);
+			}
 		}
 
 		Debug.Log ("Total Percentage: " + totalPercentage + ", Fillup Percentage: " + fillPercentage);
@@ -136,6 +143,9 @@ public class InGameUIController : MonoBehaviour
 			changeSprite = _scoreFillGold;
 			break;
 		case LevelInfo.Rating.GOLD:
+			lastSprite = _scoreFillGold;
+			break;
+		case LevelInfo.Rating.PERFECT: // Perfect isn't shown extra...
 			lastSprite = _scoreFillGold;
 			break;
 		}

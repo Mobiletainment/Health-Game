@@ -87,9 +87,13 @@ public class LevelInfo : MonoBehaviour
 		{
 			return Rating.SILVER;
 		}
-		else
+		else if(percent < 1.0f)
 		{
 			return Rating.GOLD;
+		}
+		else
+		{
+			return Rating.PERFECT;
 		}
 	}
 
