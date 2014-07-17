@@ -30,13 +30,9 @@ public class AvailableNote : MonoBehaviour
 			EnergyManager.UpdateState();
 			_target.text = "Verfügbare Energie: " + AvatarState.GetStateValue(AvatarState.State.CURRENT_ENERGY);
 		}
-		else if(_type == AvatarState.State.GIFT_RESURRECTION)
-		{
-			_target.text = "Verfügbar: " + AvatarState.GetStateValue(AvatarState.State.GIFT_RESURRECTION);
-		}
 		else
 		{
-			Debug.LogWarning("AvailableNote is for State " + _type + " not implemented!");
+			_target.text = "Verfügbar: " + AvatarState.GetStateValue(_type);
 		}
 	}
 }

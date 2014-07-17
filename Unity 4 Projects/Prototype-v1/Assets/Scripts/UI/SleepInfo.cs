@@ -73,8 +73,12 @@ public class SleepInfo : MonoBehaviour
 		{
 			if(_target.gameObject.activeSelf == true)
 			{
-				_target.text = "Flins ist vollkommen ausgeruht!";
-				_energySymbols.UpdateEnergySprites();
+				int curEnergy = AvatarState.GetStateValue(AvatarState.State.CURRENT_ENERGY);
+				if(curEnergy == EnergyManager.MaxEnergyPoints)
+				{
+					_target.text = "Flins ist vollkommen ausgeruht!";
+					_energySymbols.UpdateEnergySprites();
+				}
 			}
 		}
 	}
