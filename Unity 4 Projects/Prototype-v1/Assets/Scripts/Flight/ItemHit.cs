@@ -18,9 +18,11 @@ public class ItemHit : MonoBehaviour
 	public Transform _lifePos;
 	public float _lifePosUp = 25.0f;
 	public float _lifePosRight = 30.0f;
-	public UITexture _iconLife;
-	public UITexture _iconDead;
-	private static List<UITexture> _iconLifeList;
+	public UISprite _iconLife;
+//	public UITexture _iconDead;
+	private static List<UISprite> _iconLifeList;
+//	private string _confLifeName = "Avatar_Life_Symbol";
+	private string _confDeadName = "Avatar_Dead_Symbol";
 	
 	public enum ActiveHit
 	{
@@ -119,7 +121,7 @@ public class ItemHit : MonoBehaviour
 			RuleSwitcher.UpdateLife(_skillLifes);
 			
 			// Initialize little life icons:
-			_iconLifeList = new List<UITexture>();
+			_iconLifeList = new List<UISprite>();
 			Vector3 lifePos = _lifePos.position;
 			lifePos.y += _lifePosUp;
 			lifePos.x -= _lifePosRight * (_skillLifes - 1) * 0.5f;
@@ -133,7 +135,7 @@ public class ItemHit : MonoBehaviour
 				
 				// Debug.Log (iconGO.transform.position);
 				lifePos.x += _lifePosRight;
-				UITexture icon = iconGO.GetComponent<UITexture>();
+				UISprite icon = iconGO.GetComponent<UISprite>();
 				_iconLifeList.Add(icon);
 			}
 		}
@@ -274,7 +276,7 @@ public class ItemHit : MonoBehaviour
 				badItemHit.enabled = true;
 				if(RuleSwitcher.LifesLeft >= 1)
 				{
-					_iconLifeList[RuleSwitcher.LifesLeft - 1].mainTexture = _iconDead.mainTexture;
+					_iconLifeList[RuleSwitcher.LifesLeft - 1].spriteName = _confDeadName;
 				}
 
 				PlaceBadItemEffect(hitObject.transform.position);

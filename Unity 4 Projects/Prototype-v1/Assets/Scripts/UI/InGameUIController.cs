@@ -205,9 +205,12 @@ public class InGameUIController : MonoBehaviour
 	{
 		float alpha = (active ? 1.0f : 0.0f);
 
-		_lifeDisplayPanel.alpha = alpha;
+//		_lifeDisplayPanel.alpha = alpha;
 		_awardDisplayPanel.alpha = alpha;
 		_boostDisplayPanel.alpha = alpha;
 		_menuDisplayPanel.alpha = alpha;
+
+		// QuickFix: I don't know, why it isn't deactivated, when transparency is 0, so I just deactivate the whole thing...
+		_lifeDisplayPanel.gameObject.SetActive(active);
 	}
 }
