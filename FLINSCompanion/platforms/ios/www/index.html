@@ -85,12 +85,11 @@
                     <p>Dazu muss Ihr Kind FLINS auf einem Smartphone oder Tablet installieren. Installations-Anweisungen erhalten Sie bei Bedarf hier:</p>
                     <div data-role='collapsible' data-content-theme='d' data-collapsed='true'>
                         <h4>Android <span class="smaller">(Smartphones und Tablets)</span></h4>
-                        <p>TODO</p>
-
+                         <button id="downloadAndroid" data-role="button" data-theme="b">Download</button>  
                     </div>
                     <div data-role='collapsible' data-content-theme='d' data-collapsed='true'>
                         <h4>iOS <span class="smaller">(iPad, iPhone oder iPod)</span></h4>
-                        <p>TODO</p>
+                        <button id="downloadiOS" data-role="button" data-theme="b">Download</button>
                     </div>
 
                 </div>
@@ -328,8 +327,10 @@
         <div data-role="page" id="data-input-behavior-rating" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed" data-tap-toggle="false">
                 <h1 style="text-overflow: string;">Bewertung</h1>
+                <!--
                 <a href="#" onclick="alert('TODO: Hab den Informationstext noch nicht gekriegt');" class="ui-btn-right" data-icon="info" data-iconpos="notext" data-inline="true" data-theme="a"></a>
-            </div>
+                -->
+                </div>
             <div data-role="main" class="ui-content">
                 <h2>Unerwünschte Verhaltensweisen (<span id="pageIndexBehavior"></span> von <span id="pageIndexBehaviorEnd">3</span>)</h2>
                 <div>
@@ -511,14 +512,15 @@
                     </ul>
 
                 </div>
-                <!--
+                
+                
                 <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
                     <div class="center-wrapper">
                         <span>Wow, Sie haben bereits</span>
                         <h3 style="margin-bottom: 0px; margin-top: 5px;"><span id="badges">2</span> Auszeichnungen erhalten!</h3>
                     </div>
                 </div>
-                -->
+                
             </div>  
         </div>
 

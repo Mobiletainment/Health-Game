@@ -3,11 +3,13 @@
 {
 
     window.customData = {data: "", referral: ""};
-    window.deviceToken = $.cookie("deviceToken");
-
+    window.deviceToken = window.localStorage.getItem('deviceToken');
     window.currentView;
     window.dict = {};
-    window.badges = $.cookie("badges");
+    window.badges = window.localStorage.getItem("badges");
+    if (!window.badges) {
+        window.badges = 2;
+    }
 
     Handlebars.registerHelper("inc", function(value, options)
     {
@@ -62,13 +64,12 @@
         //alert("Notification received");
         if (e.event === 'registered')
         {
-            alert("Registering Android");
             if (e.regid.length > 0)
             {
 
                 // Your GCM push server needs to know the regID before it can push to this device
                 // here is where you might want to send it the regID for later use.
-                alert("regID = " + e.regid);
+                //alert("regID = " + e.regid);
                 setDeviceToken(e.regid);
             }
         }
@@ -147,10 +148,10 @@
         try
         {
             pushNotification = window.plugins.pushNotification;
-            if (device.platform == 'android' || device.platform == 'Android')
-            {
-                alert("Registering Android Push");
-                pushNotification.register(successHandler, errorHandler, {"senderID": "927166403109", "ecb": "onNotificationGCM"});		// required!
+            if (device.platform == 'android' || device.platform == 'Android' ||
+                            device.platform == 'amazon-fireos' ) {
+                pushNotification.register(successHandler, errorHandler, {"senderID":"927166403109", "ecb":"onNotification"});		// required!
+                //alert("Registering Android Push");
             }
             else
             {
@@ -175,9 +176,10 @@
 
     function setDeviceToken(token)
     {
-        //alert("deviceToken " + token);
-        $.cookie("deviceToken", token, {expires: 20 * 365, path: '/'});
-        window.deviceToken = $.cookie("deviceToken");
+        window.localStorage.setItem("deviceToken", token);
+        //$.cookie("deviceToken", token, {expires: 20 * 365, path: '/'});
+        //window.deviceToken = $.cookie("deviceToken");
+        window.deviceToken = token;
     }
 
     setBadges = function(badgeCount)
@@ -185,15 +187,15 @@
         if (badgeCount)
         {
             window.badges = badgeCount;
-            $.cookie("badges", badgeCount, {expires: 20 * 365, path: '/'});
+            window.localStorage.setItem("badges", badgeCount);
             $("#badges").text(window.badges);
         }
     }
 
 
     // handle GCM notifications for Android
-    function onNotificationGCM(e) {
-
+    onNotification = function(e) {
+        alert("Notification on Android received! " + e.toString());
         switch (e.event)
         {
             case 'registered':
@@ -201,7 +203,7 @@
                 {
                     // Your GCM push server needs to know the regID before it can push to this device
                     // here is where you might want to send it the regID for later use.
-                    alert("regID = " + e.regid);
+                    //alert("regID = " + e.regid);
                     setDeviceToken(e.regid);
                 }
                 break;
@@ -232,7 +234,7 @@
                 break;
 
             case 'error':
-                alert('<li>ERROR -> MSG:' + e.msg + '</li>');
+                alert('Error: ' + e.msg);
                 //   $("#app-status-ul").append('<li>ERROR -> MSG:' + e.msg + '</li>');
                 break;
 
@@ -302,7 +304,7 @@
 
             if (data.returnCode === 200)
             {
-                $.cookie("username", $("#loginPassword").val(), {expires: 20 * 365, path: '/'});
+                window.localStorage.setItem("username", $("#loginPassword").val());
                 window.username = $("#loginPassword").val();
                 showToast('Überprüfung erfolgreich');
                 $("#loginButton").trigger("click");
@@ -332,7 +334,7 @@
 
     function successHandler(result)
     {
-        alert("Successfully registered Push Notifications: " + result);
+        //alert("Successfully registered Push Notifications: " + result.toString());
 
     }
 
@@ -350,17 +352,17 @@
         $.pnotify.defaults.history = false;
 
         //Load cookie information
-        window.username = $.cookie("username");
-        window.versionInfo = $.cookie("versionInfo");
+        window.username = window.localStorage.getItem("username");
+        window.versionInfo = window.localStorage.getItem("versionInfo");
 
         var currentVersion = 0.91;
 
         if (!window.versionInfo || window.versionInfo < currentVersion) //just for test purposes: delete cookies on each new version
         {
             alert("New version installed! Beginning from start. Thank you for testing!");
-            $.cookie("username", null, {path: '/'});
+            window.localStorage.removeItem('username');
             window.username = null;
-            $.cookie("versionInfo", currentVersion, {expires: 20 * 365, path: '/'});
+            window.localStorage.setItem("versionInfo", currentVersion);
         }
 
 
@@ -374,6 +376,12 @@
         else
         {
             document.location.hash = "#welcome";
+            $('#downloadAndroid').bind("click", function(event, ui) {
+                loadURL("http://bit.ly/FLINSAndroid");
+            });
+            $('#downloadiOS').bind("click", function(event, ui) {
+                loadURL("https://fnd.io/#/search?mediaType=ios&term=FLINS");
+            });
         }
         //TODO: INIT
         //$.cookie("username", "test", {expires: 20 * 365, path: '/'});
@@ -1507,4 +1515,10 @@
         $.pnotify(opts);
 
     };
+    
+    function loadURL(url) {
+        navigator.app.loadUrl(url, { openExternal:true });
+        return false;
+    }
+    
 }());

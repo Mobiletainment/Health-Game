@@ -9,11 +9,12 @@ public class TrackedBundleVersion
 	public static readonly TrackedBundleVersionInfo Version_1_23 =  new TrackedBundleVersionInfo ("1.23", 2);
 	public static readonly TrackedBundleVersionInfo Version_1_31 =  new TrackedBundleVersionInfo ("1.31", 3);
 	public static readonly TrackedBundleVersionInfo Version_1_80 =  new TrackedBundleVersionInfo ("1.80", 4);
-	public static readonly TrackedBundleVersionInfo Version_1_40 =  new TrackedBundleVersionInfo ("1.40", 5);
+	public static readonly TrackedBundleVersionInfo Version_1_41 =  new TrackedBundleVersionInfo ("1.41", 5);
+	public static readonly TrackedBundleVersionInfo Version_1_40 =  new TrackedBundleVersionInfo ("1.40", 6);
 	
 	public ArrayList history = new ArrayList ();
 
-	public TrackedBundleVersionInfo current = new TrackedBundleVersionInfo ("1.40", 5);
+	public TrackedBundleVersionInfo current = new TrackedBundleVersionInfo ("1.40", 6);
 
 	public  TrackedBundleVersion() {
 		history.Add (Version_1_21);
@@ -21,6 +22,7 @@ public class TrackedBundleVersion
 		history.Add (Version_1_23);
 		history.Add (Version_1_31);
 		history.Add (Version_1_80);
+		history.Add (Version_1_41);
 		history.Add (current);
 	}
 
