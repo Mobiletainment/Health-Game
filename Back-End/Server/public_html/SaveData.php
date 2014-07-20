@@ -10,6 +10,7 @@ $date = $_GET['date'];
 
 $returnCode = 200;
 $debugInfo = "";
+$extraInfo = "";
 
 include ("settings.php");
 
@@ -192,14 +193,15 @@ $data = array(
 		'returnCode' => $returnCode,
 		'returnMessage' => "Successful: " . $action,
 		'returnData' => $returnData,
-		'debugInfo' => $debugInfo
+		'debugInfo' => $debugInfo,
+		'extraInfo' => $extraInfo
 		);
 
 echo json_encode($data);
 
 function handleDailyInputsCheck($field)
 {
-	global $debugInfo, $user, $date;
+	global $debugInfo, $user, $date, $extraInfo;
 	$debugInfo .= "Handling DailyInputs_Check for field: " . $field;
 	$timestamp = strtotime("$date");
 
@@ -207,7 +209,7 @@ function handleDailyInputsCheck($field)
 	$query = "SELECT * from DailyInputs_Check where username = '$user' AND date = DATE(FROM_UNIXTIME($timestamp))";
 	$debugInfo .= "; Query: " . $query;
 	$result=mysql_query($query);
-	$debugInfo .= "Found " . mysql_numrows($result) . " entries in in DailyInputs_Check";
+	$debugInfo .= "Found " . mysql_numrows($result) . " entries in DailyInputs_Check";
 	
 
 	if(mysql_numrows($result) == 0)
@@ -228,6 +230,25 @@ function handleDailyInputsCheck($field)
 		$debugInfo .= "; Query: " . $query;
 		$result=mysql_query($query);
 		$debugInfo .= "Updated " . $result . " rows in DailyInputs_Check";
+	}
+
+	$query = "UPDATE User_Info SET badges = badges+1 WHERE username = '$user'";
+	$debugInfo .= "; Query: " . $query;
+	$result=mysql_query($query);
+	$debugInfo .= "Updated " . $result . " rows in User_info";
+
+	$query = "SELECT * from User_Info WHERE username = '$user'";
+	$result=mysql_query($query);
+	$debugInfo .= "Selected " . $result . " rows in User_info";
+	if(mysql_numrows($result) >= 1)
+	{
+		$row = mysql_fetch_array($result);
+		$debugInfo .= "User has badges " . $row['badges'];
+		if (!is_null($row['badges']))
+		{
+			$extraInfo = $row['badges'];
+			$debugInfo .= "Badges " . $extraInfo . " in User_info";
+		}
 	}
 }
 

@@ -79,6 +79,7 @@ public class NavigationHelper : MonoBehaviour
     public static void ShowMainMenu()
     {
 		// Quick Test for sending push notification to parent when game is opened
+		//UserManager.Instance.SetUsername("Dav3");
 		//var ecpnManager = GameObject.Find("ComponentManager").GetComponent<ECPNManager>();
 		//ecpnManager.SendPushMessageToParent(ECPNManager.PushNotificationAction.LevelCompleted);
         Debug.Log("Showing Main Menu");

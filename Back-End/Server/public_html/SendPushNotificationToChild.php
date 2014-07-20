@@ -58,7 +58,7 @@
 					$debugInfo .= "User: " . $user . ", OS: " . $os . ", regID:" . $regId;
 
 					if ($os == "android") $androidIDs[] = $regId;
-					else $iosIDs[] = $regId;
+					else if ($os == "ios") $iosIDs[] = $regId;
 				}
 			}
 		
@@ -91,7 +91,7 @@
 			$result = mysql_query($query);
 			$debugInfo .= "Logged Push notification: " . $result;
 
-			if ($action = "reward_ingame") //increase the childs item count for the specified item
+			if ($action == "reward_ingame") //increase the childs item count for the specified item
 			{
 				$query = "UPDATE Items SET $payload = $payload + 1 WHERE username = '$user'";
 				$debugInfo = $debugInfo . "Query: " .$query;

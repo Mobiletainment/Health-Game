@@ -80,12 +80,7 @@
         }
 
         if (e.alert) {
-            navigator.notification.alert(
-                    e.alert, // message
-                    undefined, // callback
-                    "Nachricht", // title
-                    'Ansehen'        // buttonName
-                    );
+            showPushNotification(e.alert);
         }
 
         if (e.sound) {
@@ -107,6 +102,16 @@
 
 
     };
+    
+    function showPushNotification(message)
+    {
+        navigator.notification.alert(
+                    message, // message
+                    undefined, // callback
+                    "Nachricht", // title
+                    'Ansehen'        // buttonName
+                    );
+    }
 
     /* --------------------------------- Event Registration -------------------------------- */
     document.addEventListener('deviceready', function() {
@@ -195,16 +200,17 @@
 
     // handle GCM notifications for Android
     onNotification = function(e) {
-        alert("Notification on Android received!");
 
-        if (e.msg)
-            alert("Nachricht: " + e.msg);
-
-        if (e.event)
-            alert("Event: " + e.event);
-
-        if (e.hash)
-            alert("Hash: " + e.hash);
+        if (e.message)
+        {
+            var message = e.message.toString();
+            var data = message.split(";;");
+            if (data.length == 2)
+            {
+                showPushNotification(data[0]);
+                document.location.hash = data[1];
+            }
+        }
         
         if (e.event)
         {
@@ -230,8 +236,8 @@
                         //  $("#app-status-ul").append('<li>--INLINE NOTIFICATION--' + '</li>');
 
                         // if the notification contains a soundname, play it.
-                        //var my_media = new Media("/android_asset/www/" + e.soundname);
-                        //my_media.play();
+                       var my_media = new Media("/android_asset/www/" + e.soundname);
+                       my_media.play();
                     }
                     else
                     {
@@ -249,14 +255,13 @@
                     break;
 
                 case 'error':
-                    alert('Error: ' + e.msg);
+                    alert('Error: ' + e.message);
                     //   $("#app-status-ul").append('<li>ERROR -> MSG:' + e.msg + '</li>');
                     break;
 
                 default:
                     //
                     //$("#app-status-ul").append('<li>EVENT -> Unknown, an event was received and we do not know what it is</li>');
-                    alert("Default: " + e.msg);
                     break;
             }
         }

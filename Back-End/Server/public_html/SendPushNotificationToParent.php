@@ -1,7 +1,19 @@
 <?php
 include("settings.php");
 $user = $_GET['username'];
+
+if ($user === NULL)
+{
+	$user = getUsername();
+}
+
 $action = $_GET['action'];
+
+if ($action === NULL)
+{
+	$action = getField("action");
+}
+
 $message ="";
 $hash = "";
 
@@ -33,9 +45,9 @@ if (mysql_numrows($result) > 0)
 	$os = mysql_result($result, 0, "os");
 	$regId = mysql_result($result, 0, "deviceID");
 	$user = mysql_result($result, 0, "username");
-
+	$debugInfo .= "\nSending to User: " . $user . " with deviceID: " . $regId;
 	if ($os == "android") $androidIDs[] = $regId;
-	else $iosIDs[] = $regId;
+	else if ($os == "ios") $iosIDs[] = $regId;
 }
 
 $debugInfo .= "Before payload";
@@ -72,17 +84,15 @@ function send_android_notification($deviceIDs)
 	$debugInfo .= "send_android_notification with message: " . $message;
 
 	$debugInfo .= 'CURL INIT BEFORE';
-	$message = "TODO";
-	$message = array("price" => $message);
+	$data = array("message" => $message . ";;" . $hash, "msgcnt" => "1", "soundname" => "beep.wav");
 	// Set POST variables
 	$url = 'https://android.googleapis.com/gcm/send';
 	$fields = array(
 		'registration_ids' => $deviceIDs,
-		'data' => $message,
-		'hash' => $hash
+		'data' => $data,
 		);
 	$headers = array(
-		'Authorization: key='.GOOGLE_API_KEY,
+		'Authorization: key='.GOOGLE_API_KEY_PARENT,
 		'Content-Type: application/json'
 		);
 	// Open connection
@@ -142,6 +152,25 @@ function setPayload($action)
 		$message = "Sie haben Ihr Kind noch nie gelobt/belohnt! Holen Sie dies bei der nächsten Gelegenheit nach!";
 		$hash = "#interaction-menu";
 	}
+	else if ($action == "LevelCompleted")
+	{
+		$message = "Ihr Kind hat ein Level geschafft! Bitte loben Sie es sofort!";
+		$hash = "#communication-compliment";
+	}
+	else if ($action == "LevelPackCompleted")
+	{
+		$message = "Ihr Kind hat einen Levelpack geschafft! Denken Sie sich eine besondere Belohnung im wirklichen Leben für Ihr Kind aus!";
+		$hash = "#communication-reward-reallife";
+	}
+	else if ($action == "LevelPackCompleted")
+	{
+		$message = "Ihr Kind hat eine Trophäe gewonnen! Bitte belohnen Sie es!";
+		$hash = "#communication-reward";
+	}
+	//        LevelCompleted,
+    //    LevelPackCompleted,
+    //    TrophyWon
+
 }
 
 function send_ios_notification($deviceIDs)

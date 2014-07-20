@@ -54,6 +54,7 @@
 /Users/dp/Documents/Health-Game/FLINSCompanion/platforms/android/assets/_where-is-www.txt \
 /Users/dp/Documents/Health-Game/FLINSCompanion/platforms/android/assets/www \
 /Users/dp/Documents/Health-Game/FLINSCompanion/platforms/android/assets/www/404.html \
+/Users/dp/Documents/Health-Game/FLINSCompanion/platforms/android/assets/www/beep.wav \
 /Users/dp/Documents/Health-Game/FLINSCompanion/platforms/android/assets/www/config.xml \
 /Users/dp/Documents/Health-Game/FLINSCompanion/platforms/android/assets/www/cordova.js \
 /Users/dp/Documents/Health-Game/FLINSCompanion/platforms/android/assets/www/cordova_plugins.js \
@@ -450,7 +451,6 @@
 /Users/dp/Documents/Health-Game/FLINSCompanion/platforms/android/assets/www/js/helper.js \
 /Users/dp/Documents/Health-Game/FLINSCompanion/platforms/android/assets/www/js/jquery.mobile.init.js \
 /Users/dp/Documents/Health-Game/FLINSCompanion/platforms/android/assets/www/js/plugins.js \
-/Users/dp/Documents/Health-Game/FLINSCompanion/platforms/android/assets/www/js/PushPlugin.js \
 /Users/dp/Documents/Health-Game/FLINSCompanion/platforms/android/assets/www/js/TrainingContentView.js \
 /Users/dp/Documents/Health-Game/FLINSCompanion/platforms/android/assets/www/js/TrainingView.js \
 /Users/dp/Documents/Health-Game/FLINSCompanion/platforms/android/assets/www/js/vendor \

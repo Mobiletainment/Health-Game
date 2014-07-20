@@ -19,11 +19,10 @@ $username = getUsername();
 
 if (empty($username))
 {
-	echo "Error: No username specified";
+	echo "Error: Gib einen Benutzernamen ein";
 }
 else
 {
-
 // Register user-regID in DB
 // check if unity ID is already in the database. 
 // If so, delete it and store it again (useful in situations where you may have different unityIDs linked to the same device
