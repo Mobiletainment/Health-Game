@@ -16,7 +16,8 @@ public class PowerUpsHandler : MonoBehaviour, INetworkTransfer {
 		//Enable testing with dummy user
 		//UserManager.Instance.SetUsername("david");
 
-		GetPowerUpsAsync();
+		InvokeRepeating("GetPowerUpsAsync", 0.0f, 60.0f); // fetches power ups every 60 seconds
+		//GetPowerUpsAsync();
 	}
 	
 	// Update is called once per frame
@@ -26,6 +27,7 @@ public class PowerUpsHandler : MonoBehaviour, INetworkTransfer {
 
 	public void GetPowerUpsAsync()
 	{
+		//Debug.Log("Fetching Power Ups");
 		backend.FetchPowerUps(this);
 	}
 
@@ -44,7 +46,7 @@ public class PowerUpsHandler : MonoBehaviour, INetworkTransfer {
 
 			//At this point all power ups have been successfully set
 			//Delete them from server
-//			backend.FetchPowerUps(this, true); //Sets the available Power-Ups on Server to 0
+			backend.FetchPowerUps(this, true); //Sets the available Power-Ups on Server to 0
 
 		}
 		catch (Exception ex)

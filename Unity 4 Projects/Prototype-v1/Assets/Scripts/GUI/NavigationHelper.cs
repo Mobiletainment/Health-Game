@@ -51,6 +51,7 @@ public class NavigationHelper : MonoBehaviour
         Debug.Log("Current Version: " + currentVersion + ", Previously installed: " + userManager.GetVersion());
 
         userManager.SetVersion(currentVersion, true); //true = Resest UserData when new version is installed
+
     }
     
     void Start()
@@ -77,6 +78,9 @@ public class NavigationHelper : MonoBehaviour
     
     public static void ShowMainMenu()
     {
+		// Quick Test for sending push notification to parent when game is opened
+		//var ecpnManager = GameObject.Find("ComponentManager").GetComponent<ECPNManager>();
+		//ecpnManager.SendPushMessageToParent(ECPNManager.PushNotificationAction.LevelCompleted);
         Debug.Log("Showing Main Menu");
 //        Screen.orientation = ScreenOrientation.LandscapeLeft;
 //        Application.LoadLevel("TrackFlight");

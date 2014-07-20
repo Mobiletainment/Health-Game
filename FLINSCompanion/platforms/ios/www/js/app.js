@@ -16,7 +16,7 @@
         return parseInt(value) + 1;
     });
 
-    
+
 
     Handlebars.registerHelper('ifCond', function(v1, operator, v2, options) {
 
@@ -149,8 +149,8 @@
         {
             pushNotification = window.plugins.pushNotification;
             if (device.platform == 'android' || device.platform == 'Android' ||
-                            device.platform == 'amazon-fireos' ) {
-                pushNotification.register(successHandler, errorHandler, {"senderID":"927166403109", "ecb":"onNotification"});		// required!
+                    device.platform == 'amazon-fireos') {
+                pushNotification.register(successHandler, errorHandler, {"senderID": "927166403109", "ecb": "onNotification"});		// required!
                 //alert("Registering Android Push");
             }
             else
@@ -195,53 +195,70 @@
 
     // handle GCM notifications for Android
     onNotification = function(e) {
-        alert("Notification on Android received! " + e.toString());
-        switch (e.event)
+        alert("Notification on Android received!");
+
+        if (e.msg)
+            alert("Nachricht: " + e.msg);
+
+        if (e.event)
+            alert("Event: " + e.event);
+
+        if (e.hash)
+            alert("Hash: " + e.hash);
+        
+        if (e.event)
         {
-            case 'registered':
-                if (e.regid.length > 0)
-                {
-                    // Your GCM push server needs to know the regID before it can push to this device
-                    // here is where you might want to send it the regID for later use.
-                    //alert("regID = " + e.regid);
-                    setDeviceToken(e.regid);
-                }
-                break;
+            switch (e.event)
+            {
+                case 'registered':
+                    if (e.regid.length > 0)
+                    {
+                        // Your GCM push server needs to know the regID before it can push to this device
+                        // here is where you might want to send it the regID for later use.
+                        //alert("regID = " + e.regid);
+                        setDeviceToken(e.regid);
+                    }
+                    break;
 
-            case 'message':
-                // if this flag is set, this notification happened while we were in the foreground.
-                // you might want to play a sound to get the user's attention, throw up a dialog, etc.
-                if (e.foreground)
-                {
-                    //  $("#app-status-ul").append('<li>--INLINE NOTIFICATION--' + '</li>');
+                case 'message':
+                    // if this flag is set, this notification happened while we were in the foreground.
+                    // you might want to play a sound to get the user's attention, throw up a dialog, etc.
+                    //alert(e.msg);
 
-                    // if the notification contains a soundname, play it.
-                    var my_media = new Media("/android_asset/www/" + e.soundname);
-                    my_media.play();
-                }
-                else
-                {	// otherwise we were launched because the user touched a notification in the notification tray.
-                    /*
-                     if (e.coldstart)
-                     $("#app-status-ul").append('<li>--COLDSTART NOTIFICATION--' + '</li>');
-                     else
-                     $("#app-status-ul").append('<li>--BACKGROUND NOTIFICATION--' + '</li>');
-                     */
-                }
+                    if (e.foreground)
+                    {
+                        //  $("#app-status-ul").append('<li>--INLINE NOTIFICATION--' + '</li>');
 
-                //   $("#app-status-ul").append('<li>MESSAGE -> MSG: ' + e.payload.message + '</li>');
-                //  $("#app-status-ul").append('<li>MESSAGE -> MSGCNT: ' + e.payload.msgcnt + '</li>');
-                break;
+                        // if the notification contains a soundname, play it.
+                        //var my_media = new Media("/android_asset/www/" + e.soundname);
+                        //my_media.play();
+                    }
+                    else
+                    {
+                        // otherwise we were launched because the user touched a notification in the notification tray.
+                        /*
+                         if (e.coldstart)
+                         $("#app-status-ul").append('<li>--COLDSTART NOTIFICATION--' + '</li>');
+                         else
+                         $("#app-status-ul").append('<li>--BACKGROUND NOTIFICATION--' + '</li>');
+                         */
+                    }
 
-            case 'error':
-                alert('Error: ' + e.msg);
-                //   $("#app-status-ul").append('<li>ERROR -> MSG:' + e.msg + '</li>');
-                break;
+                    //   $("#app-status-ul").append('<li>MESSAGE -> MSG: ' + e.payload.message + '</li>');
+                    //  $("#app-status-ul").append('<li>MESSAGE -> MSGCNT: ' + e.payload.msgcnt + '</li>');
+                    break;
 
-            default:
-                //
-                //$("#app-status-ul").append('<li>EVENT -> Unknown, an event was received and we do not know what it is</li>');
-                break;
+                case 'error':
+                    alert('Error: ' + e.msg);
+                    //   $("#app-status-ul").append('<li>ERROR -> MSG:' + e.msg + '</li>');
+                    break;
+
+                default:
+                    //
+                    //$("#app-status-ul").append('<li>EVENT -> Unknown, an event was received and we do not know what it is</li>');
+                    alert("Default: " + e.msg);
+                    break;
+            }
         }
     }
 
@@ -454,7 +471,7 @@
     // Start: Main Menu
     $("#main-menu").on("pagebeforecreate", function(event)
     {
-         $("#badges").text(window.badges);
+        $("#badges").text(window.badges);
         showTrainingOverview();
         initializeDailyInputsOverview();
 
@@ -538,7 +555,7 @@
 
     $("#main-menu").on("pagebeforeshow", function(event)
     {
-        
+
         if (document.location.hash == "#main-menu?reload=true")
         {
             loadTrainingProgress();
@@ -1515,10 +1532,10 @@
         $.pnotify(opts);
 
     };
-    
+
     function loadURL(url) {
-        navigator.app.loadUrl(url, { openExternal:true });
+        navigator.app.loadUrl(url, {openExternal: true});
         return false;
     }
-    
+
 }());

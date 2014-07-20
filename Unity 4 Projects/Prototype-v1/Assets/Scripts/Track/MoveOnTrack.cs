@@ -679,7 +679,7 @@ public class MoveOnTrack : MonoBehaviour
 		if(startAlpha > _pickupDefaultAlpha)
 		{
 			// This will be the case, if the Sight-Gift has been used and all pickups are already fully visible.
-			return false;
+			yield return false;
 		}
 
 		AnimationCurve curve = new AnimationCurve(new Keyframe(0, startAlpha), new Keyframe(changeTime, _pickupDefaultAlpha));

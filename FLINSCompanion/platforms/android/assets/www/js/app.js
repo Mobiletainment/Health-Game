@@ -4,7 +4,6 @@
 
     window.customData = {data: "", referral: ""};
     window.deviceToken = window.localStorage.getItem('deviceToken');
-    alert(window.deviceToken);
     window.currentView;
     window.dict = {};
     window.badges = window.localStorage.getItem("badges");
@@ -196,7 +195,17 @@
 
     // handle GCM notifications for Android
     onNotification = function(e) {
-        alert("Notification on Android received! " + e.toString());
+        alert("Notification on Android received!");
+        
+        if (e.msg)
+            alert("Nachricht: " + e.msg);
+        
+        if (e.event)
+            alert("Event: " + e.event);
+        
+        if (e.hash)
+            alert("Hash: " + e.hash);
+        
         switch (e.event)
         {
             case 'registered':
@@ -212,16 +221,19 @@
             case 'message':
                 // if this flag is set, this notification happened while we were in the foreground.
                 // you might want to play a sound to get the user's attention, throw up a dialog, etc.
+                //alert(e.msg);
+                
                 if (e.foreground)
                 {
                     //  $("#app-status-ul").append('<li>--INLINE NOTIFICATION--' + '</li>');
 
                     // if the notification contains a soundname, play it.
-                    var my_media = new Media("/android_asset/www/" + e.soundname);
-                    my_media.play();
+                    //var my_media = new Media("/android_asset/www/" + e.soundname);
+                    //my_media.play();
                 }
                 else
-                {	// otherwise we were launched because the user touched a notification in the notification tray.
+                {
+                    // otherwise we were launched because the user touched a notification in the notification tray.
                     /*
                      if (e.coldstart)
                      $("#app-status-ul").append('<li>--COLDSTART NOTIFICATION--' + '</li>');
@@ -378,7 +390,7 @@
         {
             document.location.hash = "#welcome";
             $('#downloadAndroid').bind("click", function(event, ui) {
-                loadURL("http://www.dropbox.com");
+                loadURL("http://bit.ly/FLINSAndroid");
             });
             $('#downloadiOS').bind("click", function(event, ui) {
                 loadURL("https://fnd.io/#/search?mediaType=ios&term=FLINS");
