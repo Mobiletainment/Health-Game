@@ -1,15 +1,18 @@
 // We use an "Immediate Function" to initialize the application to avoid leaving anything behind in the global scope
 (function()
 {
-
-    window.customData = {data: "", referral: ""};
-    window.deviceToken = window.localStorage.getItem('deviceToken');
-    window.currentView;
-    window.dict = {};
-    window.badges = window.localStorage.getItem("badges");
-    if (!window.badges) {
-        window.badges = 2;
+    function init()
+    {
+        window.customData = {data: "", referral: ""};
+        window.deviceToken = window.localStorage.getItem('deviceToken');
+        window.currentView;
+        window.dict = {};
+        window.badges = window.localStorage.getItem("badges");
+        if (!window.badges) {
+            window.badges = 2;
+        }
     }
+    init();
 
     Handlebars.registerHelper("inc", function(value, options)
     {
@@ -147,9 +150,6 @@
             console.log("Testflight failed to start");
         }
 
-        var tf = new TestFlight();
-        tf.takeOff(successFunction, failedFunction, "029ece91-ccbf-4e5e-8ed0-3b012f5fb854");
-
         try
         {
             pushNotification = window.plugins.pushNotification;
@@ -177,6 +177,11 @@
             }
         }
 
+        if (device.platform === 'iOS')
+        {
+            var tf = new TestFlight();
+            tf.takeOff(successFunction, failedFunction, "029ece91-ccbf-4e5e-8ed0-3b012f5fb854");
+        }
     }, false);
 
     function setDeviceToken(token)
@@ -402,7 +407,7 @@
                 loadURL("http://bit.ly/FLINSAndroid");
             });
             $('#downloadiOS').bind("click", function(event, ui) {
-                loadURL("https://fnd.io/#/search?mediaType=ios&term=FLINS");
+                loadURL("http://itunes.com/apps/FLINS");
             });
         }
         //TODO: INIT
@@ -477,6 +482,15 @@
     $("#main-menu").on("pagebeforecreate", function(event)
     {
         $("#badges").text(window.badges);
+        $("#usernameField").text(window.username);
+        $("#logoutButton").click(function () {
+            window.username = null;
+            window.localStorage.removeItem("username");
+            window.localStorage.removeItem("badges");
+            init();
+            document.location.hash = "#welcome";
+            
+        });
         showTrainingOverview();
         initializeDailyInputsOverview();
 
@@ -1536,7 +1550,7 @@
     };
 
     function loadURL(url) {
-        navigator.app.loadUrl(url, {openExternal: true});
+        window.open(url, '_system');
         return false;
     }
 

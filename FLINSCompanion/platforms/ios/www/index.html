@@ -466,6 +466,7 @@
         <div data-role="page" id="main-menu" data-theme="c" data-content-theme="c" class="main-menu">
             <div data-role="header" data-position="fixed" data-tap-toggle="false">
                 <h1 style="text-overflow: string;">Hauptmenü</h1>
+                <a id="settingsButton" href="#settings" class="ui-btn-right" data-icon="grid" data-iconpos="notext" data-inline="true" data-theme="a"></a>
             </div>
             <div data-role="main" class="ui-content">
                 <h3>Aktionsmöglichkeiten:</h3>
@@ -524,6 +525,33 @@
             </div>  
         </div>
 
+        <!-- Settings Page -->
+        <div data-role="page" id="settings" data-theme="c" data-content-theme="c">
+            <div data-role="header" data-position="fixed" data-tap-toggle="false">
+                <h1 style="text-overflow: string;">Einstellungen</h1>
+            </div>
+            <div data-role="main" class="ui-content">
+                <div>
+                    <h3>Benutzerinfo</h3>
+                    <p>Angemeldet als: <span id="usernameField"></span></p>
+                    <button id="logoutButton" data-role="button" data-theme="b">Abmelden</button>
+                </div>
+                
+                
+            </div>
+            <div data-role="footer" data-position="fixed" data-tap-toggle="false" >
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a data-role="button" data-theme="b" onclick="window.history.back();" data-rel="back">Zurück</a>                
+               
+                    </div>
+                    <div class="ui-block-b">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
         <!-- Daily Inputs -->
         <div data-role="page" id="daily-inputs-menu" data-theme="c" data-content-theme="c">
             <div data-role="header" data-position="fixed" data-tap-toggle="false">
