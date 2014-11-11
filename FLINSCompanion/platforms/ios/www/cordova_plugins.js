@@ -1,13 +1,6 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
-        "file": "plugins/com.phonegap.plugins.PushPlugin/www/PushNotification.js",
-        "id": "com.phonegap.plugins.PushPlugin.PushNotification",
-        "clobbers": [
-            "PushNotification"
-        ]
-    },
-    {
         "file": "plugins/com.testflightapp.cordova-plugin/www/testflight.js",
         "id": "com.testflightapp.cordova-plugin.TestFlight",
         "clobbers": [
@@ -276,12 +269,18 @@ module.exports = [
         "merges": [
             "navigator.notification"
         ]
+    },
+    {
+        "file": "plugins/com.phonegap.plugins.PushPlugin/www/PushNotification.js",
+        "id": "com.phonegap.plugins.PushPlugin.PushNotification",
+        "clobbers": [
+            "PushNotification"
+        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "com.phonegap.plugins.PushPlugin": "2.2.1",
     "com.testflightapp.cordova-plugin": "3.0.0",
     "org.apache.cordova.console": "0.2.7",
     "org.apache.cordova.device": "0.2.9",
@@ -294,7 +293,8 @@ module.exports.metadata =
     "org.apache.cordova.inappbrowser": "0.3.3",
     "org.apache.cordova.network-information": "0.2.7",
     "org.apache.cordova.splashscreen": "0.3.1",
-    "org.apache.cordova.vibration": "0.3.7"
+    "org.apache.cordova.vibration": "0.3.7",
+    "com.phonegap.plugins.PushPlugin": "2.4.0"
 }
 // BOTTOM OF METADATA
 });

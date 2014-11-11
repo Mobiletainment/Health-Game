@@ -10,29 +10,29 @@
 	<string>FLINS Companion</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>29ACBAA0-A211-4DFB-B9FE-14CC2BB9B462</key>
+		<key>BDA1F61582C0B0F2F34C2D01198B6B2B46AE35DD</key>
 		<string>https://github.com/Mobiletainment/Health-Game.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>FLINSCompanion/platforms/ios/FLINS Companion.xcodeproj/project.xcworkspace</string>
+	<string>FLINSCompanion/platforms/ios/FLINS Companion.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>29ACBAA0-A211-4DFB-B9FE-14CC2BB9B462</key>
+		<key>BDA1F61582C0B0F2F34C2D01198B6B2B46AE35DD</key>
 		<string>../../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/Mobiletainment/Health-Game.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>29ACBAA0-A211-4DFB-B9FE-14CC2BB9B462</string>
+	<string>BDA1F61582C0B0F2F34C2D01198B6B2B46AE35DD</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>29ACBAA0-A211-4DFB-B9FE-14CC2BB9B462</string>
+			<string>BDA1F61582C0B0F2F34C2D01198B6B2B46AE35DD</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Health-Game</string>
 		</dict>

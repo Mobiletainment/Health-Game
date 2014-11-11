@@ -9,10 +9,6 @@
                 "parents": {
                     "/*": [
                         {
-                            "xml": "<feature name=\"PushPlugin\"><param name=\"android-package\" value=\"com.plugin.gcm.PushPlugin\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
                             "count": 1
                         },
@@ -55,6 +51,10 @@
                         {
                             "xml": "<feature name=\"Vibration\"><param name=\"android-package\" value=\"org.apache.cordova.vibration.Vibration\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"PushPlugin\"><param name=\"android-package\" value=\"com.plugin.gcm.PushPlugin\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -67,16 +67,16 @@
                             "count": 2
                         },
                         {
+                            "xml": "<uses-permission android:name=\"android.permission.VIBRATE\" />",
+                            "count": 2
+                        },
+                        {
                             "xml": "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />",
                             "count": 1
                         },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.WAKE_LOCK\" />",
                             "count": 1
-                        },
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.VIBRATE\" />",
-                            "count": 2
                         },
                         {
                             "xml": "<uses-permission android:name=\"com.google.android.c2dm.permission.RECEIVE\" />",
@@ -138,9 +138,6 @@
         }
     },
     "installed_plugins": {
-        "com.phonegap.plugins.PushPlugin": {
-            "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
-        },
         "com.testflightapp.cordova-plugin": {
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         },
@@ -178,6 +175,9 @@
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         },
         "org.apache.cordova.vibration": {
+            "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
+        },
+        "com.phonegap.plugins.PushPlugin": {
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         }
     },

@@ -319,7 +319,7 @@
             os = (device.platform === 'android' || device.platform === 'Android') ? "android" : "ios";
         }
 
-        $.getJSON("http://tnix.eu/~aspace/RegisterDeviceOfParent.php",
+        $.getJSON("http://pertiller.net/FLINS/RegisterDeviceOfParent.php",
                 {
                     user: $("#loginPassword").val(),
                     data: window.deviceToken,
@@ -374,7 +374,6 @@
 
     $(document).ready(function()
     {
-        console.log("Document ready");
         $.pnotify.defaults.styling = "jqueryui";
         $.pnotify.defaults.history = false;
 
@@ -382,15 +381,15 @@
         window.username = window.localStorage.getItem("username");
         window.versionInfo = window.localStorage.getItem("versionInfo");
 
-        var currentVersion = 0.91;
+        var currentVersion = 0.92;
 
-        if (!window.versionInfo || window.versionInfo < currentVersion) //just for test purposes: delete cookies on each new version
-        {
-            alert("New version installed! Beginning from start. Thank you for testing!");
-            window.localStorage.removeItem('username');
-            window.username = null;
-            window.localStorage.setItem("versionInfo", currentVersion);
-        }
+        //if (!window.versionInfo || window.versionInfo < currentVersion) //just for test purposes: delete cookies on each new version
+        //{
+        //    alert("New version installed! Beginning from start. Thank you for testing!");
+        //    window.localStorage.removeItem('username');
+        //    window.username = null;
+        //    window.localStorage.setItem("versionInfo", currentVersion);
+        //}
 
 
         var userExists = window.username;
@@ -654,7 +653,7 @@
                 text: 'Bewertung wird gespeichert...'
             });
 
-            $.getJSON("http://tnix.eu/~aspace/SaveData.php",
+            $.getJSON("http://pertiller.net/FLINS/SaveData.php",
                     {
                         username: window.username,
                         action: "SaveInputBenchmarkData",
@@ -699,7 +698,7 @@
                 text: 'Daten werden gespeichert...'
             });
 
-            $.getJSON("http://tnix.eu/~aspace/SaveData.php",
+            $.getJSON("http://pertiller.net/FLINS/SaveData.php",
                     {
                         username: window.username,
                         action: "SaveSelfControlData",
@@ -797,7 +796,7 @@
 
             selectedMessage = "Lob erhalten: " + selectedMessage;
 
-            $.getJSON("http://tnix.eu/~aspace/SendPushNotificationToChild.php",
+            $.getJSON("http://pertiller.net/FLINS/SendPushNotificationToChild.php",
                     {
                         username: window.username,
                         data: selectedMessage,
@@ -856,7 +855,7 @@
         $.mobile.loading('show', {
             text: 'Auszeit-Ort wird geladen...'
         });
-        $.getJSON("http://tnix.eu/~aspace/Timeout.php",
+        $.getJSON("http://pertiller.net/FLINS/Timeout.php",
                 {
                     username: window.username,
                     action: "LoadTimeout",
@@ -897,7 +896,7 @@
                 text: 'Auszeit-Ort wird gespeichert...'
             });
 
-            $.getJSON("http://tnix.eu/~aspace/Timeout.php",
+            $.getJSON("http://pertiller.net/FLINS/Timeout.php",
                     {
                         username: window.username,
                         action: "SaveTimeout",
@@ -962,7 +961,7 @@
             });
 
 
-            $.getJSON("http://tnix.eu/~aspace/SaveData.php",
+            $.getJSON("http://pertiller.net/FLINS/SaveData.php",
                     {
                         username: window.username,
                         action: "SavePersonData",
@@ -1019,7 +1018,7 @@
 
             var message = 'Belohnung erhalten: ' + $("#rewardRealLifeMessage").val();
 
-            $.getJSON("http://tnix.eu/~aspace/SendPushNotificationToChild.php",
+            $.getJSON("http://pertiller.net/FLINS/SendPushNotificationToChild.php",
                     {
                         username: window.username,
                         data: message,
@@ -1092,7 +1091,7 @@
             var message = $("#selectedRewardText").text() + " erhalten! Ich schenke dir die Belohnung, weil ";
             message += $("#rewardMessage").val();
 
-            $.getJSON("http://tnix.eu/~aspace/SendPushNotificationToChild.php", {
+            $.getJSON("http://pertiller.net/FLINS/SendPushNotificationToChild.php", {
                         username: window.username,
                         data: message,
                         action: "reward_ingame",
@@ -1247,7 +1246,7 @@
 
         console.log("Saving progress for chapter: " + chapterId);
 
-        $.getJSON("http://tnix.eu/~aspace/TrainingProgress.php",
+        $.getJSON("http://pertiller.net/FLINS/TrainingProgress.php",
                 {
                     username: window.username,
                     action: "SaveProgress",
@@ -1282,7 +1281,7 @@
         });
         /*
          //Send Push Notification
-         $.getJSON("http://tnix.eu/~aspace/SendPushNotificationToParent.php",
+         $.getJSON("http://pertiller.net/FLINS/SendPushNotificationToParent.php",
          {
          username: window.username,
          action: "TrainingReminder",
@@ -1301,7 +1300,7 @@
          });
          
          */
-        $.getJSON("http://tnix.eu/~aspace/TrainingProgress.php",
+        $.getJSON("http://pertiller.net/FLINS/TrainingProgress.php",
                 {
                     username: window.username,
                     action: "GetProgress",

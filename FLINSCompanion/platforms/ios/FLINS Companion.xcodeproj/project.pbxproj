@@ -30,7 +30,6 @@
 		30A0434814DC770100060A13 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30A0434314DC770100060A13 /* Localizable.strings */; };
 		30FC414916E50CA1004E6F35 /* icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30FC414816E50CA1004E6F35 /* icon-72@2x.png */; };
 		3BC847F8C0C940DEAFC6CF57 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E03BF08AFB645158240923D /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		3EDC6BC0037B409EB0B56CDA /* AppDelegate+notification.m in Sources */ = {isa = PBXBuildFile; fileRef = 080B2CE8DA794379B41922DC /* AppDelegate+notification.m */; };
 		406FB33D0B4C4E9F82717946 /* CDVLocalFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D746402320840C8BE084CD6 /* CDVLocalFilesystem.m */; };
 		421DC4F291BB4557BD248059 /* CDVLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 8940AD808DEC442CACAA8781 /* CDVLogger.m */; };
 		5AEE5B35173C68D80009041E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AEE5B34173C68D80009041E /* CoreLocation.framework */; };
@@ -50,7 +49,6 @@
 		7E7966E71810823500FA85AD /* icon-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DD1810823500FA85AD /* icon-small@2x.png */; };
 		8158C6978ADC487BAEC87FFB /* CDVReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B1F3BD623D0414A82545B84 /* CDVReachability.m */; };
 		84D1E6FB5C0045509E35C483 /* CDVTestFlight.m in Sources */ = {isa = PBXBuildFile; fileRef = CFD43F7486314AD99156131D /* CDVTestFlight.m */; };
-		86579C8C8CEF4103A98BBC06 /* PushPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 327B7CEA365D4AAC976BDBEA /* PushPlugin.m */; };
 		8EEAD74841764E8481E7A947 /* CDVVibration.m in Sources */ = {isa = PBXBuildFile; fileRef = 35AD36BD86AC4C5AAB176DB5 /* CDVVibration.m */; };
 		94844A59C0DA4C1C9F5DF4F1 /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 032231670EF14AEF813AF9E9 /* CDVInAppBrowser.m */; };
 		9B33540669894BC7B76AC849 /* CDVAccelerometer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D4B7420328F4815BF3FA097 /* CDVAccelerometer.m */; };
@@ -62,6 +60,7 @@
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
 		E72283555D394C23B6296907 /* CDVSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 64ED7CDB293448F19C568D29 /* CDVSplashScreen.m */; };
 		EA81323ACF7D4DDC9890047B /* CDVGlobalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F9A79E9AC2D4F14AF43DACB /* CDVGlobalization.m */; };
+		AAE05B5634E8454E8B69C0DA /* AppDelegate+notification.m in Sources */ = {isa = PBXBuildFile; fileRef = 9407E07AC9B64758A4266D4C /* AppDelegate+notification.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,7 +82,6 @@
 
 /* Begin PBXFileReference section */
 		032231670EF14AEF813AF9E9 /* CDVInAppBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVInAppBrowser.m; path = org.apache.cordova.inappbrowser/CDVInAppBrowser.m; sourceTree = "<group>"; };
-		080B2CE8DA794379B41922DC /* AppDelegate+notification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "AppDelegate+notification.m"; path = "com.phonegap.plugins.PushPlugin/AppDelegate+notification.m"; sourceTree = "<group>"; };
 		092C9A2483BE430C910AB858 /* CDVGlobalization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVGlobalization.h; path = org.apache.cordova.globalization/CDVGlobalization.h; sourceTree = "<group>"; };
 		118D21AA26474C62900CED00 /* CDVAssetLibraryFilesystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVAssetLibraryFilesystem.m; path = org.apache.cordova.file/CDVAssetLibraryFilesystem.m; sourceTree = "<group>"; };
 		13E4CD56828B4A7383FE3678 /* CDVConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVConnection.h; path = "org.apache.cordova.network-information/CDVConnection.h"; sourceTree = "<group>"; };
@@ -168,9 +166,10 @@
 		EB87FDF21871DA7A0020F90C /* merges */ = {isa = PBXFileReference; lastKnownFileType = folder; name = merges; path = ../../merges; sourceTree = "<group>"; };
 		EB87FDF31871DA8E0020F90C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../www; sourceTree = "<group>"; };
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
-		ECAC86AE87FF4553987237CD /* AppDelegate+notification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AppDelegate+notification.h"; path = "com.phonegap.plugins.PushPlugin/AppDelegate+notification.h"; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = "FLINS Companion/config.xml"; sourceTree = "<group>"; };
 		FC7E6D62396E4722867C0A2A /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "TestFlight+ManualSessions.h"; path = "com.testflightapp.cordova-plugin/TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
+		9407E07AC9B64758A4266D4C /* AppDelegate+notification.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "AppDelegate+notification.m"; path = "com.phonegap.plugins.PushPlugin/AppDelegate+notification.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		7E5D5D6ECCAE4F1A8BB0C93E /* AppDelegate+notification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AppDelegate+notification.h"; path = "com.phonegap.plugins.PushPlugin/AppDelegate+notification.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -302,9 +301,7 @@
 		307C750510C5A3420062BCA9 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
-				080B2CE8DA794379B41922DC /* AppDelegate+notification.m */,
 				327B7CEA365D4AAC976BDBEA /* PushPlugin.m */,
-				ECAC86AE87FF4553987237CD /* AppDelegate+notification.h */,
 				4C2E49EBFABF4BF8AD7C29D3 /* PushPlugin.h */,
 				CFD43F7486314AD99156131D /* CDVTestFlight.m */,
 				B9DD2D37247645BD99467EA5 /* TestFlight.h */,
@@ -341,6 +338,8 @@
 				49E1F26BF4D544E298B53BE7 /* CDVSplashScreen.h */,
 				35AD36BD86AC4C5AAB176DB5 /* CDVVibration.m */,
 				B40A228AB7614FBB8C43A397 /* CDVVibration.h */,
+				9407E07AC9B64758A4266D4C /* AppDelegate+notification.m */,
+				7E5D5D6ECCAE4F1A8BB0C93E /* AppDelegate+notification.h */,
 			);
 			name = Plugins;
 			path = "FLINS Companion/Plugins";
@@ -435,6 +434,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 510;
+				TargetAttributes = {
+					1D6058900D05DD3D006BFB54 = {
+						DevelopmentTeam = G46VJX8W8T;
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "FLINS Companion" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -536,8 +540,6 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
-				3EDC6BC0037B409EB0B56CDA /* AppDelegate+notification.m in Sources */,
-				86579C8C8CEF4103A98BBC06 /* PushPlugin.m in Sources */,
 				84D1E6FB5C0045509E35C483 /* CDVTestFlight.m in Sources */,
 				421DC4F291BB4557BD248059 /* CDVLogger.m in Sources */,
 				650ECD9FC9044119A05D134D /* CDVDevice.m in Sources */,
@@ -554,6 +556,7 @@
 				8158C6978ADC487BAEC87FFB /* CDVReachability.m in Sources */,
 				E72283555D394C23B6296907 /* CDVSplashScreen.m in Sources */,
 				8EEAD74841764E8481E7A947 /* CDVVibration.m in Sources */,
+				AAE05B5634E8454E8B69C0DA /* AppDelegate+notification.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

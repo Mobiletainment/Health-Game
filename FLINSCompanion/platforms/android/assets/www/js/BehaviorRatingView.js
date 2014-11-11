@@ -45,7 +45,7 @@ var BehaviorRatingView = function(adapter, data)
                 text: 'Daten werden gespeichert...'
             });
 
-            $.getJSON("http://tnix.eu/~aspace/SaveData.php",
+            $.getJSON("http://pertiller.net/FLINS/SaveData.php",
                     {
                         username: window.username,
                         action: "SaveBehaviorData",

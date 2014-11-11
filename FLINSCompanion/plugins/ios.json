@@ -9,10 +9,6 @@
                 "parents": {
                     "/*": [
                         {
-                            "xml": "<feature name=\"PushPlugin\"><param name=\"ios-package\" value=\"PushPlugin\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
                             "count": 1
                         },
@@ -58,6 +54,10 @@
                         },
                         {
                             "xml": "<feature name=\"Vibration\"><param name=\"ios-package\" value=\"CDVVibration\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"PushPlugin\"><param name=\"ios-package\" value=\"PushPlugin\" /></feature>",
                             "count": 1
                         }
                     ],
@@ -118,9 +118,6 @@
         }
     },
     "installed_plugins": {
-        "com.phonegap.plugins.PushPlugin": {
-            "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
-        },
         "com.testflightapp.cordova-plugin": {
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         },
@@ -158,6 +155,9 @@
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         },
         "org.apache.cordova.vibration": {
+            "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
+        },
+        "com.phonegap.plugins.PushPlugin": {
             "PACKAGE_NAME": "net.pertiller.aquaspacecompanion"
         }
     },

@@ -18,7 +18,7 @@ var DailyInputsTasksView = function()
                 text: 'Daten werden gespeichert...'
             });
             
-            $.getJSON("http://tnix.eu/~aspace/SaveData.php",
+            $.getJSON("http://www.pertiller.net/FLINS/SaveData.php",
                     {
                         username: window.username,
                         action: "SaveInputTasksData",
@@ -85,7 +85,7 @@ var DailyInputsTasksView = function()
             text: 'Aufgaben werden geladen...'
         });
 
-        $.getJSON("http://tnix.eu/~aspace/SaveData.php",
+        $.getJSON("http://www.pertiller.net/FLINS/SaveData.php",
                 {
                     username: window.username,
                     action: "LoadDailyTasksData",
